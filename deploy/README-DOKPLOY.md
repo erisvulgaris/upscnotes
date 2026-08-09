@@ -3,7 +3,17 @@
 Server: `176.100.37.236` (Ubuntu 24.04, Dokploy + Traefik v3)
 Domain: `https://upscnotes.shop` (A record → 176.100.37.236, proxied via Cloudflare)
 
-## Topology
+## Pricing & coupon
+
+- List price is **₹999** (`PRICE_PAISE = 99900` in `src/payments.js`).
+- Coupon code **`UPSC299`** drops the charge to **₹299** (`COUPON_PRICE_PAISE = 29900`).
+- The coupon is validated **server-side** in `createOrder()` — the client animation
+  (`public/js/app.js`) is cosmetic; the actual Razorpay amount is whatever the API
+  returns for the submitted code. A saved coupon is stored in `localStorage`
+  (`upscbooks-coupon`) and auto-applied on the next visit.
+- `payoutsFor()` exposes `coupon_price_paise` / `coupon_code` for embedding.
+
+### Topology
 
 - Single Node 22 container (`upscotes-app`) on host port **3003** → container 3000.
 - SQLite DB lives in a named Docker volume (`upscotes-data`) mounted at `/app/data`.
