@@ -1,0 +1,19 @@
+<div class="page">
+  <%- include('_nav', { book, page: 'search' }) %>
+  <div class="container ex-pad">
+    <div class="section-head ex-head">
+      <h1>Search — <%= book.title %></h1>
+      <p class="muted">Full-text search across every section of the book. Results link straight into the chapter.</p>
+    </div>
+
+    <div class="ex-filters">
+      <input type="text" id="s-q" placeholder="Search the book…" aria-label="Search the book" value="<%= q %>" autofocus>
+      <span class="muted" id="s-count"></span>
+    </div>
+
+    <div id="s-results" class="s-results" aria-live="polite"></div>
+  </div>
+</div>
+<script>
+  window.EXTRAS = { slug: "<%= book.slug %>" };
+</script>

@@ -73,11 +73,34 @@ function blockHtml(b, ctx) {
 }
 
 function tableHtml(b) {
-  const rows = (b.rows || []).map(
-    (tr) => `<tr>${(tr.cells || []).map((c) => `<${c.th ? 'th' : 'td'}>` + runsHtml(c.runs) + `</${c.th ? 'th' : 'td'}>`).join('')}</tr>`
-  ).join('');
+  // Accept both the canonical {cells:[{runs,th}]} shape and the legacy stored
+  // shape where each row is an array of cells and each cell is {paras:[{runs}]}.
+  function cellRuns(c) {
+    if (!c) return [];
+    if (c.runs) return c.runs;
+    if (Array.isArray(c.paras)) {
+      const out = [];
+      for (const p of c.paras) {
+        for (const r of (p.runs || [])) out.push(r);
+        if (out.length && out[out.length - 1].text) {
+          out[out.length - 1] = { ...out[out.length - 1], text: out[out.length - 1].text + '\n' };
+        }
+      }
+      return out;
+    }
+    return [];
+  }
+  function cellHtml(c) {
+    const isTh = !!(c && (c.th || c.header));
+    return `<${isTh ? 'th' : 'td'}>${runsHtml(cellRuns(c))}</${isTh ? 'th' : 'td'}>`;
+  }
+  function rowHtml(tr) {
+    if (Array.isArray(tr)) return `<tr>${tr.map(cellHtml).join('')}</tr>`;
+    return `<tr>${(tr.cells || []).map(cellHtml).join('')}</tr>`;
+  }
+  const rows = (b.rows || []).map(rowHtml).join('');
   const head = b.head
-    ? `<thead><tr>${b.head.cells.map((c) => `<th>${runsHtml(c.runs)}</th>`).join('')}</tr></thead>`
+    ? `<thead><tr>${(b.head.cells || []).map(cellHtml).join('')}</tr></thead>`
     : '';
   const cls = b.wide ? ' rd-table-wide' : '';
   return `<div class="rd-tablewrap"><table class="rd-table${cls}"><tbody>${head}${rows}</tbody></table></div>`;

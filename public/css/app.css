@@ -142,6 +142,16 @@ img { max-width: 100%; display: block; }
 
 /* ---------- Book grid & cards ---------- */
 .book-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); }
+.book-card-wrap { position: relative; }
+.book-extras {
+  position: absolute; right: 10px; top: 10px; z-index: 3;
+  background: color-mix(in srgb, var(--accent) 92%, #fff);
+  color: var(--brand-700); font-size: 11px; font-weight: 700;
+  text-decoration: none; border-radius: 999px; padding: 4px 12px;
+  box-shadow: var(--elev-raised); border: 1px solid color-mix(in srgb, var(--accent) 60%, #fff);
+  transition: transform var(--motion-fast), box-shadow var(--motion-fast);
+}
+.book-extras:hover { transform: translateY(-1px); box-shadow: var(--glow-gold); color: var(--ink); }
 .book-card {
   display: flex; flex-direction: column; gap: var(--space-3);
   background: var(--surface); border: 1px solid var(--border);

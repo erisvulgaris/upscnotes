@@ -1,0 +1,54 @@
+<div class="page">
+  <%- include('_nav', { book, page: 'hub' }) %>
+  <div class="container ex-pad">
+    <div class="section-head ex-head">
+      <h1><%= book.title %> — Study tools</h1>
+      <p class="muted">Practice questions, flashcards, timeline, maps, mains bank, glossary and full-text search. Each tool links straight back to the chapter section it came from.</p>
+    </div>
+
+    <div class="ex-grid">
+      <a class="ex-card" href="/book/<%= book.slug %>/quiz">
+        <span class="ex-card-ico">Q</span>
+        <h3>Question bank</h3>
+        <p class="muted">PYQs and practice — objective <em>and</em> mains.</p>
+        <span class="ex-card-n"><%= meta.counts.questions %> questions</span>
+      </a>
+      <a class="ex-card" href="/book/<%= book.slug %>/flashcards">
+        <span class="ex-card-ico">F</span>
+        <h3>Flashcards</h3>
+        <p class="muted">Flip cards to drill the key definitions and facts.</p>
+        <span class="ex-card-n"><%= meta.counts.flashcards %> cards</span>
+      </a>
+      <a class="ex-card" href="/book/<%= book.slug %>/timeline">
+        <span class="ex-card-ico">T</span>
+        <h3>Timeline</h3>
+        <p class="muted">Every dated event in the book, in order.</p>
+        <span class="ex-card-n"><%= meta.counts.timeline %> events</span>
+      </a>
+      <a class="ex-card" href="/book/<%= book.slug %>/maps">
+        <span class="ex-card-ico">M</span>
+        <h3>Maps</h3>
+        <p class="muted">Interactive map cards with places and PYQ links.</p>
+        <span class="ex-card-n"><%= meta.counts.maps %> maps</span>
+      </a>
+      <a class="ex-card" href="/book/<%= book.slug %>/mains">
+        <span class="ex-card-ico">A</span>
+        <h3>Mains bank</h3>
+        <p class="muted">Past-year mains prompts with structure guidance.</p>
+        <span class="ex-card-n"><%= meta.counts.mains %> questions</span>
+      </a>
+      <a class="ex-card" href="/book/<%= book.slug %>/glossary">
+        <span class="ex-card-ico">G</span>
+        <h3>Glossary</h3>
+        <p class="muted">Every key term in the book with its chapter.</p>
+        <span class="ex-card-n"><%= meta.counts.glossary %> terms</span>
+      </a>
+      <a class="ex-card ex-card-full" href="/book/<%= book.slug %>/search">
+        <span class="ex-card-ico">S</span>
+        <h3>Search the book</h3>
+        <p class="muted">Full-text search across all <%= book.title %> sections.</p>
+        <span class="ex-card-n"><%= meta.counts.sections %> sections indexed</span>
+      </a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="page">
+  <%- include('_nav', { book, page: 'quiz' }) %>
+  <div class="container ex-pad">
+    <div class="section-head ex-head">
+      <h1>Question bank — <%= book.title %></h1>
+      <p class="muted" id="q-count"></p>
+    </div>
+
+    <div class="ex-filters">
+      <input type="text" id="q-search" placeholder="Search questions…" aria-label="Search questions">
+      <select id="q-ch" aria-label="Filter by chapter">
+        <option value="">All chapters</option>
+        <% chapters.forEach(function (c) { %>
+          <option value="<%= c.number %>" <%= String(c.number) === qCh ? 'selected' : '' %>>Ch <%= c.number %> — <%= c.title %></option>
+        <% }); %>
+      </select>
+      <select id="q-kind" aria-label="Filter by kind">
+        <option value="">All kinds</option>
+        <option value="FYQ_Pre" <%= qKind === 'FYQ_Pre' ? 'selected' : '' %>>FYQ · Prelims</option>
+        <option value="PYQ_Pre" <%= qKind === 'PYQ_Pre' ? 'selected' : '' %>>PYQ · Prelims</option>
+        <option value="FYQ_M" <%= qKind === 'FYQ_M' ? 'selected' : '' %>>FYQ · Mains</option>
+        <option value="PYQ_M" <%= qKind === 'PYQ_M' ? 'selected' : '' %>>PYQ · Mains</option>
+      </select>
+      <select id="q-style" aria-label="Filter by style">
+        <option value="">All styles</option>
+        <option value="simple">Simple</option>
+        <option value="multi-statement">Multi-statement</option>
+        <option value="match-list">Match list</option>
+        <option value="chronology">Chronology</option>
+        <option value="assertion-reason">Assertion-Reason</option>
+        <option value="how-many-correct">How many correct?</option>
+      </select>
+    </div>
+
+    <div id="q-list" class="q-list" aria-live="polite"></div>
+  </div>
+</div>
+<script>
+  window.EXTRAS = {
+    slug: "<%= book.slug %>",
+    kindLabels: { FYQ_Pre: ['FYQ · Prelims', 'FYQ'], PYQ_Pre: ['PYQ · Prelims', 'PYQ'], FYQ_M: ['FYQ · Mains', 'FYQ'], PYQ_M: ['PYQ · Mains', 'PYQ'] },
+    qKind: "<%= qKind %>",
+    qCh: "<%= qCh %>",
+  };
+</script>

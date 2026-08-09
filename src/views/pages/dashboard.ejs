@@ -19,29 +19,32 @@
     <% if (books && books.length) { %>
       <div class="book-grid">
         <% books.forEach(function (b, i) { %>
-          <a class="book-card <%= b.cover ? '' : 'is-placeholder' %> reveal" style="--d:<%= (i % 4) * 90 + 'ms' %>" href="/read/<%= b.slug %>/<%= b.inProgress ? b.inProgress.number : 1 %>">
-            <div class="book-cover" <% if (b.color) { %>style="--cover:<%= b.color %>"<% } %>>
-              <% if (b.cover) { %>
-                <img src="/content/<%= b.slug %>/cover.<%= b.cover.split('.').pop() %>" alt="<%= b.title %> cover">
-              <% } else { %>
-                <div class="cover-art">
-                  <span class="cover-genre">UPSCBOOKS</span>
-                  <span class="cover-title"><%= b.title %></span>
-                  <span class="cover-author"><%= b.author %></span>
-                </div>
-              <% } %>
-            </div>
-            <div class="book-meta">
-              <h3><%= b.title %></h3>
-              <p class="muted"><%= b.author %></p>
-              <div class="meta-row">
-                <span class="chip"><%= b.chapter_count %> chapters</span>
-                <% if (b.inProgress) { %>
-                  <span class="chip chip-progress" title="Last read <%= b.progress.updated_at %>">⟶ Ch <%= b.inProgress.number %>: <%= b.inProgress.title %></span>
+          <div class="book-card-wrap reveal" style="--d:<%= (i % 4) * 90 + 'ms' %>">
+            <a class="book-card <%= b.cover ? '' : 'is-placeholder' %>" href="/read/<%= b.slug %>/<%= b.inProgress ? b.inProgress.number : 1 %>">
+              <div class="book-cover" <% if (b.color) { %>style="--cover:<%= b.color %>"<% } %>>
+                <% if (b.cover) { %>
+                  <img src="/content/<%= b.slug %>/cover.<%= b.cover.split('.').pop() %>" alt="<%= b.title %> cover">
+                <% } else { %>
+                  <div class="cover-art">
+                    <span class="cover-genre">UPSCBOOKS</span>
+                    <span class="cover-title"><%= b.title %></span>
+                    <span class="cover-author"><%= b.author %></span>
+                  </div>
                 <% } %>
               </div>
-            </div>
-          </a>
+              <div class="book-meta">
+                <h3><%= b.title %></h3>
+                <p class="muted"><%= b.author %></p>
+                <div class="meta-row">
+                  <span class="chip"><%= b.chapter_count %> chapters</span>
+                  <% if (b.inProgress) { %>
+                    <span class="chip chip-progress" title="Last read <%= b.progress.updated_at %>">⟶ Ch <%= b.inProgress.number %>: <%= b.inProgress.title %></span>
+                  <% } %>
+                </div>
+              </div>
+            </a>
+            <a class="book-extras" href="/book/<%= b.slug %>">Extras ↗</a>
+          </div>
         <% }); %>
       </div>
     <% } else { %>

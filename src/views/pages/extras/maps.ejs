@@ -1,0 +1,32 @@
+<div class="page">
+  <%- include('_nav', { book, page: 'maps' }) %>
+  <div class="container ex-pad">
+    <div class="section-head ex-head">
+      <h1>Maps — <%= book.title %></h1>
+      <p class="muted">Historical map cards with key places. Click any map to zoom.</p>
+    </div>
+
+    <div class="ex-filters">
+      <select id="map-ch" aria-label="Filter by chapter">
+        <option value="">All chapters</option>
+        <% chapters.forEach(function (c) { %>
+          <option value="<%= c.number %>">Ch <%= c.number %> — <%= c.title %></option>
+        <% }); %>
+      </select>
+    </div>
+
+    <div class="map-grid" id="map-grid" aria-live="polite"></div>
+  </div>
+</div>
+
+<div class="ex-lb" id="ex-lb" hidden>
+  <button class="ex-lb-close" id="ex-lb-close" aria-label="Close">×</button>
+  <figure class="ex-lb-fig">
+    <img id="ex-lb-img" alt="">
+    <figcaption id="ex-lb-cap"></figcaption>
+  </figure>
+</div>
+
+<script>
+  window.EXTRAS = { slug: "<%= book.slug %>" };
+</script>

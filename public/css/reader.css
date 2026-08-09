@@ -21,9 +21,16 @@ body.reading { background: var(--surface); }
 .rd-navbtn:hover { border-color: var(--brand); }
 .rd-tools { display: flex; gap: 6px; }
 .book-cur { margin-left: auto; font-size: .9em; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rd-extras {
+  margin-left: 10px; white-space: nowrap; text-decoration: none; font-size: .9em; font-weight: 600;
+  color: var(--accent-deep); border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  border-radius: 999px; padding: 5px 14px; transition: background var(--motion-base), color var(--motion-base);
+}
+.rd-extras:hover { background: var(--grad-gold); color: var(--ink); border-color: transparent; }
 @media (max-width: 699px) {
   .rd-nav-inner { flex-wrap: wrap; }
   .book-cur { order: 9; flex-basis: 100%; width: 100%; text-align: left; padding-top: 2px; }
+  .rd-extras { margin-left: 0; }
 }
 
 /* reader layout */

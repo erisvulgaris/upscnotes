@@ -1,0 +1,15 @@
+<div class="ex-outer">
+  <div class="container ex-pad">
+    <nav class="ex-nav" aria-label="Study tools">
+      <a href="/book/<%= book.slug %>" class="<% if (page === 'hub') { %>on<% } %>">Extras</a>
+      <a href="/book/<%= book.slug %>/quiz" class="<% if (page === 'quiz') { %>on<% } %>">Quiz</a>
+      <a href="/book/<%= book.slug %>/flashcards" class="<% if (page === 'flashcards') { %>on<% } %>">Flashcards</a>
+      <a href="/book/<%= book.slug %>/timeline" class="<% if (page === 'timeline') { %>on<% } %>">Timeline</a>
+      <a href="/book/<%= book.slug %>/maps" class="<% if (page === 'maps') { %>on<% } %>">Maps</a>
+      <a href="/book/<%= book.slug %>/mains" class="<% if (page === 'mains') { %>on<% } %>">Mains bank</a>
+      <a href="/book/<%= book.slug %>/glossary" class="<% if (page === 'glossary') { %>on<% } %>">Glossary</a>
+      <a href="/book/<%= book.slug %>/search" class="<% if (page === 'search') { %>on<% } %>">Search</a>
+      <span class="ex-nav-read"><a href="/read/<%= book.slug %>/1">← Read the book</a></span>
+    </nav>
+  </div>
+</div>

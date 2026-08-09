@@ -1,0 +1,20 @@
+<div class="page">
+  <%- include('_nav', { book, page: 'timeline' }) %>
+  <div class="container ex-pad">
+    <div class="section-head ex-head">
+      <h1>Timeline — <%= book.title %></h1>
+      <p class="muted">Every dated event in the book, in chronological order. Landmark eras are marked in gold.</p>
+    </div>
+
+    <ol class="tl-list">
+      <% timeline.events.forEach(function (e, i) { %>
+        <li class="tl-item">
+          <span class="tl-year"><%= e.when.display %></span>
+          <span class="tl-label"><%= e.label %></span>
+          <span class="tl-meta muted"><% if (e.ch) { %>Ch <%= e.ch %><% } %></span>
+        </li>
+      <% }); %>
+    </ol>
+  </div>
+</div>
+<script>window.EXTRAS = { slug: "<%= book.slug %>" };</script>

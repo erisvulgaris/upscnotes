@@ -1,0 +1,14 @@
+<div class="page">
+  <%- include('_nav', { book, page: 'mains' }) %>
+  <div class="container ex-pad">
+    <div class="section-head ex-head">
+      <h1>Mains bank — <%= book.title %></h1>
+      <p class="muted">Past-year and practice mains prompts with structure guidance. Click to expand the suggested approach.</p>
+    </div>
+
+    <div id="mains-list" class="mains-list" aria-live="polite"></div>
+  </div>
+</div>
+<script>
+  window.EXTRAS = { slug: "<%= book.slug %>" };
+</script>

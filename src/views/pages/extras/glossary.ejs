@@ -1,0 +1,31 @@
+<div class="page">
+  <%- include('_nav', { book, page: 'glossary' }) %>
+  <div class="container ex-pad">
+    <div class="section-head ex-head">
+      <h1>Glossary — <%= book.title %></h1>
+      <p class="muted"><%= terms.length %> key terms, each linked to the section that introduced it.</p>
+    </div>
+
+    <div class="ex-filters">
+      <input type="text" id="gl-search" placeholder="Search terms…" aria-label="Search glossary">
+      <select id="gl-ch" aria-label="Filter by chapter">
+        <option value="">All chapters</option>
+        <% chapters.forEach(function (c) { %>
+          <option value="<%= c.number %>">Ch <%= c.number %> — <%= c.title %></option>
+        <% }); %>
+      </select>
+      <span class="muted" id="gl-count"></span>
+    </div>
+
+    <ul class="gl-list" id="gl-list" aria-live="polite">
+      <% terms.forEach(function (t) { %>
+        <% var ch = chapters.find(function (c) { return c.number === t.chapter; }) %>
+        <li class="gl-item" data-term="<%= t.term.toLowerCase() %>" data-ch="<%= t.chapter %>">
+          <a href="/read/<%= book.slug %>/<%= t.chapter %>#sec-<%= t.sec %>" class="gl-term"><%= t.term %></a>
+          <span class="gl-loc muted">Ch <%= t.chapter %><% if (ch) { %> · <%= ch.title %><% } %> — <%= t.secTitle %></span>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+</div>
+<script>window.EXTRAS = { slug: "<%= book.slug %>" };</script>

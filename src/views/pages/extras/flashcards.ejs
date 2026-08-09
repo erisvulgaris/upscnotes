@@ -1,0 +1,30 @@
+<div class="page">
+  <%- include('_nav', { book, page: 'flashcards' }) %>
+  <div class="container ex-pad">
+    <div class="section-head ex-head">
+      <h1>Flashcards — <%= book.title %></h1>
+      <p class="muted" id="fc-count"></p>
+    </div>
+
+    <div class="ex-filters">
+      <select id="fc-ch" aria-label="Filter by chapter">
+        <option value="">All chapters</option>
+        <% chapters.forEach(function (c) { %>
+          <option value="<%= c.number %>">Ch <%= c.number %> — <%= c.title %></option>
+        <% }); %>
+      </select>
+      <select id="fc-type" aria-label="Filter by type">
+        <option value="">All types</option>
+        <option value="definition">Definition</option>
+        <option value="fact">Fact</option>
+        <option value="who">Who / person</option>
+        <option value="date">Date</option>
+        <option value="term">Term</option>
+        <option value="why">Why explanation</option>
+      </select>
+    </div>
+
+    <div class="fc-grid" id="fc-grid" aria-live="polite"></div>
+  </div>
+</div>
+<script>window.EXTRAS = { slug: "<%= book.slug %>" };</script>

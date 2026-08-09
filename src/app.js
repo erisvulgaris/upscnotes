@@ -15,6 +15,7 @@ import publicRoutes from './routes/public.js';
 import authRoutes from './routes/auth.js';
 import dashboardRoutes from './routes/dashboard.js';
 import readRoutes from './routes/read.js';
+import extrasRoutes from './routes/extras.js';
 import adminRoutes from './routes/admin.js';
 import apiRoutes from './routes/api.js';
 
@@ -72,6 +73,7 @@ export function createApp() {
   app.use('/', authRoutes);
   app.use('/', dashboardRoutes);
   app.use('/read', readRoutes);
+  app.use('/book', extrasRoutes);
   app.use('/admin', adminRoutes);
   app.use('/api', apiRoutes);
 

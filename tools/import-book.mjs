@@ -23,11 +23,20 @@ const BOOKS = [
   {
     slug: 'modern-indian-history',
     title: 'Modern Indian History',
-    author: 'Rajiv Ahir',
-    description: 'Authoritative Modern Indian History coverage with timelines, maps, and practice questions.',
+    author: 'Himanshu Khatri',
+    description: 'Exam-oriented Modern Indian History notes by Vision IAS faculty with quizzes, flashcards, and practice questions.',
     color: '#8B2500',
     dataDir: path.join(ROOT, '..', 'offline', 'data', 'mih'),
     assetsDir: path.join(ROOT, '..', 'offline-site', 'assets'),
+  },
+  {
+    slug: 'spectrum-modern-india',
+    title: 'A Brief History of Modern India',
+    author: 'Rajiv Ahir',
+    description: 'The full Spectrum 2019-20 edition — the complete, chapter-by-chapter Modern India textbook with text-to-speech.',
+    color: '#1E3A5F',
+    dataDir: path.join(ROOT, '..', 'spectrum', 'data', 'spectrum'),
+    assetsDir: null,
   },
 ];
 
@@ -85,7 +94,8 @@ function importBook(cfg) {
     fs.mkdirSync(bookContentDir, { recursive: true });
     fs.writeFileSync(path.join(bookContentDir, 'manifest.json'), JSON.stringify(manifest, null, 0));
     for (const name of ['questions.json', 'flashcards.json', 'mindmaps.json', 'palette_terms.json',
-      'mains_bank.json', 'sections_text.json', 'search_index.json', 'timeline.json']) {
+      'mains_bank.json', 'mains_frameworks.json', 'sections_text.json', 'search_index.json',
+      'maps.json', 'map_pyqs.json', 'timeline.json']) {
       const src = path.join(cfg.dataDir, name);
       if (fs.existsSync(src)) fs.copyFileSync(src, path.join(bookContentDir, name));
     }
