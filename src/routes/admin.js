@@ -28,6 +28,7 @@ router.get('/', (req, res) => {
       books: listBooks().length,
     },
     recentPayments: payments.slice(0, 6),
+    RUPEE,
   });
 });
 
