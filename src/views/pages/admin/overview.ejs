@@ -1,0 +1,39 @@
+<div class="page">
+  <div class="container" style="padding-top: var(--space-12);">
+    <div class="section-head">
+      <p class="admin-eyebrow">Admin</p>
+      <h1 style="font-family:var(--font-display);font-size:var(--text-2xl);margin:0 0 4px;">Overview</h1>
+      <p class="muted">Everything running through your UPSCbooks library at a glance.</p>
+    </div>
+
+    <%- include('../partials/admin-nav', { active }) %>
+
+    <div class="admin-stats">
+      <div class="stat"><span class="stat-k">Members</span><span class="stat-v"><%= stats.users %></span></div>
+      <div class="stat"><span class="stat-k">Active subs</span><span class="stat-v"><%= stats.active_subs %></span></div>
+      <div class="stat"><span class="stat-k">Revenue</span><span class="stat-v"><%= stats.revenue %></span></div>
+      <div class="stat"><span class="stat-k">Captured</span><span class="stat-v"><%= stats.captured %> / <%= stats.orders %></span></div>
+      <div class="stat"><span class="stat-k">Books</span><span class="stat-v"><%= stats.books %></span></div>
+    </div>
+
+    <h3 class="admin-subhead">Recent payments</h3>
+    <% if (recentPayments.length) { %>
+      <table class="admin-table">
+        <thead><tr><th>Order</th><th>User</th><th>Amount</th><th>Status</th><th>When</th></tr></thead>
+        <tbody>
+          <% recentPayments.forEach(function (p) { %>
+            <tr>
+              <td class="mono"><%= p.razorpay_order_id || p.id %></td>
+              <td>#<%= p.user_id %></td>
+              <td><%= RUPEE(p.amount_paise) %></td>
+              <td><span class="badge badge-<%= p.status %>"><%= p.status %></span></td>
+              <td class="muted"><%= p.created_at %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <div class="alert alert-info">No payments yet. Members who subscribe will appear here.</div>
+    <% } %>
+  </div>
+</div>

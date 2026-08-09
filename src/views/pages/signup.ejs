@@ -1,0 +1,30 @@
+<div class="auth-page">
+  <div class="auth-card reveal">
+    <span class="auth-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" aria-hidden="true"><path d="M12 15a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM8.21 13.89 7 23l5-3 5 3-1.21-9.12"/></svg>
+    </span>
+    <h1>Create your account</h1>
+    <p class="muted">Then claim lifetime access to every book — ₹999, or ₹299 with code <strong>UPSC299</strong>.</p>
+    <% if (error) { %><div class="alert alert-error"><%= error %></div><% } %>
+    <form method="post" action="/signup" class="stack">
+      <input type="hidden" name="_csrf" value="<%= csrf %>">
+      <label>
+        <span>Full name (optional)</span>
+        <input type="text" name="name" value="<%= name %>" autocomplete="name" placeholder="Aarav Sharma">
+      </label>
+      <label>
+        <span>Email</span>
+        <input type="email" name="email" value="<%= email %>" required autocomplete="email" placeholder="you@example.com">
+      </label>
+      <label>
+        <span>Password</span>
+        <input type="password" name="password" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters">
+      </label>
+      <button class="btn btn-primary btn-lg btn-block" type="submit">
+        Create account
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </form>
+    <p class="auth-alt muted">Already have an account? <a href="/login">Sign in</a></p>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="page">
+  <div class="container" style="padding-top: var(--space-12);">
+    <div class="section-head">
+      <p class="admin-eyebrow">Admin</p>
+      <h1 style="font-family:var(--font-display);font-size:var(--text-2xl);margin:0 0 4px;">Payments</h1>
+      <p class="muted">Every payment order and its capture status.</p>
+    </div>
+
+    <%- include('../partials/admin-nav', { active }) %>
+
+    <% if (payments.length) { %>
+      <table class="admin-table">
+        <thead><tr><th>Order</th><th>Payment</th><th>User</th><th>Amount</th><th>Status</th><th>When</th></tr></thead>
+        <tbody>
+          <% payments.forEach(function (p) { %>
+            <tr>
+              <td class="mono"><%= p.razorpay_order_id %></td>
+              <td class="mono"><%= p.razorpay_payment_id || '—' %></td>
+              <td>#<%= p.user_id %></td>
+              <td><%= RUPEE(p.amount_paise) %></td>
+              <td><span class="badge badge-<%= p.status %>"><%= p.status %></span></td>
+              <td class="muted"><%= p.created_at %></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <div class="alert alert-info">No payments recorded yet.</div>
+    <% } %>
+  </div>
+</div>

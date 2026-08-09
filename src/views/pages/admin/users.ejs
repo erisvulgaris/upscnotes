@@ -1,0 +1,52 @@
+<div class="page">
+  <div class="container" style="padding-top: var(--space-12);">
+    <div class="section-head">
+      <p class="admin-eyebrow">Admin</p>
+      <h1 style="font-family:var(--font-display);font-size:var(--text-2xl);margin:0 0 4px;">Members</h1>
+      <p class="muted">Grant or revoke lifetime access for any account.</p>
+    </div>
+
+    <%- include('../partials/admin-nav', { active }) %>
+
+    <table class="admin-table">
+      <thead><tr><th>User</th><th>Role</th><th>Access</th><th>Joined</th><th></th></tr></thead>
+      <tbody>
+        <% users.forEach(function (u) { %>
+          <tr>
+            <td>
+              <div class="cell-strong"><%= u.name || u.email %></div>
+              <div class="muted mono"><%= u.email %></div>
+            </td>
+            <td><span class="badge badge-<%= u.role %>"><%= u.role %></span></td>
+            <td>
+              <% if (u.active_sub) { %>
+                <span class="badge badge-active">✓ active</span>
+              <% } else { %>
+                <span class="badge badge-none">no access</span>
+              <% } %>
+            </td>
+            <td class="muted"><%= u.created_at %></td>
+            <td class="cell-actions">
+              <% if (u.active_sub) { %>
+                <form method="post" action="/admin/users/<%= u.id %>/revoke">
+                  <input type="hidden" name="_csrf" value="<%= csrf %>">
+                  <button class="btn btn-danger btn-sm">Revoke</button>
+                </form>
+              <% } else if (u.role !== 'admin') { %>
+                <form method="post" action="/admin/users/<%= u.id %>/grant">
+                  <input type="hidden" name="_csrf" value="<%= csrf %>">
+                  <button class="btn btn-ghost btn-sm">Grant access</button>
+                </form>
+              <% } else { %>
+                <span class="muted">—</span>
+              <% } %>
+            </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <% if (!users.length) { %>
+      <div class="alert alert-info">No members yet.</div>
+    <% } %>
+  </div>
+</div>

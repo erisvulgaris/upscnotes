@@ -1,0 +1,11 @@
+node_modules
+data
+.git
+.env
+.env.prod
+deploy
+*.log
+nohup.out
+smoke-*.mjs
+design
+DESIGN.md

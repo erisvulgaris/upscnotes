@@ -1,0 +1,196 @@
+<div class="page">
+  <section class="hero">
+    <div class="container">
+      <div class="hero-split">
+        <div class="hero-inner">
+          <span class="hero-badge">
+            <span class="ico-dot" aria-hidden="true"></span>
+            Launch offer · ₹999 lifetime access · use code UPSC299 for ₹299
+          </span>
+          <h1 class="hero-title">One library for your entire <em>civil services</em> journey.</h1>
+          <p class="hero-sub muted">
+            Every UPSC book you need — complete, chapter-by-chapter, with search,
+            TTS reading mode and practice. Pay once, read everything we ever publish.
+          </p>
+          <div class="hero-cta">
+            <% if (user) { %>
+              <% if (hasSub) { %>
+                <a class="btn btn-primary btn-lg" href="/dashboard">
+                  Open my library
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              <% } else { %>
+                <a class="btn btn-gold btn-lg" href="/checkout">
+                  Claim ₹999 lifetime
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              <% } %>
+            <% } else { %>
+<a class="btn btn-gold btn-lg" href="/signup">
+                  Get ₹999 lifetime access
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            <% } %>
+            <a class="btn btn-ghost btn-lg" href="#books">Browse books</a>
+          </div>
+          <div class="hero-meta">
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              All current + future books
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              Read on desktop &amp; mobile
+            </span>
+            <span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              Instant access after payment
+            </span>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal" aria-hidden="true">
+          <div class="reader-sheet">
+            <div class="rs-cover">
+              <span>UPSCBOOKS</span>
+              <strong>Modern Indian<br>History</strong>
+            </div>
+            <div class="rs-body">
+              <div class="rs-row">
+                <span class="k">Your progress · Polity</span>
+                <div class="rs-track"><i></i></div>
+              </div>
+              <div class="rs-row">
+                <span class="k">TTS reading · sentence by sentence</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:14px;color:var(--muted)"><path d="M3 18v-6a9 9 0 0 1 18 0v6M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+              </div>
+            </div>
+          </div>
+          <span class="floaty f1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
+            ₹999 lifetime
+          </span>
+          <span class="floaty f2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            47 + 104 chapters
+          </span>
+          <span class="floaty f3">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            Instant unlock
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="books">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>The library</h2>
+        <p class="muted">Growing every term. Your lifetime pass covers all of it.</p>
+      </div>
+
+      <% if (books && books.length) { %>
+        <div class="book-grid">
+          <% books.forEach(function (b, i) { %>
+            <a class="book-card <%= b.cover ? '' : 'is-placeholder' %> reveal" style="--d:<%= (i % 4) * 70 + 'ms' %>" href="/dashboard">
+              <div class="book-cover" <% if (b.color) { %>style="--cover:<%= b.color %>"<% } %>>
+                <% if (b.cover) { %>
+                  <img src="/content/<%= b.slug %>/cover.<%= b.cover.split('.').pop() %>" alt="<%= b.title %> cover">
+                <% } else { %>
+                  <div class="cover-art">
+                    <span class="cover-genre">UPSCBOOKS</span>
+                    <span class="cover-title"><%= b.title %></span>
+                    <span class="cover-author"><%= b.author %></span>
+                  </div>
+                <% } %>
+              </div>
+              <div class="book-meta">
+                <h3><%= b.title %></h3>
+                <p class="muted"><%= b.author %></p>
+                <span class="chip"><%= b.chapter_count %> chapters</span>
+              </div>
+            </a>
+          <% }); %>
+        </div>
+      <% } else { %>
+        <p class="muted">The library is being prepared — check back soon.</p>
+      <% } %>
+    </div>
+  </section>
+
+  <section class="section section-tint" id="features">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Built for serious prep</h2>
+        <p class="muted">Everything a modern aspirant needs, in one calm place.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feat-card reveal">
+          <span class="ico-tile" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </span>
+          <h3>Complete books</h3>
+          <p>Full chapter-by-chapter text of every title — no slices, no teasers.</p>
+        </div>
+        <div class="feat-card reveal" style="--d:80ms">
+          <span class="ico-tile" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+          </span>
+          <h3>TTS reading</h3>
+          <p>Follow along with natural text-to-speech, sentence by sentence.</p>
+        </div>
+        <div class="feat-card reveal" style="--d:160ms">
+          <span class="ico-tile" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          </span>
+          <h3>Full-text search</h3>
+          <p>Search every chapter of every book and jump straight to the answer.</p>
+        </div>
+        <div class="feat-card reveal" style="--d:240ms">
+          <span class="ico-tile gold" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </span>
+          <h3>Always growing</h3>
+          <p>New books and editions land in your library — lifetime pass covers them.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="offer">
+    <div class="container">
+      <div class="pricing reveal">
+        <div class="pricing-head">
+          <span class="pricing-tag">Limited time offer</span>
+          <h2>One payment. Everything, forever.</h2>
+          <p class="muted">A single lifetime pass — no renewals, ever.</p>
+        </div>
+        <div class="pricing-card">
+          <div class="price">
+            <span class="price-cur">₹</span><span class="price-num" data-price>999</span>
+            <span class="price-per">lifetime</span>
+          </div>
+          <div class="price-old">One-time, normally recurring</div>
+          <ul class="price-feats">
+            <li>2 books today (Indian Polity · Modern History)</li>
+            <li>Every future book added — at no extra cost</li>
+            <li>TTS reading, search, flashcards included</li>
+            <li>Access on any device</li>
+          </ul>
+          <% if (user) { %>
+            <a class="btn btn-primary btn-lg btn-block" href="/checkout">Get lifetime access</a>
+          <% } else { %>
+            <a class="btn btn-primary btn-lg btn-block" href="/signup">Get lifetime access</a>
+          <% } %>
+          <%- include('partials/coupon') %>
+          <p class="price-note muted">
+            Secure payment via Razorpay
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;vertical-align:-1px" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1zM9 12l2 2 4-4"/></svg>
+            · UPI · cards · netbanking
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

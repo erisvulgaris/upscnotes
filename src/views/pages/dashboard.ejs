@@ -1,0 +1,62 @@
+<div class="page">
+  <div class="container" style="padding-top: var(--space-12);">
+    <div class="section-head reveal">
+      <h1 style="font-family: var(--font-display); font-size: var(--text-2xl); margin:0 0 4px;">My library</h1>
+      <% if (sub) { %>
+        <p class="muted">Lifetime access active ·
+          <span style="color:var(--success);font-weight:600;">✓ subscribed</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;vertical-align:-1px;color:var(--success)" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+        </p>
+      <% } else { %>
+        <p class="muted">You haven't claimed lifetime access yet.</p>
+      <% } %>
+    </div>
+
+    <% if (paid) { %>
+      <div class="alert alert-success reveal">Payment successful — your lifetime access is now active. Enjoy your books!</div>
+    <% } %>
+
+    <% if (books && books.length) { %>
+      <div class="book-grid">
+        <% books.forEach(function (b, i) { %>
+          <a class="book-card <%= b.cover ? '' : 'is-placeholder' %> reveal" style="--d:<%= (i % 4) * 90 + 'ms' %>" href="/read/<%= b.slug %>/<%= b.inProgress ? b.inProgress.number : 1 %>">
+            <div class="book-cover" <% if (b.color) { %>style="--cover:<%= b.color %>"<% } %>>
+              <% if (b.cover) { %>
+                <img src="/content/<%= b.slug %>/cover.<%= b.cover.split('.').pop() %>" alt="<%= b.title %> cover">
+              <% } else { %>
+                <div class="cover-art">
+                  <span class="cover-genre">UPSCBOOKS</span>
+                  <span class="cover-title"><%= b.title %></span>
+                  <span class="cover-author"><%= b.author %></span>
+                </div>
+              <% } %>
+            </div>
+            <div class="book-meta">
+              <h3><%= b.title %></h3>
+              <p class="muted"><%= b.author %></p>
+              <div class="meta-row">
+                <span class="chip"><%= b.chapter_count %> chapters</span>
+                <% if (b.inProgress) { %>
+                  <span class="chip chip-progress" title="Last read <%= b.progress.updated_at %>">⟶ Ch <%= b.inProgress.number %>: <%= b.inProgress.title %></span>
+                <% } %>
+              </div>
+            </div>
+          </a>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <div class="alert alert-info">No books are published yet. Please check back soon.</div>
+    <% } %>
+
+    <% if (!sub) { %>
+      <div class="pricing-card reveal" style="margin-top: var(--space-12);">
+        <h2 style="font-family:var(--font-display);margin:0 0 8px;">Unlock everything</h2>
+        <p class="muted" style="margin:0 0 16px;">One ₹999 payment gives you lifetime access to every book, including future releases. Use code <strong>UPSC299</strong> at checkout to pay just ₹299.</p>
+        <a class="btn btn-gold btn-lg" href="/checkout">
+          Get lifetime access
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    <% } %>
+  </div>
+</div>

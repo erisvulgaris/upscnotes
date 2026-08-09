@@ -1,0 +1,14 @@
+[Unit]
+Description=Auto-Deploy Webhook for UPSCbooks
+After=network.target docker.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/upscotes
+ExecStart=/usr/bin/python3 /opt/upscotes/deploy/webhook.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

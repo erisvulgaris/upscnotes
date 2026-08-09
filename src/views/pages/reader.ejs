@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %> · UPSCbooks</title>
+  <meta name="description" content="<%= book.title %> — Chapter <%= chapter.number %>: <%= chapter.title %>">
+  <meta name="csrf" content="<%= csrf %>">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231E2A52'/%3E%3Cstop offset='1' stop-color='%23D98A12'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='4' y='4' width='56' height='56' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='34' font-weight='700' fill='%23F5A623' text-anchor='middle'%3EU%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/css/tokens.css">
+  <link rel="stylesheet" href="/css/reader.css">
+  <link rel="stylesheet" href="/css/app.css">
+  <script>
+    (function () {
+      try {
+        var d = JSON.parse(localStorage.getItem('upscbooks-theme') || 'null');
+        if (d === 'dark') document.documentElement.classList.add('dark');
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body class="reading">
+  <nav class="rd-nav">
+    <div class="container rd-nav-inner">
+      <a class="rd-back" href="/dashboard" title="My library" aria-label="Back to library">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </a>
+      <button class="rd-navbtn" id="mih-open" title="Chapters" aria-label="Open chapters">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="18" height="18"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <div class="rd-tools">
+        <% if (prev) { %>
+          <a class="rd-navbtn" href="/read/<%= book.slug %>/<%= prev.number %>" title="Previous chapter" aria-label="Previous chapter">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M15 18l-6-6 6-6"/></svg>
+          </a>
+        <% } %>
+        <% if (next) { %>
+          <a class="rd-navbtn" href="/read/<%= book.slug %>/<%= next.number %>" title="Next chapter" aria-label="Next chapter">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M9 6l6 6-6 6"/></svg>
+          </a>
+        <% } %>
+      </div>
+      <div class="book-cur" id="book-cur"><%= book.title %> → Ch <%= chapter.number %>: <%= chapter.title %></div>
+    </div>
+  </nav>
+
+  <div class="reader-guard">
+    <aside class="mih-sb" id="mih-sb" aria-label="Chapters">
+      <div class="mih-sb-head">
+        <strong><%= book.title %></strong>
+        <button class="mih-sb-close" id="mih-sb-close" aria-label="Close chapters">×</button>
+      </div>
+      <input class="mih-sb-search" id="mih-sb-search" placeholder="Search chapters…" aria-label="Search chapters">
+      <nav class="mih-sb-list">
+        <% chapters.forEach(function (c) { %>
+          <a class="mih-sb-item <%= c.number === chapter.number ? 'on' : '' %>"
+             data-n="<%= c.number %>" href="/read/<%= book.slug %>/<%= c.number %>"><%= c.title %></a>
+        <% }); %>
+      </nav>
+      <div class="mih-sb-results" id="mih-sb-results" hidden></div>
+    </aside>
+    <div class="mih-sb-backdrop" id="mih-sb-backdrop"></div>
+
+    <main class="reader-main">
+      <div class="reader" data-slug="<%= book.slug %>" data-mih-cur="<%= chapter.number %>" data-mih-total="<%= chapters.length %>">
+        <div class="tts-bar" id="tts-bar" hidden>
+          <button class="tts-btn" id="tts-play" title="Play/Pause" aria-label="Play or pause reading">▶</button>
+          <button class="tts-btn" id="tts-prev" title="Previous sentence">⏮</button>
+          <button class="tts-btn" id="tts-next" title="Next sentence">⏭</button>
+          <button class="tts-btn" id="tts-stop" title="Stop">⏹</button>
+          <span class="tts-pos muted" id="tts-pos">0 / 0</span>
+          <label class="tts-field"><span class="muted">Speed</span>
+            <input type="range" id="tts-rate" min="0.5" max="2" step="0.1" value="1">
+          </label>
+          <label class="tts-field tts-voice-field"><span class="muted">Voice</span>
+            <select id="tts-voice" aria-label="Choose voice"></select>
+          </label>
+        </div>
+
+        <div class="rd-body">
+          <h2 class="rd-chtitle"><%= book.title %> — Chapter <%= chapter.number %></h2>
+          <div class="rd-sub">Chapter <%= chapter.number %>: <%= chapter.title %> · <%= chapters.length %> chapters</div>
+
+          <%- readerBody %>
+
+          <div class="rd-end">
+            <% if (prev) { %>
+              <a class="btn btn-ghost" href="/read/<%= book.slug %>/<%= prev.number %>">← <%= prev.title %></a>
+            <% } %>
+            <% if (next) { %>
+              <a class="btn btn-primary" href="/read/<%= book.slug %>/<%= next.number %>"><%= next.title %> →</a>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    window.UPSCBOOKS = { slug: "<%= book.slug %>", cur: <%= chapter.number %>, total: <%= chapters.length %> };
+    window.__SENTENCE_COUNT = <%= sentenceCount %>;
+  </script>
+  <script src="/js/reader.js"></script>
+  <script src="/js/tts.js"></script>
+</body>
+</html>

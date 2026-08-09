@@ -1,0 +1,26 @@
+# Traefik dynamic config for upscnotes.shop -> upscotes-app (:3003)
+# Place at /etc/dokploy/traefik/dynamic/upscotes.yml on the server.
+# Mirrors the proven neulabs.yml format exactly.
+http:
+  routers:
+    upscotes-api:
+      rule: "Host(`upscnotes.shop`) && (PathPrefix(`/api`) || Path(`/health`))"
+      service: "upscotes-svc"
+      entryPoints:
+        - web
+        - websecure
+      priority: 100
+
+    upscotes-web:
+      rule: "Host(`upscnotes.shop`)"
+      service: "upscotes-svc"
+      entryPoints:
+        - web
+        - websecure
+      priority: 10
+
+  services:
+    upscotes-svc:
+      loadBalancer:
+        servers:
+          - url: "http://176.100.37.236:3003"

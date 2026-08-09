@@ -1,0 +1,132 @@
+/* =====================================================================
+   UPSCbooks — design tokens (lock-step with DESIGN.md)
+   ===================================================================== */
+:root {
+  /* ─── Brand ─── */
+  --brand: #1E2A52;            /* Midnight Ink */
+  --brand-700: #16203F;        /* Midnight 700 (hover, footer) */
+
+  /* ─── Accent ─── */
+  --accent: #F5A623;           /* Ember Gold */
+  --accent-deep: #D98A12;     /* Ember Deep */
+
+  /* ─── Surface ─── */
+  --bg: #F7F4EE;               /* Parchment */
+  --surface: #FFFDF9;          /* Cream (cards) */
+  --surface-tint: #F0EBE0;    /* Paper Dark (wells) */
+
+  /* ─── Foreground ─── */
+  --ink: #22252E;
+  --fg-2: #4A4F5E;             /* Slate */
+  --muted: #4A4F5E;
+  --ash: #8A8F9D;              /* muted/meta */
+  --meta: #8A8F9D;
+
+  /* ─── Border ─── */
+  --border: #E4E0D4;           /* Line */
+  --border-soft: #EFECE2;     /* Hairline */
+
+  /* ─── Semantic ─── */
+  --success: #1F8A4C;
+  --warning: #C98A1B;
+  --danger: #C0392B;
+  --info: #2B6CB0;
+
+  /* ─── Typography ─── */
+  --font-display: "Libre Caslon Display", Georgia, "Times New Roman", serif;
+  --font-body: Inter, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "JetBrains Mono", Menlo, monospace;
+  --text-xs: 12.5px; --text-sm: 14px; --text-base: 16px; --text-md: 17px;
+  --text-lg: 19px; --text-xl: 26px; --text-2xl: 32px; --text-3xl: 40px; --text-4xl: 56px;
+  --leading-body: 1.6; --leading-tight: 1.08; --leading-snug: 1.3;
+  --tracking-display: -0.01em; --tracking-wide: 0.06em; --tracking-wide2: 0.09em;
+
+  /* ─── Spacing (base 4px) ─── */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  --space-12: 48px; --space-16: 64px; --space-24: 96px;
+  --section-y-desktop: 96px; --section-y-tablet: 64px; --section-y-phone: 48px;
+
+  /* ─── Radius ─── */
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 14px;
+  --radius-xl: 18px; --radius-pill: 999px;
+
+  /* ─── Elevation ─── */
+  --elev-flat: none;
+  --elev-hairline: 0 0 0 1px var(--border);
+  --elev-raised: 0 2px 6px rgba(20,22,30,.08);
+  --elev-floating: 0 10px 30px rgba(20,22,30,.16);
+  --glow-amber: 0 0 60px rgba(245,166,35,.10);
+
+  /* ─── Focus ─── */
+  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--accent) 38%, transparent);
+
+  /* ─── Motion ─── */
+  --motion-fast: 140ms; --motion-base: 220ms;
+  --ease-standard: cubic-bezier(0.2,0,0,1);
+
+  /* ─── Layout ─── */
+  --container-max: 1120px;
+  --container-gutter-desktop: 24px; --container-gutter-tablet: 16px; --container-gutter-phone: 12px;
+  --radius-cover: 10px;
+
+  /* Reader chrome (scoped on read pages) */
+  --read-width: 760px;
+}
+
+/* ─── Atmosphere & Motion (decorative, built on brand) ─── */
+:root {
+  /* Aurora blobs — brand-tinted radial washes used on heroes & shells. */
+  --aurora-1: radial-gradient(560px 460px at 16% 24%, color-mix(in srgb, var(--brand) 22%, transparent), transparent 72%);
+  --aurora-2: radial-gradient(520px 400px at 84% 10%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 74%);
+  --aurora-3: radial-gradient(500px 420px at 64% 96%, color-mix(in srgb, var(--brand) 14%, transparent), transparent 70%);
+
+  /* Fine paper grain (very low opacity dots — print feel, not noise). */
+  --grain: radial-gradient(color-mix(in srgb, var(--ink) 5%, transparent) 1px, transparent 1.4px);
+  --grain-size: 26px 26px;
+
+  /* Shell & decorative gradients. */
+  --grad-hero: linear-gradient(180deg, color-mix(in srgb, var(--bg) 82%, var(--brand) 6%) 0%, var(--bg) 60%, var(--surface) 100%);
+  --grad-brand: linear-gradient(135deg, var(--brand) 0%, #33458F 55%, color-mix(in srgb, var(--accent) 72%, var(--brand)) 100%);
+  --grad-brand-strong: linear-gradient(135deg, var(--brand) 0%, #40549E 50%, #2A3A74 100%);
+  --grad-gold: linear-gradient(135deg, var(--accent) 0%, var(--accent-deep) 100%);
+  --grad-inkmask: linear-gradient(180deg, transparent 0%, var(--ink) 90%);
+
+  /* Motion. */
+  --dur-slow: 480ms;
+  --dur-xslow: 900ms;
+  --dur-drift: 22s;          /* ambient blob drift */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Ambient ring (soft, non-floating surfaces get a whisper instead of shadow). */
+  --ring-soft: 0 0 0 1px color-mix(in srgb, var(--border) 60%, transparent);
+  --ring-brand: 0 0 0 1px color-mix(in srgb, var(--brand) 45%, transparent);
+  --glow-brand: 0 14px 44px -12px color-mix(in srgb, var(--brand) 34%, transparent);
+  --glow-gold: 0 16px 46px -14px color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+/* ─── Dark Mode ─── */
+html.dark {
+  --bg: #12141C;             /* Night */
+  --surface: #1B1E28;        /* Night Card */
+  --surface-tint: #20232E;
+  --ink: #EDEAE2;           /* Night Ink */
+  --fg-2: #C9C6BC;
+  --muted: #9A97A8;
+  --ash: #6E6B7B;
+  --meta: #6E6B7B;
+  --border: #2A2E3A;         /* Night Line */
+  --border-soft: #23262F;
+  --brand: #8EA0D9;          /* lighter brand for dark bg */
+  --brand-700: #A9B8E8;
+  --accent: #F5A623;
+  --accent-deep: #FFC24D;
+  --success: #3BBd6E;
+  --warning: #E0A32E;
+  --danger: #E05B4A;
+  --info: #6FA8DC;
+  --elev-raised: 0 2px 6px rgba(0,0,0,.4);
+  --elev-floating: 0 10px 30px rgba(0,0,0,.5);
+  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--accent) 40%, transparent);
+}

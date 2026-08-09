@@ -1,0 +1,10 @@
+<!-- Coupon widget — apply a code to drop the price to the coupon price (default UPSC299 -> 299).
+     Driven by the [data-coupon-widget] logic in public/js/app.js. Place inside a .pricing-card. -->
+<div class="coupon-widget" data-coupon-widget>
+  <div class="coupon-hint">Have a coupon? Try code <strong>UPSC299</strong></div>
+  <div class="coupon-row">
+    <input class="coupon-input" type="text" data-coupon-input value="UPSC299" aria-label="Coupon code" autocomplete="off" spellcheck="false">
+    <button class="btn btn-gold" type="button" data-coupon-apply>Apply</button>
+  </div>
+  <p class="coupon-msg" data-coupon-msg hidden></p>
+</div>
