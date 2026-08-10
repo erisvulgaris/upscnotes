@@ -82,21 +82,23 @@ export const sumCaptured = () =>
 // ---- books ----
 export const listBooks = () =>
   db.prepare('SELECT * FROM books ORDER BY created_at DESC').all();
+export const listBooksByCategory = (category) =>
+  db.prepare('SELECT * FROM books WHERE category = ? ORDER BY title ASC').all(category);
 export const getBookBySlug = (slug) =>
   db.prepare('SELECT * FROM books WHERE slug = ?').get(slug);
 export const getBookById = (id) =>
   db.prepare('SELECT * FROM books WHERE id = ?').get(id);
-export function upsertBook({ slug, title, author, description, cover, color }) {
+export function upsertBook({ slug, title, author, description, cover, color, category, subject }) {
   const existing = getBookBySlug(slug);
   if (existing) {
     db.prepare(
-      'UPDATE books SET title = ?, author = ?, description = ?, cover = ?, color = ?, chapter_count = ? WHERE slug = ?'
-    ).run(title, author, description, cover, color, 0, slug);
+      'UPDATE books SET title = ?, author = ?, description = ?, cover = ?, color = ?, category = ?, subject = ?, chapter_count = ? WHERE slug = ?'
+    ).run(title, author, description, cover, color, category || 'textbook', subject || '', 0, slug);
     return getBookBySlug(slug);
   }
   const r = db.prepare(
-    'INSERT INTO books (slug, title, author, description, cover, color, status) VALUES (?, ?, ?, ?, ?, ?, ?)'
-  ).run(slug, title, author, description, cover, color, 'published');
+    'INSERT INTO books (slug, title, author, description, cover, color, status, category, subject) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
+  ).run(slug, title, author, description, cover, color, 'published', category || 'textbook', subject || '');
   return getBookById(r.lastInsertRowid);
 }
 export function updateBook(slug, fields) {

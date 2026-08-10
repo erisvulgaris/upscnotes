@@ -34,6 +34,7 @@ export function migrate() {
       cover TEXT NOT NULL DEFAULT '',              -- path to uploaded cover ('' = placeholder)
       color TEXT NOT NULL DEFAULT '#305496',       -- brand accent for placeholder cover
       status TEXT NOT NULL DEFAULT 'draft',        -- 'draft' | 'published'
+      category TEXT NOT NULL DEFAULT 'textbook',   -- 'textbook' | 'ncert'
       chapter_count INTEGER NOT NULL DEFAULT 0,
       created_at TEXT NOT NULL DEFAULT (datetime('now'))
     );
@@ -84,4 +85,18 @@ export function migrate() {
     CREATE INDEX IF NOT EXISTS idx_subs_user ON subscriptions(user_id);
     CREATE INDEX IF NOT EXISTS idx_payments_user ON payments(user_id);
   `);
+
+  // Migration: add category column if missing (for existing databases)
+  try {
+    db.exec("ALTER TABLE books ADD COLUMN category TEXT NOT NULL DEFAULT 'textbook'");
+  } catch (e) {
+    // Column already exists — ignore
+  }
+
+  // Migration: add subject column for NCERT grouping
+  try {
+    db.exec("ALTER TABLE books ADD COLUMN subject TEXT NOT NULL DEFAULT ''");
+  } catch (e) {
+    // Column already exists — ignore
+  }
 }

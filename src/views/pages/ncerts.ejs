@@ -1,0 +1,65 @@
+<div class="page">
+  <div class="container" style="padding-top: var(--space-12);">
+    <div class="section-head reveal">
+      <h1 style="font-family: var(--font-display); font-size: var(--text-2xl); margin:0 0 4px;">NCERT Textbooks</h1>
+      <p class="muted">Complete NCERT textbooks organised by subject — the foundation for UPSC preparation.</p>
+    </div>
+
+    <% var subjectOrder = ['History', 'Geography', 'Economics', 'Political Science', 'Social Science', 'Psychology']; %>
+    <% subjectOrder.forEach(function(subj) { %>
+      <% var books = subjects[subj]; %>
+      <% if (!books || !books.length) return; %>
+      <div class="ncert-subject-section reveal" style="margin-top: var(--space-10);">
+        <div class="ncert-subject-head">
+          <h2 style="margin:0;font-family:var(--font-display);font-size:var(--text-lg);"><%= subj %></h2>
+          <span class="muted" style="font-size:var(--text-sm);"><%= books.length %> book<%= books.length > 1 ? 's' : '' %></span>
+        </div>
+        <div class="book-grid" style="margin-top:12px;">
+          <% books.forEach(function(b, i) { %>
+            <a class="book-card is-placeholder reveal" style="--d:<%= (i % 4) * 70 + 'ms' %>" href="/read/<%= b.slug %>/1">
+              <div class="book-cover" style="--cover:<%= b.color || '#333' %>">
+                <div class="cover-art">
+                  <span class="cover-genre">NCERT</span>
+                  <span class="cover-title"><%= b.title %></span>
+                  <span class="cover-author"><%= b.author %></span>
+                </div>
+              </div>
+              <div class="book-meta">
+                <h3><%= b.title %></h3>
+                <span class="chip"><%= b.chapter_count %> chapters</span>
+              </div>
+            </a>
+          <% }); %>
+        </div>
+      </div>
+    <% }); %>
+
+    <% var otherSubjects = Object.keys(subjects).filter(function(s) { return subjectOrder.indexOf(s) === -1; }); %>
+    <% otherSubjects.forEach(function(subj) { %>
+      <% var books = subjects[subj]; %>
+      <div class="ncert-subject-section reveal" style="margin-top: var(--space-10);">
+        <div class="ncert-subject-head">
+          <h2 style="margin:0;font-family:var(--font-display);font-size:var(--text-lg);"><%= subj %></h2>
+          <span class="muted" style="font-size:var(--text-sm);"><%= books.length %> book<%= books.length > 1 ? 's' : '' %></span>
+        </div>
+        <div class="book-grid" style="margin-top:12px;">
+          <% books.forEach(function(b, i) { %>
+            <a class="book-card is-placeholder reveal" style="--d:<%= (i % 4) * 70 + 'ms' %>" href="/read/<%= b.slug %>/1">
+              <div class="book-cover" style="--cover:<%= b.color || '#333' %>">
+                <div class="cover-art">
+                  <span class="cover-genre">NCERT</span>
+                  <span class="cover-title"><%= b.title %></span>
+                  <span class="cover-author"><%= b.author %></span>
+                </div>
+              </div>
+              <div class="book-meta">
+                <h3><%= b.title %></h3>
+                <span class="chip"><%= b.chapter_count %> chapters</span>
+              </div>
+            </a>
+          <% }); %>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+</div>

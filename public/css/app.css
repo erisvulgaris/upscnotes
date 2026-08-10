@@ -563,3 +563,23 @@ body.reading::before, body.reading::after { display: none; }
   .floaty.f1 { right: 6px; }
   .floaty.f2 { left: 4px; }
 }
+
+/* ---------- NCERT section ---------- */
+.ncert-subjects {
+  display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+}
+.ncert-pill {
+  display: inline-block;
+  padding: 8px 18px; border-radius: 999px;
+  background: var(--surface); border: 1px solid var(--border-soft);
+  font-size: var(--text-sm); font-weight: 500; color: var(--ink);
+  transition: all var(--motion-base) var(--ease-standard);
+}
+.ncert-pill:hover {
+  background: var(--brand); color: var(--surface); border-color: var(--brand);
+  text-decoration: none; transform: translateY(-1px);
+}
+.ncert-subject-head {
+  display: flex; align-items: baseline; gap: 12px;
+  border-bottom: 1px solid var(--border-soft); padding-bottom: 8px;
+}

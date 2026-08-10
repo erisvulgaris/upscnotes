@@ -82,7 +82,7 @@
           </span>
           <span class="floaty f2">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            <%= totalChapters %> chapters
+            <%= totalChapters %> chapters · <%= ncertCount %> NCERTs
           </span>
           <span class="floaty f3">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -126,6 +126,29 @@
       <% } else { %>
         <p class="muted">The library is being prepared — check back soon.</p>
       <% } %>
+    </div>
+  </section>
+
+  <section class="section section-tint" id="ncerts">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>NCERT Textbooks</h2>
+        <p class="muted">The foundation for UPSC — complete, chapter-by-chapter.</p>
+      </div>
+      <div class="ncert-subjects reveal">
+        <a class="ncert-pill" href="/ncerts">History</a>
+        <a class="ncert-pill" href="/ncerts">Geography</a>
+        <a class="ncert-pill" href="/ncerts">Economics</a>
+        <a class="ncert-pill" href="/ncerts">Political Science</a>
+        <a class="ncert-pill" href="/ncerts">Social Science</a>
+        <a class="ncert-pill" href="/ncerts">Psychology</a>
+      </div>
+      <div style="text-align:center;margin-top:20px;">
+        <a class="btn btn-primary" href="/ncerts">
+          Browse all NCERTs
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
     </div>
   </section>
 
