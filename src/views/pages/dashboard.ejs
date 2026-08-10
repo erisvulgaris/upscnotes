@@ -21,6 +21,22 @@
       <div class="alert alert-success reveal">Payment successful — your lifetime access is now active. Enjoy your books!</div>
     <% } %>
 
+    <% if (groups && groups.length) { %>
+      <div class="library-toolbar reveal">
+        <div class="library-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input id="bookSearch" type="search" placeholder="Search books by title, author or subject…" autocomplete="off">
+        </div>
+        <div class="library-chips" id="subjectChips">
+          <button type="button" class="chip chip-filter is-active" data-subject="">All</button>
+          <% groups.forEach(function (g) { %>
+            <button type="button" class="chip chip-filter" data-subject="<%= g.subject %>"><%= g.subject %></button>
+          <% }); %>
+        </div>
+        <p class="muted library-result" id="resultCount"></p>
+      </div>
+    <% } %>
+
     <div class="dash-stats reveal">
       <div class="dash-stat">
         <span class="dash-stat-ico" aria-hidden="true">
@@ -51,37 +67,46 @@
       </div>
     </div>
 
-    <% if (books && books.length) { %>
-      <div class="book-grid">
-        <% books.forEach(function (b, i) { %>
-          <div class="book-card-wrap reveal" style="--d:<%= (i % 4) * 90 + 'ms' %>">
-            <a class="book-card <%= b.cover ? '' : 'is-placeholder' %>" href="/read/<%= b.slug %>/<%= b.inProgress ? b.inProgress.number : 1 %>">
-              <div class="book-cover" <% if (b.color) { %>style="--cover:<%= b.color %>"<% } %>>
-                <% if (b.cover) { %>
-                  <img src="/content/<%= b.slug %>/cover.<%= b.cover.split('.').pop() %>" alt="<%= b.title %> cover">
-                <% } else { %>
-                  <div class="cover-art">
-                    <span class="cover-genre">UPSCBOOKS</span>
-                    <span class="cover-title"><%= b.title %></span>
-                    <span class="cover-author"><%= b.author %></span>
-                  </div>
-                <% } %>
-              </div>
-              <div class="book-meta">
-                <h3><%= b.title %></h3>
-                <p class="muted"><%= b.author %></p>
-                <div class="meta-row">
-                  <span class="chip"><%= b.chapter_count %> chapters</span>
-                  <% if (b.inProgress) { %>
-                    <span class="chip chip-progress" title="Last read <%= b.progress.updated_at %>">⟶ Ch <%= b.inProgress.number %>: <%= b.inProgress.title %></span>
-                  <% } %>
-                </div>
-              </div>
-            </a>
-            <a class="book-extras" href="/book/<%= b.slug %>">Extras ↗</a>
+    <% if (groups && groups.length) { %>
+      <% groups.forEach(function (g) { %>
+        <section class="library-group reveal" data-subject="<%= g.subject %>">
+          <div class="library-group-head">
+            <h3><%= g.subject %></h3>
+            <span class="library-count"><%= g.books.length %> book<%= g.books.length === 1 ? '' : 's' %></span>
           </div>
-        <% }); %>
-      </div>
+          <div class="book-grid">
+            <% g.books.forEach(function (b, i) { %>
+              <div class="book-card-wrap book-item reveal" style="--d:<%= (i % 4) * 90 + 'ms' %>" data-s="<%= g.subject %>" data-search="<%= (b.title + ' ' + b.author + ' ' + g.subject).toLowerCase().replace(/[<>&"]/g, '') %>">
+                <a class="book-card <%= b.cover ? '' : 'is-placeholder' %>" href="/read/<%= b.slug %>/<%= b.inProgress ? b.inProgress.number : 1 %>">
+                  <div class="book-cover" <% if (b.color) { %>style="--cover:<%= b.color %>"<% } %>>
+                    <% if (b.cover) { %>
+                      <img loading="lazy" src="/content/<%= b.slug %>/cover.<%= b.cover.split('.').pop() %>" alt="<%= b.title %> cover">
+                    <% } else { %>
+                      <div class="cover-art">
+                        <span class="cover-genre">UPSCBOOKS · <%= g.subject.toUpperCase() %></span>
+                        <span class="cover-title"><%= b.title %></span>
+                        <span class="cover-author"><%= b.author %></span>
+                      </div>
+                    <% } %>
+                  </div>
+                  <div class="book-meta">
+                    <h3><%= b.title %></h3>
+                    <p class="muted"><%= b.author %></p>
+                    <div class="meta-row">
+                      <span class="chip"><%= b.chapter_count %> chapters</span>
+                      <% if (b.inProgress) { %>
+                        <span class="chip chip-progress" title="Last read <%= b.progress.updated_at %>">⟶ Ch <%= b.inProgress.number %>: <%= b.inProgress.title %></span>
+                      <% } %>
+                    </div>
+                  </div>
+                </a>
+                <a class="book-extras" href="/book/<%= b.slug %>">Extras ↗</a>
+              </div>
+            <% }); %>
+          </div>
+        </section>
+      <% }); %>
+      <div class="alert alert-info is-hidden" id="noResults">No books match your search. Try a different keyword or subject.</div>
     <% } else { %>
       <div class="alert alert-info">No books are published yet. Please check back soon.</div>
     <% } %>
@@ -98,3 +123,50 @@
     <% } %>
   </div>
 </div>
+
+<% if (groups && groups.length) { %>
+<script>
+(function () {
+  var search = document.getElementById('bookSearch');
+  if (!search) return;
+  var chips = Array.prototype.slice.call(document.querySelectorAll('#subjectChips .chip-filter'));
+  var items = Array.prototype.slice.call(document.querySelectorAll('.book-item'));
+  var groups = Array.prototype.slice.call(document.querySelectorAll('.library-group'));
+  var count = document.getElementById('resultCount');
+  var noRes = document.getElementById('noResults');
+  function activeSubject() {
+    var on = document.querySelector('#subjectChips .chip-filter.is-active');
+    return on ? (on.getAttribute('data-subject') || '') : '';
+  }
+  function apply() {
+    var q = (search.value || '').toLowerCase().trim();
+    var subj = activeSubject();
+    var visible = 0;
+    items.forEach(function (item) {
+      var hay = (item.getAttribute('data-search') || '').toLowerCase();
+      var ok = (!q || hay.indexOf(q) !== -1) && (!subj || item.getAttribute('data-s') === subj);
+      item.classList.toggle('is-hidden', !ok);
+      if (ok) visible++;
+    });
+    groups.forEach(function (g) {
+      g.classList.toggle('is-hidden', g.querySelectorAll('.book-item:not(.is-hidden)').length === 0);
+    });
+    if (count) {
+      count.textContent = visible
+        ? (visible === items.length ? visible + ' books' : visible + ' of ' + items.length + ' books')
+        : '';
+    }
+    if (noRes) noRes.classList.toggle('is-hidden', visible > 0);
+  }
+  search.addEventListener('input', apply);
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () {
+      chips.forEach(function (x) { x.classList.remove('is-active'); });
+      c.classList.add('is-active');
+      apply();
+    });
+  });
+  apply();
+})();
+</script>
+<% } %>
