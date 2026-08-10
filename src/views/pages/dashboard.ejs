@@ -1,3 +1,8 @@
+<%
+  var totalChapters = 0;
+  var bookCount = books ? books.length : 0;
+  if (books) books.forEach(function(b) { totalChapters += b.chapter_count || 0; });
+%>
 <div class="page">
   <div class="container" style="padding-top: var(--space-12);">
     <div class="section-head reveal">
@@ -15,6 +20,36 @@
     <% if (paid) { %>
       <div class="alert alert-success reveal">Payment successful — your lifetime access is now active. Enjoy your books!</div>
     <% } %>
+
+    <div class="dash-stats reveal">
+      <div class="dash-stat">
+        <span class="dash-stat-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </span>
+        <div class="dash-stat-body">
+          <span class="dash-stat-v"><%= bookCount %></span>
+          <span class="dash-stat-k">Books</span>
+        </div>
+      </div>
+      <div class="dash-stat">
+        <span class="dash-stat-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </span>
+        <div class="dash-stat-body">
+          <span class="dash-stat-v"><%= totalChapters %></span>
+          <span class="dash-stat-k">Chapters</span>
+        </div>
+      </div>
+      <div class="dash-stat">
+        <span class="dash-stat-ico" aria-hidden="true" style="color:var(--success);background:color-mix(in srgb, var(--success) 9%, var(--surface));border-color:color-mix(in srgb, var(--success) 16%, transparent);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </span>
+        <div class="dash-stat-body">
+          <span class="dash-stat-v">∞</span>
+          <span class="dash-stat-k">Lifetime</span>
+        </div>
+      </div>
+    </div>
 
     <% if (books && books.length) { %>
       <div class="book-grid">

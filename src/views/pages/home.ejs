@@ -1,3 +1,13 @@
+<%
+  var totalChapters = 0;
+  var bookNames = [];
+  if (books && books.length) {
+    books.forEach(function(b) {
+      totalChapters += b.chapter_count || 0;
+      bookNames.push(b.title);
+    });
+  }
+%>
 <div class="page">
   <section class="hero">
     <div class="container">
@@ -26,10 +36,10 @@
                 </a>
               <% } %>
             <% } else { %>
-<a class="btn btn-gold btn-lg" href="/signup">
-                  Get ₹999 lifetime access
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
+              <a class="btn btn-gold btn-lg" href="/signup">
+                Get ₹999 lifetime access
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
             <% } %>
             <a class="btn btn-ghost btn-lg" href="#books">Browse books</a>
           </div>
@@ -72,7 +82,7 @@
           </span>
           <span class="floaty f2">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            47 + 104 chapters
+            <%= totalChapters %> chapters
           </span>
           <span class="floaty f3">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -173,8 +183,8 @@
           </div>
           <div class="price-old">One-time, normally recurring</div>
           <ul class="price-feats">
-            <li>2 books today (Indian Polity · Modern History)</li>
-            <li>Every future book added — at no extra cost</li>
+            <li><%= books.length %> books today (<%= bookNames.join(' · ') %>)</li>
+            <li><%= totalChapters %> chapters and growing</li>
             <li>TTS reading, search, flashcards included</li>
             <li>Access on any device</li>
           </ul>
@@ -189,6 +199,29 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;vertical-align:-1px" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1zM9 12l2 2 4-4"/></svg>
             · UPI · cards · netbanking
           </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tint" id="trust">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Why aspirants choose UPSCbooks</h2>
+        <p class="muted">Built by people who've been through the grind.</p>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-card reveal">
+          <span class="trust-num">100%</span>
+          <p>Complete chapter-by-chapter text — not summaries or excerpts.</p>
+        </div>
+        <div class="trust-card reveal" style="--d:80ms">
+          <span class="trust-num">₹299</span>
+          <p>Use code UPSC299 at checkout. One-time payment, lifetime access.</p>
+        </div>
+        <div class="trust-card reveal" style="--d:160ms">
+          <span class="trust-num">∞</span>
+          <p>Every future book added to your library — at no extra cost.</p>
         </div>
       </div>
     </div>
