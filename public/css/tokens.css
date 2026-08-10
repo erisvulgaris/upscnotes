@@ -54,6 +54,7 @@
   /* ─── Elevation ─── */
   --elev-flat: none;
   --elev-hairline: 0 0 0 1px var(--border);
+  --elev-soft: 0 1px 3px rgba(20,22,30,.05);
   --elev-raised: 0 2px 6px rgba(20,22,30,.08);
   --elev-floating: 0 10px 30px rgba(20,22,30,.16);
   --glow-amber: 0 0 60px rgba(245,166,35,.10);
@@ -102,6 +103,7 @@
   /* Ambient ring (soft, non-floating surfaces get a whisper instead of shadow). */
   --ring-soft: 0 0 0 1px color-mix(in srgb, var(--border) 60%, transparent);
   --ring-brand: 0 0 0 1px color-mix(in srgb, var(--brand) 45%, transparent);
+  --ring-brand-soft: 0 0 0 1px color-mix(in srgb, var(--brand) 28%, transparent);
   --glow-brand: 0 14px 44px -12px color-mix(in srgb, var(--brand) 34%, transparent);
   --glow-gold: 0 16px 46px -14px color-mix(in srgb, var(--accent) 45%, transparent);
 }
