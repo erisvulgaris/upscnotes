@@ -17,7 +17,7 @@
         <span>Password</span>
         <div class="input-with-toggle">
           <input type="password" name="password" id="pw" required autocomplete="current-password" placeholder="••••••••">
-          <button type="button" class="pw-toggle" onclick="var i=document.getElementById('pw');i.type=i.type==='password'?'text':'password'" aria-label="Show password">Show</button>
+          <button type="button" class="pw-toggle" onclick="var i=document.getElementById('pw');var t=this;i.type=i.type==='password'?'text':'password';t.textContent=i.type==='password'?'Show':'Hide'" aria-label="Show password">Show</button>
         </div>
       </label>
       <button class="btn btn-primary btn-lg btn-block" type="submit">

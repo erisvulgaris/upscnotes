@@ -601,7 +601,7 @@ body::after {
   border-color var(--motion-fast), transform var(--motion-fast);
 }
 .chip-filter:hover { border-color: var(--brand); color: var(--ink); transform: translateY(-1px); }
-.chip-filter.is-active {
+.chip-filter.active, .chip-filter.is-active {
   background: var(--brand); border-color: var(--brand); color: #fff;
   box-shadow: var(--ring-brand-soft);
 }

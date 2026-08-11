@@ -20,7 +20,7 @@
         <span>Password</span>
         <div class="input-with-toggle">
           <input type="password" name="password" id="pw" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters">
-          <button type="button" class="pw-toggle" onclick="var i=document.getElementById('pw');i.type=i.type==='password'?'text':'password'" aria-label="Show password">Show</button>
+          <button type="button" class="pw-toggle" onclick="var i=document.getElementById('pw');var t=this;i.type=i.type==='password'?'text':'password';t.textContent=i.type==='password'?'Show':'Hide'" aria-label="Show password">Show</button>
         </div>
       </label>
       <label class="checkbox-label">
