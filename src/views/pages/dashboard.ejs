@@ -82,7 +82,7 @@
                     <% if (b.cover) { %>
                       <img loading="lazy" src="/content/<%= b.slug %>/cover.<%= b.cover.split('.').pop() %>" alt="<%= b.title %> cover">
                     <% } else { %>
-                      <div class="cover-art">
+                      <div class="cover-art" data-subject="<%= g.subject %>">
                         <span class="cover-genre">UPSCBOOKS · <%= g.subject.toUpperCase() %></span>
                         <span class="cover-title"><%= b.title %></span>
                         <span class="cover-author"><%= b.author %></span>

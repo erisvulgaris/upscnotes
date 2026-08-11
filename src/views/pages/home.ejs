@@ -1,11 +1,7 @@
 <%
   var totalChapters = 0;
-  var bookNames = [];
   if (books && books.length) {
-    books.forEach(function(b) {
-      totalChapters += b.chapter_count || 0;
-      bookNames.push(b.title);
-    });
+    books.forEach(function(b) { totalChapters += b.chapter_count || 0; });
   }
 %>
 <div class="page">
@@ -82,7 +78,7 @@
           </span>
           <span class="floaty f2">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            <%= totalChapters %> chapters · <%= ncertCount %> NCERTs
+            <%= typeof allChapters !== 'undefined' ? allChapters : '650+' %> chapters · <%= ncertCount %> NCERTs
           </span>
           <span class="floaty f3">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -97,7 +93,7 @@
     <div class="container">
       <div class="section-head reveal">
         <h2>The library</h2>
-        <p class="muted">Growing every term. Your lifetime pass covers all of it.</p>
+        <p class="muted"><%= typeof totalBooks !== 'undefined' ? totalBooks : books.length %> books across <%= typeof subjects !== 'undefined' ? subjects.length : 6 %> subjects — and growing every term.</p>
       </div>
 
       <% if (books && books.length) { %>
@@ -108,7 +104,7 @@
                 <% if (b.cover) { %>
                   <img src="/content/<%= b.slug %>/cover.<%= b.cover.split('.').pop() %>" alt="<%= b.title %> cover">
                 <% } else { %>
-                  <div class="cover-art">
+                  <div class="cover-art" data-subject="<%= b.subject || '' %>">
                     <span class="cover-genre">UPSCBOOKS</span>
                     <span class="cover-title"><%= b.title %></span>
                     <span class="cover-author"><%= b.author %></span>
@@ -123,6 +119,12 @@
             </a>
           <% }); %>
         </div>
+        <div style="text-align:center;margin-top:var(--space-6);">
+          <a class="btn btn-ghost" href="/dashboard">
+            View all <%= typeof totalBooks !== 'undefined' ? totalBooks : '' %> books
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
       <% } else { %>
         <p class="muted">The library is being prepared — check back soon.</p>
       <% } %>
@@ -133,7 +135,7 @@
     <div class="container">
       <div class="section-head reveal">
         <h2>NCERT Textbooks</h2>
-        <p class="muted">The foundation for UPSC — complete, chapter-by-chapter.</p>
+        <p class="muted"><%= typeof ncertCount !== 'undefined' ? ncertCount : 38 %> NCERT books — the foundation for UPSC, chapter by chapter.</p>
       </div>
       <div class="ncert-subjects reveal">
         <a class="ncert-pill" href="/ncerts">History</a>
@@ -141,7 +143,6 @@
         <a class="ncert-pill" href="/ncerts">Economics</a>
         <a class="ncert-pill" href="/ncerts">Political Science</a>
         <a class="ncert-pill" href="/ncerts">Social Science</a>
-        <a class="ncert-pill" href="/ncerts">Psychology</a>
       </div>
       <div style="text-align:center;margin-top:20px;">
         <a class="btn btn-primary" href="/ncerts">
@@ -206,8 +207,8 @@
           </div>
           <div class="price-old">One-time, normally recurring</div>
           <ul class="price-feats">
-            <li><%= books.length %> books today (<%= bookNames.join(' · ') %>)</li>
-            <li><%= totalChapters %> chapters and growing</li>
+            <li><%= typeof totalBooks !== 'undefined' ? totalBooks : books.length %> books today — History, Geography, Economics, Polity, Environment & more</li>
+            <li><%= typeof allChapters !== 'undefined' ? allChapters : '650+' %> chapters and growing</li>
             <li>TTS reading, search, flashcards included</li>
             <li>Access on any device</li>
           </ul>

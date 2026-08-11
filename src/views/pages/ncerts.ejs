@@ -5,11 +5,20 @@
       <p class="muted">Complete NCERT textbooks organised by subject — the foundation for UPSC preparation.</p>
     </div>
 
-    <% var subjectOrder = ['History', 'Geography', 'Economics', 'Political Science', 'Social Science', 'Psychology']; %>
+    <div class="library-toolbar" style="margin-top:var(--space-6);display:flex;flex-wrap:wrap;gap:8px;">
+      <button class="chip chip-filter active" data-filter="all">All</button>
+      <% var subjectOrder = ['History', 'Geography', 'Economics', 'Political Science', 'Social Science']; %>
+      <% subjectOrder.forEach(function(subj) { %>
+        <% if (subjects[subj] && subjects[subj].length) { %>
+          <button class="chip chip-filter" data-filter="<%= subj %>"><%= subj %></button>
+        <% } %>
+      <% }); %>
+    </div>
+
     <% subjectOrder.forEach(function(subj) { %>
       <% var books = subjects[subj]; %>
       <% if (!books || !books.length) return; %>
-      <div class="ncert-subject-section reveal" style="margin-top: var(--space-10);">
+      <div class="ncert-subject-section reveal" data-subject-section="<%= subj %>" style="margin-top: var(--space-10);">
         <div class="ncert-subject-head">
           <h2 style="margin:0;font-family:var(--font-display);font-size:var(--text-lg);"><%= subj %></h2>
           <span class="muted" style="font-size:var(--text-sm);"><%= books.length %> book<%= books.length > 1 ? 's' : '' %></span>
@@ -18,35 +27,7 @@
           <% books.forEach(function(b, i) { %>
             <a class="book-card is-placeholder reveal" style="--d:<%= (i % 4) * 70 + 'ms' %>" href="/read/<%= b.slug %>/1">
               <div class="book-cover" style="--cover:<%= b.color || '#333' %>">
-                <div class="cover-art">
-                  <span class="cover-genre">NCERT</span>
-                  <span class="cover-title"><%= b.title %></span>
-                  <span class="cover-author"><%= b.author %></span>
-                </div>
-              </div>
-              <div class="book-meta">
-                <h3><%= b.title %></h3>
-                <span class="chip"><%= b.chapter_count %> chapters</span>
-              </div>
-            </a>
-          <% }); %>
-        </div>
-      </div>
-    <% }); %>
-
-    <% var otherSubjects = Object.keys(subjects).filter(function(s) { return subjectOrder.indexOf(s) === -1; }); %>
-    <% otherSubjects.forEach(function(subj) { %>
-      <% var books = subjects[subj]; %>
-      <div class="ncert-subject-section reveal" style="margin-top: var(--space-10);">
-        <div class="ncert-subject-head">
-          <h2 style="margin:0;font-family:var(--font-display);font-size:var(--text-lg);"><%= subj %></h2>
-          <span class="muted" style="font-size:var(--text-sm);"><%= books.length %> book<%= books.length > 1 ? 's' : '' %></span>
-        </div>
-        <div class="book-grid" style="margin-top:12px;">
-          <% books.forEach(function(b, i) { %>
-            <a class="book-card is-placeholder reveal" style="--d:<%= (i % 4) * 70 + 'ms' %>" href="/read/<%= b.slug %>/1">
-              <div class="book-cover" style="--cover:<%= b.color || '#333' %>">
-                <div class="cover-art">
+                <div class="cover-art" data-subject="<%= subj %>">
                   <span class="cover-genre">NCERT</span>
                   <span class="cover-title"><%= b.title %></span>
                   <span class="cover-author"><%= b.author %></span>
@@ -63,3 +44,19 @@
     <% }); %>
   </div>
 </div>
+<script>
+(function() {
+  var chips = document.querySelectorAll('.chip-filter');
+  var sections = document.querySelectorAll('[data-subject-section]');
+  chips.forEach(function(chip) {
+    chip.addEventListener('click', function() {
+      var f = this.dataset.filter;
+      chips.forEach(function(c) { c.classList.remove('active'); });
+      this.classList.add('active');
+      sections.forEach(function(s) {
+        s.style.display = (f === 'all' || s.dataset.subjectSection === f) ? '' : 'none';
+      });
+    });
+  });
+})();
+</script>

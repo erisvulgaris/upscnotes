@@ -20,6 +20,7 @@
   </script>
 </head>
 <body class="reading">
+  <div class="rd-progress" id="rd-progress"></div>
   <nav class="rd-nav">
     <div class="container rd-nav-inner">
       <a class="rd-back" href="/dashboard" title="My library" aria-label="Back to library">
@@ -103,5 +104,16 @@
   </script>
   <script src="/js/reader.js"></script>
   <script src="/js/tts.js"></script>
+  <script>
+    (function() {
+      var bar = document.getElementById('rd-progress');
+      if (!bar) return;
+      window.addEventListener('scroll', function() {
+        var h = document.documentElement.scrollHeight - window.innerHeight;
+        var pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+        bar.style.width = pct + '%';
+      }, { passive: true });
+    })();
+  </script>
 </body>
 </html>

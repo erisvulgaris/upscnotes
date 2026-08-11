@@ -17,10 +17,10 @@
       </div>
       <div class="price-old">One-time · limited offer</div>
       <ul class="price-feats">
-        <li>All current books (Indian Polity · Modern History)</li>
-        <li>Every future book at no extra cost</li>
+        <li>All <%= typeof totalBooks !== 'undefined' ? totalBooks : 46 %> books — History, Geography, Economics, Polity, Environment & more</li>
+        <li><%= typeof totalChapters !== 'undefined' ? totalChapters : '650+' %> chapters and growing</li>
         <li>TTS reading, search, flashcards</li>
-        <li>Any device, anytime</li>
+        <li>Access on any device, anytime</li>
       </ul>
       <button class="btn btn-gold btn-lg btn-block" id="rzp-checkout" data-pay-label>
         <span data-pay-label-text>Pay ₹999 and unlock now</span>

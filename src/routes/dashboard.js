@@ -42,7 +42,10 @@ router.get('/dashboard', requireAuth, (req, res) => {
 router.get('/checkout', requireAuth, (req, res) => {
   const sub = getActiveSubscription(req.session.userId);
   if (sub) return res.redirect('/dashboard');
-  renderPage(res, 200, 'checkout', { title: 'Get lifetime access' });
+  const books = listBooks().filter((b) => b.status === 'published');
+  const totalBooks = books.length;
+  const totalChapters = books.reduce((s, b) => s + (b.chapter_count || 0), 0);
+  renderPage(res, 200, 'checkout', { title: 'Get lifetime access', totalBooks, totalChapters });
 });
 
 export default router;

@@ -5,9 +5,23 @@ import { listBooks, listBooksByCategory } from '../model.js';
 const router = Router();
 
 router.get('/', (req, res) => {
-  const books = listBooks().filter((b) => b.status === 'published');
-  const ncertCount = listBooksByCategory('ncert').length;
-  renderPage(res, 200, 'home', { title: 'Civil services book library', books, ncertCount });
+  const all = listBooks().filter((b) => b.status === 'published');
+  const ncerts = listBooksByCategory('ncert');
+  const textbooks = all.filter((b) => b.category !== 'ncert');
+  const featured = textbooks.slice(0, 8);
+  const ncertCount = ncerts.length;
+  const totalBooks = all.length;
+  const totalChapters = all.reduce((s, b) => s + (b.chapter_count || 0), 0);
+  const subjects = [...new Set(all.map((b) => (b.subject || '').trim()).filter(Boolean))];
+  renderPage(res, 200, 'home', {
+    title: 'Civil services book library',
+    books: featured,
+    textbooks,
+    ncertCount,
+    totalBooks,
+    allChapters: totalChapters,
+    subjects,
+  });
 });
 
 router.get('/ncerts', (req, res) => {

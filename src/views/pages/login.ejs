@@ -15,13 +15,16 @@
       </label>
       <label>
         <span>Password</span>
-        <input type="password" name="password" required autocomplete="current-password" placeholder="••••••••">
+        <div class="input-with-toggle">
+          <input type="password" name="password" id="pw" required autocomplete="current-password" placeholder="••••••••">
+          <button type="button" class="pw-toggle" onclick="var i=document.getElementById('pw');i.type=i.type==='password'?'text':'password'" aria-label="Show password">Show</button>
+        </div>
       </label>
       <button class="btn btn-primary btn-lg btn-block" type="submit">
         Sign in
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </button>
     </form>
-    <p class="auth-alt muted">New here? <a href="/signup">Create an account</a></p>
+    <p class="auth-alt muted"><a href="/signup">Create an account</a> · <span class="muted" style="font-size:var(--text-xs)">Forgot password? Contact support.</span></p>
   </div>
 </div>
