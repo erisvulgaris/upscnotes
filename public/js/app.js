@@ -115,6 +115,13 @@
         setMsg('', 'Enter a coupon code first.');
       }
     });
+    // Mobile keyboard "Go/Enter" submits the coupon like the Apply button.
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        applyBtn.click();
+      }
+    });
     // Keep the input in sync when another widget already applied the coupon.
     if (appliedCoupon) input.value = appliedCoupon;
   });

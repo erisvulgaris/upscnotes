@@ -93,7 +93,7 @@
     <div class="container">
       <div class="section-head reveal">
         <h2>The library</h2>
-        <p class="muted"><%= typeof totalBooks !== 'undefined' ? totalBooks : books.length %> books across <%= typeof subjects !== 'undefined' ? subjects.length : 6 %> subjects — and growing every term.</p>
+        <p class="muted"><%= typeof totalBooks !== 'undefined' ? totalBooks : (books ? books.length : 0) %> books across <%= typeof subjects !== 'undefined' ? subjects.length : 6 %> subjects — and growing every term.</p>
       </div>
 
       <% if (books && books.length) { %>
