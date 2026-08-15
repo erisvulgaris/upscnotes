@@ -11,6 +11,7 @@ export function renderPage(res, status, page, locals = {}) {
   const merged = {
     csrf: '',
     path: '/',
+    title: 'UPSCbooks',
     user: null,
     isAdmin: false,
     hasSub: false,

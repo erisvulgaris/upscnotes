@@ -6,9 +6,20 @@
 import { esc } from './esc.js';
 
 const SEGMENTER = new Intl.Segmenter('en', { granularity: 'sentence' });
-let sidCounter = 0;
-function resetSid() { sidCounter = 0; }
-function nextSid() { return sidCounter++; }
+
+// Sentence ids are scoped per render (per HTTP request) via the render ctx,
+// never module-global — concurrent renders must not share a counter.
+function nextSid(ctx) {
+  ctx.sid = ctx.sid || { n: 0 };
+  return ctx.sid.n++;
+}
+
+function runsText(runs) {
+  if (!runs) return '';
+  let out = '';
+  for (const r of runs) out += (r.text || '');
+  return out;
+}
 
 function runsHtml(runs) {
   if (!runs) return '';
@@ -23,8 +34,8 @@ function runsHtml(runs) {
   return out;
 }
 
-function runsSentences(runs) {
-  if (!runs || !runs.length) return `<span class="tts-sent" data-sid="${nextSid()}">​</span>`;
+function runsSentences(runs, ctx) {
+  if (!runs || !runs.length) return `<span class="tts-sent" data-sid="${nextSid(ctx)}">​</span>`;
   const bounds = [];
   let text = '';
   for (const r of runs) {
@@ -32,7 +43,7 @@ function runsSentences(runs) {
     text += (r.text || '');
   }
   const segs = Array.from(SEGMENTER.segment(text)).filter((s) => s.segment.trim());
-  if (!segs.length) return `<span class="tts-sent" data-sid="${nextSid()}">${runsHtml(runs)}</span>`;
+  if (!segs.length) return `<span class="tts-sent" data-sid="${nextSid(ctx)}">${runsHtml(runs)}</span>`;
 
   const out = [];
   for (const seg of segs) {
@@ -48,7 +59,7 @@ function runsSentences(runs) {
       else if (b.r.italic) t = `<i>${t}</i>`;
       inner += t;
     }
-    out.push(`<span class="tts-sent" data-sid="${nextSid()}">${inner}</span>`);
+    out.push(`<span class="tts-sent" data-sid="${nextSid(ctx)}">${inner}</span>`);
   }
   return out.join('');
 }
@@ -56,7 +67,7 @@ function runsSentences(runs) {
 function blockHtml(b, ctx) {
   switch (b.kind) {
     case 'para':
-      return `<p class="rd-para">${runsSentences(b.runs)}</p>`;
+      return `<p class="rd-para">${runsSentences(b.runs, ctx)}</p>`;
     case 'subhead':
       return `<h3 class="rd-subhead">${runsHtml(b.runs)}</h3>`;
     case 'note':
@@ -68,7 +79,7 @@ function blockHtml(b, ctx) {
     case 'image':
       return imageHtml(b, ctx);
     default:
-      return `<p class="rd-para">${runsSentences(b.runs)}</p>`;
+      return `<p class="rd-para">${runsSentences(b.runs, ctx)}</p>`;
   }
 }
 
@@ -116,12 +127,13 @@ function imageHtml(b, ctx) {
     if (!ctx) normalized = '';
   }
   const href = normalized && ctx ? `/content/${ctx.book}/${normalized}` : '';
-  const cap = runsHtml(b['caption_runs'] || b.caption_runs || []);
+  const capHtml = runsHtml(b['caption_runs'] || b.caption_runs || []);
+  const capText = runsText(b['caption_runs'] || b.caption_runs || []);
   const wide = b.wide ? ' rd-figure-wide' : '';
   const img = href
-    ? `<img src="${esc(href)}" alt="${esc(cap)}" loading="lazy">`
+    ? `<img src="${esc(href)}" alt="${esc(capText)}" loading="lazy">`
     : `<span class="rd-figcaption-placeholder">[image]</span>`;
-  return `<figure class="rd-figure${wide}">${img}<figcaption>${cap}</figcaption></figure>`;
+  return `<figure class="rd-figure${wide}">${img}<figcaption>${capHtml}</figcaption></figure>`;
 }
 
 export function renderSection(sec, ctx) {
@@ -129,7 +141,7 @@ export function renderSection(sec, ctx) {
 }
 
 export function renderChapter(sections, ctx) {
-  resetSid();
+  ctx.sid = { n: 0 };
   let out = '';
   for (const sec of (sections || [])) {
     const sid = sec.id || sec.num;
