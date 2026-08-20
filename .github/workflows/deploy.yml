@@ -1,0 +1,24 @@
+name: Deploy to Production
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            set -e
+            cd /opt/upscotes
+            git pull origin main
+            docker compose -f docker-compose.prod.yml up -d --build
+            docker ps | grep upscotes-app
+            curl -fsS http://127.0.0.1:3003/api/health
