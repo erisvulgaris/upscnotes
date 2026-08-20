@@ -3,253 +3,258 @@
   if (books && books.length) {
     books.forEach(function(b) { totalChapters += b.chapter_count || 0; });
   }
+  // pick 3 featured books for carousel — mimic reference: Environment, Indian History, Indian Polity
+  var featured = [];
+  if (books && books.length) {
+    var env = books.find(function(b){ return (b.title||'').toLowerCase().indexOf('environment') !== -1; });
+    var hist = books.find(function(b){ return (b.title||'').toLowerCase().indexOf('history') !== -1; });
+    var polity = books.find(function(b){ return (b.title||'').toLowerCase().indexOf('polity') !== -1; });
+    if (env) featured.push(env);
+    if (hist) featured.push(hist);
+    if (polity) featured.push(polity);
+    // fill up to 3 if not found
+    for (var i=0; featured.length < 3 && i < books.length; i++) {
+      if (featured.indexOf(books[i]) === -1) featured.push(books[i]);
+    }
+    featured = featured.slice(0,3);
+  }
 %>
-<div class="page">
-  <section class="hero">
+<div class="page home-page">
+  <!-- HERO — matches reference: left text + right visual -->
+  <section class="hero hero-ref">
     <div class="container">
       <div class="hero-split">
         <div class="hero-inner">
-          <span class="hero-badge">
-            <span class="ico-dot" aria-hidden="true"></span>
-            Launch offer · ₹999 lifetime access · use code UPSC299 for ₹299
-          </span>
-          <h1 class="hero-title">One library for your entire <em>civil services</em> journey.</h1>
-          <p class="hero-sub muted">
-            Every UPSC book you need — complete, chapter-by-chapter, with search,
-            TTS reading mode and practice. Pay once, read everything we ever publish.
+          <h1 class="hero-title">
+            One Library for<br>
+            your Entire<br>
+            <span class="hl">Civil Services</span><br>
+            Journey
+          </h1>
+          <p class="hero-sub">
+            NCERT to UPSC — Complete, chapter-wise study,<br>
+            modern notes, and trusted resources for<br>
+            serious aspirants.
           </p>
+          <div class="hero-tags">
+            <span><span class="dot" style="background:#6D28D9;"></span> NCERT Ready</span>
+            <span><span class="dot" style="background:#059669;"></span> UPSC Focused</span>
+            <span><span class="dot" style="background:#F59E0B;"></span> Student Friendly</span>
+          </div>
           <div class="hero-cta">
             <% if (user) { %>
               <% if (hasSub) { %>
-                <a class="btn btn-primary btn-lg" href="/dashboard">
-                  Open my library
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
+                <a class="btn btn-primary btn-lg" href="/dashboard">Open my library →</a>
               <% } else { %>
-                <a class="btn btn-gold btn-lg" href="/checkout">
-                  Claim ₹999 lifetime
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </a>
+                <a class="btn btn-primary btn-lg" href="/checkout">Start Reading Free →</a>
               <% } %>
             <% } else { %>
-              <a class="btn btn-gold btn-lg" href="/signup">
-                Get ₹999 lifetime access
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </a>
+              <a class="btn btn-primary btn-lg" href="/signup">Start Reading Free →</a>
             <% } %>
-            <a class="btn btn-ghost btn-lg" href="#books">Browse books</a>
+            <a class="btn btn-ghost btn-lg" href="#books">Explore Library</a>
           </div>
-          <div class="hero-meta">
-            <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-              All current + future books
-            </span>
-            <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-              Read on desktop &amp; mobile
-            </span>
-            <span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-              Instant access after payment
-            </span>
-          </div>
+          <div class="hero-join">🔥 Join 50,000+ aspirants learning smarter</div>
         </div>
-
-        <div class="hero-visual reveal" aria-hidden="true">
-          <div class="reader-sheet">
-            <div class="rs-cover">
-              <span>UPSCBOOKS</span>
-              <strong>Modern Indian<br>History</strong>
+        <div class="hero-visual" aria-hidden="true">
+          <div class="hero-photo">
+            <div class="hero-sticky t1">KPSC</div>
+            <div class="hero-sticky t2">IAS</div>
+            <div class="hero-sticky t3">Civil Services <span style="color:#EC4899;">♥</span></div>
+            <div class="hero-mug">Dream.<br>Plan.<br>Study.<br>Win.</div>
+            <div class="hero-books">
+              <div class="hb hb-upsc">UPSC</div>
+              <div class="hb hb-ncert">NCERT</div>
+              <div class="hb hb-polity">Indian Polity</div>
+              <div class="hb hb-geo">Geography</div>
             </div>
-            <div class="rs-body">
-              <div class="rs-row">
-                <span class="k">Your progress · Polity</span>
-                <div class="rs-track"><i></i></div>
-              </div>
-              <div class="rs-row">
-                <span class="k">TTS reading · sentence by sentence</span>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="width:100%;height:14px;color:var(--muted)"><path d="M3 18v-6a9 9 0 0 1 18 0v6M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
-              </div>
-            </div>
+            <!-- student placeholder — styled via CSS background -->
+            <div class="hero-student"></div>
           </div>
-          <span class="floaty f1">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
-            ₹999 lifetime
-          </span>
-          <span class="floaty f2">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            <%= typeof allChapters !== 'undefined' ? allChapters : '650+' %> chapters · <%= ncertCount %> NCERTs
-          </span>
-          <span class="floaty f3">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            Instant unlock
-          </span>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Why Students Love -->
+  <section class="section section-love">
+    <div class="container">
+      <div class="section-head center">
+        <h2><span style="color:#6D28D9;">◆</span> Why Students Love UPSCbooks</h2>
+        <p class="muted">Smart resources. Better learning. Bigger success.</p>
+      </div>
+      <div class="love-grid">
+        <div class="love-card c1">
+          <div class="love-icon" style="background:#DBEAFE;color:#1D4ED8;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <h3>Complete Books</h3>
+          <p>Full chapter-wise coverage<br>for UPSC & NCERT</p>
+        </div>
+        <div class="love-card c2">
+          <div class="love-icon" style="background:#FEF3C7;color:#D97706;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="22" height="22"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+          <h3>Fast Reading</h3>
+          <p>Clean layout, easy<br>navigation, less distraction</p>
+        </div>
+        <div class="love-card c3">
+          <div class="love-icon" style="background:#EDE9FE;color:#7C3AED;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><circle cx="12" cy="8" r="5"/><path d="M8 14a4 4 0 0 0-4 4v2h16v-2a4 4 0 0 0-4-4H8z"/><circle cx="12" cy="8" r="1"/><path d="M12 11v2"/><path d="M9 15h6"/></svg></div>
+          <h3>Smarter Learning</h3>
+          <p>Topic-wise notes &<br>key takeaways</p>
+        </div>
+        <div class="love-card c4">
+          <div class="love-icon" style="background:#FFFBEB;color:#D97706;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="22" height="22"><path d="M6 13c0 3 2 5 6 5s6-2 6-5-2.5-6-6-6-6 2.5-6 6z"/><path d="M9 13h6"/><path d="M12 10v6"/></svg></div>
+          <h3>UPSC Ready</h3>
+          <p>From basics to<br>prelims & mains</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Library — lavender container with carousel -->
   <section class="section" id="books">
     <div class="container">
-      <div class="section-head reveal">
-        <h2>The library</h2>
-        <p class="muted"><%= typeof totalBooks !== 'undefined' ? totalBooks : (books ? books.length : 0) %> books across <%= typeof subjects !== 'undefined' ? subjects.length : 6 %> subjects — and growing every term.</p>
-      </div>
-
-      <% if (books && books.length) { %>
-        <div class="book-grid">
-          <% books.forEach(function (b, i) { %>
-            <a class="book-card <%= b.cover ? '' : 'is-placeholder' %> reveal" style="--d:<%= (i % 4) * 70 + 'ms' %>" href="/dashboard">
-              <div class="book-cover" <% if (b.color) { %>style="--cover:<%= b.color %>"<% } %>>
-                <% if (b.cover) { %>
-                  <img src="/content/<%= b.slug %>/cover.<%= b.cover.split('.').pop() %>" alt="<%= b.title %> cover">
-                <% } else { %>
-                  <div class="cover-art" data-subject="<%= b.subject || '' %>">
-                    <span class="cover-genre">UPSCBOOKS</span>
-                    <span class="cover-title"><%= b.title %></span>
-                    <span class="cover-author"><%= b.author %></span>
-                  <% } %>
-              </div>
-              <div class="book-meta">
-                <h3><%= b.title %></h3>
-                <p class="muted"><%= b.author %></p>
-                <span class="chip"><%= b.chapter_count %> chapters</span>
-              </div>
-            </a>
-          <% }); %>
-        </div>
-        <div style="text-align:center;margin-top:var(--space-6);">
-          <a class="btn btn-ghost" href="/dashboard">
-            View all <%= typeof totalBooks !== 'undefined' ? totalBooks : '' %> books
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>
-      <% } else { %>
-        <p class="muted">The library is being prepared — check back soon.</p>
-      <% } %>
-    </div>
-  </section>
-
-  <section class="section section-tint" id="ncerts">
-    <div class="container">
-      <div class="section-head reveal">
-        <h2>NCERT Textbooks</h2>
-        <p class="muted"><%= typeof ncertCount !== 'undefined' ? ncertCount : 38 %> NCERT books — the foundation for UPSC, chapter by chapter.</p>
-      </div>
-      <div class="ncert-subjects reveal">
-        <a class="ncert-pill" href="/ncerts">History</a>
-        <a class="ncert-pill" href="/ncerts">Geography</a>
-        <a class="ncert-pill" href="/ncerts">Economics</a>
-        <a class="ncert-pill" href="/ncerts">Political Science</a>
-        <a class="ncert-pill" href="/ncerts">Social Science</a>
-      </div>
-      <div style="text-align:center;margin-top:20px;">
-        <a class="btn btn-primary" href="/ncerts">
-          Browse all NCERTs
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-tint" id="features">
-    <div class="container">
-      <div class="section-head reveal">
-        <h2>Built for serious prep</h2>
-        <p class="muted">Everything a modern aspirant needs, in one calm place.</p>
-      </div>
-      <div class="features-grid">
-        <div class="feat-card reveal">
-          <span class="ico-tile" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          </span>
-          <h3>Complete books</h3>
-          <p>Full chapter-by-chapter text of every title — no slices, no teasers.</p>
-        </div>
-        <div class="feat-card reveal" style="--d:80ms">
-          <span class="ico-tile" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
-          </span>
-          <h3>TTS reading</h3>
-          <p>Follow along with natural text-to-speech, sentence by sentence.</p>
-        </div>
-        <div class="feat-card reveal" style="--d:160ms">
-          <span class="ico-tile" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-          </span>
-          <h3>Full-text search</h3>
-          <p>Search every chapter of every book and jump straight to the answer.</p>
-        </div>
-        <div class="feat-card reveal" style="--d:240ms">
-          <span class="ico-tile gold" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          </span>
-          <h3>Always growing</h3>
-          <p>New books and editions land in your library — lifetime pass covers them.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="offer">
-    <div class="container">
-      <div class="pricing reveal">
-        <div class="pricing-head">
-          <span class="pricing-tag">Limited time offer</span>
-          <h2>One payment. Everything, forever.</h2>
-          <p class="muted">A single lifetime pass — no renewals, ever.</p>
-        </div>
-        <div class="pricing-card">
-          <div class="price">
-            <span class="price-cur">₹</span><span class="price-num" data-price>999</span>
-            <span class="price-per">lifetime</span>
+      <div class="library-box">
+        <div class="library-head">
+          <div>
+            <h2><span style="color:#6D28D9;">📚</span> The Library</h2>
+            <p class="muted"><strong><%= typeof totalBooks !== 'undefined' ? totalBooks : (books ? books.length : 0) %>+ books & growing</strong> — covers all major subjects.</p>
+            <ul class="library-checks">
+              <li>✓ NCERT textbooks (All Subjects)</li>
+              <li>✓ UPSC Prelims & Mains</li>
+              <li>✓ Indian History, Polity, Geography</li>
+              <li>✓ Economics, Environment & more</li>
+            </ul>
+            <div style="display:flex;gap:10px;margin-top:14px;">
+              <a class="btn btn-primary btn-sm" href="/dashboard">Browse Library</a>
+              <a class="btn btn-ghost btn-sm" href="/dashboard">View All Books</a>
+            </div>
           </div>
-          <div class="price-old">One-time, normally recurring</div>
-          <ul class="price-feats">
-            <li><%= typeof totalBooks !== 'undefined' ? totalBooks : books.length %> books today — History, Geography, Economics, Polity, Environment & more</li>
-            <li><%= typeof allChapters !== 'undefined' ? allChapters : '650+' %> chapters and growing</li>
-            <li>TTS reading, search, flashcards included</li>
-            <li>Access on any device</li>
-          </ul>
-          <% if (user) { %>
-            <a class="btn btn-primary btn-lg btn-block" href="/checkout">Get lifetime access</a>
-          <% } else { %>
-            <a class="btn btn-primary btn-lg btn-block" href="/signup">Get lifetime access</a>
-          <% } %>
-          <%- include('partials/coupon') %>
-          <p class="price-note muted">
-            Secure payment via Razorpay
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="width:12px;height:12px;vertical-align:-1px" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1zM9 12l2 2 4-4"/></svg>
-             · UPI · cards · netbanking · 7-day money-back guarantee
-          </p>
+          <div class="library-carousel">
+            <button class="car-arrow left" aria-label="Previous">‹</button>
+            <div class="car-track">
+              <% featured.forEach(function(b){ %>
+                <a href="/dashboard" class="car-card">
+                  <div class="car-cover" style="--cover:<%= b.color || '#1a5c2a' %>">
+                    <div class="car-cover-inner" data-subject="<%= b.subject || '' %>">
+                      <span style="font-size:9px;letter-spacing:.1em;opacity:.8;">UPSC</span>
+                      <span class="car-title"><%= b.title %></span>
+                      <span style="font-size:10px;opacity:.7;"><%= b.subject || 'UPSC' %></span>
+                    </div>
+                  </div>
+                  <div class="car-meta">
+                    <div style="font-size:11px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><%= b.title %></div>
+                    <div style="font-size:11px;color:var(--muted);"><%= b.author %></div>
+                    <div style="display:flex;gap:6px;margin-top:6px;">
+                      <span class="chip" style="font-size:10px;padding:2px 6px;background:#FEF3C7;border-color:#FDE68A;">UPSC</span>
+                      <span style="margin-left:auto;font-size:11px;font-weight:700;color:#059669;">Free</span>
+                    </div>
+                  </div>
+                </a>
+              <% }); %>
+            </div>
+            <button class="car-arrow right" aria-label="Next">›</button>
+          </div>
+        </div>
+        <div class="car-dots"><span class="on"></span><span></span><span></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NCERT Textbooks -->
+  <section class="section ncert-ref">
+    <div class="container">
+      <div class="ncert-head">
+        <div>
+          <h3><span style="color:#EC4899;">♥</span> NCERT Textbooks</h3>
+          <p class="muted" style="font-size:13px;margin:4px 0 10px;">38 NCERT books — the foundation for UPSC, chapter by chapter.</p>
+          <div class="ncert-pills">
+            <a href="/ncerts" class="pill">History</a>
+            <a href="/ncerts" class="pill on">Geography</a>
+            <a href="/ncerts" class="pill">Economics</a>
+            <a href="/ncerts" class="pill">Political Science</a>
+            <a href="/ncerts" class="pill">Social Science</a>
+          </div>
+        </div>
+        <a class="btn btn-primary" style="background:linear-gradient(135deg,#6D28D9,#F59E0B);border:none;" href="/ncerts">Browse All NCERTs →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Built for Serious Prep -->
+  <section class="section">
+    <div class="container">
+      <div class="serious-box">
+        <div>
+          <h2>Built for Serious Prep</h2>
+          <p class="muted" style="margin:4px 0 16px;">Everything a modern aspirant needs, in one place.</p>
+          <div class="serious-grid">
+            <div class="serious-card"><div class="serious-icon">👥</div><div><strong>50,000+</strong><br><span>Active Students</span></div></div>
+            <div class="serious-card"><div class="serious-icon">📚</div><div><strong>46+</strong><br><span>Books Available</span></div></div>
+            <div class="serious-card"><div class="serious-icon">✓</div><div><strong>100%</strong><br><span>NCERT Covered</span></div></div>
+            <div class="serious-card"><div class="serious-icon">🎯</div><div><strong>UPSC Focused</strong><br><span>Study Resources</span></div></div>
+          </div>
+        </div>
+        <div class="serious-visual">
+          <div class="serious-sticky">Keep Going <span style="color:#EC4899;">♡</span></div>
+          <div class="serious-books">📚</div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section section-tint" id="trust">
+  <!-- One payment -->
+  <section class="section">
     <div class="container">
-      <div class="section-head reveal">
-        <h2>Why aspirants choose UPSCbooks</h2>
-        <p class="muted">Built by people who've been through the grind.</p>
+      <div class="pay-box">
+        <div class="pay-illus">🎓</div>
+        <div class="pay-main">
+          <h3><span style="color:#F59E0B;">👑</span> One payment. Everything, forever.</h3>
+          <p class="muted" style="font-size:13px;margin:2px 0 12px;">A single lifetime pass — no renewals, ever.</p>
+          <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;">
+            <span style="font-size:28px;font-weight:800;">₹299</span>
+            <span style="text-decoration:line-through;color:var(--ash);">₹1,199</span>
+            <span style="font-size:12px;background:#FEF3C7;padding:2px 6px;border-radius:6px;">Lifetime Access</span>
+          </div>
+          <ul style="margin:10px 0 0;padding:0;list-style:none;font-size:13px;display:grid;gap:4px;">
+            <li>✓ All NCERT & UPSC books</li>
+            <li>✓ Chapter-wise notes</li>
+            <li>✓ Student-friendly layout</li>
+            <li>✓ Lifetime updates</li>
+          </ul>
+        </div>
+        <div class="pay-cta">
+          <a class="btn btn-primary btn-lg" style="background:#6D28D9;" href="/checkout">⚡ Get Lifetime Access</a>
+          <div style="font-size:11px;color:var(--muted);margin-top:6px;text-align:center;">Trusted by 50,000+ aspirants</div>
+        </div>
       </div>
-      <div class="trust-grid">
-        <div class="trust-card reveal">
-          <span class="trust-num">100%</span>
-          <p>Complete chapter-by-chapter text — not summaries or excerpts.</p>
+    </div>
+  </section>
+
+  <!-- Why Choose -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head center">
+        <h2>Why Choose UPSCbooks</h2>
+        <p class="muted">Learn better. Score higher.</p>
+      </div>
+      <div class="love-grid">
+        <div class="love-card"><div class="love-icon" style="background:#EDE9FE;color:#6D28D9;">◎</div><h3>Focused Study</h3><p>UPSC & NCERT<br>aligned content</p></div>
+        <div class="love-card"><div class="love-icon" style="background:#DBEAFE;color:#1D4ED8;">▭</div><h3>Study Anytime</h3><p>Mobile & desktop<br>friendly</p></div>
+        <div class="love-card"><div class="love-icon" style="background:#FEF3C7;color:#D97706;">◉</div><h3>For Every Aspirant</h3><p>Beginner to<br>serious topper</p></div>
+        <div class="love-card"><div class="love-icon" style="background:#FCE7F3;color:#DB2777;">♡</div><h3>Student First</h3><p>Simple, clean,<br>distraction-free</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA banner -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="cta-banner">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <span style="width:40px;height:40px;border-radius:12px;background:white;display:grid;place-items:center;font-size:20px;">🎓</span>
+          <div>
+            <div style="font-weight:800;font-size:18px;color:white;">Start your UPSC journey today</div>
+            <div style="font-size:13px;color:rgba(255,255,255,.9);">Read. Learn. Crack.</div>
+          </div>
         </div>
-        <div class="trust-card reveal" style="--d:80ms">
-          <span class="trust-num">₹299</span>
-          <p>Use code UPSC299 at checkout. One-time payment, lifetime access.</p>
-        </div>
-        <div class="trust-card reveal" style="--d:160ms">
-          <span class="trust-num">∞</span>
-          <p>Every future book added to your library — at no extra cost.</p>
-        </div>
-        <div class="trust-card reveal" style="--d:240ms">
-          <span class="trust-num">7 days</span>
-          <p>Not satisfied? Email us within 7 days for a full refund.</p>
-        </div>
+        <a class="btn" style="background:white;color:#6D28D9;font-weight:700;" href="/checkout">Get Lifetime Access →</a>
       </div>
     </div>
   </section>

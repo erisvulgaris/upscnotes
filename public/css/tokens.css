@@ -1,126 +1,115 @@
 /* =====================================================================
-   UPSCbooks — design tokens (lock-step with DESIGN.md)
+   UPSCbooks — design tokens — vibrant, student-friendly (matches ref)
    ===================================================================== */
 :root {
-  /* ─── Brand ─── */
-  --brand: #5C2E2B;            /* Oxblood */
-  --brand-700: #47231F;        /* Oxblood 700 (hover, footer) */
+  /* ─── Brand — vibrant purple (from reference) ─── */
+  --brand: #6D28D9;
+  --brand-600: #7C3AED;
+  --brand-700: #5B21B6;
+  --brand-800: #4C1D95;
+  --brand-light: #EDE9FE;
+  --brand-soft: #F5F3FF;
 
-  /* ─── Accent ─── */
-  --accent: #B08A3E;           /* Antique Brass */
-  --accent-deep: #8C6C2C;     /* Brass Deep */
+  /* ─── Accent — warm orange (for CTAs & highlights) ─── */
+  --accent: #F59E0B;
+  --accent-500: #F97316;
+  --accent-deep: #D97706;
+  --accent-light: #FEF3C7;
+  --accent-soft: #FFFBEB;
 
   /* ─── Surface ─── */
-  --bg: #F5F2EC;               /* Ivory paper */
-  --surface: #FCFAF6;          /* Paper (cards) */
-  --surface-tint: #EDE8DE;    /* Paper Dark (wells) */
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-tint: #F5F3FF;  /* light lavender tint */
+  --surface-warm: #FFFBEB;
+  --lavender: #EDE9FE;
+  --lavender-soft: #F5F3FF;
+  --purple-soft: #DDD6FE;
 
   /* ─── Foreground ─── */
-  --ink: #24201C;
-  --fg-2: #4A443C;             /* Warm Slate */
-  --muted: #4A443C;
-  --ash: #8C857A;              /* muted/meta */
-  --meta: #8C857A;
+  --ink: #1E1B4B;            /* deep indigo */
+  --ink-light: #1E293B;
+  --fg-2: #475569;
+  --muted: #64748B;
+  --ash: #94A3B8;
+  --meta: #94A3B8;
 
   /* ─── Border ─── */
-  --border: #DDD6C9;           /* Line */
-  --border-soft: #EAE4D9;     /* Hairline */
+  --border: #E2E8F0;
+  --border-soft: #F1F5F9;
+  --border-purple: #E9D5FF;
 
   /* ─── Semantic ─── */
-  --success: #2F6B4F;
-  --warning: #A07B2E;
-  --danger: #9C3B32;
-  --info: #3E5F7C;
+  --success: #10B981;
+  --warning: #F59E0B;
+  --danger: #EF4444;
+  --info: #0EA5E9;
 
-  /* ─── Typography (editorial, premium) ─── */
-  --font-display: "Libre Caslon Display", Georgia, "Times New Roman", serif;
-  --font-body: Inter, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* ─── Typography ─── */
+  --font-display: "Plus Jakarta Sans", "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-mono: ui-monospace, "JetBrains Mono", Menlo, monospace;
-  --text-xs: 12px; --text-sm: 13.5px; --text-base: 16px; --text-md: 17.5px;
-  --text-lg: 19px; --text-xl: 24px; --text-2xl: 32px; --text-3xl: 40px; --text-4xl: 52px;
-  --leading-body: 1.7; --leading-tight: 1.05; --leading-snug: 1.35; --leading-display: 1.1;
-  --tracking-display: -0.015em; --tracking-wide: 0.07em; --tracking-wide2: 0.1em;
-  --font-weight-regular: 400; --font-weight-medium: 500; --font-weight-semibold: 600; --font-weight-bold: 700;
+  --text-xs: 11px; --text-sm: 13px; --text-base: 15px; --text-md: 16px;
+  --text-lg: 18px; --text-xl: 22px; --text-2xl: 28px; --text-3xl: 36px; --text-4xl: 44px;
+  --leading-body: 1.6; --leading-tight: 1.05; --leading-snug: 1.3;
+  --tracking-display: -0.02em; --tracking-wide: 0.06em; --tracking-wide2: 0.08em;
 
-  /* ─── Spacing (4px base, editorial rhythm) ─── */
+  /* ─── Spacing ─── */
   --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
-  --space-5: 20px; --space-6: 24px; --space-7: 28px; --space-8: 32px; --space-10: 40px;
-  --space-12: 48px; --space-14: 56px; --space-16: 64px; --space-20: 80px; --space-24: 96px; --space-32: 128px;
-  --section-y-desktop: 88px; --section-y-tablet: 64px; --section-y-phone: 48px;
-  --content-gap: 28px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  --space-12: 48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
+  --section-y-desktop: 56px; --section-y-tablet: 48px; --section-y-phone: 32px;
 
-  /* ─── Radius (soft, premium) ─── */
-  --radius-sm: 10px; --radius-md: 14px; --radius-lg: 16px;
-  --radius-xl: 20px; --radius-pill: 999px;
+  /* ─── Radius ─── */
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px;
+  --radius-xl: 20px; --radius-2xl: 24px; --radius-pill: 999px;
 
-  /* ─── Elevation (flat, subtle) ─── */
-  --elev-flat: none;
-  --elev-hairline: 0 0 0 1px var(--border);
-  --elev-soft: 0 1px 2px rgba(24,20,16,.04), 0 4px 12px rgba(24,20,16,.06);
-  --elev-raised: 0 2px 8px rgba(24,20,16,.06), 0 8px 24px rgba(24,20,16,.08);
-  --elev-floating: 0 8px 24px rgba(24,20,16,.10), 0 20px 48px rgba(24,20,16,.12);
-  --glow-amber: 0 0 40px rgba(140,108,44,.06);
+  /* ─── Elevation (soft, modern) ─── */
+  --elev-card: 0 1px 3px rgba(0,0,0,.05), 0 4px 12px rgba(0,0,0,.04);
+  --elev-card-hover: 0 4px 12px rgba(0,0,0,.08), 0 12px 24px rgba(0,0,0,.06);
+  --elev-soft: 0 1px 3px rgba(0,0,0,.05);
+  --elev-raised: 0 4px 12px rgba(0,0,0,.08);
+  --elev-floating: 0 8px 24px rgba(0,0,0,.12);
 
-  /* ─── Focus ─── */
-  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--accent) 32%, transparent);
+  /* ─── Gradients (from reference) ─── */
+  --grad-purple: linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%);
+  --grad-orange: linear-gradient(135deg, #F59E0B 0%, #EC4899 100%);
+  --grad-purple-orange: linear-gradient(135deg, #6D28D9 0%, #EC4899 50%, #F59E0B 100%);
+  --grad-card-blue: linear-gradient(135deg, #DBEAFE 0%, #EFF6FF 100%);
+  --grad-card-purple: linear-gradient(135deg, #EDE9FE 0%, #F5F3FF 100%);
+  --grad-card-peach: linear-gradient(135deg, #FEF3C7 0%, #FFFBEB 100%);
+  --grad-card-green: linear-gradient(135deg, #D1FAE5 0%, #ECFDF5 100%);
 
-  /* ─── Motion (calm, premium) ─── */
-  --motion-fast: 160ms; --motion-base: 240ms; --motion-slow: 400ms;
+  /* ─── Brand gradients (keep for buttons) ─── */
+  --grad-hero: linear-gradient(180deg, #F5F3FF 0%, #FFFFFF 100%);
+  --grad-brand: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+  --grad-brand-strong: linear-gradient(135deg, #6D28D9 0%, #4C1D95 100%);
+  --grad-gold: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+
+  /* Motion */
+  --motion-fast: 150ms; --motion-base: 250ms;
   --ease-standard: cubic-bezier(0.2,0,0,1);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-slow: 400ms; --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* ─── Layout ─── */
-  --container-max: 1140px;
-  --container-gutter-desktop: 28px; --container-gutter-tablet: 20px; --container-gutter-phone: 16px;
+  /* Layout */
+  --container-max: 1180px;
+  --container-gutter-desktop: 24px; --container-gutter-tablet: 20px; --container-gutter-phone: 16px;
   --radius-cover: 12px;
-
-  /* Reader chrome (scoped on read pages) */
-  --read-width: 720px; --read-line: 68ch;
+  --read-width: 720px;
 }
 
-/* ─── Atmosphere & Motion (decorative, built on brand) ─── */
-:root {
-  /* Shell & decorative surfaces — flat, timeless. */
-  --grad-hero: var(--bg);
-  --grad-brand: var(--brand);
-  --grad-brand-strong: var(--brand);
-  --grad-gold: var(--accent);
-
-  /* Motion. */
-  --dur-slow: 480ms;
-  --dur-xslow: 900ms;
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
-
-  /* Ambient ring (soft, non-floating surfaces get a whisper instead of shadow). */
-  --ring-soft: 0 0 0 1px color-mix(in srgb, var(--border) 60%, transparent);
-  --ring-brand: 0 0 0 1px color-mix(in srgb, var(--brand) 45%, transparent);
-  --ring-brand-soft: 0 0 0 1px color-mix(in srgb, var(--brand) 28%, transparent);
-  --glow-brand: 0 14px 44px -12px rgba(60,40,35,.18);
-  --glow-gold: 0 16px 46px -14px rgba(140,108,44,.25);
-}
-
-/* ─── Dark Mode ─── */
+/* Dark mode — keep readable but not used in reference (reference is light) */
 html.dark {
-  --bg: #171510;             /* Night paper */
-  --surface: #201D17;        /* Night Card */
-  --surface-tint: #262218;
-  --ink: #EDE9E0;           /* Night Ink */
-  --fg-2: #C9C3B6;
-  --muted: #9C9587;
-  --ash: #6E675C;
-  --meta: #6E675C;
-  --border: #2E2A22;         /* Night Line */
-  --border-soft: #262219;
-  --brand: #C48B84;          /* lighter oxblood for dark bg */
-  --brand-700: #D5A29B;
-  --accent: #CDA95C;
-  --accent-deep: #E0C07A;
-  --success: #5F9C7D;
-  --warning: #C9A455;
-  --danger: #D07A6F;
-  --info: #7E9CB8;
-  --elev-raised: 0 2px 6px rgba(0,0,0,.4);
-  --elev-floating: 0 10px 30px rgba(0,0,0,.5);
-  --focus-ring: 0 0 0 3px color-mix(in srgb, var(--accent) 40%, transparent);
+  --bg: #0F0A1E;
+  --surface: #1A1033;
+  --surface-tint: #1E1B4B;
+  --ink: #F5F3FF;
+  --fg-2: #C4B5FD;
+  --muted: #A78BFA;
+  --ash: #8B5CF6;
+  --border: #2E1065;
+  --border-soft: #1E1B4B;
+  --brand: #8B5CF6; --brand-700: #7C3AED;
+  --accent: #FBBF24; --accent-deep: #F59E0B;
 }
