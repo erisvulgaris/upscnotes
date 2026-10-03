@@ -6,7 +6,9 @@
 
 :root {
   --read-w: 720px;
-  --dock-h: 60px;
+  /* Measured against the rendered dock (61px) plus breathing room, so the last
+     lines of a chapter are never hidden behind it. */
+  --dock-h: 64px;
   --font-scale: 1;
 }
 
@@ -14,7 +16,7 @@ body.reading {
   background: var(--bg);
   color: var(--ink);
   /* Keep the dock from covering the last lines of a chapter. */
-  padding-bottom: calc(var(--dock-h) + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(var(--dock-h) + var(--sp-6) + env(safe-area-inset-bottom, 0px));
 }
 
 /* ---------- Reading progress ---------------------------------------- */
@@ -97,7 +99,7 @@ body.reading {
 /* ---------- Reading column --------------------------------------------- */
 .rd-body {
   max-width: var(--read-w); margin-inline: auto;
-  padding: var(--sp-6) var(--gutter) var(--sp-16);
+  padding: var(--sp-6) var(--gutter) var(--sp-10);
   font-size: calc(1rem * var(--font-scale));
 }
 .rd-eyebrow { margin-bottom: var(--sp-2); }

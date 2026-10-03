@@ -109,6 +109,43 @@
     }
   }
 
+  /* ------------------------------------------------- subjects dropdown */
+  var menu = document.querySelector('.has-menu');
+  if (menu) {
+    var menuBtn = $('.nav-menu-btn', menu);
+    var menuPanel = $('.nav-menu', menu);
+    var menuOpen = false;
+
+    function setMenu(open) {
+      menuOpen = open;
+      menu.classList.toggle('open', open);
+      if (menuPanel) menuPanel.hidden = !open;
+      if (menuBtn) menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    if (menuBtn && menuPanel) {
+      menuBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        setMenu(!menuOpen);
+        if (menuOpen) {
+          var first = menuPanel.querySelector('a');
+          if (first) first.focus();
+        }
+      });
+      menuPanel.addEventListener('click', function (e) {
+        if (e.target.closest('a')) setMenu(false);
+      });
+      document.addEventListener('click', function (e) {
+        if (menuOpen && !menu.contains(e.target)) setMenu(false);
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && menuOpen) { setMenu(false); menuBtn.focus(); }
+      });
+      menu.addEventListener('focusout', function (e) {
+        if (menuOpen && !menu.contains(e.relatedTarget)) setMenu(false);
+      });
+    }
+  }
+
   /* ------------------------------------------------- scroll reveal */
   function initReveal() {
     var els = $$('.reveal');

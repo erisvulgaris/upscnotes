@@ -1,4 +1,4 @@
-import 'dotenv/config';
+﻿import 'dotenv/config';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
@@ -18,6 +18,7 @@ import readRoutes from './routes/read.js';
 import extrasRoutes from './routes/extras.js';
 import adminRoutes from './routes/admin.js';
 import apiRoutes from './routes/api.js';
+import audioRoutes from './routes/audio.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SESSION_SECRET = process.env.SESSION_SECRET || 'dev-only-secret-change-me';
@@ -57,14 +58,14 @@ export function createApp() {
   }));
   app.use(attachViewLocals);
   app.use(attachCsrf);
-  // CSRF for every state-changing request. The Razorpay webhook is exempt —
+  // CSRF for every state-changing request. The Razorpay webhook is exempt â€”
   // it carries no session cookie and is already HMAC-signature-verified.
   app.use((req, res, next) => {
     if (req.path === '/api/payments/webhook') return next();
     return csrfProtect(req, res, next);
   });
 
-  // Auth-guarded book media (images/maps) — content/ is private.
+  // Auth-guarded book media (images/maps) â€” content/ is private.
   const contentDir = path.join(__dirname, '..', 'content');
   app.use('/content', (req, res, next) => {
     if (!req.session.userId) return res.status(401).send('Sign in required');
@@ -79,6 +80,8 @@ export function createApp() {
   app.use('/book', extrasRoutes);
   app.use('/admin', adminRoutes);
   app.use('/api', apiRoutes);
+  // Pre-rendered Edge TTS audio (16 kHz Opus), served from disk or R2.
+  app.use('/audio', audioRoutes);
 
   app.use((req, res) => {
     renderPage(res, 404, '404', { title: 'Not found' });

@@ -20,7 +20,10 @@
   color: var(--brand); text-decoration: none;
 }
 .ex-nav-back:hover { text-decoration: underline; }
-.ex-nav-scroll { margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); }
+/* `.ex-nav` is full-bleed (a direct child of .page, outside .container), so
+   the chip row is padded to align with the container. Negative margins here
+   pushed the nav 16px past the viewport on a phone. */
+.ex-nav-scroll { padding-inline: var(--gutter); }
 .ex-pad { padding-block: var(--sp-8) var(--sp-16); }
 
 /* ---------- Hub ------------------------------------------------------ */
@@ -254,9 +257,9 @@
 }
 
 @media (min-width: 900px) {
-  .ex-nav { display: flex; align-items: center; gap: var(--sp-4); }
+.ex-nav { display: flex; align-items: center; gap: var(--sp-4); }
   .ex-nav-back { margin-bottom: 0; }
-  .ex-nav-scroll { margin-inline: 0; padding-inline: 0; }
+  .ex-nav-scroll { padding-inline: 0; }
   .ex-grid { grid-template-columns: repeat(3, 1fr); }
   .fc-grid { grid-template-columns: repeat(4, 1fr); }
   .ex-filters { grid-template-columns: 1fr 1fr; }

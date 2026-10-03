@@ -4,6 +4,17 @@
   var subjectList = subjects || [];
   var spotlightBook = spotlight || null;
   var spotlightTools = spotlightExtras || null;
+  // A representative shelf for the hero. Prefer the longest titles so the
+  // covers read as substantial books rather than slim pamphlets.
+  var shelf = ((typeof shelfBooks !== 'undefined' && shelfBooks) ? shelfBooks : []).slice(0, 4);
+  var subjectSamples = (typeof subjectSamples !== 'undefined' && subjectSamples) ? subjectSamples : {};
+  var ncertShelf = (typeof ncertShelf !== 'undefined' && ncertShelf) ? ncertShelf : [];
+
+  // Per-subject accents. The first list drives the accent bar only; the second
+  // is a contrast-checked text colour for the badge on its tint.
+  var subjectColors = ['#1E2A52', '#8B2500', '#1565C0', '#00695C', '#2E7D32', '#4A148C', '#B45309', '#0F766E'];
+  var subjectTints  = ['#EDEFF8', '#F6EAE4', '#E7EFFA', '#E4F1EF', '#E7F1E8', '#EFE9F6', '#FBF0E2', '#E2F2F0'];
+  var subjectInks   = ['#2B3A6B', '#9A3412', '#1D4ED8', '#0F766E', '#15803D', '#6D28D9', '#A15C07', '#0F766E'];
 %>
 <div class="page home-page">
 
@@ -29,74 +40,33 @@
           <a class="btn btn-ghost btn-lg" href="/library">Browse <%= totalBooks %> books</a>
         </div>
 
-        <div class="hero-tags">
-          <span class="hero-tag"><span class="dot"></span><%= ncertBooks %> NCERT textbooks</span>
-          <span class="hero-tag"><span class="dot"></span><%= allChapters %> chapters</span>
-          <span class="hero-tag is-accent"><span class="dot"></span>Lifetime access</span>
-        </div>
-        <p class="hero-proof">One payment. No renewals. Every current and future book in the library.</p>
+        <ul class="hero-facts" aria-label="Library at a glance">
+          <li><b><%= totalBooks %></b> books</li>
+          <li><b><%= allChapters %></b> chapters</li>
+          <li><b><%= ncertBooks %></b> NCERT</li>
+          <li><b><%= subjectList.length %></b> subjects</li>
+        </ul>
       </div>
 
-      <!-- Real composition: live library numbers + the product's own features -->
+      <!-- The library itself. A book platform should show books. -->
       <div class="hero-visual">
-        <div class="hero-card">
-          <div class="hero-stat-row">
-            <div>
-              <div class="hero-stat-v"><%= totalBooks %></div>
-              <div class="hero-stat-k">Books</div>
-            </div>
-            <div>
-              <div class="hero-stat-v"><%= allChapters %></div>
-              <div class="hero-stat-k">Chapters</div>
-            </div>
-            <div>
-              <div class="hero-stat-v"><%= subjectList.length %></div>
-              <div class="hero-stat-k">Subjects</div>
-            </div>
-          </div>
-
-          <div class="hero-feats">
-            <div class="hero-feat">
-              <span class="hero-feat-ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+        <div class="shelf" aria-hidden="true">
+          <% shelf.forEach(function (b, i) { %>
+            <a class="shelf-book" href="/read/<%= b.slug %>/1" tabindex="-1" aria-hidden="true"
+               style="--i:<%= i %>;--cover:<%= b.color || '#1E2A52' %>">
+              <span class="shelf-spine"></span>
+              <span class="cover-art">
+                <span class="cover-genre"><%= b.category === 'ncert' ? 'NCERT' : 'UPSC' %></span>
+                <span class="cover-title"><%= b.title %></span>
+                <span class="cover-author"><%= b.author %></span>
               </span>
-              <span>
-                <span class="hero-feat-t">Read aloud</span>
-                <span class="hero-feat-d">Sentence-level text-to-speech with word highlighting, speed control and voice selection.</span>
-              </span>
-            </div>
-            <div class="hero-feat">
-              <span class="hero-feat-ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" width="18" height="18"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-              </span>
-              <span>
-                <span class="hero-feat-t">Search inside every book</span>
-                <span class="hero-feat-d">Full-text search across chapters, with results that jump straight to the section.</span>
-              </span>
-            </div>
-            <div class="hero-feat">
-              <span class="hero-feat-ico is-gold" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M12 4v16M2 12h20"/></svg>
-              </span>
-              <span>
-                <span class="hero-feat-t">Revise with practice sets</span>
-                <span class="hero-feat-d">Question banks, flashcards, timeline, maps and mains prompts per book.</span>
-              </span>
-            </div>
-          </div>
+            </a>
+          <% }); %>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================ STATS ============================ -->
-  <section class="section" style="padding-block:var(--sp-8);">
-    <div class="container">
-      <div class="stats-band reveal">
-        <div class="stat-cell"><div class="stat-cell-v"><%= totalBooks %></div><div class="stat-cell-k">Books live</div></div>
-        <div class="stat-cell"><div class="stat-cell-v"><%= allChapters %></div><div class="stat-cell-k">Chapters</div></div>
-        <div class="stat-cell"><div class="stat-cell-v"><%= ncertBooks %></div><div class="stat-cell-k">NCERT titles</div></div>
-        <div class="stat-cell"><div class="stat-cell-v"><%= subjectList.length %></div><div class="stat-cell-k">Subjects</div></div>
+        <p class="shelf-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>
+          Every chapter reads aloud — sentence by sentence, at your pace.
+        </p>
       </div>
     </div>
   </section>
@@ -108,14 +78,24 @@
         <h2 class="section-title">Start from your subject</h2>
         <p class="section-sub">Every subject in the library, grouped so you can go straight to what you're revising.</p>
       </div>
-      <div class="feature-grid">
-        <% subjectList.forEach(function (s) { %>
-          <a class="feature-card reveal" href="/library#<%= s.toLowerCase().replace(/[^a-z0-9]+/g, '-') %>">
-            <span class="feature-ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      <div class="feature-grid" style="grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:var(--sp-3);">
+        <% subjectList.forEach(function (s, i) { %>
+          <a class="subject-card reveal" href="/library#<%= s.toLowerCase().replace(/[^a-z0-9]+/g, '-') %>"
+             data-si="<%= i %>">
+            <span class="subject-card-top">
+              <span class="subject-dot" aria-hidden="true"><%= s.slice(0, 2).toUpperCase() %></span>
+              <span class="subject-name"><%= s %></span>
+              <span class="subject-count"><%= subjectCount[s] %></span>
             </span>
-            <h3><%= s %></h3>
-            <p class="muted tiny"><%= subjectCount[s] %> book<%= subjectCount[s] === 1 ? '' : 's' %></p>
+            <% var samples = (subjectSamples[s] || []).slice(0, 3); %>
+            <% if (samples.length) { %>
+              <ul class="subject-samples">
+                <% samples.forEach(function (t) { %><li><%= t %></li><% }); %>
+              </ul>
+            <% } %>
+            <span class="subject-more">
+              <%= subjectCount[s] === 1 ? '1 title' : 'Browse ' + subjectCount[s] + ' titles' %>
+            </span>
           </a>
         <% }); %>
       </div>
@@ -126,34 +106,41 @@
   <% if (spotlightBook) { %>
   <section class="section" id="spotlight">
     <div class="container">
-      <div class="feature-grid" style="align-items:center;">
-        <div class="hero-card reveal" style="padding:0;overflow:hidden;">
-          <div class="book-cover" style="--cover:<%= spotlightBook.color || '#1E2A52' %>; aspect-ratio: 4/3; border-radius:0;">
-            <div class="cover-art">
+      <div class="spotlight reveal" style="--spot-color:<%= spotlightBook.color || '#1E2A52' %>">
+        <div class="spotlight-art">
+          <div class="spotlight-cover">
+            <span class="cover-art">
               <span class="cover-genre"><%= spotlightBook.category === 'ncert' ? 'NCERT' : 'UPSC' %> · <%= spotlightBook.subject || 'General' %></span>
-              <span class="cover-title" style="font-size:1.5rem;"><%= spotlightBook.title %></span>
+              <span class="cover-title"><%= spotlightBook.title %></span>
               <span class="cover-author"><%= spotlightBook.author %></span>
-            </div>
+            </span>
           </div>
+          <p class="spotlight-caption">Most-read title in the library</p>
         </div>
-        <div style="grid-column:span 3;">
+
+        <div class="spotlight-body">
           <p class="overline">Featured title</p>
-          <h2 class="section-title" style="margin-block:var(--sp-2) var(--sp-3);"><%= spotlightBook.title %></h2>
-          <p class="lead" style="max-width:52ch;">
-            <%= spotlightBook.chapter_count %> chapters, fully searchable and readable aloud — the most
-            used title in the library.
+          <h2 class="section-title"><%= spotlightBook.title %></h2>
+          <p class="lead" style="margin-top:var(--sp-2);max-width:46ch;">
+            <%= spotlightBook.chapter_count %> chapters by <%= spotlightBook.author %>, fully searchable
+            and readable aloud — plus practice material built from the book itself.
           </p>
-          <% if (spotlightTools) { %>
-            <div class="tools-grid" style="margin-top:var(--sp-5);grid-template-columns:repeat(2,1fr);">
+
+          <% if (spotlightTools && spotlightTools.length) { %>
+            <ul class="spotlight-tools">
               <% spotlightTools.forEach(function (t) { %>
-                <a class="tool-card" href="/book/<%= spotlightBook.slug %>/<%= t.slug %>">
-                  <span class="tool-ico" aria-hidden="true"><%- t.icon %></span>
-                  <h3><%= t.label %></h3>
-                  <span class="tool-n"><%= t.count %></span>
-                </a>
+                <li>
+                  <a href="/book/<%= spotlightBook.slug %>/<%= t.slug %>">
+                    <span class="spotlight-tool-ico" aria-hidden="true"><%- t.icon %></span>
+                    <span class="spotlight-tool-label"><%= t.label %></span>
+                    <span class="spotlight-tool-n"><%= t.count.toLocaleString('en-IN') %> <%= t.unit %></span>
+                    <svg class="spotlight-tool-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+                  </a>
+                </li>
               <% }); %>
-            </div>
+            </ul>
           <% } %>
+
           <div class="row" style="margin-top:var(--sp-5);">
             <a class="btn btn-primary" href="/read/<%= spotlightBook.slug %>/1">Start reading</a>
             <a class="btn btn-ghost" href="/library">All books</a>
@@ -214,8 +201,28 @@
           Social Science — the foundation everything else is built on.
         </p>
       </div>
-      <div class="row" style="margin-bottom:var(--sp-5);">
-        <a class="btn btn-primary" href="/ncerts">Browse all NCERTs</a>
+
+      <% if (ncertShelf && ncertShelf.length) { %>
+        <div class="strip-wrap">
+          <div class="chip-scroll ncert-strip reveal" role="list">
+          <% ncertShelf.forEach(function (b) { %>
+            <a class="ncert-strip-item" role="listitem" href="/read/<%= b.slug %>/1">
+              <span class="ncert-strip-cover" style="--cover:<%= b.color || '#1E2A52' %>">
+                <span class="cover-art">
+                  <span class="cover-genre">NCERT</span>
+                  <span class="cover-title"><%= b.title %></span>
+                </span>
+              </span>
+              <span class="ncert-strip-t"><%= b.title %></span>
+              <span class="ncert-strip-m"><%= b.chapter_count %> ch</span>
+</a>
+            <% }); %>
+          </div>
+        </div>
+        <% } %>
+
+      <div class="row" style="margin-top:var(--sp-5);">
+        <a class="btn btn-primary" href="/ncerts">Browse all <%= ncertBooks %> NCERTs</a>
         <a class="btn btn-ghost" href="/library#ncert">See them in the library</a>
       </div>
     </div>
@@ -252,9 +259,22 @@
               <%= user ? 'Get lifetime access' : 'Create account & unlock' %>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
-            <p class="price-note muted">UPI · Cards · Netbanking · Secured by Razorpay</p>
+<p class="price-note muted">UPI · Cards · Netbanking · Secured by Razorpay</p>
+            </div>
+
+            <div class="pricing-note">
+              <h3>What &ldquo;lifetime&rdquo; means</h3>
+              <p>
+                One payment covers every book in the library today and everything added later.
+                There is no renewal date and no per-book charge &mdash; when a new title is
+                published it appears in your account automatically.
+              </p>
+              <p>
+                Prefer to look before you pay? Every title is browsable free, and there is a
+                7-day money-back guarantee.
+              </p>
+            </div>
           </div>
-        </div>
       </div>
     </div>
   </section>

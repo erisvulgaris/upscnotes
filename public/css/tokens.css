@@ -15,8 +15,8 @@
   --brand-tint-2: #E1E6F4;   /* 14% brand — chips, inactive filters       */
 
   /* ---- Accent (single accent, offer/price only) ---------------- */
-  --accent:       #F5A623;   /* Ember Gold                                */
-  --accent-deep:  #D98A12;
+  --accent:       #F5A623;   /* Ember Gold — fills only                    */
+  --accent-deep:  #B0740C;   /* Ember Deep — accent *text*, AA on cream     */
   --accent-tint:  #FDF1DC;
 
   /* ---- Surfaces ------------------------------------------------ */
@@ -26,14 +26,34 @@
   --surface-3:    #E8E2D4;
   --surface-inv:  #16203F;
 
-  /* ---- Text ---------------------------------------------------- */
+/* ---- Text ---------------------------------------------------- */
+  /* Every value here is contrast-checked against --bg and --surface. `ash` was
+     #8A8F9D and failed AA at 2.94:1 as an overline/counter colour. */
   --ink:          #22252E;   /* primary                                   */
   --fg-2:         #4A4F5E;   /* secondary                                 */
-  --fg-3:         #6B7080;   /* tertiary                                  */
-  --muted:        #6B7080;
-  --ash:          #8A8F9D;   /* meta / captions                           */
+  --fg-3:         #626776;   /* tertiary                                  */
+  --muted:        #5A5F6E;
+  --ash:          #646978;   /* meta / captions — AA on parchment          */
   --on-brand:     #FFFDF9;
   --on-accent:    #1A1200;   /* ink on gold — never amber text on white   */
+
+  /* Book covers carry their own saturated colour from the database, in both
+     themes, so their text must never follow --on-brand (which inverts for
+     dark mode and left near-black text on a dark red cover at 1.6:1). */
+  --cover-ink:    #FFFDF9;
+  --cover-ink-2:  rgba(255, 253, 249, .82);
+  /* Scrim over cover text so any stored book colour keeps AA contrast. */
+  --cover-scrim:    linear-gradient(180deg, rgba(0,0,0,.34) 0%, rgba(0,0,0,.10) 40%, rgba(0,0,0,.42) 100%);
+  /* Small covers (the horizontal strips) need less ink to stay legible. */
+  --cover-scrim-sm: linear-gradient(180deg, rgba(0,0,0,.40) 0%, rgba(0,0,0,.20) 45%, rgba(0,0,0,.48) 100%);
+
+  /* Deep-navy surfaces (CTA band, footer) must not follow the theme's
+     surface tokens: in dark mode --surface and --surface-inv converged and
+     left cream headings at 1.17:1. */
+  --inv-bg:       #121A33;
+  --inv-bg-2:     #0B0D13;
+  --on-inv:       #FFFDF9;
+  --on-inv-2:     rgba(255, 253, 249, .72);
 
   /* ---- Lines ---------------------------------------------------- */
   --line:         #E4E0D4;
@@ -148,10 +168,10 @@
   --accent-tint: #2A2318;
 
   --ink:         #EDEAE2;
-  --fg-2:        #BDB9B0;
-  --fg-3:        #98948C;
-  --muted:       #98948C;
-  --ash:         #7E7A73;
+  --fg-2:        #C6C2B9;
+  --fg-3:        #A6A29A;
+  --muted:       #A6A29A;
+  --ash:         #9B978F;   /* AA on the night surface                  */
   --on-brand:    #10131C;
   --on-accent:   #1A1200;
 

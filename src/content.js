@@ -162,3 +162,78 @@ export function sentenceCount(sections) {
   }
   return n;
 }
+
+// ---------------------------------------------------------------------------
+// Narration source.
+//
+// The audiobook must say exactly what the reader shows, and nothing else. A
+// naive walk over the stored JSON also picks up structural keys, which had the
+// synthesiser reading out "sec-1 Content subhead Chapter 1 para" before the
+// actual sentence. This mirrors renderChapter block by block instead.
+
+// Both the canonical {cells:[{runs,th}]} row shape and the legacy stored shape
+// where a row is an array of cells and each cell is {paras:[{runs}]}.
+function cellRuns(c) {
+  if (!c) return [];
+  if (c.runs) return c.runs;
+  if (Array.isArray(c.paras)) {
+    const out = [];
+    for (const p of c.paras) {
+      for (const r of (p.runs || [])) out.push(r);
+    }
+    return out;
+  }
+  return [];
+}
+
+function tableText(b) {
+  const out = [];
+  const pushCells = (cells) => {
+    for (const c of (cells || [])) {
+      const t = runsText(cellRuns(c));
+      if (t.trim()) out.push(t.trim());
+    }
+  };
+  if (b.head) pushCells(b.head.cells);
+  for (const tr of (b.rows || [])) {
+    if (Array.isArray(tr)) pushCells(tr);
+    else pushCells(tr && tr.cells);
+  }
+  return out.join('. ');
+}
+
+// Returns readable prose for a chapter, in reading order.
+export function narrationText(sections) {
+  const out = [];
+  for (const sec of (sections || [])) {
+    const title = (sec.title || '').trim();
+    if (title) out.push(title);
+
+    for (const b of (sec.blocks || [])) {
+      switch (b.kind) {
+        case 'para':
+        case 'subhead':
+        case 'note':
+        case 'alert': {
+          const t = runsText(b.runs).trim();
+          if (t) out.push(t);
+          break;
+        }
+        case 'table': {
+          const t = tableText(b);
+          if (t) out.push(t);
+          break;
+        }
+        case 'image': {
+          // Read the caption, never the src or the alt placeholder.
+          const cap = runsText(b.caption_runs || b['caption_runs'] || []).trim();
+          if (cap) out.push(cap);
+          break;
+        }
+        default:
+          break;
+      }
+    }
+  }
+  return out.join('\n\n');
+}

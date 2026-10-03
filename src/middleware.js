@@ -1,5 +1,36 @@
-import { getActiveSubscription } from './model.js';
+import { getActiveSubscription, listBooks } from './model.js';
 import { renderPage } from './render.js';
+
+// Computed once at boot — the subject list only changes when a book is
+// imported, and it feeds the header menu, the drawer and the landing index.
+const SUBJECT_ORDER = [
+  'History', 'Political Science', 'Geography', 'Economics',
+  'Environment', 'Social Science', 'Psychology',
+];
+
+let subjectNavCache = null;
+
+export function subjectNav() {
+  if (subjectNavCache) return subjectNavCache;
+  const counts = new Map();
+  for (const b of listBooks()) {
+    if (b.status !== 'published') continue;
+    const key = (b.subject || '').trim() || 'Others';
+    counts.set(key, (counts.get(key) || 0) + 1);
+  }
+  const ordered = [...counts.keys()].sort((a, b) => {
+    const ia = SUBJECT_ORDER.indexOf(a);
+    const ib = SUBJECT_ORDER.indexOf(b);
+    if (ia !== -1 || ib !== -1) return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+    return a.localeCompare(b);
+  });
+  subjectNavCache = ordered.map((subject) => ({
+    subject,
+    count: counts.get(subject),
+    anchor: subject.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+  }));
+  return subjectNavCache;
+}
 
 export function requireAuth(req, res, next) {
   if (!req.session.userId) {
@@ -35,6 +66,7 @@ export function attachViewLocals(req, res, next) {
     : null;
   res.locals.isAdmin = req.session.role === 'admin';
   res.locals.path = req.path;
+  res.locals.subjectsNav = subjectNav();
   if (req.session.userId) {
     res.locals.hasSub = !!getActiveSubscription(req.session.userId);
   } else {

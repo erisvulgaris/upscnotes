@@ -57,9 +57,13 @@ router.get('/', (req, res) => {
     });
 
   const subjectCount = {};
+  const subjectSamples = {};
   for (const b of all) {
     const k = (b.subject || '').trim();
-    if (k) subjectCount[k] = (subjectCount[k] || 0) + 1;
+    if (!k) continue;
+    subjectCount[k] = (subjectCount[k] || 0) + 1;
+    if (!subjectSamples[k]) subjectSamples[k] = [];
+    if (subjectSamples[k].length < 4) subjectSamples[k].push(b.title);
   }
 
   // Spotlight: the richest book that actually ships study tools.
@@ -75,6 +79,21 @@ router.get('/', (req, res) => {
     if (spotlightExtras.length >= 5) break;
   }
 
+  // Hero shelf: the four longest titles, so the covers read as real books.
+  const shelfBooks = [...all]
+    .sort((a, b) => (b.chapter_count || 0) - (a.chapter_count || 0))
+    .slice(0, 4);
+
+  // NCERT strip: one representative title per subject, longest first.
+  const ncertShelf = [];
+  const seenSubject = new Set();
+  for (const b of [...ncerts].sort((a, c) => (c.chapter_count || 0) - (a.chapter_count || 0))) {
+    const k = (b.subject || '').trim() || 'Other';
+    if (seenSubject.has(k)) continue;
+    seenSubject.add(k);
+    ncertShelf.push(b);
+  }
+
   renderPage(res, 200, 'home', {
     title: 'Civil services book library',
     metaDesc: `One lifetime library for UPSC — ${ncerts.length} NCERT textbooks, ${textbooks.length} standard UPSC titles, ${allChapters} chapters with text-to-speech reading, search and practice material.`,
@@ -84,6 +103,9 @@ router.get('/', (req, res) => {
     allChapters,
     subjects,
     subjectCount,
+    subjectSamples,
+    shelfBooks,
+    ncertShelf,
     spotlight,
     spotlightExtras,
   });

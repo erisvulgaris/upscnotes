@@ -9,3 +9,17 @@ nohup.out
 .deploy-secret
 smoke-*.mjs
 booksrc    # local-only, already imported into seed
+
+# Rendered audiobook media. Regenerate with:
+#   node tools/tts/extract.mjs
+#   powershell -File tools/tts/run.ps1 -Workers 14
+# then upload audio/ to Cloudflare R2. Nothing here belongs in git —
+# it is several gigabytes of derived media.
+audio/*.opus
+audio/*.json
+audio/*/
+audio/logs/
+
+# Python bytecode from the TTS tooling
+__pycache__/
+*.pyc
