@@ -523,14 +523,16 @@ input[aria-invalid="true"] { border-color: var(--danger); }
 .hero-title .hl {
   color: var(--brand);
   /* A background gradient broke awkwardly across the line wrap and read as an
-     accidental highlighter smear. A rule that follows the box is stable. */
-  background-image: linear-gradient(var(--accent), var(--accent));
-  background-repeat: no-repeat;
-  background-size: 100% .14em;
-  background-position: 0 88%;
-  box-decoration-break: clone;
-  -webkit-box-decoration-break: clone;
-  padding-inline: .06em;
+     accidental highlighter smear; a box background then cut through the
+     descenders. A positioned rule sits below the line box instead. */
+  background-image: none;
+  position: relative;
+  white-space: nowrap;
+}
+.hero-title .hl::after {
+  content: ""; position: absolute; left: 0; right: 0;
+  bottom: .06em; height: .07em; border-radius: .04em;
+  background: var(--accent);
 }
 .hero-sub { color: var(--fg-2); max-width: 46ch; margin-bottom: var(--sp-6); font-size: var(--fs-lead); }
 
@@ -1007,9 +1009,18 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
 .continue-card:hover { transform: translateY(-2px); text-decoration: none; }
 .continue-cover { width: 52px; flex: none; aspect-ratio: 2/3; border-radius: var(--r-sm); overflow: hidden; background: var(--cover, var(--brand)); position: relative; }
 .continue-cover img { width: 100%; height: 100%; object-fit: cover; }
+.continue-cover .cover-art { padding: 4px; }
+.continue-cover .cover-title { font-size: .4375rem; -webkit-line-clamp: 4; }
 .continue-body { min-width: 0; }
 .continue-t { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 650; }
 .continue-d { font-size: var(--fs-xs); color: var(--muted); }
+.continue-cta {
+  margin-left: auto; flex: none;
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: 700;
+  color: var(--brand); font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+@media (max-width: 420px) { .continue-cta { font-size: 0; gap: 0; } .continue-cta svg { width: 20px; height: 20px; } }
 
 .progress-track { height: 4px; border-radius: 2px; background: var(--surface-2); overflow: hidden; margin-top: var(--sp-2); }
 .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; }
@@ -1092,7 +1103,9 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
 
   .head-nav {
     display: flex; align-items: center; gap: var(--sp-1);
-    margin-left: var(--sp-4); min-width: 0; flex: 1;
+    /* The nav keeps its intrinsic width and the search absorbs the slack.
+       With both at flex:1 the search slid over the last nav item. */
+    margin-left: var(--sp-4); min-width: 0; flex: none;
   }
   .head-nav a {
     display: inline-flex; align-items: center; min-height: 40px; padding-inline: var(--sp-3);
@@ -1109,7 +1122,7 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
   }
   .head-search {
     display: flex; align-items: center; gap: var(--sp-2);
-    flex: 1 1 200px; max-width: 320px; min-width: 140px;
+    flex: 1 1 120px; max-width: 300px; min-width: 0;
     background: var(--surface); border: 1px solid var(--line);
     border-radius: var(--r-sm); padding-inline: var(--sp-3);
     height: 38px;
@@ -1127,6 +1140,10 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
   .hero-visual { margin-top: 0; }
   .shelf { gap: var(--sp-4); }
   .shelf-book .cover-title { -webkit-line-clamp: 6; }
+
+  /* Below 1200px the inline search cannot coexist with the full nav without
+     either wrapping or sliding over the last item. The drawer carries it. */
+  .head-search { display: none; }
 
   .feature-grid { grid-template-columns: repeat(4, 1fr); }
   .tools-grid { grid-template-columns: repeat(4, 1fr); }
@@ -1150,6 +1167,10 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
   .checkout-cols { display: grid; grid-template-columns: minmax(0, 1fr) 22rem; gap: var(--sp-10); align-items: start; }
   .pricing-wrap { position: sticky; top: calc(var(--head-h) + var(--sp-5)); }
   .foot-grid { grid-template-columns: minmax(0, 1.9fr) repeat(3, minmax(0, 1fr)); gap: var(--sp-8); }
+}
+
+@media (min-width: 1200px) {
+  .head-search { display: flex; }
 }
 
 @media (min-width: 1180px) {

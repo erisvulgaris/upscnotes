@@ -3,6 +3,7 @@ import { getBookBySlug, getChapter, getChapters, setProgress, getActiveSubscript
 import { renderChapter, sentenceCount } from '../content.js';
 import { requireAuth } from '../middleware.js';
 import { renderPage } from '../render.js';
+import { hasAudio } from '../audio.js';
 
 const router = Router();
 
@@ -92,6 +93,9 @@ function renderChapterPage(req, res) {
     chapterNumbers: chapters.map((c) => c.number),
     readerBody,
     sentenceCount: sentences,
+    // A pre-rendered Edge TTS track exists for this chapter. The dock uses
+    // the device's own speech engine when it has one and falls back to this.
+    hasNarration: hasAudio(req.book.slug, n),
     prev: prev ? { number: prev.number, title: prev.title } : null,
     next: nxt ? { number: nxt.number, title: nxt.title } : null,
   });

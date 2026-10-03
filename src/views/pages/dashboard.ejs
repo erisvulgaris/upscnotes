@@ -29,21 +29,24 @@
     <% } %>
 
     <% if (resume) { %>
+      <% var pct = Math.round((resume.inProgress.number / Math.max(1, resume.chapter_count)) * 100); %>
       <a class="continue-card" href="/read/<%= resume.slug %>/<%= resume.inProgress.number %>">
         <span class="continue-cover" style="--cover:<%= resume.color || '#1E2A52' %>">
           <% if (resume.cover) { %>
             <img src="/content/<%= resume.slug %>/cover.<%= resume.cover.split('.').pop() %>" alt="" loading="lazy">
+          <% } else { %>
+            <span class="cover-art"><span class="cover-title"><%= resume.title %></span></span>
           <% } %>
         </span>
         <span class="continue-body">
           <span class="overline">Continue reading</span>
           <span class="continue-t" style="display:block;"><%= resume.title %></span>
-          <span class="continue-d">Chapter <%= resume.inProgress.number %>: <%= resume.inProgress.title %></span>
+          <span class="continue-d">Chapter <%= resume.inProgress.number %> of <%= resume.chapter_count %> &middot; <%= resume.inProgress.title %></span>
           <span class="progress-track" style="display:block;">
-            <span class="progress-fill" style="display:block;width:<%= Math.max(4, Math.round((resume.inProgress.number / Math.max(1, resume.chapter_count)) * 100)) %>%"></span>
+            <span class="progress-fill" style="display:block;width:<%= Math.max(2, pct) %>%"></span>
           </span>
         </span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true" style="margin-left:auto;flex:none"><path d="m9 18 6-6-6-6"/></svg>
+        <span class="continue-cta"><%= pct %>%<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span>
       </a>
     <% } %>
 

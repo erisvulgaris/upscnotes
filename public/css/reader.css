@@ -111,6 +111,11 @@ body.reading {
   font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--muted);
   padding-bottom: var(--sp-5); border-bottom: 1px solid var(--line); margin-bottom: var(--sp-6);
 }
+.rd-audio {
+  display: inline-flex; align-items: center; gap: 4px;
+  color: var(--accent-deep); font-weight: 650; white-space: nowrap;
+}
+.rd-audio svg { flex: none; }
 .rd-para { margin-bottom: 1.15em; line-height: var(--lh-relaxed); color: var(--ink); }
 .rd-para .tts-sent { cursor: pointer; border-radius: 3px; padding: 1px 0; transition: background var(--d-fast) var(--ease-soft); }
 .rd-para .tts-sent:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); }
