@@ -5,6 +5,7 @@ import express from 'express';
 import session from 'express-session';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import compression from 'compression';
 
 import { migrate } from './db.js';
 import { SqliteSessionStore } from './session-store.js';
@@ -49,6 +50,21 @@ export function createApp() {
       sameSite: 'lax',
       secure: process.env.NODE_ENV === 'production',
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+    },
+  }));
+
+// Text responses dominate this app: ~67KB of CSS and ~42–60KB of HTML per
+  // page. Compressed they are roughly a fifth of that, which is the single
+  // cheapest win available for first paint.
+  app.use(compression({
+    threshold: 1024,
+    filter(req, res) {
+      if (req.headers['x-no-compression']) return false;
+      // Audio is already compressed (Opus) and Range requests must pass through
+      // untouched or the player cannot seek.
+      if (/^audio\//.test(res.getHeader('Content-Type') || '')) return false;
+      if (res.getHeader('Content-Range')) return false;
+      return compression.filter(req, res);
     },
   }));
 
