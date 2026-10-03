@@ -1,62 +1,62 @@
+<%
+  // Only render subject sections that actually have books, in the order the
+  // route grouped them, and drive the filter from one chip row.
+  var order = [];
+  for (var k in subjects) {
+    if (Object.prototype.hasOwnProperty.call(subjects, k) && subjects[k] && subjects[k].length) order.push(k);
+  }
+  var preferred = ['History', 'Geography', 'Economics', 'Political Science', 'Social Science'];
+  order.sort(function (a, b) {
+    var ia = preferred.indexOf(a), ib = preferred.indexOf(b);
+    if (ia !== -1 || ib !== -1) return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+    return a.localeCompare(b);
+  });
+%>
 <div class="page">
-  <div class="container" style="padding-top: var(--space-12);">
-    <div class="section-head reveal">
-      <h1 style="font-family: var(--font-display); font-size: var(--text-2xl); margin:0 0 4px;">NCERT Textbooks</h1>
-      <p class="muted">Complete NCERT textbooks organised by subject — the foundation for UPSC preparation.</p>
+  <div class="container">
+    <div class="section-head">
+      <p class="overline">The foundation</p>
+      <h1 class="page-title">NCERT Textbooks</h1>
+      <p class="section-sub">
+        <%= ncertCount %> textbooks · <%= allChapters %> chapters across
+        <%= order.length %> subjects. Every one is included with lifetime access.
+      </p>
     </div>
 
-    <div class="library-toolbar" style="margin-top:var(--space-6);display:flex;flex-wrap:wrap;gap:8px;">
-      <button class="chip chip-filter active" data-filter="all">All</button>
-      <% var subjectOrder = ['History', 'Geography', 'Economics', 'Political Science', 'Social Science']; %>
-      <% subjectOrder.forEach(function(subj) { %>
-        <% if (subjects[subj] && subjects[subj].length) { %>
-          <button class="chip chip-filter" data-filter="<%= subj %>"><%= subj %></button>
-        <% } %>
-      <% }); %>
-    </div>
-
-    <% subjectOrder.forEach(function(subj) { %>
-      <% var books = subjects[subj]; %>
-      <% if (!books || !books.length) return; %>
-      <div class="ncert-subject-section reveal" data-subject-section="<%= subj %>" style="margin-top: var(--space-10);">
-        <div class="ncert-subject-head">
-          <h2 style="margin:0;font-family:var(--font-display);font-size:var(--text-lg);"><%= subj %></h2>
-          <span class="muted" style="font-size:var(--text-sm);"><%= books.length %> book<%= books.length > 1 ? 's' : '' %></span>
-        </div>
-        <div class="book-grid" style="margin-top:12px;">
-          <% books.forEach(function(b, i) { %>
-            <a class="book-card is-placeholder reveal" style="--d:<%= (i % 4) * 70 + 'ms' %>" href="/read/<%= b.slug %>/1">
-              <div class="book-cover" style="--cover:<%= b.color || '#333' %>">
-                <div class="cover-art" data-subject="<%= subj %>">
-                  <span class="cover-genre">NCERT</span>
-                  <span class="cover-title"><%= b.title %></span>
-                  <span class="cover-author"><%= b.author %></span>
-                </div>
-              </div>
-              <div class="book-meta">
-                <h3><%= b.title %></h3>
-                <span class="chip"><%= b.chapter_count %> chapters</span>
-              </div>
-            </a>
+    <% if (order.length) { %>
+      <div class="library-toolbar">
+        <div class="chip-scroll" role="group" aria-label="Filter by subject" data-filter-group>
+          <button type="button" class="chip chip-filter is-active" data-filter="all">All</button>
+          <% order.forEach(function (s) { %>
+            <button type="button" class="chip chip-filter" data-filter="<%= s %>"><%= s %></button>
           <% }); %>
         </div>
+        <p class="library-result muted"><%= ncertCount %> books · <%= allChapters %> chapters</p>
       </div>
-    <% }); %>
+
+      <% order.forEach(function (subj) { %>
+        <% var books = subjects[subj]; %>
+        <section class="library-group" data-filter-target="<%= subj %>">
+          <div class="library-group-head">
+            <h2><%= subj %></h2>
+            <span class="library-count"><%= books.length %> book<%= books.length === 1 ? '' : 's' %></span>
+          </div>
+          <div class="book-grid">
+            <% books.forEach(function (b) { %>
+              <%- include('partials/book-card', { b: b, subject: subj }) %>
+            <% }); %>
+          </div>
+        </section>
+      <% }); %>
+    <% } else { %>
+      <div class="alert alert-info">No NCERT titles have been published yet.</div>
+    <% } %>
+
+    <div class="row" style="margin-top:var(--sp-12);">
+      <a class="btn btn-ghost" href="/library">See the whole library</a>
+      <a class="btn btn-primary" href="/<%= user ? 'dashboard' : 'signup' %>">
+        <%= user ? 'Open my library' : 'Create a free account' %>
+      </a>
+    </div>
   </div>
 </div>
-<script>
-(function() {
-  var chips = document.querySelectorAll('.chip-filter');
-  var sections = document.querySelectorAll('[data-subject-section]');
-  chips.forEach(function(chip) {
-    chip.addEventListener('click', function() {
-      var f = this.dataset.filter;
-      chips.forEach(function(c) { c.classList.remove('active'); });
-      this.classList.add('active');
-      sections.forEach(function(s) {
-        s.style.display = (f === 'all' || s.dataset.subjectSection === f) ? '' : 'none';
-      });
-    });
-  });
-})();
-</script>

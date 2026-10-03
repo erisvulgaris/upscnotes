@@ -51,7 +51,10 @@ export function createApp() {
     },
   }));
 
-  app.use(express.static(path.join(__dirname, '..', 'public')));
+  app.use(express.static(path.join(__dirname, '..', 'public'), {
+    maxAge: process.env.NODE_ENV === 'production' ? '7d' : 0,
+    etag: true,
+  }));
   app.use(attachViewLocals);
   app.use(attachCsrf);
   // CSRF for every state-changing request. The Razorpay webhook is exempt —

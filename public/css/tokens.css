@@ -1,115 +1,177 @@
 /* =====================================================================
-   UPSCbooks — design tokens — vibrant, student-friendly (matches ref)
+   UPSCbooks — design tokens
+   Mobile-first. Base viewport 360px; every layout rule scales up from
+   there via min-width. Nothing in the app stylesheets may hardcode a
+   colour — pull it from this file so dark mode stays honest.
    ===================================================================== */
+
 :root {
-  /* ─── Brand — vibrant purple (from reference) ─── */
-  --brand: #6D28D9;
-  --brand-600: #7C3AED;
-  --brand-700: #5B21B6;
-  --brand-800: #4C1D95;
-  --brand-light: #EDE9FE;
-  --brand-soft: #F5F3FF;
+  /* ---- Brand -------------------------------------------------- */
+  --brand:        #1E2A52;   /* Midnight Ink — anchors, primary actions   */
+  --brand-700:    #16203F;
+  --brand-800:    #101833;
+  --brand-300:    #7C8AC0;
+  --brand-tint:   #EDEFF8;   /* 8% brand on parchment                     */
+  --brand-tint-2: #E1E6F4;   /* 14% brand — chips, inactive filters       */
 
-  /* ─── Accent — warm orange (for CTAs & highlights) ─── */
-  --accent: #F59E0B;
-  --accent-500: #F97316;
-  --accent-deep: #D97706;
-  --accent-light: #FEF3C7;
-  --accent-soft: #FFFBEB;
+  /* ---- Accent (single accent, offer/price only) ---------------- */
+  --accent:       #F5A623;   /* Ember Gold                                */
+  --accent-deep:  #D98A12;
+  --accent-tint:  #FDF1DC;
 
-  /* ─── Surface ─── */
-  --bg: #FFFFFF;
-  --surface: #FFFFFF;
-  --surface-tint: #F5F3FF;  /* light lavender tint */
-  --surface-warm: #FFFBEB;
-  --lavender: #EDE9FE;
-  --lavender-soft: #F5F3FF;
-  --purple-soft: #DDD6FE;
+  /* ---- Surfaces ------------------------------------------------ */
+  --bg:           #F7F4EE;   /* Parchment                                 */
+  --surface:      #FFFDF9;   /* Cream                                     */
+  --surface-2:    #F0EBE0;   /* Paper Dark — wells, inset blocks          */
+  --surface-3:    #E8E2D4;
+  --surface-inv:  #16203F;
 
-  /* ─── Foreground ─── */
-  --ink: #1E1B4B;            /* deep indigo */
-  --ink-light: #1E293B;
-  --fg-2: #475569;
-  --muted: #64748B;
-  --ash: #94A3B8;
-  --meta: #94A3B8;
+  /* ---- Text ---------------------------------------------------- */
+  --ink:          #22252E;   /* primary                                   */
+  --fg-2:         #4A4F5E;   /* secondary                                 */
+  --fg-3:         #6B7080;   /* tertiary                                  */
+  --muted:        #6B7080;
+  --ash:          #8A8F9D;   /* meta / captions                           */
+  --on-brand:     #FFFDF9;
+  --on-accent:    #1A1200;   /* ink on gold — never amber text on white   */
 
-  /* ─── Border ─── */
-  --border: #E2E8F0;
-  --border-soft: #F1F5F9;
-  --border-purple: #E9D5FF;
+  /* ---- Lines ---------------------------------------------------- */
+  --line:         #E4E0D4;
+  --line-soft:    #EFECE2;
+  --line-strong:  #D3CDBC;
 
-  /* ─── Semantic ─── */
-  --success: #10B981;
-  --warning: #F59E0B;
-  --danger: #EF4444;
-  --info: #0EA5E9;
+  /* ---- Semantic ------------------------------------------------ */
+  --success:      #1F8A4C;
+  --success-tint: #E6F4EC;
+  --warning:      #C98A1B;
+  --warning-tint: #FBF1DE;
+  --danger:       #C0392B;
+  --danger-tint:  #FBEAE7;
+  --info:         #2B6CB0;
+  --info-tint:    #E7F0F9;
 
-  /* ─── Typography ─── */
-  --font-display: "Plus Jakarta Sans", "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-body: "Inter", -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-mono: ui-monospace, "JetBrains Mono", Menlo, monospace;
-  --text-xs: 11px; --text-sm: 13px; --text-base: 15px; --text-md: 16px;
-  --text-lg: 18px; --text-xl: 22px; --text-2xl: 28px; --text-3xl: 36px; --text-4xl: 44px;
-  --leading-body: 1.6; --leading-tight: 1.05; --leading-snug: 1.3;
-  --tracking-display: -0.02em; --tracking-wide: 0.06em; --tracking-wide2: 0.08em;
+  /* ---- Typography ----------------------------------------------- */
+  /* Cambay is self-hosted (woff2) and covers Latin + Devanagari, so a
+     Hindi toggle never falls back to a random system font. */
+  --font-display: "Cambay", Georgia, "Times New Roman", serif;
+  --font-body:    "Cambay", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-ui:      system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono:    ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, Consolas, monospace;
 
-  /* ─── Spacing ─── */
-  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
-  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
-  --space-12: 48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
-  --section-y-desktop: 56px; --section-y-tablet: 48px; --section-y-phone: 32px;
+  /* Fluid type. Min values are the phone sizes; max is the desktop cap. */
+  --fs-display: clamp(2rem, 1.35rem + 3.2vw, 3.5rem);
+  --fs-h1:      clamp(1.6rem, 1.25rem + 1.7vw, 2.25rem);
+  --fs-h2:      clamp(1.3rem, 1.12rem + 0.9vw, 1.75rem);
+  --fs-h3:      clamp(1.05rem, 0.98rem + 0.35vw, 1.2rem);
+  --fs-lead:    clamp(1rem, 0.96rem + 0.3vw, 1.15rem);
+  --fs-body:    1rem;
+  --fs-sm:      0.875rem;
+  --fs-xs:      0.8125rem;
+  --fs-2xs:     0.75rem;
+  --fs-micro:   0.6875rem;
 
-  /* ─── Radius ─── */
-  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px;
-  --radius-xl: 20px; --radius-2xl: 24px; --radius-pill: 999px;
+  --lh-tight:   1.12;
+  --lh-snug:    1.32;
+  --lh-body:    1.62;
+  --lh-relaxed: 1.75;
 
-  /* ─── Elevation (soft, modern) ─── */
-  --elev-card: 0 1px 3px rgba(0,0,0,.05), 0 4px 12px rgba(0,0,0,.04);
-  --elev-card-hover: 0 4px 12px rgba(0,0,0,.08), 0 12px 24px rgba(0,0,0,.06);
-  --elev-soft: 0 1px 3px rgba(0,0,0,.05);
-  --elev-raised: 0 4px 12px rgba(0,0,0,.08);
-  --elev-floating: 0 8px 24px rgba(0,0,0,.12);
+  --tr-display: -0.02em;
+  --tr-tight:   -0.012em;
+  --tr-wide:    0.06em;
+  --tr-wider:   0.1em;
 
-  /* ─── Gradients (from reference) ─── */
-  --grad-purple: linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%);
-  --grad-orange: linear-gradient(135deg, #F59E0B 0%, #EC4899 100%);
-  --grad-purple-orange: linear-gradient(135deg, #6D28D9 0%, #EC4899 50%, #F59E0B 100%);
-  --grad-card-blue: linear-gradient(135deg, #DBEAFE 0%, #EFF6FF 100%);
-  --grad-card-purple: linear-gradient(135deg, #EDE9FE 0%, #F5F3FF 100%);
-  --grad-card-peach: linear-gradient(135deg, #FEF3C7 0%, #FFFBEB 100%);
-  --grad-card-green: linear-gradient(135deg, #D1FAE5 0%, #ECFDF5 100%);
+  /* ---- Space (4px base) ----------------------------------------- */
+  --sp-1: 0.25rem;  --sp-2: 0.5rem;   --sp-3: 0.75rem;  --sp-4: 1rem;
+  --sp-5: 1.25rem;  --sp-6: 1.5rem;   --sp-7: 1.75rem;  --sp-8: 2rem;
+  --sp-10: 2.5rem;  --sp-12: 3rem;    --sp-14: 3.5rem;  --sp-16: 4rem;
+  --sp-20: 5rem;    --sp-24: 6rem;
 
-  /* ─── Brand gradients (keep for buttons) ─── */
-  --grad-hero: linear-gradient(180deg, #F5F3FF 0%, #FFFFFF 100%);
-  --grad-brand: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
-  --grad-brand-strong: linear-gradient(135deg, #6D28D9 0%, #4C1D95 100%);
-  --grad-gold: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  /* Vertical rhythm is section padding — tighter on phones. */
+  --section-y: var(--sp-12);
+  --head-h: 56px;
 
-  /* Motion */
-  --motion-fast: 150ms; --motion-base: 250ms;
-  --ease-standard: cubic-bezier(0.2,0,0,1);
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --dur-slow: 400ms; --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+  /* ---- Radius ---------------------------------------------------- */
+  --r-xs: 6px;  --r-sm: 8px;  --r-md: 12px;
+  --r-lg: 14px; --r-xl: 18px; --r-2xl: 24px; --r-pill: 999px;
 
-  /* Layout */
-  --container-max: 1180px;
-  --container-gutter-desktop: 24px; --container-gutter-tablet: 20px; --container-gutter-phone: 16px;
-  --radius-cover: 12px;
-  --read-width: 720px;
+  /* ---- Elevation — cards NEVER shadow, they wear hairlines ------ */
+  --elev-flat:    none;
+  --elev-hair:    0 0 0 1px var(--line);
+  --elev-raised:  0 2px 6px rgba(20, 22, 30, .08);
+  --elev-float:   0 10px 30px rgba(20, 22, 30, .16);
+  --elev-dock:    0 -1px 0 var(--line), 0 -8px 24px rgba(20, 22, 30, .07);
+  --glow-accent:  0 0 60px rgba(245, 166, 35, .12);
+
+  /* ---- Focus ------------------------------------------------------ */
+  --ring:  0 0 0 3px color-mix(in srgb, var(--brand) 30%, transparent);
+  --ring-accent: 0 0 0 3px color-mix(in srgb, var(--accent) 42%, transparent);
+
+  /* ---- Motion ------------------------------------------------------ */
+  --d-fast: 140ms;
+  --d-base: 220ms;
+  --d-slow: 420ms;
+  --ease:      cubic-bezier(.22, 1, .36, 1);
+  --ease-soft: cubic-bezier(.4, 0, .2, 1);
+
+  /* ---- Layout ----------------------------------------------------- */
+  --container: 1180px;
+  --gutter: var(--sp-4);
+  --read-w: 720px;
+  --z-head: 40;
+  --z-drawer: 60;
+  --z-sheet: 70;
+  --z-dock: 50;
+  --z-toast: 90;
 }
 
-/* Dark mode — keep readable but not used in reference (reference is light) */
-html.dark {
-  --bg: #0F0A1E;
-  --surface: #1A1033;
-  --surface-tint: #1E1B4B;
-  --ink: #F5F3FF;
-  --fg-2: #C4B5FD;
-  --muted: #A78BFA;
-  --ash: #8B5CF6;
-  --border: #2E1065;
-  --border-soft: #1E1B4B;
-  --brand: #8B5CF6; --brand-700: #7C3AED;
-  --accent: #FBBF24; --accent-deep: #F59E0B;
+/* =====================================================================
+   Dark mode — Night surfaces, Midnight anchors, one warm accent.
+   Applied via [data-theme="dark"] on <html>; app.js also mirrors the
+   choice to localStorage and honours prefers-color-scheme by default.
+   ===================================================================== */
+[data-theme="dark"] {
+  --bg:          #12141C;
+  --surface:     #1B1E28;
+  --surface-2:   #222634;
+  --surface-3:   #2A2E3C;
+  --surface-inv: #0B0D13;
+
+  --brand:       #8FA3E8;
+  --brand-700:   #A8B7F0;
+  --brand-800:   #C4CEF6;
+  --brand-300:   #3D4C7E;
+  --brand-tint:  #1E2437;
+  --brand-tint-2:#252D45;
+
+  --accent:      #F0B44A;
+  --accent-deep: #E0A136;
+  --accent-tint: #2A2318;
+
+  --ink:         #EDEAE2;
+  --fg-2:        #BDB9B0;
+  --fg-3:        #98948C;
+  --muted:       #98948C;
+  --ash:         #7E7A73;
+  --on-brand:    #10131C;
+  --on-accent:   #1A1200;
+
+  --line:        #2E3340;
+  --line-soft:   #262A36;
+  --line-strong: #3A4050;
+
+  --success:     #4FC283;
+  --success-tint:#12281C;
+  --warning:     #E5AE4A;
+  --warning-tint:#2A2318;
+  --danger:      #EE7A6E;
+  --danger-tint: #2C1A18;
+  --info:        #6FA8E0;
+  --info-tint:   #16222E;
+
+  --elev-raised: 0 2px 6px rgba(0, 0, 0, .5);
+  --elev-float:  0 10px 30px rgba(0, 0, 0, .6);
+  --elev-dock:   0 -1px 0 var(--line), 0 -8px 24px rgba(0, 0, 0, .4);
+  --glow-accent: 0 0 60px rgba(245, 166, 35, .08);
+
+  color-scheme: dark;
 }

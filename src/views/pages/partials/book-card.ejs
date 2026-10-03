@@ -1,0 +1,24 @@
+<%# Book card. Expects: b (book row), subject (display string), href (optional), showExtras (bool) %>
+<a class="book-card <%= (typeof href !== 'undefined' && href) ? '' : '' %>"
+   href="<%= typeof href !== 'undefined' && href ? href : '/read/' + b.slug + '/1' %>"
+   data-search="<%= (b.title + ' ' + (b.author || '') + ' ' + (subject || '')).toLowerCase().replace(/[<>&"]/g, '') %>">
+  <span class="book-cover" <% if (b.color) { %>style="--cover:<%= b.color %>"<% } %>>
+    <% if (b.cover) { %>
+      <img loading="lazy" decoding="async" src="/content/<%= b.slug %>/cover.<%= b.cover.split('.').pop() %>" alt="<%= b.title %> cover">
+    <% } else { %>
+      <span class="cover-art">
+        <span class="cover-genre"><%= b.category === 'ncert' ? 'NCERT' : 'UPSC' %> · <%= (subject || '').toUpperCase() %></span>
+        <span class="cover-title"><%= b.title %></span>
+        <span class="cover-author"><%= b.author %></span>
+      </span>
+    <% } %>
+  </span>
+  <span class="book-meta">
+    <span class="overline"><%= subject || 'General' %></span>
+    <h3><%= b.title %></h3>
+    <p class="muted"><%= b.author %></p>
+    <span class="meta-row">
+      <span class="chip"><%= b.chapter_count %> chapter<%= b.chapter_count === 1 ? '' : 's' %></span>
+    </span>
+  </span>
+</a>

@@ -1,237 +1,233 @@
 # UPSCbooks Design System
 
 > Category: Books / Education Platform
-> A fresh, product-grade digital library for civil services aspirants. Deep indigo + warm amber, editorial serif display, calm reading surfaces.
+> A digital library for civil services aspirants. Deep indigo + warm amber, serif display,
+> calm reading surfaces. **Mobile-first.**
+
+---
+
+## 0. Mobile-first (this is the governing constraint)
+
+Every rule below is written for a **360–390px phone** and only scales *up*.
+
+- Base styles in each stylesheet are the phone layout. Layout changes live exclusively in
+  `min-width` blocks. Never write a `max-width` rule that hides functionality — a phone must
+  be able to reach everything a desktop can.
+- Breakpoints: **560px** (2-up grids, 2-col filters) · **900px** (full nav replaces the
+  drawer, chapter sheet becomes a side panel, TTS dock floats) · **1180px** (4-up book grid).
+- Touch targets: **44×44px for standalone controls** (buttons, icon buttons, nav links, TTS
+  controls). **40px minimum for dense inline chips** (filter rows, horizontal scrollers) —
+  going taller would make a 6-chip filter row swallow the viewport. Icon buttons stay
+  44×44 even when the glyph is 20px. Inline links inside a sentence of body copy are exempt,
+  per WCAG's target-size exception for text.
+- Inputs are `font-size: 16px` — below that iOS Safari zooms on focus.
+- `env(safe-area-inset-bottom)` is honoured by the sticky footer nav and the TTS dock.
+- `viewport-fit=cover` is set on every page that draws to the screen edge.
+- Horizontal scrolling is contained: wide tables and figures get their own scroll container
+  with `-webkit-overflow-scrolling: touch`. **No `100vw` + `translateX(-50%)` tricks** — they
+  overflow the phone viewport.
+- `body { overflow-x: hidden }` is a backstop, not a strategy.
+
+---
 
 ## 1. Visual Theme & Atmosphere
 
-UPSCbooks should feel like a *modern publishing house*: confident, trustworthy, and calm — not like a cluttered exam portal. The mood is editorial-product hybrid.
+UPSCbooks should feel like a *modern publishing house*: confident, trustworthy, calm — not a
+cluttered exam portal.
 
-**Key characteristics:**
-- Deep indigo (Midnight Ink) as the anchor brand color — suggests authority, focus, and the "study room at dusk" calm.
-- Warm amber (Ember Gold) as the single energetic accent — used sparingly for the price, CTAs, and highlights. One accent, never two.
-- Warm paper backgrounds (Parchment, Cream) rather than cold pure white — the books are physical objects, and the platform keeps that warmth.
-- Serif display (Libre Caslon / Georgia) for headlines — editorial, bookish, aspirational.
-- Sans body (Inter / system) for UI and reading chrome — crisp and readable.
-- Flat, low-elevation surfaces with hairline borders; shadows only on floating elements (dropdowns, toasts, the reader TTS bar).
-- Generous whitespace; content is the hero, chrome is quiet.
-- The reader experience stays minimal — near-zero chrome, maximum ink on paper.
+- Deep indigo (**Midnight Ink**) anchors the brand: authority, focus, study-room-at-dusk calm.
+- Warm amber (**Ember Gold**) is the single energetic accent, reserved for price, the offer
+  and reading progress. One accent, never two.
+- Warm paper backgrounds (**Parchment / Cream**), never cold pure white — the books are
+  physical objects.
+- Serif display for headlines (editorial, bookish); sans for UI and reading chrome.
+- Flat, low-elevation surfaces with hairline borders. Shadows only on floating elements.
+- Generous whitespace. Content is the hero, chrome is quiet.
+- The reader stays minimal — near-zero chrome, maximum ink on paper.
 
-## 2. Color Palette & Roles
+---
+
+## 2. Colour Palette & Roles
 
 ### Primary
-- **Midnight Ink** (`#1E2A52`) — brand anchor; primary buttons, primary links, active nav, header accents.
-- **Midnight 700** (`#16203F`) — hover state for primary buttons, footer background.
+- **Midnight Ink** `#1E2A52` — brand anchor; primary buttons, links, active nav.
+- **Midnight 700** `#16203F` — hover. **800** `#101833` — gradient end, footer surface.
 
-### Secondary & Accent
-- **Ember Gold** (`#F5A623`) — price, sale tag, "lifetime" highlight, focus on the offer. Use on dark surfaces with dark text (contrast).
-- **Ember Deep** (`#D98A12`) — hover/emphasis for gold elements.
+### Accent
+- **Ember Gold** `#F5A623` — price, offer chip, reading-progress fill, TTS highlight.
+- **Ember Deep** `#D98A12` — hover, and gold text **on a dark or tinted surface only**.
 
-### Surface & Background
-- **Parchment** (`#F7F4EE`) — app background.
-- **Cream** (`#FFFDF9`) — card / raised surface background.
-- **Paper Dark** (`#F0EBE0`) — subtle tint sections and wells.
+### Surfaces
+- **Parchment** `#F7F4EE` — app background · **Cream** `#FFFDF9` — cards/surfaces
+- **Paper Dark** `#F0EBE0` — wells, inset blocks · `#E8E2D4` — deeper wells
 
-### Neutrals & Text
-- **Ink** (`#22252E`) — primary text.
-- **Slate** (`#4A4F5E`) — secondary text.
-- **Ash** (`#8A8F9D`) — muted text, metadata, captions.
-- **Line** (`#E4E0D4`) — hairline borders, dividers.
-- **Hairline** (`#EFECE2`) — softer borders.
+### Text
+- **Ink** `#22252E` · **fg-2** `#4A4F5E` · **fg-3** `#6B7080` · **Ash** `#8A8F9D`
 
-### Semantic & Accent
-- **Success** (`#1F8A4C`) — active subscription, correct answers, success toasts.
-- **Warning** (`#C98A1B`) — lapsed subscription, warnings.
-- **Danger** (`#C0392B`) — errors, destructive actions, wrong answers.
-- **Info** (`#2B6CB0`) — informational notes.
+### Lines
+- **Line** `#E4E0D4` · **Soft** `#EFECE2` · **Strong** `#D3CDBC`
 
-### Dark Mode
-- **Night** (`#12141C`) — dark app background.
-- **Night Card** (`#1B1E28`) — dark card surface.
-- **Night Line** (`#2A2E3A`) — dark hairline.
-- **Night Ink** (`#EDEAE2`) — dark-mode text.
-- Dark mode keeps Midnight Ink anchors but shifts surfaces to Night, text to Night Ink.
+### Semantic
+Success `#1F8A4C` · Warning `#C98A1B` · Danger `#C0392B` · Info `#2B6CB0` — each with a
+matching `*-tint` surface.
 
-### Gradient System
-- **Hero wash**: subtle vertical `linear-gradient(Parchment → Cream)` for the hero; optional faint radial amber glow behind the pricing card.
-- **Aurora atmosphere**: layered radial washes (Midnight tinted + a single warm Ember wash), always under 25% alpha, drifting on a 20s+ loop. Applied to hero and page shells only — never over reading content.
-- **Brand gradient**: `Midnight Ink → #33458F → amber-mixed Midnight` reserved for the book cover art, favicon, and the brand mark.
-- Never gradient text; larger surfaces capped at two–three brand stops.
+### Dark mode
+Applied as `[data-theme="dark"]` on `<html>`; a tiny inline script resolves it before first
+paint (no flash), and `app.js` mirrors the choice to `localStorage`. With no stored choice it
+follows `prefers-color-scheme` and keeps following it until the reader overrides.
 
-## 3. Typography Rules
+Night `#12141C` · Night Card `#1B1E28` · Night Line `#2E3340` · Night Ink `#EDEAE2`.
+Brand lifts to `#8FA3E8` and gold to `#F0B44A` so both keep contrast on dark surfaces.
 
-### Font Family
-- **Headline:** `"Libre Caslon Display", Georgia, "Times New Roman", serif`
-- **Body:** `Inter, -apple-system, "Segoe UI", Roboto, sans-serif`
-- **Mono:** `ui-monospace, "JetBrains Mono", Menlo, monospace` (rare — codes, IDs)
+> **Hard rule:** `app.css`, `reader.css` and `extras.css` contain **no raw colours**. Every
+> colour resolves through a `tokens.css` custom property. That is what makes dark mode work
+> at all — the previous stylesheet hard-coded ~60 hex values and its dark mode was inert.
 
-### Hierarchy
-| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |
-|---|---|---|---|---|---|---|
-| Display | Headline | 40–56px | 700 | 1.08 | -0.01em | Landing hero only |
-| H1 | Headline | 32px | 700 | 1.15 | -0.01em | Page titles |
-| H2 | Headline | 26px | 700 | 1.2 | 0 | Section headers |
-| H3 | Body | 19px | 650 | 1.3 | 0 | Cards, sub-blocks |
-| Body | Body | 16px | 400 | 1.6 | 0 | Default text |
-| Body Small | Body | 14px | 400 | 1.55 | 0 | Secondary text |
-| Caption | Body | 12.5px | 500 | 1.4 | 0.02em | Metadata, labels |
-| Overline | Body | 11px | 700 | 1.3 | 0.09em | Uppercase section labels |
-| Price | Body | 44px | 750 | 1 | -0.02em | ₹299 numeral |
+---
 
-### Principles
-- Headlines in serif, UI in sans — never mix the two roles.
-- Body line-height 1.6 always; reading column max 68ch.
-- Uppercase overlines only for tiny labels; letter-spacing ≥ 0.06em when uppercase.
-- Never justify body text.
+## 3. Typography
 
-## 4. Component Stylings
+- **Display / headings:** `"Cambay", Georgia, serif` — self-hosted woff2 (`/assets/fonts/`).
+  Cambay covers Latin **and Devanagari**, so Hindi content never falls back to a random
+  system font.
+- **Body / reading:** Cambay at 400/700 for book text.
+- **UI / chrome:** `system-ui` stack — crisper for controls at small sizes.
+- **Mono:** `ui-monospace` — codes, chapter numbers, order ids only.
 
-### Buttons
-- **Primary:** Midnight Ink background, Cream text, radius 10px, 14px padding 20px. Hover: Midnight 700. Active: translateY(1px). A soft sheen sweep glides across on hover.
-- **Ghost:** transparent, 1px Line border, Ink text. Hover: Paper Dark background.
-- **Gold:** Ember Gold background, Ink text (dark text on gold for contrast). For the "claim offer" CTA.
-- Sizes: `--btn-sm` (34px), default (44px), `--btn-lg` (52px). Full-width variant `btn-block`.
-- Focus ring: 3px `color-mix(in srgb, var(--accent) 40%, transparent)`.
+### Fluid scale (min = phone, max = desktop cap)
+Display `clamp(2rem → 3.5rem)` · H1 `clamp(1.6 → 2.25rem)` · H2 `clamp(1.3 → 1.75rem)` ·
+H3 `clamp(1.05 → 1.2rem)` · Lead `clamp(1 → 1.15rem)` · Body `1rem` · Sm `.875` · Xs `.8125`
+· 2xs `.75` · Micro `.6875`.
 
-### Icons & Ornaments
-- Use inline **SVG stroke icons** (1.6px, `currentColor`) — no icon font, no CDN. Stroke inherits Ink/Brand; accents use Ember Gold only for the offer halo.
-- Feature cards carry a 40px tinted `ico` tile (brand 8% fill, radius 12px).
-- Flat iconography only — never filled icons on gradient blobs.
+Line height: display 1.12 · headings 1.22–1.32 · body 1.62 · relaxed (reading) 1.75.
+Reading column is `max-width: 720px`; body text is never justified.
 
-### Motion
-- Scroll-reveal: content enters with `opacity + 16px translateY`, 480ms `cubic-bezier(.22,1,.36,1)`, staggered via a custom `--d` delay. Respect `prefers-reduced-motion`.
-- Hover micro-interactions: buttons lift 1–2px with a gold sheen; book covers zoom the interior to 103%.
-- Ambient only: hero blob drift (~20s), floating info chips (6–9s ease-in-out). Nothing bounces.
-- Entrances once per scroll; never re-trigger.
+---
 
-### Cards & Containers
-- **Card:** Cream bg, 1px Line border, radius 14px, padding 20px, no shadow. Hover (interactive): 1px Midnight border + translateY(-2px).
-- **Book card:** cover block (2:3 ratio) + title + author + chapter chip.
-- **Pricing card:** Cream bg, 1px Midnight border, radius 18px, subtle amber glow on top edge.
+## 4. Components
 
-### Inputs & Forms
-- Background Cream, 1px Line border, radius 10px, padding 10px 14px, height 44px.
-- Focus: Midnight border + focus ring. Placeholder: Ash.
-- Labels: Caption style, Ink, margin-bottom 6px.
+**Buttons** — 44px min height (sm 34 / lg 52). `btn-primary` Midnight + Cream with a sheen
+sweep on hover; `btn-ghost` hairline; `btn-gold` for the offer only; `btn-danger` for revoke.
+Focus ring `0 0 0 3px color-mix(in srgb, var(--brand) 30%, transparent)`.
 
-### Navigation
-- Sticky header, Parchment/translucent backdrop-blur, hairline bottom border.
-- Brand mark: square Midnight tile with "U" + wordmark. Nav links: Ink, hover underline accent.
-- Active page: Midnight text + 2px Midnight underline.
+**Cards** — Cream surface, 1px Line border, radius 14px, **never** a box-shadow. Interactive
+cards lift 2px and take a Midnight border on hover. Cards use hairline depth; only floating
+elements (drawer, dock, lightbox, toast) get elevation.
 
-### Image Treatment
-- Book covers: radius 10px, thin Line border, no drop shadow.
-- Chapter figures: full-width, radius 12px, light Line border, click-to-zoom.
+**Chips** — 34px min height, pill. `chip-filter.is-active` fills Midnight. Long filter rows
+use `.chip-scroll` (horizontal scroll, hidden scrollbar) rather than wrapping on a phone.
 
-### Distinctive Components
-- **Offer banner / price:** amber chip with "₹299 lifetime" — dark Ink text on Ember Gold pill.
-- **Chapter chip:** caption-style count badge (e.g. "104 chapters").
-- **TTS bar:** floating pill, Cream bg, elevation shadow, radius 999px.
-- **Alert:** tinted panels (success/error/info) with 1px matching border.
+**Forms** — Cream, 1px Line, radius 8px, min-height 44px. Focus: Midnight border + ring.
+Password fields get a real `Show/Hide` button wired in `app.js` (never an inline `onclick`).
 
-## 5. Layout Principles
+**Alerts / badges** — tinted surface + 1px matching border. Status uses `badge-*` pills.
 
-### Spacing System
-Base unit **4px**. Scale: 4 · 8 · 12 · 16 · 20 · 24 · 32 · 40 · 48 · 64 · 96.
-- Section vertical: 96px desktop, 64px tablet, 48px phone.
-- Card padding: 20px. Grid gap: 20px.
+**Reveal** — `opacity + 14px translateY`, 420ms `cubic-bezier(.22,1,.36,1)`, staggered with
+`--d`. Fires once per element, always behind `prefers-reduced-motion`.
 
-### Grid & Container
-- 12-column grid. Container max-width **1120px**, gutters 24px desktop / 16px tablet / 12px phone.
-- Book grid: 4 columns desktop, 2 tablet, 2 phone (covers read well even at 2-up).
-- Reading column: max-width **760px**, centered.
+---
 
-### Whitespace Philosophy
-- Chrome is quiet: nav height 60px, footer sparse.
-- Hero: full-height-ish, generous bottom padding, headline + sub + one CTA row.
-- Sections separated by whitespace more than by rules.
+## 5. Layout
 
-### Border Radius Scale
-- `--radius-sm: 8px` (chips, inputs), `--radius-md: 12px` (images), `--radius-lg: 14px` (cards), `--radius-xl: 18px` (pricing), `--radius-pill: 999px` (tags, TTS bar).
+Base unit 4px: 4 · 8 · 12 · 16 · 20 · 24 · 28 · 32 · 40 · 48 · 56 · 64 · 80 · 96.
+Container `1180px`. Gutters 16 / 20 / 24px by breakpoint.
+Book grid: **2 phone · 3 tablet · 4 desktop**. Feature grid: 1 · 2 · 4.
+Section padding: 48 phone · 56 tablet · 64 desktop.
 
-## 6. Depth & Elevation
+**Navigation** — phone: brand + theme toggle + auth CTA + burger. ≥900px: inline links,
+`aria-current` with a 2px Midnight underline, inline search field, CTA. The burger opens a
+right-hand drawer with a focus trap, `Escape` to close, scroll lock, and auto-close past
+900px. Hidden elements use `display: none` — never `visibility: hidden` — so they cannot
+receive focus or read to assistive tech.
+
+---
+
+## 6. Depth
 
 | Level | Treatment | Use |
 |---|---|---|
 | Flat | none | default surfaces |
-| Hairline | `0 0 0 1px var(--line)` | card edges, focus |
-| Raised | `0 2px 6px rgba(20,22,30,.08)` | TTS bar, dropdowns |
-| Floating | `0 10px 30px rgba(20,22,30,.16)` | toasts, modals, mobile drawer |
+| Hairline | `0 0 0 1px var(--line)` | card edges |
+| Raised | `0 2px 6px rgba(20,22,30,.08)` | popovers |
+| Floating | `0 10px 30px rgba(20,22,30,.16)` | drawer, lightbox |
+| Dock | top hairline + upward shadow | reader TTS dock, mobile |
 
-### Shadow Philosophy
-- Only floating/transient elements cast shadows. Cards never shadow — they use hairline borders.
-- Amber glow: `0 0 60px rgba(245,166,35,.10)` behind pricing card only.
+Amber glow `0 0 60px rgba(245,166,35,.12)` behind the pricing card only.
 
-### Decorative Depth
-- Atmosphere is ambient, never a picture: aurora washes, a whisper of 1px paper dots, and a handful of inline SVG icons. Every decorative layer ≤ 25% alpha.
-- Reading sheets stay absolutely chrome-free — no blobs, no grain behind text columns.
+---
 
-## 7. Do's and Don'ts
+## 7. The reader
 
-**Do:**
-- Use Midnight Ink for primary actions and links.
-- Use Ember Gold only for the offer/price and its immediate halo — never for large surfaces.
-- Keep reading surfaces Cream/Parchment with near-zero chrome.
-- Use serif for every heading; sans for everything else.
-- Give hairline borders to all cards; reserve shadows for floating elements.
-- Maintain ≥ 68ch reading width and 1.6 line-height in the reader.
-- Use uppercase overlines only for micro-labels.
-- Add motion sparingly and always behind `prefers-reduced-motion`.
-- Pull every new surface from `tokens.css`, including the atmosphere tokens.
+The highest-value surface; it gets its own opinions.
 
-**Don't:**
-- Don't use pure black (`#000`) or pure white (`#fff`) for text/surfaces.
-- Don't use more than one accent color on a screen.
-- Don't put amber text on white (contrast fail) — use Ink text on gold fills.
-- Don't add box-shadows to cards.
-- Don't justify text or hyphenate body copy.
-- Don't mix a third font family in.
-- Don't clutter the reader with sidebars or heavy headers.
-- Don't animate reading text, price numerals, or anything the eye tracks while studying.
+- **Top bar** — back, chapter-list button, current chapter, text-size, study-tools. 60px.
+- **Chapter sheet** — bottom sheet on phone (86vh, rounded top, safe-area padding), fixed
+  side panel ≥900px. Live search: 1 character filters titles locally, 2+ hits the server.
+- **Reading column** — 720px max, 1.75 line height, generous paragraph spacing.
+- **Wide content** — tables get `min-width` inside a scroll wrapper; figures are fluid with
+  a border and open in a lightbox.
+- **Continuous reading** — the next chapter is pre-fetched as a fragment, appended with its
+  `data-sid` ids renumbered so a single reading queue spans chapters.
+- **Text size** — `--font-scale` on `:root`, stepped S/M/L/XL, persisted.
+- **Progress bar** — 3px gradient hairline, `role="progressbar"` with a live `aria-valuenow`.
 
-## 8. Responsive Behavior
+### Text to speech (the differentiator)
 
-### Breakpoints
-| Name | Width | Changes |
-|---|---|---|
-| Phone | < 640px | Stack hero, book grid 2-col, nav collapses to links (brand first), reader padding tightens |
-| Tablet | 640–1024px | Book grid 2–3 col, hero stacks |
-| Desktop | > 1024px | Full layout, book grid 4 col, fixed sidebar allowed in admin |
+Sentence-level playback over server-rendered `.tts-sent[data-sid]` spans.
 
-### Touch Targets
-- All tappable ≥ 44px hit area (buttons, links, TTS controls 44px).
-- Reader sentence spans are clickable (start TTS) — min 20px effective padding.
+- Tap **any sentence** to read from that point.
+- Real **pause / resume**, not cancel-and-restart.
+- **Speed presets** (0.75× / 1× / 1.25× / 1.5× / 2×) — never a free-dragging slider, which
+  re-triggered speech on every pixel.
+- **Voice picker** from the installed English voices; voice, speed, follow-along and
+  auto-next-chapter all persist in `localStorage`.
+- **Follow along** — the active sentence scrolls to centre and is highlighted; already-read
+  sentences carry a faint brand tint.
+- **Auto next chapter** — when the queue empties, the next chapter is fetched and playback
+  continues without dropping.
+- **Position restored** per book+chapter on reload.
+- **Keyboard** — `Space` play/pause, `J`/`K` sentence, `T` options, `S` stop (suppressed
+  while typing). Auto-pauses when the tab is hidden.
+- Degrades honestly: if the browser has no speech engine the dock says so instead of
+  showing dead controls.
+- The dock is a **bottom dock on phone** and a **floating 380px panel ≥900px**;
+  `body.reading` reserves `calc(dock + safe-area)` so the dock never covers the last lines.
 
-### Collapsing Strategy
-- Header: brand + CTA row persists; nav links scroll away / fold into menu on phone.
-- Reader: TTS bar becomes full-width bottom bar on phone.
-- Admin tables: horizontal scroll within card on phone.
+---
 
-### Image Behavior
-- Book covers: `aspect-ratio: 2/3`, `object-fit: cover`, scale 100% → hover 103%.
-- Chapter figures: fluid width, `max-height: 70vh`, zoomable in lightbox.
+## 8. Accessibility
 
-## 9. Agent Prompt Guide
+- Skip link on every page (`#main`, or `#rd-body` in the reader).
+- Visible `:focus-visible` rings everywhere; `:focus { outline: none }` alone is never used.
+- `aria-current="page"` on the active nav item; `aria-expanded` on burger and TTS options.
+- Icon-only controls carry `aria-label`. The theme toggle announces its next state.
+- Live regions for async counts, filter results and payment messages.
+- All form inputs have real `<label>`s (`.sr-only` where visual clutter would hurt).
+- Status colours are never the only signal — badges and text carry meaning too.
+- `prefers-reduced-motion` disables reveal, smooth scroll and the number animation.
 
-### Quick Color Reference
-- Primary: **Midnight Ink** (`#1E2A52`)
-- Accent: **Ember Gold** (`#F5A623`)
-- Background: **Parchment** (`#F7F4EE`), surface **Cream** (`#FFFDF9`)
-- Text: **Ink** (`#22252E`), **Slate** (`#4A4F5E`), **Ash** (`#8A8F9D`)
-- Border: **Line** (`#E4E0D4`)
-- Success `#1F8A4C` · Warning `#C98A1B` · Danger `#C0392B` · Info `#2B6CB0`
-- Dark: **Night** `#12141C`, **Night Card** `#1B1E28`, **Night Line** `#2A2E3A`, **Night Ink** `#EDEAE2`
+---
 
-### Example Component Prompts
-- "Primary button: Midnight Ink fill, Cream text, radius 10px, hover Midnight 700."
-- "Pricing card: Cream surface, Midnight border, Ember Gold price numeral with Ink text."
-- "Book card cover placeholder: Midnight fill, white serif title, overline 'UPSCBOOKS', author bottom."
-- "Reader TTS bar: floating pill, Cream, radius 999px, elevation shadow, no border."
-- "Error alert: Cream surface, Danger border, Danger text caption."
+## 9. Content rules
 
-### Iteration Guide
-1. Start every new screen from tokens.css — never hardcode a color/font.
-2. Match the section roles above; verify the palette stays within Midnight/Ember/Neutrals.
-3. Check contrast: body text Slate on Parchment, Ink text on Ember Gold, Cream text on Midnight.
-4. Confirm the reader surface stays chrome-free and the reading column ≤ 760px.
-5. Re-check dark mode (Night surfaces) for every new screen before finishing.
+- **No invented numbers.** Every count on a page comes from the database or the content
+  bundle. No "50,000+ students", no hardcoded book totals.
+- **No dead links.** `href="#"`, anchors with no target, and links to pages that do not
+  exist are bugs. If a tool has no data it is not offered.
+- **Inline SVG icons only** (1.6–1.8px stroke, `currentColor`). No emoji as icons, no icon
+  font, no CDN.
+- **Self-hosted fonts only** — no third-party font CDN.
+- Headline serif, body sans/serif, never mixed within a role.
+- Never put amber text on a light background; use Ink text on a gold fill.
+- Every page needs a real `<title>` and a real meta description.
+
+---
+
+## 10. Iteration guide
+
+1. Start from `tokens.css`. If a colour or font is not a token, add the token first.
+2. Write the phone layout first; add breakpoints after.
+3. Check the dark theme before calling a screen done.
+4. Verify: 44px targets, no horizontal scroll at 360px, keyboard reachability, live-region
+   updates, and no console errors.
+5. Run the Canary QA session across 390px and 1440px before pushing.

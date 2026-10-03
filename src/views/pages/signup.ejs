@@ -1,37 +1,54 @@
-<div class="auth-page">
+<div class="auth-page auth-wide">
   <div class="auth-card reveal">
-    <span class="auth-badge">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" aria-hidden="true"><path d="M12 15a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM8.21 13.89 7 23l5-3 5 3-1.21-9.12"/></svg>
+    <span class="auth-badge" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M12 15a7 7 0 1 0 0-14 7 7 0 0 0 0 14z"/><path d="m8.2 13.9-1.2 9.1 5-3 5 3-1.2-9.1"/></svg>
     </span>
     <h1>Create your account</h1>
-    <p class="muted">Then claim lifetime access to every book — ₹999, or ₹299 with code <strong>UPSC299</strong>.</p>
-    <% if (error) { %><div class="alert alert-error"><%= error %></div><% } %>
-    <form method="post" action="/signup" class="stack">
+    <p class="muted">Free to join. Claim lifetime access to the whole library whenever you're ready.</p>
+
+    <% if (error) { %>
+      <div class="alert alert-error" role="alert"><%= error %></div>
+    <% } %>
+
+    <form method="post" action="/signup" class="stack" novalidate>
       <input type="hidden" name="_csrf" value="<%= csrf %>">
+
       <label>
-        <span>Full name (optional)</span>
+        <span>Full name <span class="muted tiny">(optional)</span></span>
         <input type="text" name="name" value="<%= name %>" autocomplete="name" placeholder="Aarav Sharma">
       </label>
+
       <label>
         <span>Email</span>
-        <input type="email" name="email" value="<%= email %>" required autocomplete="email" placeholder="you@example.com">
+        <input type="email" name="email" id="email" value="<%= email %>" required
+               autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false"
+               placeholder="you@example.com">
       </label>
+
       <label>
         <span>Password</span>
-        <div class="input-with-toggle">
-          <input type="password" name="password" id="pw" required minlength="8" autocomplete="new-password" placeholder="At least 8 characters">
-          <button type="button" class="pw-toggle" onclick="var i=document.getElementById('pw');var t=this;i.type=i.type==='password'?'text':'password';t.textContent=i.type==='password'?'Show':'Hide'" aria-label="Show password">Show</button>
-        </div>
+        <span class="input-with-toggle">
+          <input type="password" name="password" id="pw" required minlength="8"
+                 autocomplete="new-password" placeholder="At least 8 characters">
+          <button type="button" class="pw-toggle" aria-label="Show password" aria-pressed="false">Show</button>
+        </span>
+        <span class="pw-meter" data-pw-meter="pw" data-level="0" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="field-hint" id="pw-hint">At least 8 characters.</span>
       </label>
+
       <label class="checkbox-label">
         <input type="checkbox" name="terms" required>
-        <span>I agree to the <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a></span>
+        <span>I agree to the <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>.</span>
       </label>
+
       <button class="btn btn-primary btn-lg btn-block" type="submit">
         Create account
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </button>
     </form>
-    <p class="auth-alt muted">Already have an account? <a href="/login">Sign in</a></p>
+
+    <p class="auth-alt muted">
+      Already have an account? <a href="/login">Sign in</a>
+    </p>
   </div>
 </div>

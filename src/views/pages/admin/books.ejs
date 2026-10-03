@@ -1,28 +1,33 @@
 <div class="page">
-  <div class="container" style="padding-top: var(--space-12);">
+  <div class="container">
     <div class="section-head">
       <p class="admin-eyebrow">Admin</p>
-      <h1 style="font-family:var(--font-display);font-size:var(--text-2xl);margin:0 0 4px;">Books</h1>
-      <p class="muted">Imported titles and their chapter counts.</p>
+      <h1 class="page-title">Books</h1>
+      <p class="section-sub">Imported titles and their chapter counts.</p>
     </div>
 
-    <%- include('../partials/admin-nav', { active }) %>
+    <%- include('../partials/admin-nav', { active: active }) %>
 
-    <table class="admin-table">
-      <thead><tr><th>Book</th><th>Slug</th><th>Chapters</th><th>Status</th><th>Added</th></tr></thead>
-      <tbody>
-        <% books.forEach(function (b) { %>
-          <tr>
-            <td class="cell-strong"><%= b.title %></td>
-            <td class="mono"><%= b.slug %></td>
-            <td><%= b.chapter_count %></td>
-            <td><span class="badge badge-<%= b.status %>"><%= b.status %></span></td>
-            <td class="muted"><%= b.created_at %></td>
-          </tr>
-        <% }); %>
-      </tbody>
-    </table>
-    <% if (!books.length) { %>
+    <% if (books.length) { %>
+      <div class="table-scroll">
+        <table class="admin-table">
+          <thead>
+            <tr><th scope="col">Book</th><th scope="col">Subject</th><th scope="col">Chapters</th><th scope="col">Status</th><th scope="col">Added</th></tr>
+          </thead>
+          <tbody>
+            <% books.forEach(function (b) { %>
+              <tr>
+                <td class="cell-strong"><%= b.title %></td>
+                <td class="muted tiny"><%= b.subject || '—' %></td>
+                <td><%= b.chapter_count %></td>
+                <td><span class="badge badge-<%= b.status %>"><%= b.status %></span></td>
+                <td class="muted tiny"><%= b.created_at %></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
       <div class="alert alert-info">No books imported yet.</div>
     <% } %>
   </div>

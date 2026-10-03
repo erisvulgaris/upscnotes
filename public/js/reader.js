@@ -1,194 +1,364 @@
-/* UPSCbooks reader: server-side rendered chapters, infinite-scroll to next chapter,
-   chapter sidebar with live search, and a public hook the TTS module uses to
-   continue playback across chapter boundaries without stopping. */
+/* =====================================================================
+   UPSCbooks reader
+   - Chapter sheet (bottom sheet on phone, side panel on desktop)
+   - Full-text search inside the book
+   - Continuous reading: the next chapter is pre-fetched and appended
+   - Public hook (window.UPSC_Reader) the TTS engine uses to cross a
+     chapter boundary without stopping
+   ===================================================================== */
 (function () {
-  const readerEl = document.querySelector('.reader[data-slug]');
-  if (!readerEl) return;
+  'use strict';
 
-  const slug = readerEl.getAttribute('data-slug');
-  const total = parseInt(readerEl.getAttribute('data-mih-total'), 10) || (window.UPSCBOOKS && window.UPSCBOOKS.total) || 0;
-  let cur = parseInt(readerEl.getAttribute('data-mih-cur'), 10) || (window.UPSCBOOKS && window.UPSCBOOKS.cur) || 1;
-  const rdBody = readerEl.querySelector('.rd-body');
-  if (!rdBody) return;
+  var main = document.getElementById('rd-body');
+  if (!main) return;
 
-  let loadingNext = null;
-  let failCount = 0;
-  const MAX_FAILS = 3;
+  var CFG = window.UPSCBOOKS || {};
+  var slug = main.getAttribute('data-slug') || CFG.slug;
+  var cur = parseInt(main.getAttribute('data-chapter'), 10) || CFG.chapter || 1;
+  var last = parseInt(main.getAttribute('data-last'), 10) || CFG.last || cur;
+
+  var loadBox = document.getElementById('rd-load');
+  var loadText = document.getElementById('rd-load-text');
+  var sheet = document.getElementById('ch-sheet');
+  var openBtn = document.getElementById('ch-open');
+
+  var loadingNext = null;
+  var failed = false;
+  // Set by a real user scroll and cleared after every successful chapter load,
+  // so a chain of chapters can never load unattended.
+  var userScrolled = false;
+
+  /* ------------------------------------------------- continuous read */
 
   function maxSid() {
-    let m = -1;
-    rdBody.querySelectorAll('.tts-sent').forEach((el) => {
-      const v = parseInt(el.getAttribute('data-sid'), 10);
+    var m = -1;
+    var nodes = document.querySelectorAll('.tts-sent');
+    for (var i = 0; i < nodes.length; i++) {
+      var v = parseInt(nodes[i].getAttribute('data-sid'), 10);
       if (v > m) m = v;
-    });
+    }
     return m;
   }
 
-  function updateBookCur() {
-    const el = document.querySelector('#book-cur');
-    const title = el ? el.textContent : '';
-    markActive(cur);
+  function hasNext() { return cur < last && !failed; }
+
+  var continueBtn = null;
+
+  function setLoadState(kind, text) {
+    if (!loadBox) return;
+    loadBox.classList.toggle('is-end', kind === 'end');
+    if (loadText) loadText.textContent = text;
   }
 
-  function nextExists() { return cur < total; }
-
-  function statusEl() {
-    let s = document.getElementById('mih-next-status');
-    if (!s) {
-      s = document.createElement('div');
-      s.id = 'mih-next-status';
-      s.className = 'mih-next-status';
-      rdBody.appendChild(s);
+  // One persistent button, updated in place. Recreating it per chapter
+  // detached the node mid-interaction and threw away keyboard focus.
+  function ensureContinueButton() {
+    if (!loadBox) return;
+    if (!hasNext()) {
+      if (continueBtn) { continueBtn.remove(); continueBtn = null; }
+      return;
     }
-    return s;
-  }
-
-  function updateStatus() {
-    const s = statusEl();
-    if (cur >= total) {
-      s.innerHTML = 'You have reached the end of this book.';
-      s.classList.add('mih-end');
-    } else {
-      s.innerHTML = '<span class="pulse-dot"></span>Scroll to continue reading →';
-      s.classList.remove('mih-end');
+    if (!continueBtn) {
+      continueBtn = document.createElement('button');
+      continueBtn.className = 'btn btn-ghost';
+      continueBtn.type = 'button';
+      continueBtn.addEventListener('click', loadNext);
+      loadBox.appendChild(continueBtn);
     }
+    continueBtn.textContent = 'Continue to chapter ' + (cur + 1);
   }
 
   function loadNext() {
-    if (!nextExists()) return Promise.resolve(false);
+    if (!hasNext()) return Promise.resolve(false);
     if (loadingNext) return loadingNext;
-    const n = cur + 1;
-    loadingNext = fetch(`/read/${slug}/${n}/fragment?sidBase=${maxSid() + 1}`, { credentials: 'same-origin' })
-      .then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
-      .then((html) => {
-        const sep = document.createElement('div');
-        sep.className = 'mih-next-chapter';
-        sep.innerHTML = `<span class="mih-next-kicker">Chapter ${n}</span>`;
-        const frag = document.createElement('div');
-        frag.innerHTML = html;
-        rdBody.appendChild(sep);
-        rdBody.appendChild(frag);
+
+    var n = cur + 1;
+    setLoadState('loading', 'Loading chapter ' + n + '…');
+
+    loadingNext = fetch('/read/' + encodeURIComponent(slug) + '/' + n + '/fragment?sidBase=' + (maxSid() + 1), {
+      credentials: 'same-origin',
+      headers: { accept: 'text/html' },
+    })
+      .then(function (r) {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.text();
+      })
+      .then(function (html) {
+        if (!html.trim()) throw new Error('empty fragment');
+
+        var kicker = document.createElement('div');
+        kicker.className = 'rd-next';
+        kicker.innerHTML = '<span class="rd-next-kicker">Chapter ' + n + '</span>';
+
+        var body = document.createElement('div');
+        body.className = 'rd-next-body';
+        body.innerHTML = html;
+
+        loadBox.parentNode.insertBefore(kicker, loadBox);
+        loadBox.parentNode.insertBefore(body, loadBox);
+
         cur = n;
-        updateStatus();
+        markActive(n);
+        updateSheetProgress();
+        setLoadState(hasNext() ? 'more' : 'end',
+          hasNext() ? 'Chapter ' + n + ' loaded — keep scrolling.' : 'End of book.');
+        ensureContinueButton();
+        // A fresh load must not immediately trigger another one.
+        userScrolled = false;
         return true;
       })
-      .catch((err) => {
-        failCount++;
-        if (failCount <= MAX_FAILS) statusEl().textContent = 'Could not load the next chapter. Use the ▶ button or open chapters.';
+      .catch(function () {
+        failed = true;
+        setLoadState('end', 'Could not load the next chapter automatically.');
+        if (continueBtn) { continueBtn.remove(); continueBtn = null; }
+        var btn = document.createElement('button');
+        btn.className = 'btn btn-ghost';
+        btn.type = 'button';
+        btn.textContent = 'Retry chapter ' + (cur + 1);
+        btn.addEventListener('click', function () {
+          failed = false;
+          loadNext();
+        });
+        loadBox.appendChild(btn);
         return false;
       })
-      .finally(() => { loadingNext = null; });
-    statusEl().textContent = 'Loading next chapter…';
+      .then(function (ok) {
+        loadingNext = null;
+        return ok;
+      });
+
     return loadingNext;
   }
 
-  // IntersectionObserver: preload next chapter before the user reaches the bottom.
   function initAutoLoad() {
-    updateStatus();
-    if (!('IntersectionObserver' in window)) return;
-    const sentinel = document.createElement('div');
-    sentinel.className = 'mih-sentinel';
-    sentinel.id = 'mih-sentinel';
-    rdBody.appendChild(sentinel);
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => { if (entry.isIntersecting) loadNext(); });
-    }, { rootMargin: '1000px 0px' });
-    io.observe(sentinel);
+    userScrolled = false;
+    if (hasNext()) setLoadState('more', 'Scroll on to continue reading');
+    else setLoadState('end', 'End of book');
+    ensureContinueButton();
+
+    if ('IntersectionObserver' in window && loadBox) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) loadNext(); });
+      }, { rootMargin: '900px 0px' });
+      io.observe(loadBox);
+    }
+
+    // Backstop for observers that never fire: a restored scroll position, or a
+    // short viewport, can leave the sentinel on screen without ever crossing
+    // the observer margin. Requires a real user scroll so a chain of chapters
+    // cannot load unattended.
+    window.addEventListener('scroll', function () { userScrolled = true; }, { passive: true });
+    setTimeout(function () {
+      if (!loadBox || !hasNext() || loadingNext) return;
+      var r = loadBox.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) loadNext();
+    }, 500);
   }
 
-  // ---- sidebar ----
-  function openSb() { document.body.classList.add('mih-sb-open'); }
-  function closeSb() { document.body.classList.remove('mih-sb-open'); }
+  /* ------------------------------------------------------ chapter sheet */
 
   function markActive(n) {
-    document.querySelectorAll('.mih-sb-item').forEach((item) => {
-      item.classList.toggle('on', parseInt(item.getAttribute('data-n'), 10) === n);
+    var items = document.querySelectorAll('.ch-item');
+    for (var i = 0; i < items.length; i++) {
+      var match = parseInt(items[i].getAttribute('data-n'), 10) === n;
+      if (match) items[i].setAttribute('aria-current', 'true');
+      else items[i].removeAttribute('aria-current');
+    }
+  }
+
+  function updateSheetProgress() {
+    var el = document.querySelector('.ch-sheet-progress');
+    if (el) el.textContent = cur + ' loaded';
+  }
+
+  function openSheet() {
+    if (!sheet) return;
+    sheet.classList.add('open');
+    openBtn.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    var input = document.getElementById('ch-search');
+    if (input) setTimeout(function () { input.focus(); }, 120);
+  }
+  function closeSheet() {
+    if (!sheet) return;
+    sheet.classList.remove('open');
+    openBtn.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  if (sheet) {
+    if (openBtn) openBtn.addEventListener('click', function () {
+      sheet.classList.contains('open') ? closeSheet() : openSheet();
+    });
+    Array.prototype.forEach.call(sheet.querySelectorAll('[data-sheet-close]'), function (el) {
+      el.addEventListener('click', closeSheet);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && sheet.classList.contains('open')) closeSheet();
+    });
+    // Following a chapter link should not leave the sheet covering the page.
+    Array.prototype.forEach.call(sheet.querySelectorAll('a'), function (a) {
+      a.addEventListener('click', closeSheet);
     });
   }
 
-  // Content search surfaces matches across the whole book from /api/search/:slug.
-  const resPanel = document.getElementById('mih-sb-results');
+  /* --------------------------------------------- in-book full-text search */
 
-  function escHtml(s) {
-    return String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  var searchInput = document.getElementById('ch-search');
+  var resultsBox = document.getElementById('ch-results');
+  var chapterList = document.getElementById('ch-list');
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
   }
 
-  function renderResults(query, results) {
-    if (!resPanel) return;
-    if (!query) { resPanel.hidden = true; resPanel.innerHTML = ''; return; }
-    const html = results.length
-      ? results.map(function (r, i) {
-          const deficit = r.snippet
-            ? `<span class="mih-sb-snip">${escHtml(r.snippet)}</span>`
-            : '';
-          return `<a class="mih-sb-item mih-sb-rlink" data-n="${r.number}" href="/read/${slug}/${r.number}">
-                    <span class="mih-sb-rtitle">Ch ${r.number}: ${escHtml(r.title)}</span>${deficit}</a>`;
-        }).join('')
-      : '<div class="mih-sb-empty">No matches for “' + escHtml(query) + '”.</div>';
-    resPanel.innerHTML = html;
-    resPanel.hidden = false;
+  function renderEmpty(msg) {
+    if (resultsBox) resultsBox.innerHTML = '<div class="ch-empty">' + esc(msg) + '</div>';
   }
 
-  function applyDesktop() {
-    const on = window.matchMedia && window.matchMedia('(min-width: 1280px)').matches;
-    document.body.classList.toggle('mih-sb-desktop', on);
-  }
+  if (searchInput && resultsBox && chapterList) {
+    var debounce = null;
 
-  function initSidebar() {
-    const openBtn = document.getElementById('mih-open');
-    const closeBtn = document.getElementById('mih-sb-close');
-    const search = document.getElementById('mih-sb-search');
-    const list = document.querySelector('.mih-sb-list');
-    if (!search) return;
-    if (openBtn) openBtn.addEventListener('click', openSb);
-    if (closeBtn) closeBtn.addEventListener('click', closeSb);
-    document.getElementById('mih-sb-backdrop')?.addEventListener?.('click', closeSb);
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSb(); });
+    function filterTitles(q) {
+      // 1 character: filter the visible chapter list locally, no round trip.
+      resultsBox.innerHTML = '';
+      chapterList.hidden = false;
+      var hits = 0;
+      Array.prototype.forEach.call(chapterList.querySelectorAll('.ch-item'), function (item) {
+        var hay = (item.getAttribute('data-title') || '') + ' ' + item.getAttribute('data-n');
+        var ok = hay.indexOf(q) !== -1;
+        item.style.display = ok ? '' : 'none';
+        if (ok) hits++;
+      });
+      if (!hits) renderEmpty('No chapter title matches that.');
+    }
 
-    let debounce = null;
-    search.addEventListener('input', () => {
-      const q = search.value.trim().toLowerCase();
-      // Single char: filter chapter titles live (no server round-trip).
-      if (q.length <= 1) {
-        clearTimeout(debounce);
-        renderResults('', []);
-        list?.querySelectorAll('.mih-sb-item').forEach((item) => {
-          const hit = !q || (item.textContent + ' ' + item.getAttribute('data-n')).toLowerCase().includes(q);
-          item.style.display = hit ? '' : 'none';
+    function searchRemote(q) {
+      chapterList.hidden = true;
+      renderEmpty('Searching…');
+      clearTimeout(debounce);
+      debounce = setTimeout(function () {
+        fetch('/api/search/' + encodeURIComponent(slug) + '?q=' + encodeURIComponent(q), {
+          credentials: 'same-origin',
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            var results = (data && data.ok && data.results) || [];
+            if (!results.length) { renderEmpty('Nothing in this book matches "' + q + '".'); return; }
+            resultsBox.innerHTML = results
+              .map(function (r) {
+                return '<a class="ch-item" href="/read/' + encodeURIComponent(slug) + '/' + r.number + '">' +
+                  '<span class="ch-item-n">CHAPTER ' + r.number + '</span>' +
+                  '<span>' + esc(r.title) + '</span>' +
+                  (r.snippet ? '<span class="ch-item-snip">' + esc(r.snippet) + '</span>' : '') +
+                  '</a>';
+              })
+              .join('');
+          })
+          .catch(function () { renderEmpty('Search failed. Try again.'); });
+      }, 260);
+    }
+
+    searchInput.addEventListener('input', function () {
+      var q = (searchInput.value || '').trim().toLowerCase();
+      clearTimeout(debounce);
+      if (!q) {
+        chapterList.hidden = false;
+        resultsBox.innerHTML = '';
+        Array.prototype.forEach.call(chapterList.querySelectorAll('.ch-item'), function (i) {
+          i.style.display = '';
         });
         return;
       }
-      // 2+ chars: show “Searching…” then draw results from the server.
-      list?.querySelectorAll('.mih-sb-item').forEach((item) => { item.style.display = 'none'; });
-      renderResults(q, []);
-      if (resPanel) {
-        resPanel.innerHTML = '<div class="mih-sb-empty">Searching…</div>';
-        resPanel.hidden = false;
-      }
-      clearTimeout(debounce);
-      debounce = setTimeout(async () => {
-        try {
-          const r = await fetch(`/api/search/${slug}?q=${encodeURIComponent(q)}`, { credentials: 'same-origin' });
-          const data = await r.json();
-          renderResults(q, data.ok ? data.results : []);
-        } catch (e) {
-          if (resPanel) { resPanel.innerHTML = '<div class="mih-sb-empty">Search failed. Try again.</div>'; resPanel.hidden = false; }
-        }
-      }, 250);
+      if (q.length === 1) filterTitles(q);
+      else searchRemote(q);
+    });
+
+    searchInput.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      searchInput.value = '';
+      chapterList.hidden = false;
+      resultsBox.innerHTML = '';
+      Array.prototype.forEach.call(chapterList.querySelectorAll('.ch-item'), function (i) {
+        i.style.display = '';
+      });
     });
   }
 
-  // ---- public API for tts.js ----
+  /* ------------------------------------------------------ reading progress */
+
+  var bar = document.getElementById('rd-progress');
+  if (bar) {
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - window.innerHeight;
+      var pct = max > 8 ? Math.min(100, Math.max(0, (window.scrollY / max) * 100)) : 100;
+      bar.style.width = pct + '%';
+      bar.setAttribute('aria-valuenow', String(Math.round(pct)));
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  }
+
+  /* ------------------------------------------------------- text size */
+
+  var scaleBtn = document.getElementById('font-toggle');
+  var SCALES = [0.9, 1, 1.15, 1.3];
+  function applyScale(v) {
+    document.documentElement.style.setProperty('--font-scale', String(v));
+    try { localStorage.setItem('upscbooks-font-scale', String(v)); } catch (e) {}
+  }
+  function bumpScale() {
+    var cur2 = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--font-scale')) || 1;
+    var i = SCALES.indexOf(cur2);
+    applyScale(SCALES[(i + 1) % SCALES.length]);
+  }
+  if (scaleBtn) scaleBtn.addEventListener('click', bumpScale);
+
+  /* ----------------------------------------------- figure lightbox */
+
+  var lb = document.getElementById('rd-lb');
+  if (lb) {
+    var lbImg = document.getElementById('rd-lb-img');
+    var lbCap = document.getElementById('rd-lb-cap');
+    var lbClose = document.getElementById('rd-lb-close');
+
+    function openLb(src, cap) {
+      lbImg.src = src;
+      lbImg.alt = cap || 'Figure';
+      lbCap.textContent = cap || '';
+      lb.hidden = false;
+      lbClose.focus();
+    }
+    function closeLb() { lb.hidden = true; lbImg.src = ''; }
+
+    document.addEventListener('click', function (e) {
+      var fig = e.target.closest ? e.target.closest('.rd-figure img') : null;
+      if (fig) { openLb(fig.currentSrc || fig.src, fig.alt || ''); return; }
+      if (e.target === lb || e.target.closest('#rd-lb-close')) closeLb();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !lb.hidden) closeLb();
+    });
+  }
+
+  /* ------------------------------------------ public API for the TTS engine */
+
   window.UPSC_Reader = {
     get current() { return cur; },
-    get total() { return total; },
-    hasNext() { return nextExists(); },
-    loadNext() { return loadNext(); },
+    get last() { return last; },
+    hasNext: hasNext,
+    loadNext: loadNext,
+    setScale: applyScale,
   };
 
-  initSidebar();
   markActive(cur);
-  applyDesktop();
-  if (window.matchMedia) window.matchMedia('(min-width: 1280px)').addEventListener('change', applyDesktop);
   initAutoLoad();
 })();

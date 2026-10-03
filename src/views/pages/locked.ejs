@@ -1,12 +1,37 @@
-<div class="page">
-  <div class="container" style="padding: var(--space-16) 0; max-width: 560px;">
-    <div class="pricing-card" style="text-align:center;">
-      <h2 style="font-family:var(--font-display);margin:0 0 8px;">This is a member-only library</h2>
-      <p class="muted" style="margin:0 0 20px;">
-        <%= book ? '“' + book.title + '”' : 'This content' %> is available to lifetime members.
-        Unlock every book — current and future — with a single ₹999 payment, or apply code <strong>UPSC299</strong> to pay just ₹299.
+﻿<div class="page">
+  <div class="container" style="max-width:34rem;">
+    <div class="section-head center">
+      <span class="pricing-tag">Members only</span>
+      <h1 class="page-title" style="margin-top:var(--sp-4);">This book is part of lifetime access</h1>
+      <p class="lead" style="margin-top:var(--sp-3);">
+        <% if (book) { %><strong><%= book.title %></strong> — and every other title — is
+        available with a single payment.<% } else { %>The library is available with a single payment.<% } %>
       </p>
-      <a class="btn btn-gold btn-lg" href="/checkout">Get lifetime access →</a>
+    </div>
+
+    <div class="pricing-wrap">
+      <div class="pricing-card reveal">
+        <span class="pricing-tag">Lifetime</span>
+        <div class="price">
+          <span class="price-cur">₹</span><span class="price-num">999</span>
+          <span class="price-per">one-time</span>
+        </div>
+        <div class="price-old">₹1,199 launch price</div>
+        <ul class="price-feats">
+          <li>Every book in the library, current and future</li>
+          <li>Text-to-speech reading and full-text search</li>
+          <li>7-day money-back guarantee</li>
+        </ul>
+        <a class="btn btn-gold btn-lg btn-block" style="margin-top:var(--sp-5);" href="/<%= user ? 'checkout' : 'signup' %>">
+          <%= user ? 'Get lifetime access' : 'Create an account & unlock' %>
+        </a>
+        <p class="price-note muted">Apply code <strong>UPSC299</strong> at checkout to pay ₹299.</p>
+      </div>
+    </div>
+
+    <div class="row" style="justify-content:center;margin-top:var(--sp-8);">
+      <a class="btn btn-ghost" href="/library">Browse the catalogue first</a>
+      <% if (!user) { %><a class="btn btn-quiet" href="/login">Sign in</a><% } %>
     </div>
   </div>
 </div>

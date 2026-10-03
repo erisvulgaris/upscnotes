@@ -1,160 +1,134 @@
 import { Router } from 'express';
-import fs from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { renderPage } from '../render.js';
-import { getBookBySlug, getChapters, getActiveSubscription, getChapter } from '../model.js';
+import { getBookBySlug, getChapters, getActiveSubscription, countChapters } from '../model.js';
 import { requireAuth } from '../middleware.js';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const CONTENT_ROOT = path.join(__dirname, '..', '..', 'content');
+import { readJsonCached, extrasCounts, availableTools, hasContentBundle } from '../content-cache.js';
 
 const router = Router();
 
-// Auth + subscription gate. Fails closed with the locked stub.
+// Auth + subscription gate. Fails closed with the locked stub, and records
+// whether the book actually ships a study-tools bundle so the hub can say so
+// instead of advertising tools that render nothing.
 function gate(req, res, next) {
-  const { slug } = req.params;
-  req.book = getBookBySlug(slug);
-  if (!req.book) return renderPage(res, 404, '404', { title: 'Book not found' });
-  if (!getActiveSubscription(req.session.userId)) {
-    return renderPage(res, 403, 'locked', { title: 'Membership required', book: req.book });
+  const book = getBookBySlug(req.params.slug);
+  if (!book || book.status !== 'published') {
+    return renderPage(res, 404, '404', { title: 'Book not found', metaDesc: 'Book not found.' });
   }
+  req.book = book;
+  if (!getActiveSubscription(req.session.userId)) {
+    return renderPage(res, 403, 'locked', {
+      title: 'Membership required',
+      metaDesc: 'This book is part of lifetime access.',
+      book,
+    });
+  }
+  req.hasTools = hasContentBundle(book.slug);
+  req.chapters = getChapters(book.id);
+  req.tools = availableTools(book.slug);
   next();
 }
 
-function bookDir(slug) {
-  return path.join(CONTENT_ROOT, slug);
+// Every tool page shares this shape. `page` is a route local on purpose:
+// EJS includes run in their own scope, so a template-declared variable would
+// not be visible to _nav.ejs.
+function toolsPage(req, res, page, title, extra = {}) {
+  if (!req.hasTools) return res.redirect('/read/' + req.book.slug + '/1');
+  return renderPage(res, 200, 'extras/' + page, {
+    title: `${req.book.title} — ${title}`,
+    metaDesc: `${title} for ${req.book.title}.`,
+    book: req.book,
+    chapters: req.chapters,
+    tools: req.tools,
+    page,
+    exCss: true,
+    exJs: true,
+    ...extra,
+  });
 }
 
-function readJson(slug, name) {
-  const p = path.join(bookDir(slug), name);
-  if (!fs.existsSync(p)) return null;
-  try {
-    return JSON.parse(fs.readFileSync(p, 'utf8'));
-  } catch (e) {
-    return null;
-  }
-}
-
-function extrasMeta(req) {
-  const slug = req.book.slug;
-  const chapters = getChapters(req.book.id);
-  const questions = readJson(slug, 'questions.json');
-  const flashcards = readJson(slug, 'flashcards.json');
-  const mindmaps = readJson(slug, 'mindmaps.json');
-  const maps = readJson(slug, 'maps.json');
-  const mains = readJson(slug, 'mains_bank.json');
-  const palette = readJson(slug, 'palette_terms.json');
-  const sections = readJson(slug, 'sections_text.json');
-  const timeline = mindmaps && mindmaps.timeline ? mindmaps.timeline : null;
-  return {
-    chapters,
-    counts: {
-      questions: questions && questions.questions ? questions.questions.length : 0,
-      flashcards: flashcards && flashcards.count ? flashcards.count : (flashcards && flashcards.cards ? flashcards.cards.length : 0),
-      timeline: timeline && timeline.events ? timeline.events.length : 0,
-      maps: maps && maps.maps ? maps.maps.length : 0,
-      mains: mains && mains.entries ? mains.entries.length : 0,
-      glossary: palette ? palette.length : 0,
-      sections: sections && sections.sections ? sections.sections.length : 0,
-    },
-  };
-}
-
-// ---- hub ----
+// ---------------------------------------------------------------- hub
 router.get('/:slug', requireAuth, gate, (req, res) => {
+  if (!req.hasTools) return res.redirect('/read/' + req.book.slug + '/1');
+
   renderPage(res, 200, 'extras/hub', {
     title: `${req.book.title} — Study tools`,
+    metaDesc: `Question bank, flashcards, timeline, maps, mains prompts and glossary for ${req.book.title}.`,
     book: req.book,
-    meta: extrasMeta(req),
-    exCss: true,
-  });
-});
-
-// ---- quiz ----
-router.get('/:slug/quiz', requireAuth, gate, (req, res) => {
-  const chapters = getChapters(req.book.id);
-  renderPage(res, 200, 'extras/quiz', {
-    title: `${req.book.title} — Question bank`,
-    book: req.book,
-    chapters,
-    qCh: req.query.ch || '',
-    qKind: req.query.kind || '',
+    counts: extrasCounts(req.book.slug),
+    tools: req.tools,
+    chapterCount: countChapters(req.book.id),
+    chapters: req.chapters,
+    page: '',
     exCss: true,
     exJs: true,
   });
 });
 
-// ---- timeline ----
+// --------------------------------------------------------------- quiz
+router.get('/:slug/quiz', requireAuth, gate, (req, res) =>
+  toolsPage(req, res, 'quiz', 'Question bank', {
+    qCh: String(req.query.ch || ''),
+    qKind: String(req.query.kind || ''),
+  }));
+
+// ---------------------------------------------------------- timeline
 router.get('/:slug/timeline', requireAuth, gate, (req, res) => {
-  const mm = readJson(req.book.slug, 'mindmaps.json');
-  const timeline = mm && mm.timeline ? mm.timeline : { landmarks: [], events: [] };
-  renderPage(res, 200, 'extras/timeline', {
+  if (!req.hasTools) return res.redirect('/read/' + req.book.slug + '/1');
+  const mm = readJsonCached(req.book.slug, 'mindmaps.json');
+  const timeline = (mm && mm.timeline) || {};
+  // Guard: a missing events/landmarks array used to crash this template.
+  const landmarks = Array.isArray(timeline.landmarks) ? timeline.landmarks : [];
+  const events = Array.isArray(timeline.events) ? timeline.events : [];
+  return renderPage(res, 200, 'extras/timeline', {
     title: `${req.book.title} — Timeline`,
+    metaDesc: `Every dated event in ${req.book.title}, in order.`,
     book: req.book,
-    timeline,
-    exCss: true,
-  });
-});
-
-// ---- flashcards ----
-router.get('/:slug/flashcards', requireAuth, gate, (req, res) => {
-  const chapters = getChapters(req.book.id);
-  renderPage(res, 200, 'extras/flashcards', {
-    title: `${req.book.title} — Flashcards`,
-    book: req.book,
-    chapters,
+    chapters: req.chapters,
+    tools: req.tools,
+    page: 'timeline',
+    eventCount: events.length,
+    landmarkCount: landmarks.length,
+    // Events render client-side; only the era chips ride along in the HTML.
+    // They travel as a data attribute because a raw EJS tag inside a <script>
+    // block trips EJS's tag tokenizer.
+    landmarksJson: JSON.stringify(landmarks.map((l) => l.label || l.name || l.title || '')),
     exCss: true,
     exJs: true,
   });
 });
 
-// ---- maps ----
-router.get('/:slug/maps', requireAuth, gate, (req, res) => {
-  const chapters = getChapters(req.book.id);
-  renderPage(res, 200, 'extras/maps', {
-    title: `${req.book.title} — Maps`,
-    book: req.book,
-    chapters,
-    exCss: true,
-    exJs: true,
-  });
-});
+// --------------------------------------------------------- flashcards
+router.get('/:slug/flashcards', requireAuth, gate, (req, res) =>
+  toolsPage(req, res, 'flashcards', 'Flashcards'));
 
-// ---- mains bank ----
-router.get('/:slug/mains', requireAuth, gate, (req, res) => {
-  renderPage(res, 200, 'extras/mains', {
-    title: `${req.book.title} — Mains bank`,
-    book: req.book,
-    exCss: true,
-    exJs: true,
-  });
-});
+// -------------------------------------------------------------- maps
+router.get('/:slug/maps', requireAuth, gate, (req, res) =>
+  toolsPage(req, res, 'maps', 'Maps'));
 
-// ---- glossary / palette ----
+// ------------------------------------------------------- mains bank
+router.get('/:slug/mains', requireAuth, gate, (req, res) =>
+  toolsPage(req, res, 'mains', 'Mains bank'));
+
+// ----------------------------------------------------------- glossary
 router.get('/:slug/glossary', requireAuth, gate, (req, res) => {
-  const data = readJson(req.book.slug, 'palette_terms.json');
-  const terms = data || [];
-  const chapters = getChapters(req.book.id);
-  renderPage(res, 200, 'extras/glossary', {
+  if (!req.hasTools) return res.redirect('/read/' + req.book.slug + '/1');
+  // The term list runs to thousands of entries, so it renders client-side.
+  // Chapter titles ride along in a data attribute for the captions.
+  return renderPage(res, 200, 'extras/glossary', {
     title: `${req.book.title} — Glossary`,
+    metaDesc: `Every key term in ${req.book.title}, linked to its chapter.`,
     book: req.book,
-    terms,
-    chapters,
+    chapters: req.chapters,
+    tools: req.tools,
+    page: 'glossary',
+    chaptersJson: JSON.stringify(req.chapters.map((c) => ({ number: c.number, title: c.title }))),
     exCss: true,
     exJs: true,
   });
 });
 
-// ---- search (sections full text) ----
-router.get('/:slug/search', requireAuth, gate, (req, res) => {
-  renderPage(res, 200, 'extras/search', {
-    title: `${req.book.title} — Search`,
-    book: req.book,
-    q: req.query.q || '',
-    exCss: true,
-    exJs: true,
-  });
-});
+// ------------------------------------------------------------ search
+router.get('/:slug/search', requireAuth, gate, (req, res) =>
+  toolsPage(req, res, 'search', 'Search', { q: String(req.query.q || '').slice(0, 120) }));
 
 export default router;

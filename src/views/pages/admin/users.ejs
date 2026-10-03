@@ -1,51 +1,57 @@
 <div class="page">
-  <div class="container" style="padding-top: var(--space-12);">
+  <div class="container">
     <div class="section-head">
       <p class="admin-eyebrow">Admin</p>
-      <h1 style="font-family:var(--font-display);font-size:var(--text-2xl);margin:0 0 4px;">Members</h1>
-      <p class="muted">Grant or revoke lifetime access for any account.</p>
+      <h1 class="page-title">Members</h1>
+      <p class="section-sub">Grant or revoke lifetime access for any account.</p>
     </div>
 
-    <%- include('../partials/admin-nav', { active }) %>
+    <%- include('../partials/admin-nav', { active: active }) %>
 
-    <table class="admin-table">
-      <thead><tr><th>User</th><th>Role</th><th>Access</th><th>Joined</th><th></th></tr></thead>
-      <tbody>
-        <% users.forEach(function (u) { %>
-          <tr>
-            <td>
-              <div class="cell-strong"><%= u.name || u.email %></div>
-              <div class="muted mono"><%= u.email %></div>
-            </td>
-            <td><span class="badge badge-<%= u.role %>"><%= u.role %></span></td>
-            <td>
-              <% if (u.active_sub) { %>
-                <span class="badge badge-active">✓ active</span>
-              <% } else { %>
-                <span class="badge badge-none">no access</span>
-              <% } %>
-            </td>
-            <td class="muted"><%= u.created_at %></td>
-            <td class="cell-actions">
-              <% if (u.active_sub) { %>
-                <form method="post" action="/admin/users/<%= u.id %>/revoke">
-                  <input type="hidden" name="_csrf" value="<%= csrf %>">
-                  <button class="btn btn-danger btn-sm">Revoke</button>
-                </form>
-              <% } else if (u.role !== 'admin') { %>
-                <form method="post" action="/admin/users/<%= u.id %>/grant">
-                  <input type="hidden" name="_csrf" value="<%= csrf %>">
-                  <button class="btn btn-ghost btn-sm">Grant access</button>
-                </form>
-              <% } else { %>
-                <span class="muted">—</span>
-              <% } %>
-            </td>
-          </tr>
-        <% }); %>
-      </tbody>
-    </table>
-    <% if (!users.length) { %>
+    <% if (users.length) { %>
+      <div class="table-scroll">
+        <table class="admin-table">
+          <thead>
+            <tr><th scope="col">User</th><th scope="col">Role</th><th scope="col">Access</th><th scope="col">Joined</th><th scope="col"><span class="sr-only">Actions</span></th></tr>
+          </thead>
+          <tbody>
+            <% users.forEach(function (u) { %>
+              <tr>
+                <td>
+                  <div class="cell-strong"><%= u.name || u.email %></div>
+                  <div class="muted mono"><%= u.email %></div>
+                </td>
+                <td><span class="badge badge-<%= u.role %>"><%= u.role %></span></td>
+                <td>
+                  <% if (u.active_sub) { %>
+                    <span class="badge badge-active">Active</span>
+                  <% } else { %>
+                    <span class="badge badge-none">None</span>
+                  <% } %>
+                </td>
+                <td class="muted tiny"><%= u.created_at %></td>
+                <td class="cell-actions">
+                  <% if (u.active_sub) { %>
+                    <form method="post" action="/admin/users/<%= u.id %>/revoke"
+                          onsubmit="return confirm('Revoke lifetime access for <%= u.email %>?')">
+                      <input type="hidden" name="_csrf" value="<%= csrf %>">
+                      <button class="btn btn-danger btn-sm" type="submit">Revoke</button>
+                    </form>
+                  <% } else if (u.role !== 'admin') { %>
+                    <form method="post" action="/admin/users/<%= u.id %>/grant">
+                      <input type="hidden" name="_csrf" value="<%= csrf %>">
+                      <button class="btn btn-ghost btn-sm" type="submit">Grant access</button>
+                    </form>
+                  <% } else { %>
+                    <span class="muted tiny">—</span>
+                  <% } %>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
       <div class="alert alert-info">No members yet.</div>
     <% } %>
   </div>

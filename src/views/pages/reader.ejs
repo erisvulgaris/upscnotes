@@ -1,124 +1,213 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %> · UPSCbooks</title>
-  <meta name="description" content="<%= book.title %> — Chapter <%= chapter.number %>: <%= chapter.title %>">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title><%= chapter.title %> · <%= book.title %></title>
+  <meta name="description" content="<%= book.title %>, chapter <%= chapter.number %>: <%= chapter.title %>. Read online with text-to-speech.">
   <meta name="csrf" content="<%= csrf %>">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%231E2A52'/%3E%3Cstop offset='1' stop-color='%23D98A12'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect x='4' y='4' width='56' height='56' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='34' font-weight='700' fill='%23F5A623' text-anchor='middle'%3EU%3C/text%3E%3C/svg%3E">
+  <meta name="theme-color" content="#1E2A52">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/Cambay-400-0.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/css/tokens.css">
-  <link rel="stylesheet" href="/css/reader.css">
   <link rel="stylesheet" href="/css/app.css">
+  <link rel="stylesheet" href="/css/reader.css">
   <script>
     (function () {
       try {
-        var d = JSON.parse(localStorage.getItem('upscbooks-theme') || 'null');
-        if (d === 'dark') document.documentElement.classList.add('dark');
+        var saved = localStorage.getItem('upscbooks-theme');
+        var theme = saved === 'dark' || saved === 'light' ? saved
+          : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+        var f = localStorage.getItem('upscbooks-font-scale');
+        if (f) document.documentElement.style.setProperty('--font-scale', f);
       } catch (e) {}
     })();
   </script>
 </head>
 <body class="reading">
-  <div class="rd-progress" id="rd-progress"></div>
+  <a class="skip-link" href="#rd-body">Skip to chapter text</a>
+  <div class="rd-progress" id="rd-progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+
   <nav class="rd-nav">
     <div class="container rd-nav-inner">
-      <a class="rd-back" href="/dashboard" title="My library" aria-label="Back to library">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      <a class="rd-navbtn" href="/dashboard" aria-label="Back to my library" title="My library">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
       </a>
-      <button class="rd-navbtn" id="mih-open" title="Chapters" aria-label="Open chapters">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="18" height="18"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+
+      <button class="rd-navbtn" id="ch-open" type="button" aria-label="Open chapter list" aria-expanded="false" aria-controls="ch-sheet">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="20" height="20" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
-      <div class="rd-tools">
-        <% if (prev) { %>
-          <a class="rd-navbtn" href="/read/<%= book.slug %>/<%= prev.number %>" title="Previous chapter" aria-label="Previous chapter">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M15 18l-6-6 6-6"/></svg>
-          </a>
-        <% } %>
-        <% if (next) { %>
-          <a class="rd-navbtn" href="/read/<%= book.slug %>/<%= next.number %>" title="Next chapter" aria-label="Next chapter">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M9 6l6 6-6 6"/></svg>
-          </a>
-        <% } %>
-      </div>
-      <div class="book-cur" id="book-cur"><%= book.title %> → Ch <%= chapter.number %>: <%= chapter.title %></div>
-      <a class="rd-extras" href="/book/<%= book.slug %>">Extras ↗</a>
+
+      <span class="rd-title">
+        <b><%= book.title %></b>
+        <span>Ch <%= chapter.number %>: <%= chapter.title %></span>
+      </span>
+
+      <span class="rd-tools">
+        <button class="rd-navbtn" id="font-toggle" type="button" aria-label="Change text size" title="Text size">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><path d="M4 7V5h16v2M12 5v14M9 19h6"/></svg>
+        </button>
+        <a class="rd-navbtn" href="/book/<%= book.slug %>" aria-label="Study tools for this book" title="Study tools">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        </a>
+      </span>
     </div>
   </nav>
 
-  <div class="reader-guard">
-    <aside class="mih-sb" id="mih-sb" aria-label="Chapters">
-      <div class="mih-sb-head">
+  <!-- Chapter sheet: bottom sheet on phones, side panel from 900px -->
+  <div class="ch-sheet" id="ch-sheet" role="dialog" aria-modal="true" aria-label="Chapters">
+    <div class="ch-sheet-backdrop" data-sheet-close></div>
+    <div class="ch-sheet-panel">
+      <div class="ch-sheet-grip" aria-hidden="true"></div>
+      <div class="ch-sheet-head">
         <strong><%= book.title %></strong>
-        <button class="mih-sb-close" id="mih-sb-close" aria-label="Close chapters">×</button>
+        <span class="ch-sheet-progress"><%= chapter.number %> of <%= chapters.length %></span>
+        <button class="rd-navbtn" type="button" data-sheet-close aria-label="Close chapter list">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="20" height="20" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
       </div>
-      <input class="mih-sb-search" id="mih-sb-search" placeholder="Search chapters…" aria-label="Search chapters">
-      <nav class="mih-sb-list">
-        <% chapters.forEach(function (c) { %>
-          <a class="mih-sb-item <%= c.number === chapter.number ? 'on' : '' %>"
-             data-n="<%= c.number %>" href="/read/<%= book.slug %>/<%= c.number %>"><%= c.title %></a>
-        <% }); %>
-      </nav>
-      <div class="mih-sb-results" id="mih-sb-results" hidden></div>
-    </aside>
-    <div class="mih-sb-backdrop" id="mih-sb-backdrop"></div>
-
-    <main class="reader-main">
-      <div class="reader" data-slug="<%= book.slug %>" data-mih-cur="<%= chapter.number %>" data-mih-total="<%= chapters.length %>">
-        <div class="tts-bar" id="tts-bar" hidden>
-          <button class="tts-btn" id="tts-play" title="Play/Pause" aria-label="Play or pause reading">▶</button>
-          <button class="tts-btn" id="tts-prev" title="Previous sentence" aria-label="Previous sentence">⏮</button>
-          <button class="tts-btn" id="tts-next" title="Next sentence" aria-label="Next sentence">⏭</button>
-          <button class="tts-btn" id="tts-stop" title="Stop" aria-label="Stop reading">⏹</button>
-          <span class="tts-pos muted" id="tts-pos">0 / 0</span>
-          <label class="tts-field"><span class="muted">Speed</span>
-            <input type="range" id="tts-rate" min="0.5" max="2" step="0.1" value="1">
-          </label>
-          <label class="tts-field tts-voice-field"><span class="muted">Voice</span>
-            <select id="tts-voice" aria-label="Choose voice"></select>
-          </label>
-        </div>
-
-        <div class="rd-body">
-          <h1 class="rd-chtitle"><%= book.title %> — Chapter <%= chapter.number %></h1>
-          <div class="rd-sub">Chapter <%= chapter.number %>: <%= chapter.title %> · <%= chapters.length %> chapters</div>
-
-          <%- readerBody %>
-
-          <div class="rd-end">
-            <% if (prev) { %>
-              <a class="btn btn-ghost" href="/read/<%= book.slug %>/<%= prev.number %>">← <%= prev.title %></a>
-            <% } %>
-            <% if (next) { %>
-              <a class="btn btn-primary" href="/read/<%= book.slug %>/<%= next.number %>"><%= next.title %> →</a>
-            <% } %>
-          </div>
-        </div>
+      <div class="ch-sheet-search">
+        <label class="sr-only" for="ch-search">Search inside this book</label>
+        <input id="ch-search" type="search" placeholder="Search this book…" autocomplete="off">
       </div>
-    </main>
+      <div class="ch-sheet-scroll">
+        <nav id="ch-list" aria-label="Chapter list">
+          <% chapters.forEach(function (c) { %>
+            <a class="ch-item" data-n="<%= c.number %>" data-title="<%= c.title.toLowerCase() %>"
+               href="/read/<%= book.slug %>/<%= c.number %>"
+               <%= c.number === chapter.number ? 'aria-current="true"' : '' %>>
+              <span class="ch-item-n">CHAPTER <%= c.number %></span>
+              <span><%= c.title %></span>
+            </a>
+          <% }); %>
+        </nav>
+        <div id="ch-results"></div>
+      </div>
+    </div>
+  </div>
+
+  <main class="reader" id="rd-body"
+        data-slug="<%= book.slug %>"
+        data-chapter="<%= chapter.number %>"
+        data-last="<%= chapters.length ? chapters[chapters.length - 1].number : chapter.number %>">
+    <div class="rd-body">
+      <p class="overline rd-eyebrow">Chapter <%= chapter.number %> · <%= book.subject || 'General' %></p>
+      <h1 class="rd-chtitle"><%= chapter.title %></h1>
+      <p class="rd-sub">
+        <%= book.title %> · Chapter <%= chapter.number %> of <%= chapters.length %>
+        · <%= sentenceCount %> paragraphs
+      </p>
+
+      <%- readerBody %>
+
+      <div class="rd-load" id="rd-load" aria-live="polite">
+        <span id="rd-load-text">Scroll on to continue reading</span>
+      </div>
+
+      <div class="rd-end">
+        <% if (next) { %>
+          <a class="btn btn-primary btn-lg btn-block" href="/read/<%= book.slug %>/<%= next.number %>">
+            Next: <%= next.title %>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          </a>
+        <% } else { %>
+          <p class="muted center">You have reached the end of <%= book.title %>.</p>
+        <% } %>
+        <a class="btn btn-ghost btn-block" href="/dashboard">Back to my library</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Figure lightbox -->
+  <div class="rd-lb" id="rd-lb" role="dialog" aria-modal="true" aria-label="Figure" hidden>
+    <button class="rd-lb-close" id="rd-lb-close" type="button" aria-label="Close image">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="20" height="20" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <figure>
+      <img id="rd-lb-img" alt="">
+      <figcaption id="rd-lb-cap"></figcaption>
+    </figure>
+  </div>
+
+  <!-- Text-to-speech dock -->
+  <div class="tts-dock" id="tts-dock" hidden>
+    <div class="tts-main">
+      <button class="tts-btn tts-btn-primary" id="tts-play" type="button" aria-label="Play reading aloud" title="Play">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+      </button>
+      <span class="tts-info">
+        <span class="tts-now" id="tts-now">Ready to read aloud</span>
+        <span class="tts-track"><span class="tts-fill" id="tts-fill"></span></span>
+      </span>
+      <span class="tts-count" id="tts-pos">0 / 0</span>
+      <button class="tts-btn" id="tts-toggle" type="button" aria-label="Reading options" aria-expanded="false" title="Options">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="20" height="20" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+
+    <div class="tts-panel" id="tts-panel">
+      <div class="tts-panel-row">
+        <label for="tts-voice">Voice</label>
+        <select id="tts-voice" aria-label="Text-to-speech voice"></select>
+      </div>
+      <div class="tts-panel-row">
+        <label>Speed</label>
+        <span class="tts-rates" role="group" aria-label="Playback speed">
+          <button class="tts-rate" type="button" data-rate="0.75" aria-pressed="false">0.75&times;</button>
+          <button class="tts-rate" type="button" data-rate="1" aria-pressed="true">1&times;</button>
+          <button class="tts-rate" type="button" data-rate="1.25" aria-pressed="false">1.25&times;</button>
+          <button class="tts-rate" type="button" data-rate="1.5" aria-pressed="false">1.5&times;</button>
+          <button class="tts-rate" type="button" data-rate="2" aria-pressed="false">2&times;</button>
+        </span>
+      </div>
+      <div class="tts-panel-row">
+        <label for="tts-font">Text size</label>
+        <span class="tts-rates" role="group" aria-label="Text size">
+          <button class="tts-rate" type="button" data-scale="0.9">S</button>
+          <button class="tts-rate" type="button" data-scale="1">M</button>
+          <button class="tts-rate" type="button" data-scale="1.15">L</button>
+          <button class="tts-rate" type="button" data-scale="1.3">XL</button>
+        </span>
+      </div>
+      <div class="tts-panel-row">
+        <label>Behaviour</label>
+        <span class="tts-rates">
+          <button class="tts-switch" id="tts-autoscroll" type="button" aria-pressed="true">Follow along</button>
+          <button class="tts-switch" id="tts-autochap" type="button" aria-pressed="true">Auto next chapter</button>
+        </span>
+      </div>
+      <div class="tts-panel-row">
+        <span class="tts-shortcuts">
+          <kbd>Space</kbd> play/pause · <kbd>J</kbd>/<kbd>K</kbd> sentence · <kbd>T</kbd> options
+        </span>
+      </div>
+      <div class="tts-panel-row">
+        <span class="tts-rates">
+          <button class="tts-btn" id="tts-prev" type="button" aria-label="Previous sentence" title="Previous sentence">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M7 6h2v12H7zM19 6v12l-9-6z"/></svg>
+          </button>
+          <button class="tts-btn" id="tts-stop" type="button" aria-label="Stop reading" title="Stop">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+          </button>
+          <button class="tts-btn" id="tts-next" type="button" aria-label="Next sentence" title="Next sentence">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M15 6h2v12h-2zM5 6v12l9-6z"/></svg>
+          </button>
+        </span>
+      </div>
+    </div>
   </div>
 
   <script>
-    window.UPSCBOOKS = { slug: "<%= book.slug %>", cur: <%= chapter.number %>, total: <%= chapters.length %> };
-    window.__SENTENCE_COUNT = <%= sentenceCount %>;
+    window.UPSCBOOKS = {
+      slug: "<%= book.slug %>",
+      chapter: <%= chapter.number %>,
+      last: <%= chapters.length ? chapters[chapters.length - 1].number : chapter.number %>,
+      sentences: <%= sentenceCount %>
+    };
   </script>
-  <script src="/js/reader.js"></script>
-  <script src="/js/tts.js"></script>
-  <script>
-    (function() {
-      var bar = document.getElementById('rd-progress');
-      if (!bar) return;
-      var ticking = false;
-      function update() {
-        ticking = false;
-        var h = document.documentElement.scrollHeight - window.innerHeight;
-        var pct = h > 0 ? (window.scrollY / h) * 100 : 0;
-        bar.style.width = pct + '%';
-      }
-      window.addEventListener('scroll', function() {
-        if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
-      }, { passive: true });
-    })();
-  </script>
+  <script src="/js/reader.js" defer></script>
+  <script src="/js/tts.js" defer></script>
 </body>
 </html>

@@ -1,27 +1,32 @@
 <div class="page">
-  <%- include('_nav', { book, page: 'quiz' }) %>
+  <%- include('_nav') %>
   <div class="container ex-pad">
-    <div class="section-head ex-head">
-      <h1>Question bank — <%= book.title %></h1>
-      <p class="muted" id="q-count"></p>
+    <div class="section-head">
+      <p class="overline">Practice</p>
+      <h1 class="page-title">Question bank</h1>
+      <p class="section-sub" id="q-count" role="status" aria-live="polite">Loading questions&hellip;</p>
     </div>
 
     <div class="ex-filters">
-      <input type="text" id="q-search" placeholder="Search questions…" aria-label="Search questions">
-      <select id="q-ch" aria-label="Filter by chapter">
+      <label class="sr-only" for="q-search">Search questions</label>
+      <input type="search" id="q-search" placeholder="Search questions&hellip;" autocomplete="off">
+      <label class="sr-only" for="q-ch">Filter by chapter</label>
+      <select id="q-ch">
         <option value="">All chapters</option>
         <% chapters.forEach(function (c) { %>
-          <option value="<%= c.number %>" <%= String(c.number) === qCh ? 'selected' : '' %>>Ch <%= c.number %> — <%= c.title %></option>
+          <option value="<%= c.number %>" <%= String(c.number) === qCh ? 'selected' : '' %>>Ch <%= c.number %> &mdash; <%= c.title %></option>
         <% }); %>
       </select>
-      <select id="q-kind" aria-label="Filter by kind">
+      <label class="sr-only" for="q-kind">Filter by kind</label>
+      <select id="q-kind">
         <option value="">All kinds</option>
         <option value="FYQ_Pre" <%= qKind === 'FYQ_Pre' ? 'selected' : '' %>>FYQ · Prelims</option>
         <option value="PYQ_Pre" <%= qKind === 'PYQ_Pre' ? 'selected' : '' %>>PYQ · Prelims</option>
         <option value="FYQ_M" <%= qKind === 'FYQ_M' ? 'selected' : '' %>>FYQ · Mains</option>
         <option value="PYQ_M" <%= qKind === 'PYQ_M' ? 'selected' : '' %>>PYQ · Mains</option>
       </select>
-      <select id="q-style" aria-label="Filter by style">
+      <label class="sr-only" for="q-style">Filter by question style</label>
+      <select id="q-style">
         <option value="">All styles</option>
         <option value="simple">Simple</option>
         <option value="multi-statement">Multi-statement</option>
@@ -38,8 +43,8 @@
 <script>
   window.EXTRAS = {
     slug: "<%= book.slug %>",
-    kindLabels: { FYQ_Pre: ['FYQ · Prelims', 'FYQ'], PYQ_Pre: ['PYQ · Prelims', 'PYQ'], FYQ_M: ['FYQ · Mains', 'FYQ'], PYQ_M: ['PYQ · Mains', 'PYQ'] },
+    kindLabels: { FYQ_Pre: ['FYQ · Prelims','FYQ'], PYQ_Pre: ['PYQ · Prelims','PYQ'], FYQ_M: ['FYQ · Mains','FYQ'], PYQ_M: ['PYQ · Mains','PYQ'] },
     qKind: "<%= qKind %>",
-    qCh: "<%= qCh %>",
+    qCh: "<%= qCh %>"
   };
 </script>

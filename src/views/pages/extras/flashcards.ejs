@@ -1,19 +1,22 @@
 <div class="page">
-  <%- include('_nav', { book, page: 'flashcards' }) %>
+  <%- include('_nav') %>
   <div class="container ex-pad">
-    <div class="section-head ex-head">
-      <h1>Flashcards — <%= book.title %></h1>
-      <p class="muted" id="fc-count"></p>
+    <div class="section-head">
+      <p class="overline">Revise</p>
+      <h1 class="page-title">Flashcards</h1>
+      <p class="section-sub" id="fc-count" role="status" aria-live="polite">Loading cards&hellip;</p>
     </div>
 
     <div class="ex-filters">
-      <select id="fc-ch" aria-label="Filter by chapter">
+      <label class="sr-only" for="fc-ch">Filter by chapter</label>
+      <select id="fc-ch">
         <option value="">All chapters</option>
         <% chapters.forEach(function (c) { %>
-          <option value="<%= c.number %>">Ch <%= c.number %> — <%= c.title %></option>
+          <option value="<%= c.number %>">Ch <%= c.number %> &mdash; <%= c.title %></option>
         <% }); %>
       </select>
-      <select id="fc-type" aria-label="Filter by type">
+      <label class="sr-only" for="fc-type">Filter by card type</label>
+      <select id="fc-type">
         <option value="">All types</option>
         <option value="definition">Definition</option>
         <option value="fact">Fact</option>
@@ -24,6 +27,7 @@
       </select>
     </div>
 
+    <p class="ex-hint">Tap a card to flip it.</p>
     <div class="fc-grid" id="fc-grid" aria-live="polite"></div>
   </div>
 </div>

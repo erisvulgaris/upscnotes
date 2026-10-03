@@ -156,27 +156,40 @@ export const getProgress = (userId, bookId) =>
 // ---- chapter content search ----
 // Titles first (cheap, exact-ish), then full-text over the raw sections JSON.
 // LIMIT keeps huge books responsive without an index.
+
+// Escape LIKE wildcards so a user typing "%" searches for a literal percent
+// sign instead of turning the query into a full table scan.
+export function escapeLike(s) {
+  return String(s).replace(/[\\%_]/g, (c) => '\\' + c);
+}
+
 export function searchChapters(bookId, query, limit = 20) {
-  const like = `%${query}%`;
+  const clean = String(query || '').trim();
+  if (clean.length < 2) return [];
+  const like = `%${escapeLike(clean)}%`;
   const out = [];
   const titles = db.prepare(
-    'SELECT number, title FROM chapters WHERE book_id = ? AND title LIKE ? ORDER BY number ASC LIMIT ?'
+    `SELECT number, title FROM chapters
+      WHERE book_id = ? AND title LIKE ? ESCAPE '\\'
+      ORDER BY number ASC LIMIT ?`
   ).all(bookId, like, 5);
   const seen = new Set();
   for (const t of titles) { seen.add(t.number); out.push({ number: t.number, title: t.title, snippet: null }); }
   const body = db.prepare(
-    'SELECT number, title, sections_json FROM chapters WHERE book_id = ? AND sections_json LIKE ? ORDER BY number ASC LIMIT ?'
+    `SELECT number, title, sections_json FROM chapters
+      WHERE book_id = ? AND sections_json LIKE ? ESCAPE '\\'
+      ORDER BY number ASC LIMIT ?`
   ).all(bookId, like, limit);
   for (const ch of body) {
     if (seen.has(ch.number)) continue;
     seen.add(ch.number);
-    out.push({ number: ch.number, title: ch.title, snippet: makeSnippet(ch.sections_json, query) });
+    out.push({ number: ch.number, title: ch.title, snippet: makeSnippet(ch.sections_json, clean) });
   }
   return out.slice(0, limit);
 }
 
 function makeSnippet(json, query) {
-  const idx = json.toLowerCase().indexOf(query.toLowerCase());
+  const idx = json.toLowerCase().indexOf(String(query).toLowerCase());
   if (idx < 0) return null;
   const raw = json.slice(Math.max(0, idx - 80), idx + 140);
   const text = raw

@@ -1,10 +1,16 @@
-<!-- Coupon widget — apply a code to drop the price to the coupon price (default UPSC299 -> 299).
-     Driven by the [data-coupon-widget] logic in public/js/app.js. Place inside a .pricing-card. -->
+<!-- Coupon widget. Drives the price shown on the page via [data-price] /
+     [data-pay-label-text]; the applied code is sent with the order and the
+     server re-validates it before charging. -->
 <div class="coupon-widget" data-coupon-widget>
-  <div class="coupon-hint">Have a coupon? Try code <strong>UPSC299</strong></div>
+  <label class="coupon-hint" for="couponCode">Have a coupon?</label>
   <div class="coupon-row">
-    <input class="coupon-input" type="text" data-coupon-input value="UPSC299" aria-label="Coupon code" autocomplete="off" spellcheck="false">
-    <button class="btn btn-gold" type="button" data-coupon-apply>Apply</button>
+    <input class="coupon-input" id="couponCode" type="text" data-coupon-input
+           placeholder="Enter code" autocomplete="off" autocapitalize="characters"
+           spellcheck="false" aria-describedby="couponHelp">
+    <button class="btn btn-ghost" type="button" data-coupon-apply>Apply</button>
   </div>
-  <p class="coupon-msg" data-coupon-msg hidden></p>
+  <p class="coupon-msg" data-coupon-msg role="status" hidden></p>
+  <p class="field-hint" id="couponHelp" style="margin-top:var(--sp-2);">
+    Early members paid ₹299 — that code is <strong>UPSC299</strong>.
+  </p>
 </div>

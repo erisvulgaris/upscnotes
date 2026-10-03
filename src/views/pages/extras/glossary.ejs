@@ -1,31 +1,25 @@
 <div class="page">
-  <%- include('_nav', { book, page: 'glossary' }) %>
+  <%- include('_nav') %>
   <div class="container ex-pad">
-    <div class="section-head ex-head">
-      <h1>Glossary — <%= book.title %></h1>
-      <p class="muted"><%= terms.length %> key terms, each linked to the section that introduced it.</p>
+    <div class="section-head">
+      <p class="overline">Reference</p>
+      <h1 class="page-title">Glossary</h1>
+      <p class="section-sub" id="gl-count" role="status" aria-live="polite">Loading terms&hellip;</p>
     </div>
 
     <div class="ex-filters">
-      <input type="text" id="gl-search" placeholder="Search terms…" aria-label="Search glossary">
-      <select id="gl-ch" aria-label="Filter by chapter">
+      <label class="sr-only" for="gl-search">Search terms</label>
+      <input type="search" id="gl-search" placeholder="Search terms&hellip;" autocomplete="off">
+      <label class="sr-only" for="gl-ch">Filter by chapter</label>
+      <select id="gl-ch">
         <option value="">All chapters</option>
         <% chapters.forEach(function (c) { %>
-          <option value="<%= c.number %>">Ch <%= c.number %> — <%= c.title %></option>
+          <option value="<%= c.number %>">Ch <%= c.number %> &mdash; <%= c.title %></option>
         <% }); %>
       </select>
-      <span class="muted" id="gl-count"></span>
     </div>
 
-    <ul class="gl-list" id="gl-list" aria-live="polite">
-      <% terms.forEach(function (t) { %>
-        <% var ch = chapters.find(function (c) { return c.number === t.chapter; }) %>
-        <li class="gl-item" data-term="<%= t.term.toLowerCase() %>" data-ch="<%= t.chapter %>">
-          <a href="/read/<%= book.slug %>/<%= t.chapter %>#sec-<%= t.sec %>" class="gl-term"><%= t.term %></a>
-          <span class="gl-loc muted">Ch <%= t.chapter %><% if (ch) { %> · <%= ch.title %><% } %> — <%= t.secTitle %></span>
-        </li>
-      <% }); %>
-    </ul>
+    <ul class="gl-list" id="gl-list" data-chapters="<%= chaptersJson %>" aria-live="polite"></ul>
   </div>
 </div>
 <script>window.EXTRAS = { slug: "<%= book.slug %>" };</script>

@@ -1,34 +1,54 @@
 <div class="page">
-  <div class="container" style="padding: var(--space-16) 0; max-width: 640px;">
-    <div class="pricing-head" style="text-align:center;">
-      <span class="pricing-tag">Limited time offer</span>
-      <h1 style="font-family:var(--font-display);font-size:var(--text-2xl);margin:0 0 8px;">Lifetime access, one payment</h1>
-      <p class="muted">Pay securely via Razorpay — your library unlocks instantly.</p>
+  <div class="container checkout-cols">
+    <div>
+      <div class="section-head">
+        <p class="overline">Checkout</p>
+        <h1 class="page-title">Lifetime access, one payment</h1>
+        <p class="section-sub">Pay securely through Razorpay. Your library unlocks the moment payment clears.</p>
+      </div>
+
+      <div class="stack" style="max-width:34rem;margin-top:var(--sp-6);">
+        <h2 class="card-title">What's included</h2>
+        <ul class="price-feats">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>All <%= totalBooks %> books — <%= ncertCount %> NCERT and the standard UPSC titles</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><%= totalChapters %> chapters, with new titles added over time</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Text-to-speech reading, full-text search and practice material</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Any device, any time — no renewal, ever</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>7-day money-back guarantee</span></li>
+        </ul>
+        <p class="muted small">
+          Prefer to try first? Open any book in the <a href="/library">library</a> — every title is
+          browsable before you pay.
+        </p>
+      </div>
     </div>
 
-    <div class="pricing-card reveal">
-      <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--success);letter-spacing:.04em;text-transform:uppercase;margin-bottom:12px;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
-        256-bit secure checkout
-      </span>
-      <div class="price">
-        <span class="price-cur">₹</span><span class="price-num" data-price>999</span>
-        <span class="price-per">lifetime</span>
+    <div class="pricing-wrap">
+      <div class="pricing-card reveal">
+        <span class="pricing-tag">Lifetime</span>
+
+        <div class="price">
+          <span class="price-cur">₹</span><span class="price-num" data-price>999</span>
+          <span class="price-per">one-time</span>
+        </div>
+        <div class="price-old" data-price-strike>₹1,199 launch price</div>
+
+        <button class="btn btn-gold btn-lg btn-block" id="rzp-checkout" type="button" style="margin-top:var(--sp-5);">
+          <span data-pay-label-text>Pay ₹999 and unlock now</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+
+        <%- include('partials/coupon') %>
+
+        <div id="checkout-msg" class="alert" style="margin-top:var(--sp-4);" role="status" hidden></div>
+
+        <p class="price-note muted">
+          UPI · Cards · Netbanking · Secured by Razorpay
+        </p>
+        <p class="tiny muted center" style="margin-top:var(--sp-3);">
+          Read our <a href="/terms">terms</a> and <a href="/refunds">refund policy</a>.
+        </p>
       </div>
-      <div class="price-old">One-time · limited offer</div>
-      <ul class="price-feats">
-        <li>All <%= typeof totalBooks !== 'undefined' ? totalBooks : 46 %> books — History, Geography, Economics, Polity, Environment & more</li>
-        <li><%= typeof totalChapters !== 'undefined' ? totalChapters : '650+' %> chapters and growing</li>
-        <li>TTS reading, search, flashcards</li>
-        <li>Access on any device, anytime</li>
-      </ul>
-      <button class="btn btn-gold btn-lg btn-block" id="rzp-checkout" data-pay-label>
-        <span data-pay-label-text>Pay ₹999 and unlock now</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </button>
-      <%- include('partials/coupon') %>
-      <div id="checkout-msg" class="alert" hidden></div>
-      <p class="price-note muted">UPI · Cards · Netbanking · 7-day money-back guarantee</p>
     </div>
   </div>
 </div>

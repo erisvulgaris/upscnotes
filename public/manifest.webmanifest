@@ -1,0 +1,15 @@
+{
+  "name": "UPSCbooks",
+  "short_name": "UPSCbooks",
+  "description": "One lifetime library for the civil services journey — NCERT to UPSC, chapter-wise, with text-to-speech reading and practice tools.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#F7F4EE",
+  "theme_color": "#1E2A52",
+  "categories": ["education", "books"],
+  "icons": [
+    { "src": "/img/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

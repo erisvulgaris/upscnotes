@@ -1,124 +1,141 @@
 <%
-  var totalChapters = 0;
-  var bookCount = books ? books.length : 0;
-  if (books) books.forEach(function(b) { totalChapters += b.chapter_count || 0; });
+  var totalChapters = books.reduce(function (s, b) { return s + (b.chapter_count || 0); }, 0);
+  // Most recent reading position across the whole library.
+  var resume = null;
+  for (var i = 0; i < books.length; i++) {
+    var b = books[i];
+    if (!b.inProgress) continue;
+    if (!resume || String(b.progress.updated_at) > String(resume.progress.updated_at)) resume = b;
+  }
 %>
 <div class="page">
-  <div class="container" style="padding-top: var(--space-12);">
-    <div class="section-head reveal">
-      <h1 style="font-family: var(--font-display); font-size: var(--text-2xl); margin:0 0 4px;">My library</h1>
+  <div class="container">
+    <div class="section-head">
+      <p class="overline"><%= user && user.name ? user.name : 'Your account' %></p>
+      <h1 class="page-title">My library</h1>
       <% if (sub) { %>
-        <p class="muted">Lifetime access active ·
-          <span style="color:var(--success);font-weight:600;">✓ subscribed</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;vertical-align:-1px;color:var(--success)" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+        <p class="section-sub">
+          <span class="badge badge-active">Lifetime access active</span>
         </p>
       <% } else { %>
-        <p class="muted">You haven't claimed lifetime access yet.</p>
+        <p class="section-sub">You have not claimed lifetime access yet.</p>
       <% } %>
     </div>
 
     <% if (paid) { %>
-      <div class="alert alert-success reveal">Payment successful — your lifetime access is now active. Enjoy your books!</div>
+      <div class="alert alert-success" role="status">
+        Payment received — lifetime access is now active on your account.
+      </div>
+    <% } %>
+
+    <% if (resume) { %>
+      <a class="continue-card" href="/read/<%= resume.slug %>/<%= resume.inProgress.number %>">
+        <span class="continue-cover" style="--cover:<%= resume.color || '#1E2A52' %>">
+          <% if (resume.cover) { %>
+            <img src="/content/<%= resume.slug %>/cover.<%= resume.cover.split('.').pop() %>" alt="" loading="lazy">
+          <% } %>
+        </span>
+        <span class="continue-body">
+          <span class="overline">Continue reading</span>
+          <span class="continue-t" style="display:block;"><%= resume.title %></span>
+          <span class="continue-d">Chapter <%= resume.inProgress.number %>: <%= resume.inProgress.title %></span>
+          <span class="progress-track" style="display:block;">
+            <span class="progress-fill" style="display:block;width:<%= Math.max(4, Math.round((resume.inProgress.number / Math.max(1, resume.chapter_count)) * 100)) %>%"></span>
+          </span>
+        </span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" aria-hidden="true" style="margin-left:auto;flex:none"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
     <% } %>
 
     <% if (groups && groups.length) { %>
-      <div class="library-toolbar reveal">
+      <div class="library-toolbar">
         <div class="library-search">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-          <input id="bookSearch" type="search" placeholder="Search books by title, author or subject…" autocomplete="off">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <label class="sr-only" for="bookSearch">Filter books</label>
+          <input id="bookSearch" type="search" placeholder="Filter by title, author or subject…" autocomplete="off">
         </div>
-        <div class="library-chips" id="subjectChips">
+        <nav class="chip-scroll" id="subjectChips" aria-label="Filter by subject">
           <button type="button" class="chip chip-filter is-active" data-subject="">All</button>
           <% groups.forEach(function (g) { %>
             <button type="button" class="chip chip-filter" data-subject="<%= g.subject %>"><%= g.subject %></button>
           <% }); %>
-        </div>
-        <p class="muted library-result" id="resultCount"></p>
+        </nav>
+        <p class="library-result muted" id="resultCount" role="status" aria-live="polite"></p>
       </div>
-    <% } %>
 
-    <div class="dash-stats reveal">
-      <div class="dash-stat">
-        <span class="dash-stat-ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        </span>
-        <div class="dash-stat-body">
-          <span class="dash-stat-v"><%= bookCount %></span>
+      <div class="dash-stats">
+        <div class="dash-stat">
+          <span class="dash-stat-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </span>
+          <span class="dash-stat-v"><%= books.length %></span>
           <span class="dash-stat-k">Books</span>
         </div>
-      </div>
-      <div class="dash-stat">
-        <span class="dash-stat-ico" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-        </span>
-        <div class="dash-stat-body">
+        <div class="dash-stat">
+          <span class="dash-stat-ico is-gold" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          </span>
           <span class="dash-stat-v"><%= totalChapters %></span>
           <span class="dash-stat-k">Chapters</span>
         </div>
-      </div>
-      <div class="dash-stat">
-        <span class="dash-stat-ico" aria-hidden="true" style="color:var(--success);background:color-mix(in srgb, var(--success) 9%, var(--surface));border-color:color-mix(in srgb, var(--success) 16%, transparent);">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        </span>
-        <div class="dash-stat-body">
-          <span class="dash-stat-v">∞</span>
+        <div class="dash-stat">
+          <span class="dash-stat-ico is-success" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+          </span>
+          <span class="dash-stat-v">&infin;</span>
           <span class="dash-stat-k">Lifetime</span>
         </div>
       </div>
-    </div>
 
-    <% if (groups && groups.length) { %>
       <% groups.forEach(function (g) { %>
-        <section class="library-group reveal" data-subject="<%= g.subject %>">
+        <section class="library-group" data-subject-group="<%= g.subject %>">
           <div class="library-group-head">
-            <h3><%= g.subject %></h3>
+            <h2><%= g.subject %></h2>
             <span class="library-count"><%= g.books.length %> book<%= g.books.length === 1 ? '' : 's' %></span>
           </div>
           <div class="book-grid">
-            <% g.books.forEach(function (b, i) { %>
-              <div class="book-card-wrap book-item reveal" style="--d:<%= (i % 4) * 90 + 'ms' %>" data-s="<%= g.subject %>" data-search="<%= (b.title + ' ' + b.author + ' ' + g.subject).toLowerCase().replace(/[<>&"]/g, '') %>">
-                <a class="book-card <%= b.cover ? '' : 'is-placeholder' %>" href="/read/<%= b.slug %>/<%= b.inProgress ? b.inProgress.number : 1 %>">
-                  <div class="book-cover" <% if (b.color) { %>style="--cover:<%= b.color %>"<% } %>>
-                    <% if (b.cover) { %>
-                      <img loading="lazy" src="/content/<%= b.slug %>/cover.<%= b.cover.split('.').pop() %>" alt="<%= b.title %> cover">
-                    <% } else { %>
-                      <div class="cover-art" data-subject="<%= g.subject %>">
-                        <span class="cover-genre">UPSCBOOKS · <%= g.subject.toUpperCase() %></span>
-                        <span class="cover-title"><%= b.title %></span>
-                        <span class="cover-author"><%= b.author %></span>
-                      </div>
-                    <% } %>
-                  </div>
-                  <div class="book-meta">
-                    <h3><%= b.title %></h3>
-                    <p class="muted"><%= b.author %></p>
-                    <div class="meta-row">
-                      <span class="chip"><%= b.chapter_count %> chapters</span>
-                      <% if (b.inProgress) { %>
-                        <span class="chip chip-progress" title="Last read <%= b.progress.updated_at %>">⟶ Ch <%= b.inProgress.number %>: <%= b.inProgress.title %></span>
-                      <% } %>
-                    </div>
-                  </div>
-                </a>
-                <a class="book-extras" href="/book/<%= b.slug %>">Extras ↗</a>
+            <% g.books.forEach(function (b) { %>
+              <div class="book-card-wrap book-item" data-s="<%= g.subject %>">
+                <%- include('partials/book-card', { b: b, subject: g.subject, href: '/read/' + b.slug + '/' + (b.inProgress ? b.inProgress.number : 1) }) %>
+                <% if (b.inProgress) { %>
+                  <span class="chip chip-progress" title="Last read <%= b.progress.updated_at %>">
+                    Ch <%= b.inProgress.number %> &middot; <%= b.inProgress.title %>
+                  </span>
+                <% } %>
+                <% if (b.hasExtras) { %>
+                  <a class="book-extras" href="/book/<%= b.slug %>">
+                    Study tools
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="13" height="13" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+                  </a>
+                <% } %>
               </div>
             <% }); %>
           </div>
         </section>
       <% }); %>
-      <div class="alert alert-info is-hidden" id="noResults">No books match your search. Try a different keyword or subject.</div>
+      <div class="alert alert-info" id="noResults" hidden>No books match that filter. Try a different keyword or subject.</div>
     <% } else { %>
       <div class="alert alert-info">No books are published yet. Please check back soon.</div>
     <% } %>
 
     <% if (!sub) { %>
-      <div class="pricing-card reveal" style="margin-top: var(--space-12);">
-        <h2 style="font-family:var(--font-display);margin:0 0 8px;">Unlock everything</h2>
-        <p class="muted" style="margin:0 0 16px;">One ₹999 payment gives you lifetime access to every book, including future releases. Use code <strong>UPSC299</strong> at checkout to pay just ₹299.</p>
-        <a class="btn btn-gold btn-lg" href="/checkout">
-          Get lifetime access
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+      <div class="pricing-wrap" style="margin-top:var(--sp-12);">
+        <div class="pricing-card reveal">
+          <span class="pricing-tag">Lifetime</span>
+          <div class="price">
+            <span class="price-cur">₹</span><span class="price-num">999</span>
+            <span class="price-per">one-time</span>
+          </div>
+          <div class="price-old">₹1,199 launch price</div>
+          <p class="lead" style="margin-top:var(--sp-4);">
+            One payment unlocks every book in the library, current and future — or apply
+            code <strong>UPSC299</strong> at checkout for ₹299.
+          </p>
+          <a class="btn btn-gold btn-lg btn-block" style="margin-top:var(--sp-5);" href="/checkout">
+            Get lifetime access
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
       </div>
     <% } %>
   </div>
@@ -129,36 +146,39 @@
 (function () {
   var search = document.getElementById('bookSearch');
   if (!search) return;
-  var chips = Array.prototype.slice.call(document.querySelectorAll('#subjectChips .chip-filter'));
-  var items = Array.prototype.slice.call(document.querySelectorAll('.book-item'));
-  var groups = Array.prototype.slice.call(document.querySelectorAll('.library-group'));
+  var chips = [].slice.call(document.querySelectorAll('#subjectChips .chip-filter'));
+  var items = [].slice.call(document.querySelectorAll('.book-item'));
+  var groups = [].slice.call(document.querySelectorAll('[data-subject-group]'));
   var count = document.getElementById('resultCount');
   var noRes = document.getElementById('noResults');
+
   function activeSubject() {
     var on = document.querySelector('#subjectChips .chip-filter.is-active');
     return on ? (on.getAttribute('data-subject') || '') : '';
   }
   function apply() {
-    var q = (search.value || '').toLowerCase().trim();
+    var q = (search.value || '').trim().toLowerCase();
     var subj = activeSubject();
     var visible = 0;
     items.forEach(function (item) {
-      var hay = (item.getAttribute('data-search') || '').toLowerCase();
+      var card = item.querySelector('[data-search]');
+      var hay = card ? card.getAttribute('data-search') : '';
       var ok = (!q || hay.indexOf(q) !== -1) && (!subj || item.getAttribute('data-s') === subj);
-      item.classList.toggle('is-hidden', !ok);
+      item.hidden = !ok;
       if (ok) visible++;
     });
     groups.forEach(function (g) {
-      g.classList.toggle('is-hidden', g.querySelectorAll('.book-item:not(.is-hidden)').length === 0);
+      g.hidden = g.querySelectorAll('.book-item:not([hidden])').length === 0;
     });
     if (count) {
       count.textContent = visible
         ? (visible === items.length ? visible + ' books' : visible + ' of ' + items.length + ' books')
         : '';
     }
-    if (noRes) noRes.classList.toggle('is-hidden', visible > 0);
+    if (noRes) noRes.hidden = visible > 0;
   }
   search.addEventListener('input', apply);
+  search.addEventListener('search', apply);
   chips.forEach(function (c) {
     c.addEventListener('click', function () {
       chips.forEach(function (x) { x.classList.remove('is-active'); });
