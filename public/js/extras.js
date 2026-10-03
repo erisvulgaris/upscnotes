@@ -71,17 +71,82 @@
     });
   }
 
+/* ---------------------------------------------------- shared paging */
+  // The question bank is 1,213 cards for a single book, which built a
+  // ~600,000px DOM. Render a page at a time and top it up on scroll.
+  function createPager(container, renderOne, step, emptyMsg) {
+    var shown = 0;
+    var total = 0;
+    var sentinel = document.createElement('div');
+    sentinel.className = 'ex-pager';
+    var more = document.createElement('button');
+    more.className = 'btn btn-ghost btn-block';
+    more.type = 'button';
+
+    function appendPage() {
+      var end = Math.min(shown + step, total);
+      var frag = document.createDocumentFragment();
+      for (var i = shown; i < end; i++) frag.appendChild(renderOne(i));
+      container.insertBefore(frag, sentinel);
+      shown = end;
+      more.textContent = 'Show more (' + (total - shown).toLocaleString('en-IN') + ' remaining)';
+      more.hidden = shown >= total;
+      sentinel.hidden = shown >= total;
+    }
+
+    more.addEventListener('click', appendPage);
+    container.appendChild(sentinel);
+    container.appendChild(more);
+
+    var io = null;
+    return {
+      reset: function (items) {
+        total = items.length;
+        shown = 0;
+        container.innerHTML = '';
+        container.appendChild(sentinel);
+        container.appendChild(more);
+        if (io) { io.disconnect(); io = null; }
+        if (!total) {
+          // Clearing the list without saying so reads as a broken page.
+          container.insertBefore(document.createTextNode(''), sentinel);
+          var box = document.createElement('div');
+          box.className = 'ex-empty';
+          box.textContent = emptyMsg || 'Nothing to show.';
+          container.insertBefore(box, sentinel);
+          more.hidden = true;
+          sentinel.hidden = true;
+          return;
+        }
+        appendPage();
+        if (total > step && 'IntersectionObserver' in window) {
+          io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting && shown < total) appendPage();
+            });
+          }, { rootMargin: '600px 0px' });
+          io.observe(sentinel);
+        }
+      },
+    };
+  }
+
   /* ------------------------------------------------------------- quiz */
   function initQuiz() {
-    var list = document.getElementById('q-list');
+    var list = document.getElementById("q-list");
     if (!list) return;
 
     fetchJson('questions.json').then(function (data) {
       var all = (data && data.questions) || [];
-      var search = document.getElementById('q-search');
-      var ch = document.getElementById('q-ch');
-      var kind = document.getElementById('q-kind');
-      var style = document.getElementById('q-style');
+      var search = document.getElementById("q-search");
+      var ch = document.getElementById("q-ch");
+      var kind = document.getElementById("q-kind");
+      var style = document.getElementById("q-style");
+      var pager = createPager(list, function (i) {
+        var wrap = document.createElement("div");
+        wrap.innerHTML = cardHtml(all[i]);
+        return wrap.firstChild;
+      }, 40, 'No questions match those filters.');
 
       function render() {
         var q = norm(search.value).trim();
@@ -90,7 +155,7 @@
         var styleV = style.value;
 
         var out = all.filter(function (item) {
-          if (chV && !(item.chapters || []).indexOf(Number(chV)) && !(item.chapters || []).includes(Number(chV))) return false;
+          if (chV && (item.chapters || []).indexOf(Number(chV)) === -1) return false;
           if (kindV && item.kind !== kindV) return false;
           if (styleV && item.style !== styleV) return false;
           if (q) {
@@ -101,9 +166,11 @@
         });
 
         setCount('q-count', out.length === all.length
-          ? all.length + ' questions'
-          : out.length + ' of ' + all.length + ' questions');
-        list.innerHTML = out.length ? out.map(cardHtml).join('') : empty('No questions match those filters.');
+          ? all.length.toLocaleString('en-IN') + ' questions'
+          : out.length.toLocaleString('en-IN') + ' of ' + all.length.toLocaleString('en-IN') + ' questions');
+
+        if (!out.length) { pager.reset([]); return; }
+        pager.reset(out);
       }
 
       function cardHtml(q) {

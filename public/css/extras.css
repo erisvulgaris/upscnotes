@@ -50,6 +50,8 @@
 /* ---------- Filters --------------------------------------------------- */
 .ex-filters { display: grid; gap: var(--sp-2); margin-bottom: var(--sp-5); }
 .ex-filters input[type="search"], .ex-filters select { width: 100%; }
+.ex-pager { height: 1px; }
+.ex-pager + .btn { margin-top: var(--sp-6); }
 .ex-hint { font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--ash); margin-bottom: var(--sp-4); }
 .ex-empty {
   padding: var(--sp-10) var(--sp-4); text-align: center;
@@ -257,7 +259,7 @@
 }
 
 @media (min-width: 900px) {
-.ex-nav { display: flex; align-items: center; gap: var(--sp-4); }
+  .ex-nav { display: flex; align-items: center; gap: var(--sp-4); }
   .ex-nav-back { margin-bottom: 0; }
   .ex-nav-scroll { padding-inline: 0; }
   .ex-grid { grid-template-columns: repeat(3, 1fr); }
@@ -265,4 +267,11 @@
   .ex-filters { grid-template-columns: 1fr 1fr; }
   .map-grid { grid-template-columns: repeat(3, 1fr); }
   .gl-list { grid-template-columns: repeat(2, 1fr); }
-}.tl-more { padding: var(--sp-4) 0; color: var(--ash); font-size: var(--fs-xs); font-family: var(--font-ui); }
+}
+
+@media (min-width: 1100px) {
+  /* Search gets the room it needs; the three selects sit beside it. */
+  .ex-filters { grid-template-columns: minmax(0, 2fr) repeat(3, minmax(0, 1fr)); }
+}
+
+.tl-more { padding: var(--sp-4) 0; color: var(--ash); font-size: var(--fs-xs); font-family: var(--font-ui); }
