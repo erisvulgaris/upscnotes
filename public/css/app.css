@@ -1443,6 +1443,73 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
 .progress-track { height: 4px; border-radius: 2px; background: var(--surface-2); overflow: hidden; margin-top: var(--sp-2); }
 .progress-fill { height: 100%; background: var(--accent); border-radius: 2px; }
 
+/* ---------- Admin pricing -----------------------------------------------
+   Prices live in the database so an admin can change them; these styles exist
+   so that form is usable on a phone before anything else is. */
+.admin-panel {
+  padding: var(--sp-5);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+}
+.admin-panel + .admin-panel { margin-top: var(--sp-4); }
+.admin-panel h2 { margin-bottom: var(--sp-1); }
+
+.field-grid { display: grid; gap: var(--sp-4); }
+
+.price-now {
+  display: grid; gap: var(--sp-1);
+  padding: var(--sp-5); margin-bottom: var(--sp-6);
+  background: var(--brand-tint);
+  border: 1px solid var(--brand-tint-2);
+  border-radius: var(--r-lg);
+}
+.price-now-amount {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 1.8rem + 2.4vw, 3rem);
+  font-weight: 700; line-height: 1; letter-spacing: -.02em;
+  color: var(--brand);
+  font-variant-numeric: tabular-nums;
+}
+.price-now-meta {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-3);
+  font-family: var(--font-ui); font-size: var(--fs-sm); color: var(--fg-2);
+}
+.price-now-meta s { color: var(--ash); }
+
+/* Plan chooser: two big radio targets rather than a select, because this is
+   the single most consequential setting in the admin. */
+.plan-choice { display: grid; gap: var(--sp-3); margin-top: var(--sp-4); }
+.plan-option {
+  display: flex; align-items: flex-start; gap: var(--sp-3);
+  min-height: 60px; padding: var(--sp-3) var(--sp-4);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  transition: border-color var(--d-fast) var(--ease-soft), background var(--d-fast) var(--ease-soft);
+}
+.plan-option:hover { border-color: var(--brand-300); }
+.plan-option:has(input:checked) {
+  border-color: var(--brand);
+  background: var(--brand-tint);
+}
+.plan-option input[type="radio"] {
+  width: 20px; height: 20px; min-height: 0; flex: none; margin-top: 2px;
+  accent-color: var(--brand); padding: 0;
+}
+.plan-option-body { display: grid; gap: 2px; }
+.plan-option-body b { font-size: var(--fs-body); font-weight: 700; }
+.plan-option-body span { font-size: var(--fs-sm); color: var(--fg-2); }
+
+@media (min-width: 560px) {
+  .plan-choice { grid-template-columns: repeat(2, 1fr); }
+  .field-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1000px) {
+  .field-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
 /* ---------- Admin ------------------------------------------------------- */
 .admin-eyebrow {
   font-family: var(--font-ui); font-size: var(--fs-micro); font-weight: 700;

@@ -4,6 +4,7 @@ import { renderPage } from '../render.js';
 import { listBooks, getActiveSubscription, getProgress, getChapters } from '../model.js';
 import { hasContentBundle } from '../content-cache.js';
 import { groupBySubject } from './public.js';
+import { getPricing } from '../pricing.js';
 
 const router = Router();
 
@@ -44,6 +45,7 @@ router.get('/checkout', requireAuth, (req, res) => {
     totalBooks,
     totalChapters,
     ncertCount,
+    pricing: getPricing(),
   });
 });
 

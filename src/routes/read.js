@@ -4,6 +4,7 @@ import { renderChapter, sentenceCount } from '../content.js';
 import { requireAuth } from '../middleware.js';
 import { renderPage } from '../render.js';
 import { hasAudio } from '../audio.js';
+import { getPricing } from '../pricing.js';
 
 const router = Router();
 
@@ -16,10 +17,14 @@ function gate(req, res, next) {
   }
   req.book = book;
   if (!getActiveSubscription(req.session.userId)) {
+    // The locked stub is a pricing page, so it needs the pricing. Without it
+    // <%= pricing.rupees %> renders empty and the card shows no number.
+    const pricing = getPricing();
     return renderPage(res, 403, 'locked', {
       title: 'Membership required',
-      metaDesc: 'This book is part of lifetime access.',
+      metaDesc: 'This book is part of ' + pricing.terms.duration + ' access.',
       book,
+      pricing,
     });
   }
   next();
@@ -93,6 +98,8 @@ function renderChapterPage(req, res) {
     chapterNumbers: chapters.map((c) => c.number),
     readerBody,
     sentenceCount: sentences,
+    // The reader shows a manage-plan link, so it needs the current plan too.
+    pricing: getPricing(),
     // A pre-rendered Edge TTS track exists for this chapter. The dock uses
     // the device's own speech engine when it has one and falls back to this.
     hasNarration: hasAudio(req.book.slug, n),

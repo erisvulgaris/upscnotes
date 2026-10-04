@@ -231,7 +231,17 @@
   }
 
   /* ------------------------------------------------------- coupon */
-  var COUPON = { code: 'UPSC299', retail: 999, coupon: 299, key: 'upscbooks-coupon' };
+  /* Prices and discount codes come from the server (see layout.ejs), which
+     reads them from the database. These were previously hard-coded here and
+     in the templates, so an admin price change could not reach this file and
+     the button could quote one amount while the gateway charged another. The
+     fallback below only applies if the page had no pricing to give. */
+  var PRICING = window.UPSC_PRICING || { mode: 'lifetime', amount: 99900, couponsEnabled: true, note: '' };
+  var COUPON = {
+    retail: PRICING.amount,
+    key: 'upscbooks-coupon',
+    legacy: { code: 'UPSC299', amount: 29900 },
+  };
   var applied = null;
   var widgets = $$('[data-coupon-widget]');
 
@@ -254,27 +264,52 @@
     requestAnimationFrame(step);
   }
 
+  function money(paise) {
+    var n = Math.round(Number(paise) || 0);
+    var whole = Math.floor(n / 100);
+    var grouped = String(whole).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    var frac = n % 100;
+    return '₹' + grouped + (frac ? '.' + String(frac).padStart(2, '0') : '');
+  }
+
   function payLabel() {
-    return 'Pay ₹' + (applied ? COUPON.coupon : COUPON.retail) + ' and unlock now';
+    return 'Pay ' + money(applied ? applied.amount : COUPON.retail) + ' and unlock now';
   }
 
   function refreshPrice(animate) {
     $$('[data-price]').forEach(function (el) {
-      var to = applied ? COUPON.coupon : COUPON.retail;
-      var from = parseInt(el.textContent, 10) || COUPON.retail;
+      var to = applied ? applied.amount : COUPON.retail;
+      var from = Math.round((parseFloat(el.textContent) || 0) * 100);
+      if (!Number.isFinite(from) || from <= 0) from = to;
       if (animate && from !== to) animateNumber(el, from, to);
-      else el.textContent = String(to);
+      else el.textContent = String(to / 100);
     });
     $$('[data-pay-label-text]').forEach(function (el) { el.textContent = payLabel(); });
-    var old = $('[data-price-was]');
-    if (old) old.textContent = '₹' + (applied ? '1,199' : '1,199');
     var strike = $('[data-price-strike]');
     if (strike) strike.hidden = !!applied;
   }
 
-  function setCoupon(code) {
-    applied = code && String(code).trim().toUpperCase() === COUPON.code ? String(code).trim().toUpperCase() : null;
-    store(COUPON.key, applied);
+  /**
+   * Asks the server what a code is worth. The client does not decide: any code
+   * created in the admin has to work on the page that offers it, and the
+   * server is the only place that knows the current price.
+   */
+  function applyCode(input) {
+    var code = (input.value || '').trim().toUpperCase();
+    if (!code) return Promise.resolve({ error: 'Enter a coupon code first.' });
+    if (!PRICING.couponsEnabled) return Promise.resolve({ error: 'Discount codes are switched off.' });
+
+    return fetch('/api/coupon?code=' + encodeURIComponent(code), { credentials: 'same-origin' })
+      .then(function (r) {
+        return r.json().then(function (j) { return { ok: r.ok, body: j }; });
+      })
+      .then(function (res) {
+        if (!res.ok || !res.body.ok) {
+          return { error: res.body.error || 'That code is not valid.' };
+        }
+        return { code: res.body.code, amount: res.body.amount, discount: res.body.discount };
+      })
+      .catch(function () { return { error: 'Could not check that code. Try again.' }; });
   }
 
   widgets.forEach(function (w) {
@@ -289,35 +324,44 @@
       msg.textContent = text;
       msg.hidden = false;
     }
-    function apply() {
-      var code = (input.value || '').trim().toUpperCase();
-      if (!code) { say('', 'Enter a coupon code first.'); return; }
-      if (code === COUPON.code) {
-        setCoupon(code);
+
+    function run() {
+      btn.disabled = true;
+      var label = btn.textContent;
+      btn.textContent = 'Checking';
+      applyCode(input).then(function (out) {
+        if (out.error) { say('err', out.error); return; }
+        applied = out;
+        store(COUPON.key, out.code);
         refreshPrice(true);
-        say('ok', 'Applied — you pay ₹' + COUPON.coupon + '.');
-      } else {
-        say('err', 'That code is not valid.');
-      }
-    }
-
-    btn.addEventListener('click', apply);
-    input.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter') { e.preventDefault(); apply(); }
-    });
-    if (applied) input.value = applied;
-  });
-
-  (function restoreCoupon() {
-    var saved = read(COUPON.key);
-    if (saved && String(saved).trim().toUpperCase() === COUPON.code) {
-      setCoupon(saved);
-      refreshPrice(false);
-      widgets.forEach(function (w) {
-        var input = w.querySelector('[data-coupon-input]');
-        if (input) input.value = saved;
+        say('ok', 'Applied — you pay ' + money(out.amount) + '.');
+      }).finally(function () {
+        btn.disabled = false;
+        btn.textContent = label;
       });
     }
+
+    btn.addEventListener('click', run);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { e.preventDefault(); run(); }
+    });
+    if (applied) input.value = applied.code;
+  });
+
+  // A code this browser used before is re-validated rather than assumed, since
+  // the price it was worth may have changed since.
+  (function restoreCoupon() {
+    var saved = read(COUPON.key);
+    if (!saved) return;
+    widgets.forEach(function (w) {
+      var input = w.querySelector('[data-coupon-input]');
+      if (input) input.value = saved;
+    });
+    applyCode({ value: saved }).then(function (out) {
+      if (out.error) { store(COUPON.key, null); return; }
+      applied = out;
+      refreshPrice(false);
+    });
   })();
   refreshPrice(false);
 

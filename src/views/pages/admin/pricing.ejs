@@ -1,0 +1,192 @@
+<div class="page">
+  <div class="container">
+    <div class="section-head">
+      <p class="admin-eyebrow">Admin</p>
+      <h1 class="page-title">Pricing</h1>
+      <p class="section-sub">
+        One place for every price the product shows. The landing page, the
+        locked page, checkout and the order API all read these values.
+      </p>
+    </div>
+
+    <%- include('../partials/admin-nav', { active: active }) %>
+
+    <% if (flash) { %>
+      <div class="alert alert-<%= flash.kind === 'success' ? 'success' : 'error' %>" role="status"
+           style="margin-bottom:var(--sp-6);"><%= flash.text %></div>
+    <% } %>
+
+    <!-- What visitors see right now -->
+    <div class="price-now">
+      <p class="overline">Live right now</p>
+      <p class="price-now-amount"><%= pricing.amountLabel %></p>
+      <p class="price-now-meta">
+        <span class="chip chip-gold"><%= pricing.mode === 'yearly' ? 'Yearly plan' : 'Lifetime plan' %></span>
+        <%= pricing.terms.cadence %>
+        <% if (pricing.compare) { %>
+          &middot; shown against <s><%= pricing.compareLabel %></s>
+        <% } %>
+        <% if (!pricing.couponsEnabled) { %>&middot; discount codes off<% } %>
+      </p>
+    </div>
+
+    <form method="post" action="/admin/pricing" class="stack" style="gap:var(--sp-5);">
+      <input type="hidden" name="_csrf" value="<%= csrf %>">
+
+      <!-- Plan -->
+      <section class="admin-panel">
+        <h2 class="card-title">Plan</h2>
+        <p class="muted tiny" style="margin-top:var(--sp-1);">
+          Lifetime pays once and never expires. Yearly charges every 12 months
+          and gives access until the period ends.
+        </p>
+        <div class="plan-choice" role="radiogroup" aria-label="Pricing model">
+          <label class="plan-option">
+            <input type="radio" name="pricing_mode" value="lifetime"
+                   <%= pricing.mode === 'lifetime' ? 'checked' : '' %>>
+            <span class="plan-option-body">
+              <b>Lifetime</b>
+              <span>One payment. Never expires.</span>
+            </span>
+          </label>
+          <label class="plan-option">
+            <input type="radio" name="pricing_mode" value="yearly"
+                   <%= pricing.mode === 'yearly' ? 'checked' : '' %>>
+            <span class="plan-option-body">
+              <b>Yearly</b>
+              <span>Charged every 12 months, cancels any time.</span>
+            </span>
+          </label>
+        </div>
+      </section>
+
+      <!-- Prices -->
+      <section class="admin-panel">
+        <h2 class="card-title">Prices</h2>
+        <div class="field-grid">
+          <label>
+            <span>Lifetime price (₹)</span>
+            <input type="text" inputmode="decimal" name="price_lifetime"
+                   value="<%= settings.price_lifetime %>" placeholder="999.00">
+          </label>
+          <label>
+            <span>Yearly price (₹)</span>
+            <input type="text" inputmode="decimal" name="price_yearly"
+                   value="<%= settings.price_yearly %>" placeholder="199.00">
+          </label>
+          <label>
+            <span>Reference price (₹)</span>
+            <input type="text" inputmode="decimal" name="compare_price"
+                   value="<%= settings.compare_price %>" placeholder="1199.00">
+            <span class="field-hint">Shown struck through. Set to 0 to hide it.</span>
+          </label>
+          <label>
+            <span>Grace period after expiry (days)</span>
+            <input type="text" inputmode="numeric" name="grace_days"
+                   value="<%= settings.grace_days %>" placeholder="0">
+          </label>
+        </div>
+        <label style="margin-top:var(--sp-4);">
+          <span>Note shown under the price</span>
+          <input type="text" name="pricing_note" maxlength="200"
+                 value="<%= settings.pricing_note %>"
+                 placeholder="Billed every 12 months. Cancel any time.">
+        </label>
+        <label class="checkbox-label" style="margin-top:var(--sp-4);">
+          <input type="checkbox" name="coupons_enabled" value="1" <%= settings.coupons_enabled ? 'checked' : '' %>>
+          <span>Allow discount codes at checkout</span>
+        </label>
+      </section>
+
+      <div class="row">
+        <button class="btn btn-primary" type="submit">Save pricing</button>
+        <a class="btn btn-ghost" href="/checkout">View checkout</a>
+      </div>
+    </form>
+
+    <!-- Coupons -->
+    <h2 class="admin-subhead">Discount codes</h2>
+
+    <form method="post" action="/admin/coupons" class="admin-panel">
+      <input type="hidden" name="_csrf" value="<%= csrf %>">
+      <div class="field-grid">
+        <label>
+          <span>Code</span>
+          <input type="text" name="code" placeholder="UPSC299" maxlength="24"
+                 style="text-transform:uppercase" required>
+        </label>
+        <label>
+          <span>Kind</span>
+          <select name="kind">
+            <option value="flat">Flat amount off</option>
+            <option value="percent">Percentage off</option>
+          </select>
+        </label>
+        <label>
+          <span>Value</span>
+          <input type="text" name="value" inputmode="decimal" placeholder="299.00" required>
+          <span class="field-hint">Rupees for flat, 1&ndash;100 for percent.</span>
+        </label>
+        <label>
+          <span>Max uses</span>
+          <input type="text" name="max_uses" inputmode="numeric" placeholder="Unlimited">
+        </label>
+        <label>
+          <span>Expires</span>
+          <input type="date" name="expires_at">
+        </label>
+        <label>
+          <span>Internal note</span>
+          <input type="text" name="note" maxlength="200" placeholder="Launch cohort">
+        </label>
+      </div>
+      <button class="btn btn-primary" type="submit" style="margin-top:var(--sp-4);">Create code</button>
+    </form>
+
+    <% if (!coupons.length) { %>
+      <div class="alert alert-info" style="margin-top:var(--sp-5);">No discount codes yet.</div>
+    <% } else { %>
+      <div class="table-scroll" style="margin-top:var(--sp-5);">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th scope="col">Code</th><th scope="col">Discount</th>
+              <th scope="col">Used</th><th scope="col">Expires</th>
+              <th scope="col">Note</th><th scope="col">Status</th>
+              <th scope="col"><span class="sr-only">Actions</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% coupons.forEach(function (c) { %>
+              <tr>
+                <td class="cell-strong mono"><%= c.code %></td>
+                <td><%= c.kind === 'percent' ? c.value + '%' : rupees(c.value) %></td>
+                <td>
+                  <%= c.used %><%= c.max_uses ? ' / ' + c.max_uses : '' %>
+                </td>
+                <td class="muted tiny"><%= c.expires_at || '—' %></td>
+                <td class="muted tiny"><%= c.note || '—' %></td>
+                <td>
+                  <span class="badge badge-<%= c.active ? 'active' : 'none' %>">
+                    <%= c.active ? 'active' : 'disabled' %>
+                  </span>
+                </td>
+                <td class="cell-actions">
+                  <form method="post" action="/admin/coupons/<%= c.code %>/toggle" style="display:inline">
+                    <input type="hidden" name="_csrf" value="<%= csrf %>">
+                    <button class="btn btn-ghost btn-sm" type="submit"><%= c.active ? 'Disable' : 'Enable' %></button>
+                  </form>
+                  <form method="post" action="/admin/coupons/<%= c.code %>/delete" style="display:inline"
+                        onsubmit="return confirm('Delete <%= c.code %>?')">
+                    <input type="hidden" name="_csrf" value="<%= csrf %>">
+                    <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </div>
+</div>

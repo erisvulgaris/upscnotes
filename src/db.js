@@ -69,6 +69,8 @@ export function migrate() {
       status TEXT NOT NULL DEFAULT 'created',      -- created | authorized | captured | failed
       signature TEXT,
       raw TEXT,
+      plan TEXT NOT NULL DEFAULT 'lifetime',       -- lifetime | yearly
+      coupon_code TEXT,                             -- consumed on capture
       created_at TEXT NOT NULL DEFAULT (datetime('now'))
     );
 
@@ -99,4 +101,46 @@ export function migrate() {
   } catch (e) {
     // Column already exists — ignore
   }
+  // Migrations: an order now records the plan and coupon it was created under,
+  // so a later price change cannot retroactively alter what was bought.
+  addColumnIfMissing('payments', 'plan', "TEXT NOT NULL DEFAULT 'lifetime'");
+  addColumnIfMissing('payments', 'coupon_code', 'TEXT');
+
+  // Pricing configuration and coupon codes. Lazily seeded with the values the
+  // product shipped with, so switching to yearly or adding a code is a change
+  // in the admin rather than a code edit.
+  ensurePricingTables();
+}
+
+// ALTER TABLE ADD COLUMN throws when the column exists, which is how these
+// migrations have always detected the case.
+function addColumnIfMissing(table, column, definition) {
+  try {
+    db.exec('ALTER TABLE ' + table + ' ADD COLUMN ' + column + ' ' + definition);
+  } catch {
+    // already there
+  }
+}
+
+function ensurePricingTables() {
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS settings (
+      key   TEXT PRIMARY KEY,
+      value TEXT NOT NULL,
+      updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+    CREATE TABLE IF NOT EXISTS coupons (
+      id         INTEGER PRIMARY KEY AUTOINCREMENT,
+      code       TEXT NOT NULL UNIQUE,
+      kind       TEXT NOT NULL DEFAULT 'flat',
+      value      INTEGER NOT NULL,
+      max_uses   INTEGER,
+      used       INTEGER NOT NULL DEFAULT 0,
+      expires_at TEXT,
+      note       TEXT,
+      active     INTEGER NOT NULL DEFAULT 1,
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+    CREATE INDEX IF NOT EXISTS idx_coupons_active ON coupons(active);
+  `);
 }

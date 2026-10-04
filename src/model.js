@@ -34,14 +34,23 @@ export const listUsers = () =>
 export const countUsers = () => db.prepare('SELECT COUNT(*) AS n FROM users').get().n;
 
 // ---- subscriptions ----
-export function upsertLifetimeSubscription(userId, { source = 'razorpay', price_paise = 29900, payment_id = null } = {}) {
+/**
+ * Grants access. `plan` is 'lifetime' (no expiry) or 'yearly' (expires after
+ * `expiresAt`). An existing active subscription is left alone, so re-granting
+ * from the admin cannot silently extend a plan someone already paid for.
+ */
+export function upsertLifetimeSubscription(userId, {
+  source = 'razorpay', price_paise = 29900, payment_id = null,
+  plan = 'lifetime', expiresAt = null,
+} = {}) {
   const existing = db.prepare(
     'SELECT * FROM subscriptions WHERE user_id = ? ORDER BY id DESC LIMIT 1'
   ).get(userId);
   if (existing && existing.status === 'active') return existing;
   const r = db.prepare(
-    `INSERT INTO subscriptions (user_id, plan, status, price_paise, activated_at, expires_at, source, payment_id) VALUES (?, 'lifetime', 'active', ?, datetime('now'), NULL, ?, ?)`
-  ).run(userId, price_paise, source, payment_id);
+    `INSERT INTO subscriptions (user_id, plan, status, price_paise, activated_at, expires_at, source, payment_id)
+     VALUES (?, ?, 'active', ?, datetime('now'), ?, ?, ?)`
+  ).run(userId, plan, price_paise, expiresAt || null, source, payment_id);
   return db.prepare('SELECT * FROM subscriptions WHERE id = ?').get(r.lastInsertRowid);
 }
 export function getActiveSubscription(userId) {
@@ -60,10 +69,14 @@ export const countActiveSubs = () =>
   db.prepare(`SELECT COUNT(*) AS n FROM subscriptions WHERE status = 'active'`).get().n;
 
 // ---- payments ----
-export function createPayment({ razorpay_order_id, user_id, amount_paise }) {
+export function createPayment({
+  razorpay_order_id, user_id, amount_paise,
+  plan = 'lifetime', coupon_code = null,
+}) {
   const r = db.prepare(
-    'INSERT INTO payments (razorpay_order_id, user_id, amount_paise, status) VALUES (?, ?, ?, ?)'
-  ).run(razorpay_order_id, user_id, amount_paise, 'created');
+    `INSERT INTO payments (razorpay_order_id, user_id, amount_paise, status, plan, coupon_code)
+     VALUES (?, ?, ?, 'created', ?, ?)`
+  ).run(razorpay_order_id, user_id, amount_paise, plan, coupon_code);
   return r.lastInsertRowid;
 }
 export const getPaymentByOrder = (orderId) =>

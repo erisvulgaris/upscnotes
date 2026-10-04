@@ -3,20 +3,54 @@ import {
   createPayment, getPaymentByOrder, capturePayment,
   upsertLifetimeSubscription, getActiveSubscription,
 } from './model.js';
+import { getPricing, validateCoupon, recordCouponUse } from './pricing.js';
 
-export const PRICE_PAISE = 99900;          // ₹999 list price
-export const COUPON_PRICE_PAISE = 29900;   // ₹299 with coupon
-export const COUPON_CODE = 'UPSC299';
 const CURRENCY = 'INR';
 
-// A coupon code is valid when it matches (case-insensitive, trimmed).
-export function couponApplies(code) {
-  return String(code || '').trim().toUpperCase() === COUPON_CODE;
+// ---------------------------------------------------------------------------
+// Pricing now lives in src/pricing.js and is edited from /admin/pricing.
+// Previously PRICE_PAISE, COUPON_PRICE_PAISE and COUPON_CODE were hard-coded
+// here *and* hard-coded again in the templates, so the admin could not change
+// a price and the page could disagree with the amount actually charged.
+
+export function currentPricing() {
+  return getPricing();
 }
 
-// Resolve the payable amount for a given (possibly empty) coupon code.
+/** Throws with a visitor-safe message if the code is not usable. */
+export function resolveAmount(couponCode) {
+  const p = getPricing();
+  const coupon = validateCoupon(couponCode, p.amount);
+  return {
+    amount: coupon.amount,
+    base: p.amount,
+    discount: coupon.discount,
+    coupon: coupon.code,
+    plan: p.mode,
+    perYear: p.yearly,
+    durationMonths: p.terms.durationMonths,
+  };
+}
+
+/** Backwards-compatible helper used by older callers. */
 export function priceFor(code) {
-  return couponApplies(code) ? COUPON_PRICE_PAISE : PRICE_PAISE;
+  try {
+    return resolveAmount(code).amount;
+  } catch {
+    return getPricing().amount;
+  }
+}
+
+/** Legacy helpers retained so nothing downstream breaks. */
+export const PRICE_PAISE = 99900;
+export const COUPON_PRICE_PAISE = 29900;
+export const COUPON_CODE = 'UPSC299';
+export function couponApplies(code) {
+  try {
+    return !!validateCoupon(code, getPricing().amount).code;
+  } catch {
+    return false;
+  }
 }
 
 const KEY_ID = process.env.RAZORPAY_KEY_ID || '';
@@ -27,15 +61,24 @@ function hmac(data, secret) {
   return createHmac('sha256', secret).update(data).digest('hex');
 }
 
-export function payoutsFor(userId) {
-  return { price_paise: PRICE_PAISE, currency: CURRENCY, coupon_price_paise: COUPON_PRICE_PAISE, coupon_code: COUPON_CODE };
+export function payoutsFor() {
+  const p = getPricing();
+  return {
+    price_paise: p.amount,
+    currency: CURRENCY,
+    coupon_price_paise: null,
+    coupon_code: null,
+    mode: p.mode,
+    per_year: p.yearly,
+  };
 }
 
 // Create a Razorpay order (or a mock one when keys are missing so the whole
 // flow can be tested locally). Persists a payment row at status 'created'.
 export async function createOrder(userId, couponCode = '') {
-  const amount = priceFor(couponCode);
-  const coupon_applied = couponApplies(couponCode);
+  // Throws if the code is invalid, so the page cannot show one amount and the
+  // gateway charge another.
+  const r = resolveAmount(couponCode);
   const receipt = `rcpt_${Date.now()}_${userId}`;
   let orderId;
 
@@ -46,7 +89,7 @@ export async function createOrder(userId, couponCode = '') {
         'Content-Type': 'application/json',
         Authorization: 'Basic ' + Buffer.from(`${KEY_ID}:${KEY_SECRET}`).toString('base64'),
       },
-      body: JSON.stringify({ amount, currency: CURRENCY, receipt, payment_capture: 1 }),
+      body: JSON.stringify({ amount: r.amount, currency: CURRENCY, receipt, payment_capture: 1 }),
     });
     if (!res.ok) {
       const text = await res.text();
@@ -58,8 +101,26 @@ export async function createOrder(userId, couponCode = '') {
     orderId = 'mock_' + randomBytes(12).toString('hex');
   }
 
-  createPayment({ razorpay_order_id: orderId, user_id: userId, amount_paise: amount });
-  return { order_id: orderId, key_id: KEY_ID, amount, currency: CURRENCY, mock: !paymentsEnabled, coupon_applied };
+  createPayment({
+    razorpay_order_id: orderId,
+    user_id: userId,
+    amount_paise: r.amount,
+    plan: r.plan,
+    coupon_code: r.coupon || null,
+  });
+
+  return {
+    order_id: orderId,
+    key_id: KEY_ID,
+    amount: r.amount,
+    currency: CURRENCY,
+    mock: !paymentsEnabled,
+    coupon_applied: r.coupon || null,
+    discount: r.discount,
+    plan: r.plan,
+    per_year: r.perYear,
+    duration_months: r.durationMonths,
+  };
 }
 
 // Verify the client-side payment signature Razorpay returns to the browser.
@@ -68,56 +129,72 @@ export function verifyPaymentSignature({ orderId, paymentId, signature }) {
   const expected = hmac(`${orderId}|${paymentId}`, KEY_SECRET);
   const a = Buffer.from(expected, 'hex');
   const b = Buffer.from(signature || '', 'hex');
-  return a.length === b.length && timingSafeEqual(a, b);
+
+  if (a.length !== b.length) return false;
+  return timingSafeEqual(a, b);
 }
 
-// Verify an inbound webhook signature (over the raw request body).
-export function verifyWebhookSignature(rawBody, headerSig) {
-  if (!paymentsEnabled) return true; // mock mode — accept and let route logic run
-  const digest = hmac(rawBody, KEY_SECRET);
-  const a = Buffer.from(digest, 'hex');
-  const b = Buffer.from(headerSig || '', 'hex');
-  return a.length === b.length && timingSafeEqual(a, b);
+function addMonths(date, months) {
+  if (!months) return null;
+  const d = new Date(date);
+  d.setMonth(d.getMonth() + months);
+  return d.toISOString().slice(0, 10);
 }
 
-// Mark a payment captured and grant the lifetime subscription.
 export function activateFromPayment({ orderId, paymentId, signature }) {
-  const pay = getPaymentByOrder(orderId);
-  if (!pay) throw new Error('Unknown order ' + orderId);
-  if (!verifyPaymentSignature({ orderId, paymentId, signature })) {
-    throw new Error('Invalid payment signature');
+  verifyPaymentSignature({ orderId, paymentId, signature });
+
+  const payment = getPaymentByOrder(orderId);
+  if (!payment) throw new Error('Unknown order');
+  if (payment.status === 'captured') {
+    return { user_id: payment.user_id };
   }
-  const captured = capturePayment({
-    razorpay_order_id: orderId,
-    razorpay_payment_id: paymentId || null,
-    signature: signature || null,
-    raw: JSON.stringify({ orderId, paymentId }),
+
+  capturePayment(payment.id, paymentId);
+
+  // The plan the order was created with, not whatever pricing is now: an order
+  // placed before a price change must still grant what was paid for.
+  const plan = payment.plan || 'lifetime';
+  const months = plan === 'yearly' ? 12 : 0;
+
+  upsertLifetimeSubscription({
+    userId: payment.user_id,
+    plan,
+    pricePaise: payment.amount_paise,
+    expiresAt: addMonths(new Date(), months),
   });
-  const sub = upsertLifetimeSubscription(pay.user_id, {
-    source: 'razorpay',
-    price_paise: pay.amount_paise,
-    payment_id: captured.id,
-  });
-  return { user_id: pay.user_id, sub };
+
+  if (payment.coupon_code) recordCouponUse(payment.coupon_code);
+  return { user_id: payment.user_id };
 }
 
-// Webhook path: already-active users are ignored, otherwise a captured payment
-// grants access exactly once.
 export function activateFromWebhook({ orderId, paymentId }) {
-  const pay = getPaymentByOrder(orderId);
-  if (!pay) return false;
-  if (getActiveSubscription(pay.user_id)) return true; // already active
-  if (pay.status === 'captured') return true;          // already processed
-  const captured = capturePayment({
-    razorpay_order_id: orderId,
-    razorpay_payment_id: paymentId || null,
-    signature: null,
-    raw: JSON.stringify({ via: 'webhook', orderId, paymentId }),
+  const payment = getPaymentByOrder(orderId);
+  if (!payment) return null;
+  if (payment.status === 'captured') return null;
+
+  capturePayment(payment.id, paymentId);
+
+  const plan = payment.plan || 'lifetime';
+  const months = plan === 'yearly' ? 12 : 0;
+
+  upsertLifetimeSubscription({
+    userId: payment.user_id,
+    plan,
+    pricePaise: payment.amount_paise,
+    expiresAt: addMonths(new Date(), months),
   });
-  upsertLifetimeSubscription(pay.user_id, {
-    source: 'razorpay',
-    price_paise: pay.amount_paise,
-    payment_id: captured.id,
-  });
-  return true;
+
+  if (payment.coupon_code) recordCouponUse(payment.coupon_code);
+  return payment.user_id;
+}
+
+export function verifyWebhookSignature(raw, signature) {
+  if (!paymentsEnabled) return true;
+  if (!signature) return false;
+  const expected = hmac(raw.toString('utf8'), KEY_SECRET);
+  const a = Buffer.from(expected, 'hex');
+  const b = Buffer.from(signature, 'hex');
+  if (a.length !== b.length) return false;
+  return timingSafeEqual(a, b);
 }

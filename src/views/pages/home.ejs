@@ -327,14 +327,13 @@
         <div class="pricing-arg">
           <h2 class="section-title">One payment. Everything, forever.</h2>
           <p class="lead" style="margin-top:var(--sp-3);max-width:46ch;">
-            Lifetime access covers every book in the library today and everything added later.
-            No subscription, no renewal, no per-book charges.
+            <%= pricing.featureLine %>
           </p>
           <ul class="price-feats" style="max-width:34rem;">
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>All <%= totalBooks %> books &mdash; <%= ncertBooks %> NCERT and <%= textbookN %> standard UPSC titles</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><%= allChapters %> chapters and growing</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Text-to-speech reading, full-text search, flashcards and question banks</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Any device, any time &mdash; phone, tablet or desktop</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><%= pricing.yearly ? 'Billed every 12 months, cancel any time' : 'Any device, any time — phone, tablet or desktop' %></span></li>
       <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>7-day money-back guarantee</span></li>
           </ul>
 
@@ -356,12 +355,12 @@
           <div class="pricing-card reveal">
             <span class="pricing-tag">Lifetime</span>
             <div class="price">
-              <span class="price-cur">₹</span><span class="price-num" data-price>999</span>
-              <span class="price-per">one-time</span>
+              <span class="price-cur">₹</span><span class="price-num" data-price><%= pricing.rupees %></span>
+              <span class="price-per"><%= pricing.terms.cadence %></span>
             </div>
-            <div class="price-old" data-price-strike>₹1,199 launch price</div>
+            <% if (pricing.compare) { %><div class="price-old" data-price-strike><%= pricing.compareLabel %></div><% } %>
             <p class="price-alt">
-              Already a member? <strong>UPSC299</strong> takes it to <strong>₹299</strong> at checkout.
+              <%= pricing.note || 'Discount codes are applied at checkout.' %>
             </p>
             <a class="btn btn-gold btn-lg btn-block" style="margin-top:var(--sp-5);" href="/<%= user ? 'checkout' : 'signup' %>">
               <%= user ? 'Get lifetime access' : 'Create account & unlock' %>

@@ -41,6 +41,15 @@
       }
     })();
   </script>
+  <%# Pricing lives in the database and is edited at /admin/pricing. Handing it
+      to the client as one object is what stops the amount shown by the button
+      from disagreeing with the amount the gateway charges. %>
+  <% if (typeof pricing !== 'undefined' && pricing) { %>
+  <script>window.UPSC_PRICING = <%- JSON.stringify({
+    mode: pricing.mode, amount: pricing.amount, compare: pricing.compare,
+    couponsEnabled: pricing.couponsEnabled, note: pricing.note
+  }) %>;</script>
+  <% } %>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>

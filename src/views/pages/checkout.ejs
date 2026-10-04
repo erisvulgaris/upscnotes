@@ -28,13 +28,13 @@
         <span class="pricing-tag">Lifetime</span>
 
         <div class="price">
-          <span class="price-cur">₹</span><span class="price-num" data-price>999</span>
+          <span class="price-cur">₹</span><span class="price-num" data-price><%= pricing.rupees %></span>
           <span class="price-per">one-time</span>
         </div>
-        <div class="price-old" data-price-strike>₹1,199 launch price</div>
+        <div class="price-old" data-price-strike><%= pricing.compareLabel %></div>
 
         <button class="btn btn-gold btn-lg btn-block" id="rzp-checkout" type="button" style="margin-top:var(--sp-5);">
-          <span data-pay-label-text>Pay ₹999 and unlock now</span>
+          <span data-pay-label-text>Pay ₹<%= pricing.amount %> and unlock now</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
 

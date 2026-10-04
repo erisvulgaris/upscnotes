@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { renderPage } from '../render.js';
 import { listBooks, listBooksByCategory } from '../model.js';
 import { hasContentBundle, availableTools } from '../content-cache.js';
+import { getPricing } from '../pricing.js';
 
 // Preferred display order for library groupings; anything else trails.
 const SUBJECT_ORDER = [
@@ -229,6 +230,7 @@ router.get('/', (req, res) => {
     shelfBooks,
     ncertShelf,
     sample,
+    pricing: getPricing(),
     spotlight,
     spotlightExtras,
   });

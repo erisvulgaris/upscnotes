@@ -13,10 +13,10 @@
       <div class="pricing-card reveal">
         <span class="pricing-tag">Lifetime</span>
         <div class="price">
-          <span class="price-cur">₹</span><span class="price-num">999</span>
-          <span class="price-per">one-time</span>
+          <span class="price-cur">₹</span><span class="price-num"><%= pricing.rupees %></span>
+          <span class="price-per"><%= pricing.terms.cadence %></span>
         </div>
-        <div class="price-old">₹1,199 launch price</div>
+        <div class="price-old"><%= pricing.compareLabel %></div>
         <ul class="price-feats">
           <li>Every book in the library, current and future</li>
           <li>Text-to-speech reading and full-text search</li>
@@ -25,7 +25,7 @@
         <a class="btn btn-gold btn-lg btn-block" style="margin-top:var(--sp-5);" href="/<%= user ? 'checkout' : 'signup' %>">
           <%= user ? 'Get lifetime access' : 'Create an account & unlock' %>
         </a>
-        <p class="price-note muted">Apply code <strong>UPSC299</strong> at checkout to pay ₹299.</p>
+        <p class="price-note muted"><%= pricing.note || 'Discount codes are applied at checkout.' %></p>
       </div>
     </div>
 

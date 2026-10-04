@@ -4,10 +4,34 @@ import { getBookBySlug, searchChapters } from '../model.js';
 import {
   createOrder, activateFromPayment, activateFromWebhook, verifyWebhookSignature,
 } from '../payments.js';
+import { getPricing, validateCoupon } from '../pricing.js';
 
 const router = Router();
 
 router.get('/health', (req, res) => res.json({ ok: true }));
+
+// What a discount code is worth, at the current price. The client asks rather
+// than deciding, so any code created in the admin works on the checkout page
+// and the button can never quote an amount the gateway will not charge.
+// Public: a visitor needs to know their code is worth something before they
+// have an account, and the answer reveals nothing they cannot already see.
+router.get('/coupon', (req, res) => {
+  const code = String(req.query.code || '').trim();
+  if (!code) return res.status(400).json({ ok: false, error: 'Enter a coupon code.' });
+  try {
+    const p = getPricing();
+    const r = validateCoupon(code, p.amount);
+    if (!r.code) return res.status(400).json({ ok: false, error: 'Enter a coupon code.' });
+    res.set('Cache-Control', 'no-store');
+    res.json({
+      ok: true, code: r.code, amount: r.amount, discount: r.discount,
+      base: p.amount, mode: p.mode,
+    });
+  } catch (e) {
+    // The message is written for the visitor and names no internal state.
+    res.status(400).json({ ok: false, error: e.message || 'That code is not valid.' });
+  }
+});
 
 // Full-text search across a book's chapters (titles + content).
 router.get('/search/:slug', requireAuth, (req, res) => {
