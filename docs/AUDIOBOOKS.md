@@ -90,28 +90,56 @@ kinds and ids never are.
 ## Uploading to Cloudflare R2
 
 ```powershell
-# once
-rclone config            # name the remote "r2"
-
-# audio/<slug>/<n>.opus  ->  r2:upscbooks-audio/<slug>/<n>.opus
-rclone sync audio r2:upscbooks-audio --include "*.opus" --include "*.json" ^
-      --progress --transfers 8
+powershell -File tools\tts\upload-r2.ps1 -Verify   # check access first
+powershell -File tools\tts\upload-r2.ps1           # sync the set
+powershell -File tools\tts\upload-r2.ps1 -DryRun   # what would be sent
 ```
 
-The app expects the bucket laid out exactly as on disk: `audio/<slug>/<n>.opus`.
-Then set:
+**1,956 files: 653 `.opus` (4.37 GB) and 1,303 sidecar and sync `.json`.**
+
+The script reads credentials from `.env` and passes them to rclone as
+`RCLONE_CONFIG_*` environment variables, so nothing is written into rclone's
+global config file — the only place the secrets exist is `.env`, which is
+gitignored. The layout is preserved exactly: `audio/<slug>/<n>.opus` →
+`<slug>/<n>.opus`.
+
+Required in `.env`:
 
 ```
-AUDIO_CDN_URL=https://pub-<account-id>.r2.dev      # or your custom domain
+R2_ACCOUNT_ID=...
+R2_BUCKET=...
+R2_ENDPOINT=https://<account-id>.r2.cloudflarestorage.com
+R2_ACCESS_KEY_ID=...          # R2 "S3 API" credentials
+R2_SECRET_ACCESS_KEY=...
+AUDIO_CDN_URL=                # set after the bucket has a public domain
 ```
 
-With that set, `src/audio.js` stops serving media from disk and returns CDN URLs
-in the manifest and timing sidecar. The manifest itself stays served by the app
-so it can stay membership-gated; only the media moves.
+With `AUDIO_CDN_URL` set, `src/audio.js` stops serving media from disk and
+returns CDN URLs in the manifest and timing sidecar. The manifest itself stays
+served by the app so it stays membership-gated; only the media moves.
 
-Recommended R2 settings: no custom Cache-Control (the app sets
-`private, max-age=604800, immutable` when serving locally, and filenames are
-content-stable), and a CORS policy allowing `GET`/`HEAD` from your origins.
+Recommended bucket settings: a long `Cache-Control` on the objects, since a
+chapter's bytes never change once written, and CORS allowing `GET`/`HEAD` and
+`Range` from your origins — without it the player cannot fetch a sidecar or seek.
+
+### Troubleshooting
+
+- `403 AccessDenied` on `ListObjectsV2` means the credentials cannot reach the
+  bucket. Check that it exists in that account, that the API token carries
+  **Workers R2 Storage: Edit**, and that the S3 key pair still exists. A token
+  created without an R2 permission will verify as `active` and still be unable
+  to list a single bucket.
+- A bucket-scoped token cannot call `ListBuckets`, so `-Verify` looks *inside*
+  the bucket rather than at the remote root.
+- R2 has no regions; the S3 signature must use the literal string `auto`.
+- `AUDIO_CDN_URL` is only needed for **reading**. The app serves from disk
+  without it, so the upload can be done before the CDN is enabled.
+
+### Rotate the token
+
+A token pasted into a chat or a terminal is public to anyone who reads the
+transcript. Create a new one with only *Workers R2 Storage: Edit*, replace it in
+`.env`, and delete the old one in the Cloudflare dashboard.
 
 ## How the player chooses
 
