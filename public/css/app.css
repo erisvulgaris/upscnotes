@@ -615,26 +615,37 @@ input[aria-invalid="true"] { border-color: var(--danger); }
 /* Just enough overlap to read as one stack. At -16% the second cover lost its
    title entirely, which is the one thing a fan of books must never do. */
 .stack-book + .stack-book { margin-left: -8%; }
-.stack-book:nth-child(1) { z-index: 1; transform: rotate(-4deg) translateY(2%); }
-.stack-book:nth-child(2) { z-index: 2; transform: rotate(-1.4deg); }
-.stack-book:nth-child(3) { z-index: 3; transform: rotate(1.4deg); }
-.stack-book:nth-child(4) { z-index: 4; transform: rotate(4deg) translateY(2%); }
-/* The hero title comes forward and stays the largest object. */
+/* The fan runs left to right with the lead LAST and on top.
+
+   The constraint that decides this: in a left-to-right overlap, each cover
+   hides part of its neighbour's RIGHT edge. So the covers underneath must
+   carry their text on the left, and only the topmost one may be styled as the
+   hero. Putting the lead on the left made every other cover's title collide
+   with it; putting it on the right and raising it above the rest is the only
+   arrangement where every title stays readable. */
+.stack-book:nth-child(1) { z-index: 1; transform: rotate(4.5deg) translateY(2%); }
+.stack-book:nth-child(2) { z-index: 2; transform: rotate(1.5deg); }
+.stack-book:nth-child(3) { z-index: 3; transform: rotate(-1.5deg); }
+.stack-book:nth-child(4) { z-index: 4; transform: rotate(-4.5deg) translateY(2%); }
 .stack-book.is-lead {
+  order: 10;
+  flex-basis: 38%;
   z-index: 6;
-  flex-basis: 36%;
-  transform: rotate(-1.5deg) translateY(-3%);
+  transform: rotate(1.5deg) translateY(-3%);
   box-shadow: var(--elev-float), 0 26px 50px -18px rgba(20, 22, 30, .38);
 }
 .stack:hover .stack-book { transform: rotate(0deg) translateY(-5%); }
-.stack:hover .stack-book.is-lead { transform: rotate(-1.5deg) translateY(-8%); }
+.stack:hover .stack-book.is-lead { transform: rotate(1.5deg) translateY(-8%); }
 
 .stack-spine {
   position: absolute; inset: 0 auto 0 0; width: 9px; z-index: 2;
   background: linear-gradient(90deg, rgba(0,0,0,.36), rgba(0,0,0,.06) 60%, transparent);
   border-right: 1px solid rgba(0,0,0,.14);
 }
-.stack-book .cover-art { padding: var(--sp-5) var(--sp-4) var(--sp-4) calc(var(--sp-4) + 9px); }
+.stack-book .cover-art {
+  padding: var(--sp-5) var(--sp-4) var(--sp-4) calc(var(--sp-4) + 9px);
+  align-items: flex-start;
+}
 .stack-book .cover-title {
   font-size: clamp(.875rem, .72rem + .62vw, 1.25rem);
   -webkit-line-clamp: 5;
@@ -642,6 +653,7 @@ input[aria-invalid="true"] { border-color: var(--danger); }
 .stack-book .cover-genre {
   font-size: clamp(.5625rem, .52rem + .18vw, .75rem);
   letter-spacing: var(--tr-wider);
+  align-self: flex-start;
 }
 
 .stack-note {

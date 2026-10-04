@@ -1,4 +1,4 @@
-﻿// Compact contrast check: landing page only, both themes, and it accounts for
+// Compact contrast check: landing page only, both themes, and it accounts for
 // the cover scrim (a pseudo-element the naive background walk cannot see).
 const BASE = "http://localhost:4177";
 const page = await browser.getPage("ct");
