@@ -54,9 +54,13 @@ export function upsertLifetimeSubscription(userId, {
   return db.prepare('SELECT * FROM subscriptions WHERE id = ?').get(r.lastInsertRowid);
 }
 export function getActiveSubscription(userId) {
+  // Lifetime must mean lifetime. An expiry date on a lifetime row - left over
+  // from an import, or set by mistake - is ignored rather than silently
+  // expiring a purchase the member was told never would.
   return db.prepare(
     `SELECT * FROM subscriptions WHERE user_id = ? AND status = 'active'
-     AND (expires_at IS NULL OR expires_at > datetime('now')) ORDER BY id DESC LIMIT 1`
+       AND (plan = 'lifetime' OR expires_at IS NULL OR expires_at > datetime('now'))
+     ORDER BY id DESC LIMIT 1`
   ).get(userId);
 }
 export function setSubscriptionStatus(id, status) {
