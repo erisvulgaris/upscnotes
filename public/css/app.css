@@ -14,7 +14,7 @@
 @font-face {
   font-family: "Cambay"; font-style: normal; font-weight: 400; font-display: swap;
   src: url("/assets/fonts/Cambay-400-1.woff2") format("woff2");
-  unicode-range: U+0100-02AF, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-02AF, U+1E00-1EFF, U+2020, U+20A0-20AB, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: "Cambay"; font-style: normal; font-weight: 400; font-display: swap;
@@ -29,7 +29,7 @@
 @font-face {
   font-family: "Cambay"; font-style: normal; font-weight: 700; font-display: swap;
   src: url("/assets/fonts/Cambay-700-4.woff2") format("woff2");
-  unicode-range: U+0100-02AF, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-02AF, U+1E00-1EFF, U+2020, U+20A0-20AB, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: "Cambay"; font-style: normal; font-weight: 700; font-display: swap;
@@ -931,10 +931,11 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
   font-variant-numeric: tabular-nums;
 }
 .subject-covers { display: flex; align-items: flex-end; padding-left: 5%; }
-/* 3 covers at 35% with a 15% overlap span ~75% of the card; at 27% they
-   reached barely 60% and left a visible gap on the right. */
+/* `flex: 1 1 35%` rather than a fixed width: Environment has two titles and
+   the others three, and a fixed basis left a gap on the right for the
+   subjects that do not fill a third. */
 .subject-cover {
-  position: relative; width: 35%; aspect-ratio: 2 / 3; overflow: hidden;
+  position: relative; flex: 1 1 35%; max-width: 38%; aspect-ratio: 2 / 3; overflow: hidden;
   border-radius: 3px; background: var(--cover);
   box-shadow: 0 1px 3px rgba(20, 22, 30, .18), -3px 0 5px -3px rgba(20, 22, 30, .3);
   display: flex; flex-direction: column; justify-content: space-between;
@@ -944,6 +945,10 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
 .subject-cover + .subject-cover { margin-left: -15%; }
 .subject-cover:nth-child(2) { z-index: 2; transform: translateY(-4%); }
 .subject-cover:nth-child(3) { z-index: 3; transform: translateY(-8%); }
+/* Two titles, so step once instead of twice and let them share the width. */
+.subject-cover:only-child { flex: 1 1 100%; max-width: 46%; }
+.subject-cover:first-child:nth-last-child(2) { transform: translateY(-2%); }
+.subject-cover:first-child:nth-last-child(2) + .subject-cover { transform: translateY(-6%); }
 .subject-card:hover .subject-cover { transform: translateY(-6%); }
 .subject-card:hover .subject-cover:nth-child(2) { transform: translateY(-10%); }
 .subject-card:hover .subject-cover:nth-child(3) { transform: translateY(-14%); }
