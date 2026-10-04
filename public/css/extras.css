@@ -50,6 +50,9 @@
 /* ---------- Filters --------------------------------------------------- */
 .ex-filters { display: grid; gap: var(--sp-2); margin-bottom: var(--sp-5); }
 .ex-filters input[type="search"], .ex-filters select { width: 100%; }
+/* A filter row with a single control should be a search field, not half the
+   page. */
+.ex-filters:has(> :only-child) { grid-template-columns: minmax(0, 26rem); }
 .ex-pager { height: 1px; }
 .ex-pager + .btn { margin-top: var(--sp-6); }
 .ex-hint { font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--ash); margin-bottom: var(--sp-4); }
@@ -174,25 +177,37 @@
 /* ---------- Timeline ----------------------------------------------------- */
 .tl-list { list-style: none; padding: 0; margin: 0; position: relative; }
 .tl-list::before {
-  content: ""; position: absolute; left: 5.5rem; top: 8px; bottom: 8px;
+  content: ""; position: absolute; left: 6.5rem; top: 10px; bottom: 10px;
   width: 1px; background: var(--line);
 }
 .tl-item {
   position: relative; display: grid;
-  grid-template-columns: 5rem 1fr auto; gap: var(--sp-3);
+  grid-template-columns: 5.5rem minmax(0, 1fr) auto; gap: var(--sp-3);
   align-items: baseline; padding: var(--sp-3) 0;
   border-bottom: 1px solid var(--line-soft);
 }
 .tl-item:last-child { border-bottom: 0; }
+/* A dot on the spine so the list reads as a chronology, not a table. */
+.tl-item::before {
+  content: ""; position: absolute; left: 6.5rem; top: 1.35em;
+  width: 7px; height: 7px; margin-left: -3px;
+  border-radius: 50%; background: var(--surface); border: 1.5px solid var(--brand);
+}
 .tl-year {
   font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: 700;
   color: var(--accent-deep); font-variant-numeric: tabular-nums; text-align: right;
+  white-space: nowrap;
 }
+.tl-body { min-width: 0; display: grid; gap: 2px; }
 .tl-label { font-size: var(--fs-sm); line-height: 1.5; }
+.tl-dupe {
+  font-family: var(--font-ui); font-size: var(--fs-micro); color: var(--ash);
+}
 .tl-link {
   font-family: var(--font-ui); font-size: var(--fs-micro); font-weight: 650;
   color: var(--brand); text-decoration: none; white-space: nowrap;
 }
+.tl-link:hover { text-decoration: underline; }
 
 /* ---------- Mains bank ---------------------------------------------------- */
 .mains-list { display: grid; gap: var(--sp-2); }

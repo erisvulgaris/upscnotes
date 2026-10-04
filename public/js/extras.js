@@ -381,6 +381,18 @@
   }
 
   /* -------------------------------------------------------- timeline */
+  // "510 CE" -> 510, "8th c" -> 800, "pre-1453" -> -1453, "1469-1539" -> 1469.
+  function yearKey(when) {
+    var s = String(when || '').toLowerCase().trim();
+    var m = s.match(/(\d{1,4})/);
+    if (!m) return Number.MAX_SAFE_INTEGER;
+    var y = parseInt(m[1], 10);
+    // "8th c", "12th century" are centuries, not years.
+    if (/\d\s*(?:st|nd|rd|th)?\s*(?:c\.?|century|cent)\b/.test(s)) y *= 100;
+    if (/\bbce\b|\bbefore\b|^pre-/.test(s)) y = -y;
+    return y;
+  }
+
   function initTimeline() {
     var list = document.getElementById('tl-list');
     if (!list) return;
@@ -399,13 +411,27 @@
     fetchJson('mindmaps.json').then(function (data) {
       var tl = (data && data.timeline) || {};
       var all = Array.isArray(tl.events) ? tl.events : [];
-      // Precompute the search haystack once — this list can be very large.
-      var rows = all.map(function (e) {
-        return {
-          e: e,
-          hay: norm([e.label, e.when && e.when.display, e.when && e.when.year, e.ch].join(' ')),
-          year: (e.when && (e.when.year || e.when.display)) || '',
+
+      // The stored order is chapter order, not chronology — "pre-1453" came
+      // after "15th c". A page called a timeline has to actually be one, and
+      // several events repeat verbatim across chapters, so dedupe as well and
+      // note the duplicates rather than hiding them.
+      var seen = {};
+      var rows = [];
+      all.forEach(function (e) {
+        var when = (e.when && (e.when.display || e.when.year)) || e.when || '';
+        var key = when + ' ' + (e.label || '');
+        if (seen[key]) { seen[key].dupes = (seen[key].dupes || 1) + 1; return; }
+        var row = {
+          e: e, when: when, year: yearKey(when),
+          hay: norm([e.label, when, e.ch].join(' ')),
         };
+        seen[key] = row;
+        rows.push(row);
+      });
+      rows.sort(function (a, b) {
+        if (a.year !== b.year) return a.year - b.year;
+        return String(a.when).localeCompare(String(b.when)) || String(a.e.label).localeCompare(String(b.e.label));
       });
 
       function render() {
@@ -413,18 +439,19 @@
         var out = q ? rows.filter(function (r) { return r.hay.indexOf(q) !== -1; }) : rows;
 
         setCount('tl-count', out.length === rows.length
-          ? (rows.length + ' dated events')
-          : (out.length + ' of ' + rows.length + ' events'));
+          ? rows.length.toLocaleString('en-IN') + ' dated events, in chronological order'
+          : out.length.toLocaleString('en-IN') + ' of ' + rows.length.toLocaleString('en-IN') + ' events');
 
         var CAP = 250;
         var slice = out.slice(0, CAP);
         list.innerHTML = slice.length
           ? slice.map(function (r) {
               var e = r.e;
-              var when = e.when && (e.when.display || e.when.year) ? (e.when.display || e.when.year) : (e.when || '');
               return '<li class="tl-item">' +
-                '<span class="tl-year">' + esc(when) + '</span>' +
-                '<span class="tl-label">' + esc(e.label) + '</span>' +
+                '<span class="tl-year">' + esc(r.when) + '</span>' +
+                '<span class="tl-body"><span class="tl-label">' + esc(e.label) + '</span>' +
+                (r.dupes ? '<span class="tl-dupe">also listed ' + r.dupes + '× in other chapters</span>' : '') +
+                '</span>' +
                 (e.ch ? '<a class="tl-link" href="/read/' + slug() + '/' + esc(e.ch) + '">Ch ' + esc(e.ch) + '</a>' : '<span></span>') +
                 '</li>';
             }).join('')
