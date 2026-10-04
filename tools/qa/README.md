@@ -44,6 +44,7 @@ powershell -File tools\tts\run.ps1 -Workers 12      # resumable, loses nothing
 | `overflow.js` | The page cannot be scrolled sideways, and nothing sits past the viewport outside a scroll container or a closed dialog. Public pages at 320/360/390px. |
 | `overflow-auth.js` | The same, on `/dashboard`, the three admin tables and the question bank — the surfaces where a genuinely wide table exists. |
 | `reader-dock.js` | The TTS dock never intersects on-screen reading text at five widths and two scroll positions, and the end of a chapter is never trapped under it. Checks both axes: the floating dock sits *beside* the column, not under it. |
+| `tts-panel.js` | The expanded options panel never covers reading text. It widens leftwards from the right edge, so the arithmetic has to fit it into the space the 720px column leaves. |
 | `keyboard.js` | Tabs through five pages plus the reader. Every stop has a visible ring, none lands on a hidden element, the skip link is the first stop and becomes visible, and no target is under 24px. |
 | `contrast.js` | WCAG AA on the landing page in both themes. Composes the cover `::before` scrim over the cover colour, which a naive `backgroundColor` walk cannot see. |
 | `quiz-pager.js` | The question bank renders a page at a time, tops up on scroll, narrows on filter, shows an empty state on no match, and repopulates when cleared. |

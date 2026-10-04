@@ -312,16 +312,16 @@ body.reading {
 
 /* Below 1280px the dock stays a full-width bottom bar, which is the correct
      mobile behaviour: it overlays whatever is at the foot of the viewport and
-     body.reading reserves space so the end of the chapter is never trapped.
+     body.reading reserves space so the end of a chapter is never trapped.
      A floating panel at those widths would sit on top of a centred 720px
      column at every scroll position, which is worse. */
 @media (max-width: 1279px) {
   .tts-dock.is-min { transform: translateY(calc(var(--dock-h) - 100%)); }
 }
 
-/* 900–1279px: enough width for a floating dock, but not enough to also hold
-     a 720px centred column. The reading column moves left and narrows to 640px
-     so the dock has the right margin to itself. */
+/* 900-1279px: enough width for a floating dock, but not enough to also hold a
+   720px centred column. The reading column moves left and narrows to 640px so
+   the dock has the right margin to itself. */
 @media (min-width: 900px) and (max-width: 1279px) {
   .rd-body { max-width: 640px; margin-left: var(--gutter); margin-right: auto; }
   .tts-dock {
@@ -330,30 +330,39 @@ body.reading {
     border-radius: var(--r-xl); border: 1px solid var(--line);
     box-shadow: var(--elev-float);
   }
-  .tts-dock.is-open { width: 360px; }
+  /* Only 212px is left of a 640px column at 900px, so the panel stays at the
+     dock's own width and stacks above it instead of widening. */
+  .tts-dock.is-open { width: 208px; }
   .tts-dock.is-min { transform: none; }
-  .tts-panel { padding-inline: var(--sp-4); }
+  .tts-panel { padding-inline: var(--sp-3); }
+  .tts-rates { flex-wrap: wrap; }
   .tts-count { display: none; }
+  .tts-main { padding-inline: var(--sp-2); gap: 2px; }
   body.reading { padding-bottom: var(--sp-12); }
 }
 
+/* >=1280px: the column ends at (viewport + 720) / 2. The dock is a compact
+   208px in the right margin and only ever widens into that same margin. */
 @media (min-width: 1280px) {
-  /* The reading column ends at (viewport + 720) / 2. A compact 208px dock in
-     the right margin clears it at every width from 1280px up, and expands to
-     384px only while the options panel is open. */
   .tts-dock {
     left: auto; right: var(--sp-6); bottom: var(--sp-6);
     width: 208px;
     border-radius: var(--r-xl); border: 1px solid var(--line);
     box-shadow: var(--elev-float);
   }
-  .tts-dock.is-open { width: 384px; }
+  .tts-dock.is-open {
+    /* Widening must not eat into the reading column. `100%` rather than
+       `100vw`, because 100vw includes the scrollbar and overshoots by ~15px,
+       which was enough to cover the last few words on a line.
+       1280px -> 240px, 1440px -> 320px, 1600px and up -> 384px. */
+    width: clamp(224px, calc((100% - 720px) / 2 - var(--sp-8)), 384px);
+  }
   .tts-dock.is-min { transform: none; }
   .tts-main { padding-inline: var(--sp-2); gap: 2px; }
   .tts-panel { padding-inline: var(--sp-4); }
   .tts-count { display: none; }
-  /* Below ~360px of dock there is no room for a truncated title beside five
-     controls; the progress bar alone still conveys position. */
+  /* A 208px dock has no room for a truncated title beside five controls; the
+     progress bar alone still conveys position. */
   .tts-now { display: none; }
   .tts-track { height: 4px; }
   body.reading { padding-bottom: var(--sp-16); }
