@@ -104,7 +104,11 @@
         timings = data.sentenceTimings || [];
         sentences = orderedSentences();
         audio = new Audio(data.url);
-        audio.preload = 'auto';
+        // "metadata", not "auto": the heaviest chapter is 49MB of Opus, and
+        // preloading all of it would pull the entire file before the reader
+        // hears a word. With Range support the browser streams on demand and
+        // seeking still works.
+        audio.preload = 'metadata';
         audio.crossOrigin = 'anonymous';
 
         audio.addEventListener('timeupdate', function () {

@@ -1,4 +1,4 @@
-# Audiobooks (Edge TTS)
+﻿# Audiobooks (Edge TTS)
 
 Every chapter of every book, pre-rendered to **16 kHz mono Opus at 24 kbps** and
 served as a fallback wherever the Web Speech API has no usable voice.
@@ -125,6 +125,10 @@ in-app browsers, locked-down enterprise builds). Then it takes over the dock,
 loads `/audio/<slug>/<n>.json` for the sentence timings, streams the Opus, and
 highlights by binary-searching `audio.currentTime` against the timing list.
 
+Both paths expose the same controls — play/pause, previous/next sentence, stop,
+options — all in the dock's always-visible row, plus `Space` / `J` / `K` /
+`T` / `S`.
+
 ### Highlight granularity
 
 Chunk boundaries are exact. Sentence boundaries **inside** a chunk are
@@ -135,22 +139,32 @@ At the original 700-character chunk size this produced interpolated spans up to
 20 seconds long: a highlight that sat still for 20s then jumped. The extractor
 now uses 300-character chunks, which halves the worst case for about 2.3x the
 requests. If you rebuild, expect a mean sentence span of ~3s and a worst case
-of ~10s.
-
-This only affects the fallback. The Web Speech path highlights exactly, because
+of ~10s. This only affects the fallback; the Web Speech path is exact because
 it knows when it starts and ends each sentence.
 
-Both paths expose the same controls — play/pause, previous/next sentence, stop,
-options — all in the dock's always-visible row, plus `Space` / `J` / `K` /
-`T` / `S`.
+### Chapter sizes
+
+Chapters are long. The heaviest in the library is a 5.4-hour recording: 49MB of
+Opus and 2,140 sentence timings in a 286KB sidecar. Measured, the player's
+binary search costs 0.46 microseconds per call at four lookups a second, and
+parsing the sidecar costs 4.6ms. Neither matters.
+
+The 49MB is why the player uses `preload="metadata"` rather than `auto`: the
+browser fetches only enough to start and streams the rest, which works because
+the audio route honours `Range`.
 
 ## Verifying
 
 ```powershell
-node tools\check-audio.mjs          # run with $env:UPSC_COOKIE set; checks range requests, timings, traversal
-node tools\measure-audio.mjs        # word counts and estimated hours per book
-node tools\audit-content.mjs        # typographic findings in the source text
+node tools\check-all-audio.mjs    # integrity across every chapter, not a sample
+node tools\check-audio-badge.mjs  # the reader's "audio available" claim is honest
+node tools\check-audio.mjs        # range requests, timings, traversal, OggS magic
+node tools\measure-audio.mjs      # word counts and estimated hours per book
+node tools\audit-content.mjs      # typographic findings in the source text
 ```
+
+`check-audio.mjs` needs a session cookie in `$env:UPSC_COOKIE`; the others sign
+in themselves.
 
 `check-audio.mjs` asserts the things that actually break players: that a
 `bytes=1000-3999` request returns exactly 3000 bytes with `206`, that timings are
