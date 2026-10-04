@@ -7,6 +7,18 @@
       <p class="section-sub" id="mains-count" role="status" aria-live="polite">Loading prompts&hellip;</p>
     </div>
 
+    <div class="ex-filters">
+      <label class="sr-only" for="mains-q">Search prompts</label>
+      <input type="search" id="mains-q" placeholder="Search prompts…" autocomplete="off">
+      <label class="sr-only" for="mains-ch">Filter by chapter</label>
+      <select id="mains-ch">
+        <option value="">All chapters</option>
+        <% chapters.forEach(function (c) { %>
+          <option value="<%= c.number %>">Ch <%= c.number %> &mdash; <%= c.title %></option>
+        <% }); %>
+      </select>
+    </div>
+
     <p class="ex-hint">Tap a question to see the chapters it draws on.</p>
     <div id="mains-list" class="mains-list" aria-live="polite"></div>
   </div>

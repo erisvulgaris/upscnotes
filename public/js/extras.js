@@ -485,21 +485,57 @@
 
     fetchJson('mains_bank.json').then(function (data) {
       var all = (data && data.entries) || [];
-      setCount('mains-count', all.length + ' prompts');
-      if (!all.length) { list.innerHTML = empty('This book has no mains bank yet.'); return; }
+      var search = document.getElementById('mains-q');
+      var chSel = document.getElementById('mains-ch');
 
-      list.innerHTML = all.slice(0, 80).map(function (e) {
-        var items = e.items || [];
-        return '<details class="mains-card"><summary>' + esc(e.text) + '</summary>' +
-          '<div class="mains-meta">' + esc(e.source || '') + (e.type ? ' · ' + esc(e.type) : '') + '</div>' +
-          (items.length
-            ? '<ul class="mains-items">' + items.map(function (it) {
-                return '<li><a href="/read/' + slug() + '/' + esc(it.chapter) + '">Ch ' + esc(it.chapter) + '</a> — ' +
-                  esc(it.title) + (it.sec ? ' <span class="muted">(sec ' + esc(String(it.sec)) + ')</span>' : '') + '</li>';
-              }).join('') + '</ul>'
-            : '') +
-          '</details>';
-      }).join('');
+      var rows = all.map(function (e) {
+        return {
+          e: e,
+          hay: norm(e.text + ' ' + (e.source || '') + ' ' + (e.type || '')),
+          chapters: (e.items || []).map(function (i) { return i.chapter; }),
+        };
+      });
+
+      function render() {
+        var q = norm(search ? search.value : '').trim();
+        var chV = chSel ? chSel.value : '';
+        var out = rows.filter(function (r) {
+          if (chV && r.chapters.indexOf(Number(chV)) === -1) return false;
+          if (q && r.hay.indexOf(q) === -1) return false;
+          return true;
+        });
+
+        setCount('mains-count', out.length === rows.length
+          ? rows.length.toLocaleString('en-IN') + ' prompts'
+          : out.length + ' of ' + rows.length.toLocaleString('en-IN') + ' prompts');
+
+        if (!out.length) { list.innerHTML = empty('No prompts match that search.'); return; }
+
+        list.innerHTML = out.slice(0, 80).map(function (r) {
+          var e = r.e;
+          var items = e.items || [];
+          return '<details class="mains-card"><summary>' + esc(e.text) + '</summary>' +
+            '<div class="mains-meta">' + esc(e.source || '') + (e.type ? ' · ' + esc(e.type) : '') + '</div>' +
+            (items.length
+              ? '<ul class="mains-items">' + items.map(function (it) {
+                  return '<li><a href="/read/' + slug() + '/' + esc(it.chapter) + '">Ch ' + esc(it.chapter) + '</a> — ' +
+                    esc(it.title) + (it.sec ? ' <span class="muted">(sec ' + esc(String(it.sec)) + ')</span>' : '') + '</li>';
+                }).join('') + '</ul>'
+              : '') +
+            '</details>';
+        }).join('');
+
+        if (out.length > 80) {
+          var note = document.createElement('div');
+          note.className = 'tl-more';
+          note.textContent = 'Showing the first 80 of ' + out.length + ' prompts — narrow the search to see the rest.';
+          list.appendChild(note);
+        }
+      }
+
+      if (search) search.addEventListener('input', render);
+      if (chSel) chSel.addEventListener('change', render);
+      render();
     }).catch(function () {
       list.innerHTML = empty('This book has no mains bank yet.');
       setCount('mains-count', '');
