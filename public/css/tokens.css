@@ -16,7 +16,10 @@
 
   /* ---- Accent (single accent, offer/price only) ---------------- */
   --accent:       #F5A623;   /* Ember Gold — fills only                    */
-  --accent-deep:  #B0740C;   /* Ember Deep — accent *text*, AA on cream     */
+  --accent-deep:  #B0740C;   /* Ember Deep — accent on tinted surfaces    */
+  /* Small accent *text* on a cream card. --accent-deep is 3.86:1 there,
+     which is fine for the 56px price but not for a 13px code. */
+  --accent-text:  #8A5A08;   /* 5.8:1 on #FFFDF9                          */
   --accent-tint:  #FDF1DC;
 
   /* ---- Surfaces ------------------------------------------------ */
@@ -165,6 +168,7 @@
 
   --accent:      #F0B44A;
   --accent-deep: #E0A136;
+  --accent-text: #F5C879;
   --accent-tint: #2A2318;
 
   --ink:         #EDEAE2;

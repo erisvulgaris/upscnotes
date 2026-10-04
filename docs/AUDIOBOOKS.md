@@ -25,17 +25,30 @@ ffmpeg -i in.mp3 -ar 16000 -ac 1 -c:a libopus -b:a 24k \
        -vbr on -application voip -frame_duration 60 out.opus
 ```
 
-Whole library: **653 chapters, ~399 hours, ~4.5 GB** at that bitrate.
+Whole library: **653 chapters, ~444 hours, ~4.2 GB** at that bitrate.
+
+Caching matters more than it looks. An earlier version cached the manifest on
+the mtime of `audio/`, which is exactly the directory the build writes to — so
+while audio was being generated, every request rebuilt the index from scratch.
+Sidecar summaries are now cached per file permanently (their content never
+changes once written), and the served manifest is held for 30 seconds.
 
 ## Building
 
 ```powershell
 node tools\tts\extract.mjs                          # ~45 MB narration source
 powershell -File tools\tts\run.ps1 -Workers 12      # resumable
+node tools\tts\build-manifest.mjs                   # or let run.ps1 do it
 ```
 
 Requirements: Python 3.11+ (`python -m pip install edge-tts`) and ffmpeg with
 libopus on PATH.
+
+`build-manifest.mjs` writes `audio/manifest.json`, a single index of every
+chapter's duration, size and sentence count. The app prefers it over scanning
+the directory: the scan is 44 directory reads plus one JSON parse per chapter,
+which measured **3.98s cold** for 596 chapters. With the index it is **33ms**.
+Re-run it after adding audio by hand.
 
 Useful flags:
 

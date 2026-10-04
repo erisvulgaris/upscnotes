@@ -904,6 +904,15 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
 }
 .price-per { font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: 650; color: var(--muted); margin-left: var(--sp-2); }
 .price-old { font-size: var(--fs-sm); color: var(--ash); text-decoration: line-through; margin-top: var(--sp-2); }
+/* The launch price implies a discount, so the code that produces it belongs
+   next to it rather than only on the checkout page. */
+.price-alt {
+  margin-top: var(--sp-2); font-size: var(--fs-xs); color: var(--fg-2); line-height: 1.5;
+}
+.price-alt strong {
+  font-family: var(--font-ui); font-weight: 750; color: var(--accent-text);
+  font-variant-numeric: tabular-nums;
+}
 .price-feats { margin: var(--sp-5) 0; display: grid; gap: var(--sp-2); font-size: var(--fs-sm); }
 .price-feats li { display: flex; gap: var(--sp-3); align-items: flex-start; color: var(--fg-2); }
 .price-feats svg { flex: none; margin-top: 4px; color: var(--success); }
