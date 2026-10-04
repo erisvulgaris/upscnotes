@@ -52,11 +52,11 @@
       <!-- The library itself. One title pulled forward, the rest fanned behind
            it: the books are the product, so they get a real size. -->
       <div class="hero-visual">
-        <div class="stack" style="--fan-n:<%= Math.min(shelf.length, 4) %>" aria-hidden="true">
+        <div class="fan" style="--fan-n:<%= Math.min(shelf.length, 4) %>" aria-hidden="true">
           <% shelf.forEach(function (b, i) { %>
-            <a class="stack-book <%= i === 0 ? 'is-lead' : '' %>" tabindex="-1"
+            <a class="fan-book <%= i === 0 ? 'is-lead' : '' %>" tabindex="-1"
                href="/read/<%= b.slug %>/1" style="--cover:<%= b.color || '#1E2A52' %>">
-              <span class="stack-spine"></span>
+              <span class="fan-spine"></span>
               <span class="cover-art">
                 <span class="cover-genre"><%= b.category === 'ncert' ? 'NCERT' : 'UPSC' %></span>
                 <span class="cover-title"><%= b.title %></span>
@@ -65,7 +65,7 @@
             </a>
           <% }); %>
         </div>
-        <p class="stack-note">
+        <p class="fan-note">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>
           <span>Every chapter <b>reads aloud</b> — tap any sentence to start, at your pace.</span>
         </p>

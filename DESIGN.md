@@ -307,6 +307,42 @@ Sentence-level playback over server-rendered `.tts-sent[data-sid]` spans.
 - Headline serif, body sans/serif, never mixed within a role.
 - Never put amber text on a light background; use Ink text on a gold fill.
 - Every page needs a real `<title>` and a real meta description.
+- **Class names are global.** `.stack` is a layout utility; the hero's cover fan is
+  `.fan`. A component class that reuses a utility name silently overrides it — that
+  happened once and turned every `.stack` form into a flex row.
+- **Files containing non-ASCII are written with the edit tool or a Node script**,
+  never PowerShell's `Set-Content`. `tools/check-encoding.mjs` fails on mojibake.
+
+---
+
+## 9a. Pricing
+
+Every price the product shows is **data, not code**. `src/pricing.js` is the single
+source of truth, backed by a `settings` table, and is edited at `/admin/pricing`.
+
+- **Plans** — `lifetime` (one payment, never expires) or `yearly` (every 12 months).
+  Switching is one setting and every surface follows: the landing page, the reader
+  gate, checkout and the order API all read `getPricing()`.
+- **Amounts are paise, always.** Forms take rupees and convert at one boundary
+  (`toPaise`), so no float ever touches money. Templates render `pricing.rupees`,
+  never `pricing.amount` — that distinction cost a page showing "123450".
+- **An order records the plan and coupon it was created under**, so a price change
+  cannot retroactively alter what somebody bought, and a limited-use code is
+  consumed exactly once, on capture.
+- **Coupon codes live in the database.** Checkout validates against the server via
+  `/api/coupon`; the client holds no price table of its own. A code created in the
+  admin works on the page that offers it immediately.
+- **Terms copy follows the plan.** "No renewal" is wrong the moment yearly is
+  selected, so the argument, the cadence label and the billing bullet all read from
+  `pricing.featureLine` / `pricing.terms`.
+- A "live right now" panel at the top of the admin page shows exactly what a
+  visitor will see, because a pricing form that does not show its own output is
+  guesswork.
+
+Test it with `node tools/qa-pricing.mjs` (drives the whole flow through the admin,
+including a throwaway unpaid account for the two surfaces a subscriber never sees)
+and `node tools/qa-yearly.mjs` (proves yearly actually expires rather than being
+cosmetic).
 
 ---
 

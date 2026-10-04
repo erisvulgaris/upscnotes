@@ -596,13 +596,13 @@ input[aria-invalid="true"] { border-color: var(--danger); }
    negative margin widened every subsequent track, so the *last* cover came out
    largest and the lead smallest, and the overlap hid the book titles — which
    is the one thing a fan of books must not do. */
-.stack {
+.fan {
   display: flex;
   align-items: flex-end;
   justify-content: center;
   isolation: isolate;
 }
-.stack-book {
+.fan-book {
   position: relative;
   flex: 0 0 29%;
   display: block;
@@ -617,7 +617,7 @@ input[aria-invalid="true"] { border-color: var(--danger); }
 }
 /* Just enough overlap to read as one stack. At -16% the second cover lost its
    title entirely, which is the one thing a fan of books must never do. */
-.stack-book + .stack-book { margin-left: -8%; }
+.fan-book + .fan-book { margin-left: -8%; }
 /* The fan runs left to right with the lead LAST and on top.
 
    The constraint that decides this: in a left-to-right overlap, each cover
@@ -626,40 +626,40 @@ input[aria-invalid="true"] { border-color: var(--danger); }
    hero. Putting the lead on the left made every other cover's title collide
    with it; putting it on the right and raising it above the rest is the only
    arrangement where every title stays readable. */
-.stack-book:nth-child(1) { z-index: 1; transform: rotate(4.5deg) translateY(2%); }
-.stack-book:nth-child(2) { z-index: 2; transform: rotate(1.5deg); }
-.stack-book:nth-child(3) { z-index: 3; transform: rotate(-1.5deg); }
-.stack-book:nth-child(4) { z-index: 4; transform: rotate(-4.5deg) translateY(2%); }
-.stack-book.is-lead {
+.fan-book:nth-child(1) { z-index: 1; transform: rotate(4.5deg) translateY(2%); }
+.fan-book:nth-child(2) { z-index: 2; transform: rotate(1.5deg); }
+.fan-book:nth-child(3) { z-index: 3; transform: rotate(-1.5deg); }
+.fan-book:nth-child(4) { z-index: 4; transform: rotate(-4.5deg) translateY(2%); }
+.fan-book.is-lead {
   order: 10;
   flex-basis: 38%;
   z-index: 6;
   transform: rotate(1.5deg) translateY(-3%);
   box-shadow: var(--elev-float), 0 26px 50px -18px rgba(20, 22, 30, .38);
 }
-.stack:hover .stack-book { transform: rotate(0deg) translateY(-5%); }
-.stack:hover .stack-book.is-lead { transform: rotate(1.5deg) translateY(-8%); }
+.fan:hover .fan-book { transform: rotate(0deg) translateY(-5%); }
+.fan:hover .fan-book.is-lead { transform: rotate(1.5deg) translateY(-8%); }
 
-.stack-spine {
+.fan-spine {
   position: absolute; inset: 0 auto 0 0; width: 9px; z-index: 2;
   background: linear-gradient(90deg, rgba(0,0,0,.36), rgba(0,0,0,.06) 60%, transparent);
   border-right: 1px solid rgba(0,0,0,.14);
 }
-.stack-book .cover-art {
+.fan-book .cover-art {
   padding: var(--sp-5) var(--sp-4) var(--sp-4) calc(var(--sp-4) + 9px);
   align-items: flex-start;
 }
-.stack-book .cover-title {
+.fan-book .cover-title {
   font-size: clamp(.875rem, .72rem + .62vw, 1.25rem);
   -webkit-line-clamp: 5;
 }
-.stack-book .cover-genre {
+.fan-book .cover-genre {
   font-size: clamp(.5625rem, .52rem + .18vw, .75rem);
   letter-spacing: var(--tr-wider);
   align-self: flex-start;
 }
 
-.stack-note {
+.fan-note {
   display: flex; align-items: center; gap: var(--sp-3);
   margin-top: var(--sp-8);
   padding: var(--sp-4) var(--sp-5);
@@ -669,25 +669,25 @@ input[aria-invalid="true"] { border-color: var(--danger); }
   box-shadow: var(--elev-hair);
   font-family: var(--font-ui); font-size: var(--fs-sm); color: var(--fg-2); line-height: 1.5;
 }
-.stack-note svg { flex: none; color: var(--accent-text); }
-.stack-note b { color: var(--ink); font-weight: 650; }
+.fan-note svg { flex: none; color: var(--accent-text); }
+.fan-note b { color: var(--ink); font-weight: 650; }
 
 /* Below the fan breakpoint the covers overlap far less: a narrow screen cannot
    afford to hide most of every book. */
 @media (min-width: 560px) and (max-width: 899px) {
-  .stack-book { flex-basis: 27%; }
-  .stack-book.is-lead { flex-basis: 33%; }
-  .stack-book + .stack-book { margin-left: -11%; }
-  .stack-book:nth-child(1) { transform: rotate(-3deg) translateY(2%); }
-  .stack-book:nth-child(4) { transform: rotate(3deg) translateY(2%); }
+  .fan-book { flex-basis: 27%; }
+  .fan-book.is-lead { flex-basis: 33%; }
+  .fan-book + .fan-book { margin-left: -11%; }
+  .fan-book:nth-child(1) { transform: rotate(-3deg) translateY(2%); }
+  .fan-book:nth-child(4) { transform: rotate(3deg) translateY(2%); }
 }
 @media (max-width: 559px) {
-  .stack-book { flex-basis: 27%; }
-  .stack-book.is-lead { flex-basis: 34%; }
-  .stack-book + .stack-book { margin-left: -9%; }
-  .stack-book .cover-title { font-size: .75rem; -webkit-line-clamp: 4; }
-  .stack-book .cover-author { display: none; }
-  .stack-book .cover-genre { font-size: .4375rem; }
+  .fan-book { flex-basis: 27%; }
+  .fan-book.is-lead { flex-basis: 34%; }
+  .fan-book + .fan-book { margin-left: -9%; }
+  .fan-book .cover-title { font-size: .75rem; -webkit-line-clamp: 4; }
+  .fan-book .cover-author { display: none; }
+  .fan-book .cover-genre { font-size: .4375rem; }
 }
 
 /* Stats band */
@@ -1139,7 +1139,7 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
 .ncert-strip-item:hover .ncert-strip-cover { transform: translateY(-4px); }
 .ncert-strip-cover .cover-art { padding: var(--sp-2); }
 .ncert-strip-cover .cover-art::before { background: var(--cover-scrim-sm); }
-.stack-book .cover-art::before { background: var(--cover-scrim-sm); }
+.fan-book .cover-art::before { background: var(--cover-scrim-sm); }
 .ncert-strip-cover .cover-title { font-size: .625rem; -webkit-line-clamp: 4; }
 .ncert-strip-cover .cover-genre { font-size: .4375rem; }
 .ncert-strip-t {
@@ -1636,8 +1636,8 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
   /* Full height on a desktop viewport: the fold should be the hero, not the
      hero plus a slice of the next section. */
   .hero { padding-block: var(--sp-16) var(--sp-20); }
-  .stack-book + .stack-book { margin-left: -16%; }
-  .stack-note { margin-top: var(--sp-6); }
+  .fan-book + .fan-book { margin-left: -16%; }
+  .fan-note { margin-top: var(--sp-6); }
 
   /* Below 1200px the inline search cannot coexist with the full nav without
      either wrapping or sliding over the last item. The drawer carries it. */
