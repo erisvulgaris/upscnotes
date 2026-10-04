@@ -177,13 +177,6 @@
       var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
       window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
     });
-    var footerTop = $('#back-to-top');
-    if (footerTop) {
-      footerTop.addEventListener('click', function (e) {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
-      });
-    }
   }
 
   /* --------------------------------------------- password revealers */

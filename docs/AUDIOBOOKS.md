@@ -1,4 +1,4 @@
-﻿# Audiobooks (Edge TTS)
+# Audiobooks (Edge TTS)
 
 Every chapter of every book, pre-rendered to **16 kHz mono Opus at 24 kbps** and
 served as a fallback wherever the Web Speech API has no usable voice.

@@ -461,7 +461,10 @@ input[aria-invalid="true"] { border-color: var(--danger); }
 .foot-brand { display: flex; align-items: center; gap: var(--sp-3); }
 .foot-brand .brand-name { color: var(--on-inv); }
 .foot-brand .brand-tag { display: block; color: var(--on-inv-2); }
-.foot-blurb { font-size: var(--fs-sm); color: color: var(--on-inv-2); margin-top: var(--sp-3); max-width: 44ch; }
+.foot-blurb {
+  font-size: var(--fs-sm); color: var(--on-inv-2);
+  margin-top: var(--sp-3); max-width: 52ch;
+}
 /* Horizontal scrollers need an edge fade, otherwise a clipped cover reads as a
    broken layout rather than as "there is more this way". */
 .strip-wrap { position: relative; overflow-x: clip; }
@@ -477,7 +480,7 @@ input[aria-invalid="true"] { border-color: var(--danger); }
 .foot-col h4 {
   font-family: var(--font-ui); font-size: var(--fs-micro); font-weight: 700;
   text-transform: uppercase; letter-spacing: var(--tr-wider);
-  color: color: var(--on-inv-2); margin-bottom: var(--sp-3);
+  color: var(--on-inv-2); margin-bottom: var(--sp-3);
 }
 .foot-col nav, .foot-col ul { display: grid; gap: var(--sp-1); }
 @media (min-width: 480px) {
@@ -496,13 +499,18 @@ input[aria-invalid="true"] { border-color: var(--danger); }
   font-size: var(--fs-xs); color: var(--on-inv-2);
 }
 .foot-bottom a { color: inherit; min-height: 40px; display: inline-flex; align-items: center; }
-.back-to-top {
-  margin-left: auto; width: 40px; height: 40px; border-radius: 50%;
-  background: rgba(255,255,255,.12);
-  color: var(--on-inv); display: grid; place-items: center; text-decoration: none;
-  transition: background var(--d-fast) var(--ease-soft), transform var(--d-fast) var(--ease-soft);
+/* Floating back-to-top. The footer's own copy was removed: once the page was
+   scrolled, both controls rendered at once. */
+.to-top {
+  position: fixed; right: var(--sp-4); bottom: var(--sp-4);
+  z-index: var(--z-dock);
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--inv-bg); color: var(--on-inv);
+  display: grid; place-items: center;
+  box-shadow: var(--elev-float);
+  transition: transform var(--d-fast) var(--ease-soft), background var(--d-fast) var(--ease-soft);
 }
-.back-to-top:hover { background: var(--brand); transform: translateY(-2px); }
+.to-top:hover { background: var(--brand); transform: translateY(-2px); }
 .foot-social { display: flex; gap: var(--sp-2); margin-top: var(--sp-3); }
 .foot-social a {
   width: 40px; height: 40px; border-radius: var(--r-sm);
@@ -1124,6 +1132,47 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
   font-variant-numeric: tabular-nums;
 }
 
+/* Two bands carry a surface fill — the sample passage and the price. That is
+   what makes the gaps between them read as breathing room rather than as a
+   void where a section failed to render. */
+.sample-band,
+.band-framed {
+  background: var(--surface);
+  border-block: 1px solid var(--line);
+}
+@media (min-width: 900px) {
+  .band-framed { background: linear-gradient(180deg, color-mix(in srgb, var(--brand-tint) 40%, var(--surface)), var(--surface) 60%); }
+}
+
+/* Balance the pricing band. Real markup, not pseudo-content, which is
+   invisible to assistive technology and untranslatable. The reassurance panel
+   sits under the argument rather than beside the card, so neither column runs
+   out early. */
+.pricing-cols { display: grid; gap: var(--sp-8); align-items: start; }
+.pricing-arg { min-width: 0; display: grid; gap: var(--sp-1); }
+.pricing-note {
+  margin-top: var(--sp-8); padding: var(--sp-5);
+  background: var(--brand-tint); border: 1px solid var(--brand-tint-2);
+  border-radius: var(--r-lg);
+}
+.pricing-note h3 {
+  font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 700;
+  color: var(--brand); margin-bottom: var(--sp-2);
+}
+.pricing-note p { font-size: var(--fs-sm); color: var(--fg-2); line-height: 1.6; }
+.pricing-note p + p { margin-top: var(--sp-2); }
+.pricing-fine {
+  margin-top: var(--sp-4); text-align: center;
+  font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--ash);
+}
+.pricing-fine a { color: var(--fg-3); text-decoration: none; }
+.pricing-fine a:hover { text-decoration: underline; color: var(--brand); }
+
+@media (min-width: 900px) {
+  .pricing-cols { grid-template-columns: minmax(0, 1.25fr) 21rem; gap: var(--sp-12); }
+  .pricing-wrap { position: sticky; top: calc(var(--head-h) + var(--sp-6)); }
+}
+
 /* Balance the pricing band: the card alone left a tall empty column beside it.
    Real markup, not pseudo-content — pseudo text is invisible to assistive
    technology and untranslatable. */
@@ -1488,7 +1537,7 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
 }
 
 @media print {
-  .site-head, .site-foot, .drawer, .tts-bar, .back-to-top, .skip-link { display: none !important; }
+  .site-head, .site-foot, .drawer, .tts-dock, .to-top, .skip-link { display: none !important; }
   body { background: #fff; color: #000; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: .8em; color: #555; }
 }

@@ -1,4 +1,4 @@
-// Compact contrast check: landing page only, both themes, and it accounts for
+﻿// Compact contrast check: landing page only, both themes, and it accounts for
 // the cover scrim (a pseudo-element the naive background walk cannot see).
 const BASE = "http://localhost:4177";
 const page = await browser.getPage("ct");
@@ -22,10 +22,16 @@ for (const theme of ["light", "dark"]) {
       const p = m[1].split(",").map((x) => parseFloat(x));
       return { rgb: [p[0], p[1], p[2]], a: p.length > 3 ? p[3] : 1 };
     }
-    // Composite any ::before scrim over the element's own background.
+    // Composite whatever scrim the element actually carries over its background.
+    // Components differ: .cover-art uses ::before, .subject-cover uses ::after.
+    // Reading only one of them produced a 3.73:1 false failure on the subject
+    // shelf - the metric could not see what the reader actually sees.
     function scrimOf(el) {
-      const before = getComputedStyle(el, "::before");
-      const bi = before.backgroundImage;
+      let bi = "none";
+      for (const pe of ["::before", "::after"]) {
+        const s = getComputedStyle(el, pe).backgroundImage;
+        if (s && s !== "none") { bi = s; break; }
+      }
       if (!bi || bi === "none") return null;
       const stops = [...bi.matchAll(/rgba?\(([^)]+)\)\s+([\d.]+)?%?/g)].map((m) => {
         const p = m[1].split(",").map((x) => parseFloat(x));
@@ -60,14 +66,15 @@ for (const theme of ["light", "dark"]) {
       let bg = bgOf(el);
 
       // Cover art: the ::before scrim sits between the text and the cover colour.
-      const art = el.closest(".cover-art");
+      const art = el.closest(".cover-art, .subject-cover, .stack-book, .ncert-strip-cover, .sample-book-cover, .continue-cover");
       if (art) {
         const stops = scrimOf(art);
-        const artBg = bgOf(art.parentElement);
+        const artBg = parse(getComputedStyle(art).backgroundColor);
+      const base = artBg && artBg.a > 0.85 ? artBg : bgOf(art.parentElement);
         if (stops) {
           // Use the strongest (most opaque) stop as the worst case.
           const worst = stops.reduce((a, b) => (b.a > a.a ? b : a), stops[0]);
-          bg = blend(worst, artBg);
+          bg = blend(worst, base);
         }
       }
 

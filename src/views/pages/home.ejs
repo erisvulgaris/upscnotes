@@ -321,55 +321,60 @@
   </section>
 
   <!-- ============================ PRICING ============================ -->
-  <section class="section band-lg" id="pricing">
+  <section class="section band-lg band-framed" id="pricing">
     <div class="container">
-      <div class="checkout-cols">
-        <div>
+      <div class="pricing-cols">
+        <div class="pricing-arg">
           <h2 class="section-title">One payment. Everything, forever.</h2>
           <p class="lead" style="margin-top:var(--sp-3);max-width:46ch;">
             Lifetime access covers every book in the library today and everything added later.
             No subscription, no renewal, no per-book charges.
           </p>
           <ul class="price-feats" style="max-width:34rem;">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>All <%= totalBooks %> books — <%= ncertBooks %> NCERT and <%= textbookN %> standard UPSC titles</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>All <%= totalBooks %> books &mdash; <%= ncertBooks %> NCERT and <%= textbookN %> standard UPSC titles</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><%= allChapters %> chapters and growing</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Text-to-speech reading, full-text search, flashcards and question banks</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Any device, any time — phone, tablet or desktop</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>7-day money-back guarantee</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Any device, any time &mdash; phone, tablet or desktop</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>7-day money-back guarantee</span></li>
           </ul>
+
+          <div class="pricing-note">
+            <h3>What &ldquo;lifetime&rdquo; means</h3>
+            <p>
+              One payment covers every book in the library today and everything added later.
+              There is no renewal date and no per-book charge &mdash; when a new title is
+              published it appears in your account automatically.
+            </p>
+            <p>
+              Prefer to look before you pay? Every title is browsable free, and there is a
+              7-day money-back guarantee.
+            </p>
+          </div>
         </div>
 
         <div class="pricing-wrap">
-          <div class="pricing-card">
+          <div class="pricing-card reveal">
             <span class="pricing-tag">Lifetime</span>
             <div class="price">
-              <span class="price-cur">â‚¹</span><span class="price-num">999</span>
+              <span class="price-cur">₹</span><span class="price-num" data-price>999</span>
               <span class="price-per">one-time</span>
             </div>
-            <div class="price-old" data-price-strike>â‚¹1,199 launch price</div>
+            <div class="price-old" data-price-strike>₹1,199 launch price</div>
             <p class="price-alt">
-              Already a member? <strong>UPSC299</strong> takes it to <strong>â‚¹299</strong> at checkout.
+              Already a member? <strong>UPSC299</strong> takes it to <strong>₹299</strong> at checkout.
             </p>
             <a class="btn btn-gold btn-lg btn-block" style="margin-top:var(--sp-5);" href="/<%= user ? 'checkout' : 'signup' %>">
               <%= user ? 'Get lifetime access' : 'Create account & unlock' %>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
-<p class="price-note muted">UPI · Cards · Netbanking · Secured by Razorpay</p>
-            </div>
-
-            <div class="pricing-note">
-              <h3>What &ldquo;lifetime&rdquo; means</h3>
-              <p>
-                One payment covers every book in the library today and everything added later.
-                There is no renewal date and no per-book charge &mdash; when a new title is
-                published it appears in your account automatically.
-              </p>
-              <p>
-                Prefer to look before you pay? Every title is browsable free, and there is a
-                7-day money-back guarantee.
-              </p>
-            </div>
+            <p class="price-note muted">UPI &middot; Cards &middot; Netbanking &middot; Secured by Razorpay</p>
           </div>
+
+          <p class="pricing-fine">
+            <a href="/terms">Terms</a> &middot; <a href="/refunds">refund policy</a> &middot;
+            <a href="/privacy">privacy</a>
+          </p>
+        </div>
       </div>
     </div>
   </section>
