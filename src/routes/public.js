@@ -169,12 +169,17 @@ router.get('/', (req, res) => {
 
   const subjectCount = {};
   const subjectSamples = {};
+  const subjectCovers = {};
   for (const b of all) {
     const k = (b.subject || '').trim();
     if (!k) continue;
     subjectCount[k] = (subjectCount[k] || 0) + 1;
     if (!subjectSamples[k]) subjectSamples[k] = [];
     if (subjectSamples[k].length < 4) subjectSamples[k].push(b.title);
+    // Three representative covers per subject, so the index reads as a shelf
+    // rather than as six identical boxes with a count in them.
+    if (!subjectCovers[k]) subjectCovers[k] = [];
+    if (subjectCovers[k].length < 3) subjectCovers[k].push(b);
   }
 
   // Spotlight: the richest book that actually ships study tools.
@@ -220,6 +225,7 @@ router.get('/', (req, res) => {
     subjects,
     subjectCount,
     subjectSamples,
+    subjectCovers,
     shelfBooks,
     ncertShelf,
     sample,

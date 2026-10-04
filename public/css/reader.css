@@ -1,5 +1,5 @@
-﻿/* =====================================================================
-   UPSCbooks â€” reader
+/* =====================================================================
+   UPSCbooks — reader
    Mobile-first: the chapter sheet is a bottom sheet, the reading tools are
    a bottom dock, and the reading column is the whole screen on a phone.
    ===================================================================== */
@@ -162,7 +162,7 @@ body.reading {
 .rd-alert-warning { background: var(--warning-tint); border-color: color-mix(in srgb, var(--warning) 32%, transparent); }
 
 /* Tables and wide figures scroll inside their own box instead of
-   stretching the page â€” the old 100vw trick overflowed the phone viewport. */
+   stretching the page — the old 100vw trick overflowed the phone viewport. */
 .rd-tablewrap {
   overflow-x: auto; margin: var(--sp-5) 0; -webkit-overflow-scrolling: touch;
   border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface);
@@ -299,7 +299,7 @@ body.reading {
   border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; background: var(--surface-2);
 }
 
-/* Keyboard hint is meaningless on touch â€” hide it there. */
+/* Keyboard hint is meaningless on touch — hide it there. */
 @media (hover: none) { .tts-shortcuts { display: none; } }
 
 /* The reading column has grown enough for a longer measure. */

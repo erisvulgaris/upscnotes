@@ -1,10 +1,10 @@
 /* =====================================================================
-   UPSCbooks â€” audio fallback
+   UPSCbooks — audio fallback
 
    Preferred path is the device's own speech engine (tts.js): it is
    free, offline, and lets the reader re-time a chapter instantly. Where it
-   is missing or silent â€” older WebKit, some in-app browsers, locked-down
-   enterprise builds, no installed voices â€” we fall back to the
+   is missing or silent — older WebKit, some in-app browsers, locked-down
+   enterprise builds, no installed voices — we fall back to the
    pre-rendered Edge TTS audio stored as 16 kHz Opus on Cloudflare R2.
 
    This file owns nothing but the fallback: it registers itself with tts.js

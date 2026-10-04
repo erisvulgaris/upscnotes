@@ -1,4 +1,4 @@
-﻿import { Router } from 'express';
+import { Router } from 'express';
 import fs from 'node:fs';
 import {
   buildManifest, audioPath, audioUrl, readTimings, safeSlug,
@@ -21,7 +21,7 @@ router.get('/manifest.json', requireAuth, (req, res) => {
   res.json(buildManifest());
 });
 
-// Timing sidecar for one chapter â€” small, and drives sentence highlighting.
+// Timing sidecar for one chapter — small, and drives sentence highlighting.
 router.get('/:slug/:chapter.json', requireAuth, (req, res) => {
   if (!getActiveSubscription(req.session.userId)) {
     return res.status(403).json({ error: 'Membership required' });

@@ -1,8 +1,8 @@
-﻿/* =====================================================================
-   UPSCbooks â€” application styles
-   MOBILE FIRST. Base rules target a 360â€“390px phone; layout only
+/* =====================================================================
+   UPSCbooks — application styles
+   MOBILE FIRST. Base rules target a 360–390px phone; layout only
    scales up inside the min-width blocks at the bottom of each section.
-   No raw colours below â€” everything resolves through tokens.css.
+   No raw colours below — everything resolves through tokens.css.
    ===================================================================== */
 
 /* ---------- Self-hosted fonts ------------------------------------- */
@@ -78,7 +78,7 @@ body {
 .q-list > *, .s-results > *, .gl-list > *, .mains-list > *, .faq-list > *,
 .tl-list > *, .library-group > *, .checkout-cols > *, .hero-split > * { min-width: 0; }
 
-/* ---------- Focus â€” visible for keyboards, quiet for mice ---------- */
+/* ---------- Focus — visible for keyboards, quiet for mice ---------- */
 :focus { outline: none; }
 :focus-visible {
   outline: 2px solid var(--brand);
@@ -295,7 +295,7 @@ input[aria-invalid="true"] { border-color: var(--danger); }
 .chip-scroll::-webkit-scrollbar { display: none; }
 .chip-scroll > * { flex: none; }
 
-/* ---------- Header â€” brand + burger on phone, full nav from 900px --- */
+/* ---------- Header — brand + burger on phone, full nav from 900px --- */
 .site-head {
   position: sticky; top: 0; z-index: var(--z-head);
   background: color-mix(in srgb, var(--bg) 88%, transparent);
@@ -348,7 +348,7 @@ input[aria-invalid="true"] { border-color: var(--danger); }
 .head-cta { flex: none; white-space: nowrap; }
 
 /* The header search belongs to the desktop bar only. On a phone the drawer
-   carries it â€” leaving it inline squeezed the brand and the CTA into
+   carries it — leaving it inline squeezed the brand and the CTA into
    single-character columns. `.head-nav` inherits this hide; the breakpoint
    block below brings both back. */
 .head-search { display: none; }
@@ -816,6 +816,35 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
   .sample-band { padding-block: var(--sp-20); }
 }
 
+/* ---------- Feature points ---------------------------------------------
+   Four identical icon cards read as four identical icon cards. These are
+   numbered editorial points: the number sets the order, the heading states
+   the outcome, and the line under it says how. */
+.feature-split { display: grid; gap: var(--sp-6); align-items: start; }
+.feature-points { list-style: none; padding: 0; margin: 0; display: grid; }
+.feature-points li {
+  display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: var(--sp-3);
+  padding-block: var(--sp-5);
+  border-top: 1px solid var(--line);
+}
+.feature-points li:last-child { border-bottom: 1px solid var(--line); }
+.feature-n {
+  font-family: var(--font-ui); font-size: var(--fs-micro); font-weight: 800;
+  letter-spacing: var(--tr-wide); color: var(--accent-text);
+  padding-top: .3em; font-variant-numeric: tabular-nums;
+}
+.feature-body { display: grid; gap: var(--sp-1); min-width: 0; }
+.feature-body b {
+  font-family: var(--font-display); font-size: var(--fs-h3); font-weight: 700;
+  line-height: 1.25;
+}
+.feature-body span { font-size: var(--fs-sm); color: var(--fg-2); line-height: 1.55; }
+
+@media (min-width: 900px) {
+  .feature-split { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: var(--sp-12); }
+  .feature-split .section-head { position: sticky; top: calc(var(--head-h) + var(--sp-8)); }
+}
+
 /* ---------- Subject index ------------------------------------------------
    Six identical empty boxes told the reader nothing. Each subject now carries
    its own accent, its real book count, and the titles inside it. */
@@ -852,25 +881,76 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
 [data-si="6"] { --accent-line: #B45309; --tint: #FBF0E2; --ink: #92400E; }
 [data-si="7"] { --accent-line: #0F766E; --tint: #E2F2F0; --ink: #0F766E; }
 [data-theme="dark"] .subject-card { --ink: #A8B7F0; --tint: #252D45; }
-.subject-card { transition-delay: var(--d, 0ms); }
+
+/* The subject index is a shelf, not a grid of identical boxes: each entry
+   shows three of its actual covers, overlapping the way books sit on a shelf. */
+.subject-grid { display: grid; gap: var(--sp-3); }
+.subject-card {
+  position: relative; display: grid; gap: var(--sp-3); align-content: start;
+  padding: var(--sp-4); overflow: hidden;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg);
+  color: inherit; text-decoration: none;
+  transition: border-color var(--d-fast) var(--ease-soft), transform var(--d-fast) var(--ease-soft);
+}
+.subject-card::before {
+  content: ""; position: absolute; inset: 0 auto 0 0; width: 3px;
+  background: var(--accent-line, var(--brand));
+}
+.subject-card:hover { text-decoration: none; border-color: var(--brand-300); transform: translateY(-2px); }
+.subject-card-top { display: flex; align-items: baseline; gap: var(--sp-3); }
 .subject-name {
-  font-family: var(--font-display); font-size: var(--fs-body); font-weight: 700;
-  line-height: 1.25; min-width: 0;
+  font-family: var(--font-display); font-size: var(--fs-h3); font-weight: 700;
+  line-height: 1.2; min-width: 0;
 }
 .subject-count {
   margin-left: auto; flex: none; font-family: var(--font-ui);
-  font-size: var(--fs-micro); font-weight: 700; color: var(--ash);
+  font-size: var(--fs-2xs); font-weight: 700; color: var(--ash);
   font-variant-numeric: tabular-nums;
 }
-.subject-samples {
-  display: grid; gap: 2px; margin: 0; padding: 0; list-style: none;
-  font-size: var(--fs-2xs); color: var(--muted); line-height: 1.45;
+.subject-covers { display: flex; align-items: flex-end; padding-left: 5%; }
+/* 3 covers at 35% with a 15% overlap span ~75% of the card; at 27% they
+   reached barely 60% and left a visible gap on the right. */
+.subject-cover {
+  position: relative; width: 35%; aspect-ratio: 2 / 3; overflow: hidden;
+  border-radius: 3px; background: var(--cover);
+  box-shadow: 0 1px 3px rgba(20, 22, 30, .18), -3px 0 5px -3px rgba(20, 22, 30, .3);
+  display: flex; flex-direction: column; justify-content: space-between;
+  padding: 5px; color: var(--cover-ink);
+  transition: transform var(--d-fast) var(--ease-soft);
 }
-.subject-samples li { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.subject-cover + .subject-cover { margin-left: -15%; }
+.subject-cover:nth-child(2) { z-index: 2; transform: translateY(-4%); }
+.subject-cover:nth-child(3) { z-index: 3; transform: translateY(-8%); }
+.subject-card:hover .subject-cover { transform: translateY(-6%); }
+.subject-card:hover .subject-cover:nth-child(2) { transform: translateY(-10%); }
+.subject-card:hover .subject-cover:nth-child(3) { transform: translateY(-14%); }
+.subject-cover::after {
+  content: ""; position: absolute; inset: 0; background: var(--cover-scrim-sm);
+}
+.subject-cover .cover-genre,
+.subject-cover .cover-title { position: relative; z-index: 1; }
+.subject-cover .cover-genre {
+  font-family: var(--font-ui); font-size: .4375rem; font-weight: 700;
+  letter-spacing: var(--tr-wide); text-transform: uppercase;
+  color: var(--cover-ink-2);
+}
+.subject-cover .cover-title {
+  font-family: var(--font-display); font-size: .5625rem; font-weight: 700;
+  line-height: 1.18; color: var(--cover-ink);
+  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+}
 .subject-more {
-  font-family: var(--font-ui); font-size: var(--fs-micro); font-weight: 700;
-  color: var(--ink); letter-spacing: .02em;
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  font-family: var(--font-ui); font-size: var(--fs-2xs); font-weight: 700;
+  color: var(--ink);
 }
+.subject-count {
+  margin-left: auto; flex: none; font-family: var(--font-ui);
+  font-size: var(--fs-2xs); font-weight: 700; color: var(--fg-3);
+  font-variant-numeric: tabular-nums;
+}
+.subject-more svg { transition: transform var(--d-fast) var(--ease); }
+.subject-card:hover .subject-more svg { transform: translateX(3px); }
 
 /* Library section */
 .library-toolbar {
@@ -1045,7 +1125,7 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
 }
 
 /* Balance the pricing band: the card alone left a tall empty column beside it.
-   Real markup, not pseudo-content â€” pseudo text is invisible to assistive
+   Real markup, not pseudo-content — pseudo text is invisible to assistive
    technology and untranslatable. */
 .pricing-note {
   display: grid; gap: var(--sp-3);
@@ -1263,7 +1343,7 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
 .cell-actions form { display: inline; }
 
 /* =====================================================================
-   BREAKPOINTS â€” everything scales up from here, never down.
+   BREAKPOINTS — everything scales up from here, never down.
    ===================================================================== */
 @media (min-width: 400px) {
   :root { --gutter: var(--sp-4); --section-y: var(--sp-12); }
@@ -1271,6 +1351,7 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
   .hero-cta { grid-template-columns: repeat(2, minmax(0, auto)); justify-content: start; }
   .stats-band { grid-template-columns: repeat(4, 1fr); }
   .feature-grid { grid-template-columns: repeat(2, 1fr); }
+  .subject-grid { grid-template-columns: repeat(2, 1fr); }
   .tools-grid { grid-template-columns: repeat(3, 1fr); }
   .book-grid { grid-template-columns: repeat(3, 1fr); }
   .dash-stats { gap: var(--sp-4); }
@@ -1359,6 +1440,7 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
   .head-search { display: none; }
 
   .feature-grid { grid-template-columns: repeat(4, 1fr); }
+  .subject-grid { grid-template-columns: repeat(3, 1fr); gap: var(--sp-4); }
   .tools-grid { grid-template-columns: repeat(4, 1fr); }
   .book-grid { grid-template-columns: repeat(4, 1fr); gap: var(--sp-5); }
   .spotlight { grid-template-columns: 220px minmax(0, 1fr); gap: var(--sp-10); padding: var(--sp-8); align-items: start; }

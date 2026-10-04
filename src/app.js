@@ -1,4 +1,4 @@
-﻿import 'dotenv/config';
+import 'dotenv/config';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
@@ -74,14 +74,14 @@ export function createApp() {
   }));
   app.use(attachViewLocals);
   app.use(attachCsrf);
-  // CSRF for every state-changing request. The Razorpay webhook is exempt â€”
+  // CSRF for every state-changing request. The Razorpay webhook is exempt —
   // it carries no session cookie and is already HMAC-signature-verified.
   app.use((req, res, next) => {
     if (req.path === '/api/payments/webhook') return next();
     return csrfProtect(req, res, next);
   });
 
-  // Auth-guarded book media (images/maps) â€” content/ is private.
+  // Auth-guarded book media (images/maps) — content/ is private.
   const contentDir = path.join(__dirname, '..', 'content');
   app.use('/content', (req, res, next) => {
     if (!req.session.userId) return res.status(401).send('Sign in required');
