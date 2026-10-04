@@ -381,46 +381,59 @@
 
   <!-- ============================ FAQ ============================ -->
   <section class="section band-tight" id="faq">
-    <div class="container" style="max-width:46rem;">
-      <div class="section-head center">
+    <div class="container faq-grid">
+      <div class="faq-intro">
+        <p class="overline">Before you decide</p>
         <h2 class="section-title">Questions people ask</h2>
+        <p class="lead" style="margin-top:var(--sp-3);max-width:34ch;">
+          If something is not answered here, email
+          <a href="mailto:support@upscbooks.shop">support@upscbooks.shop</a>
+          and a person will answer.
+        </p>
       </div>
+
       <div class="faq-list">
         <details class="faq-item">
           <summary>What exactly does lifetime access include?</summary>
-          <p>Every book currently in the library — all NCERT titles and the standard UPSC books — plus everything added in future, at no extra cost. There is no renewal date.</p>
+          <p>Every book currently in the library — all <%= ncertBooks %> NCERT titles and the <%= textbookN %> standard UPSC books — plus anything added in future, at no extra cost. There is no renewal date.</p>
         </details>
         <details class="faq-item">
           <summary>Can I read on my phone?</summary>
-          <p>Yes. Every screen is built mobile-first, and reading progress, search and text-to-speech all work the same on a phone as on a desktop.</p>
+          <p>Yes. Every screen is built mobile-first, and reading progress, search and read-aloud all work the same on a phone as on a desktop.</p>
         </details>
         <details class="faq-item">
-          <summary>Does text-to-speech work offline?</summary>
-          <p>Text-to-speech uses your device's built-in speech engine, so it works without a connection once a chapter is loaded. Voices and speed are both selectable.</p>
+          <summary>Will it work if my browser cannot speak?</summary>
+          <p>Every chapter also has a recorded narration, used automatically when your device has no speech voice available.</p>
         </details>
         <details class="faq-item">
           <summary>Which books have practice material?</summary>
-          <p>Question banks, flashcards, timelines, maps, mains prompts and glossaries are available on the standard UPSC titles. Availability per book is shown on its study-tools page.</p>
+          <p>Question banks, flashcards, timelines, maps, mains prompts and glossaries are available on the standard UPSC titles. Each book&rsquo;s page shows exactly what it has.</p>
         </details>
         <details class="faq-item">
-          <summary>What if it isn't working for me?</summary>
-          <p>You have a 7-day money-back guarantee. Email support@upscbooks.shop and we'll refund it.</p>
+          <summary>Can I try it before paying?</summary>
+          <p>Every title is browsable free, and there is a 7-day money-back guarantee once you have paid.</p>
         </details>
       </div>
     </div>
   </section>
 
-  <!-- ============================ CTA ============================ -->
-  <section class="section band-lg">
+  <section class="section band-lg band-framed" id="start">
     <div class="container">
-      <div class="cta-band reveal">
-        <div>
-          <h2>Start your preparation today</h2>
-          <p>Free to create an account. Unlock the whole library whenever you're ready.</p>
+      <div class="cta reveal">
+        <p class="overline">One payment</p>
+        <h2 class="cta-title">Start your preparation today</h2>
+        <p class="lead cta-sub">
+          <%= totalBooks %> books, <%= allChapters %> chapters, every one of them readable aloud.
+          Free to make an account — pay when you are ready.
+        </p>
+        <div class="cta-actions">
+          <a class="btn btn-gold btn-lg" href="/<%= user ? 'dashboard' : 'signup' %>">
+            <%= user ? 'Open my library' : 'Create a free account' %>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a class="btn btn-ghost btn-lg" href="/library">Browse the shelf first</a>
         </div>
-        <a class="btn btn-gold btn-lg" href="/<%= user ? 'dashboard' : 'signup' %>">
-          <%= user ? 'Open my library' : 'Create a free account' %>
-        </a>
+        <p class="cta-fine">No renewal &middot; 7-day money-back guarantee &middot; cancel by email</p>
       </div>
     </div>
   </section>
