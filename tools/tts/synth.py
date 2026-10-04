@@ -158,16 +158,34 @@ async def build_chapter(book_slug: str, chapter: dict, voice: str, rate: str,
 
     work = Path(tempfile.mkdtemp(prefix=f"{book_slug}-{n}-", dir=str(book_dir)))
     errors: list[str] = []
+    dropped: list[int] = []
     try:
         parts = []
+        kept: list[tuple[int, str]] = []
         # Sequential within a chapter: parallel across chapters is enough
         # concurrency and keeps Edge TTS from throttling us into the ground.
+        #
+        # A chunk that will not synthesise is dropped, not fatal. Abandoning the
+        # chapter threw away up to an hour of finished audio because one request
+        # came back five times in a row — and it vanished without a trace,
+        # because a None return logged nothing. A missing sentence is a far
+        # better outcome than a missing chapter.
         for i, text in enumerate(chunks):
             part = work / f"p{i:05d}.opus"
             ok = await synth_chunk(text, part, voice, rate, errors)
             if not ok:
-                return None
+                dropped.append(i)
+                log(f"  ! {book_slug} ch{n}: chunk {i + 1}/{len(chunks)} would not synthesise, skipping it"
+                    + (f"  ({errors[-1][:120]})" if errors else ""))
+                continue
             parts.append(part)
+            kept.append((i, text))
+
+        if not parts:
+            log(f"  !! {book_slug} ch{n}: every chunk failed, giving up")
+            return None
+        if dropped:
+            log(f"  {book_slug} ch{n}: continuing with {len(parts)}/{len(chunks)} chunks")
 
         listfile = work / "parts.txt"
         listfile.write_text(
@@ -194,14 +212,16 @@ async def build_chapter(book_slug: str, chapter: dict, voice: str, rate: str,
 
         # Cumulative timings: chunk boundaries are exact, sentence boundaries
         # inside a chunk are interpolated by character weight.
+        #
+        # Iterated over the chunks that actually produced audio, paired with
+        # their own part file, so a dropped chunk cannot shift every later
+        # timestamp by one.
+        import re
         sentence_timings = []
         cursor = 0.0
-        for i, text in enumerate(chunks):
-            chunk_dur = ffprobe_duration(parts[i])
-            # Split the chunk back into sentences on terminal punctuation.
-            sents = [s.strip() for s in text.split("(?<=[.!?…])") if s.strip()] \
-                if False else None
-            import re
+        for idx, text in kept:
+            part_path = work / f"p{idx:05d}.opus"
+            chunk_dur = ffprobe_duration(part_path)
             sents = [s.strip() for s in re.split(r"(?<=[.!?…])\s+", text) if s.strip()]
             total_chars = sum(len(s) for s in sents) or 1
             t = cursor
@@ -223,6 +243,8 @@ async def build_chapter(book_slug: str, chapter: dict, voice: str, rate: str,
             "bytes": final.stat().st_size,
             "duration": round(duration, 3),
             "chunks": len(chunks),
+            "chunksRendered": len(parts),
+            "droppedChunks": dropped,
             "words": chapter["words"],
             "sentenceTimings": sentence_timings,
         }
