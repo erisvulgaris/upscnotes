@@ -78,11 +78,31 @@ All three produced false failures first, and all three are worth remembering:
 These need Node and a signed-in session rather than a browser:
 
 ```powershell
-node tools\check-audio.mjs          # Range requests, timings, traversal, container magic
-node tools\check-compression.mjs    # brotli on text, never on audio or a byte range
-node tools\measure-audio.mjs        # word counts and estimated hours per book
-node tools\audit-content.mjs        # typographic findings in the stored chapter text
+node tools\check-routes.mjs        # status codes, auth redirects, open-redirect guard
+node tools\check-audio.mjs         # Range requests, timings, traversal, container magic
+node tools\check-compression.mjs   # brotli on text, never on audio or a byte range
+node tools\measure-audio.mjs       # word counts and estimated hours per book
+node tools\audit-content.mjs       # typographic findings in the stored chapter text
 ```
+
+`check-routes.mjs` signs in itself. If it exits with code 2 and mentions CSRF,
+the login POST was rejected — the session cookie is named `upscbooks.sid`, and
+the id is regenerated on login, so the cookie from the POST response has to
+replace the one from the GET.
 
 `check-audio.mjs` needs a session cookie in `$env:UPSC_COOKIE`; see
 `docs/AUDIOBOOKS.md`.
+
+## Worth asserting
+
+`check-routes.mjs` covers three things that are easy to regress and invisible
+in a screenshot:
+
+- **An unknown book redirects when anonymous and 404s when signed in.**
+  `requireAuth` runs before the existence check on purpose, so an anonymous
+  visitor cannot use the response to discover which books are in the library.
+- **`?next=` is not an open redirect.** Protocol-relative, absolute, backslash
+  and `javascript:` values all fall back to `/dashboard`; same-site paths are
+  honoured.
+- **A login POST with no session cookie is rejected with 403** by the CSRF
+  layer, not silently accepted.
