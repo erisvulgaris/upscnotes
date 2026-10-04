@@ -26,24 +26,89 @@ export function safeSlug(slug) {
   return SAFE.test(s) ? s : null;
 }
 
+// Per-chapter summaries, cached permanently by path + mtime + size.
+//
+// Caching the whole manifest on the mtime of audio/ looks right and is not:
+// that directory's mtime changes every time the build adds a chapter, so
+// during a build *every* request rebuilt the manifest - 2.5s and 25MB of JSON
+// parsing per request. An existing sidecar's content never changes, so each
+// file is parsed once and only new files cost anything.
+const summaryCache = new Map(); // "slug/n.json" -> { mtimeMs, size, summary }
+
+function summarise(slug, chapter, file) {
+  let stat;
+  try {
+    stat = fs.statSync(file);
+  } catch {
+    summaryCache.delete(slug + '/' + chapter + '.json');
+    return null;
+  }
+
+  const key = slug + '/' + chapter + '.json';
+  const hit = summaryCache.get(key);
+  if (hit && hit.mtimeMs === stat.mtimeMs && hit.size === stat.size) return hit.summary;
+
+  let summary = null;
+  try {
+    const meta = JSON.parse(fs.readFileSync(file, 'utf8'));
+    summary = {
+      duration: meta.duration,
+      bytes: meta.bytes,
+      words: meta.words,
+      sentences: (meta.sentenceTimings || []).length,
+      title: meta.title,
+    };
+  } catch {
+    // Half-written or corrupt: fall back to the size so the chapter can still
+    // be served if the audio exists.
+    summary = { duration: null, bytes: stat.size, words: null, sentences: 0, title: null };
+  }
+  summaryCache.set(key, { mtimeMs: stat.mtimeMs, size: stat.size, summary });
+  return summary;
+}
+
 let manifestCache = null;
+let manifestBuiltAt = 0;
 let manifestMtime = 0;
 
 /**
  * Public index. Deliberately small: slug -> chapter -> {duration, bytes}.
  * The reader only needs to know which chapters have audio so it can show the
- * download/audio control and fall back at the right moment.
+ * audio affordance and fall back at the right moment.
  */
 export function buildManifest() {
   if (CDN) return { source: 'cdn', cdn: CDN, books: {} };
 
-  let stat;
+  // Keep the served manifest for a short window so a burst of requests, or a
+  // build adding files, cannot turn this into a per-request cost.
+  if (manifestCache && Date.now() - manifestBuiltAt < 30_000) return manifestCache;
+
+  // Preferred path: the build writes a single index. Reading it is one file
+  // open, versus 596 sidecar parses for a full scan - 3.9s under load versus
+  // about a millisecond.
+  const indexPath = path.join(AUDIO_ROOT, 'manifest.json');
   try {
-    stat = fs.statSync(AUDIO_ROOT);
+    const stat = fs.statSync(indexPath);
+    if (manifestCache && manifestMtime === stat.mtimeMs) {
+      manifestBuiltAt = Date.now();
+      return manifestCache;
+    }
+    const parsed = JSON.parse(fs.readFileSync(indexPath, 'utf8'));
+    manifestCache = {
+      source: 'local',
+      books: parsed.books || {},
+      builtAt: parsed.generatedAt,
+      generatedAt: parsed.generatedAt,
+      chapterCount: parsed.chapterCount,
+      totalHours: parsed.totalHours,
+      totalBytes: parsed.totalBytes,
+    };
+    manifestMtime = stat.mtimeMs;
+    manifestBuiltAt = Date.now();
+    return manifestCache;
   } catch {
-    return { source: 'none', books: {} };
+    // No index yet (or it is half-written): fall through to the scan.
   }
-  if (manifestCache && manifestMtime === stat.mtimeMs) return manifestCache;
 
   const books = {};
   let slugs = [];
@@ -53,7 +118,7 @@ export function buildManifest() {
   } catch { slugs = []; }
 
   for (const slug of slugs) {
-    if (!safeSlug(slug)) continue;
+    if (!safeSlug(slug) || slug === 'logs') continue;
     const dir = path.join(AUDIO_ROOT, slug);
     let files = [];
     try {
@@ -64,22 +129,14 @@ export function buildManifest() {
     for (const f of files) {
       const n = f.replace(/\.json$/, '');
       if (!chapterRe.test(n)) continue;
-      try {
-        const meta = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8'));
-        chapters[n] = {
-          duration: meta.duration,
-          bytes: meta.bytes,
-          words: meta.words,
-          sentences: (meta.sentenceTimings || []).length,
-          title: meta.title,
-        };
-      } catch { /* half-written file, skip */ }
+      const summary = summarise(slug, n, path.join(dir, f));
+      if (summary) chapters[n] = summary;
     }
     if (Object.keys(chapters).length) books[slug] = chapters;
   }
 
-  manifestCache = { source: 'local', books, builtAt: new Date().toISOString() };
-  manifestMtime = stat.mtimeMs;
+  manifestCache = { source: 'local', books, builtAt: new Date().toISOString(), scanned: true };
+  manifestBuiltAt = Date.now();
   return manifestCache;
 }
 

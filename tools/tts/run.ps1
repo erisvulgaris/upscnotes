@@ -66,4 +66,10 @@ if ($null -eq $totalBytes) { $totalBytes = 0 }
 Write-Host ""
 Write-Host "=== finished in $([math]::Round(((Get-Date) - $started).TotalMinutes, 1)) min ==="
 Write-Host ("chapters: {0}   audio: {1:N0} MB" -f $done.Count, ($totalBytes / 1MB))
+
+# Rebuild the index the app reads, so the first request after a restart does
+# not have to parse every chapter sidecar.
+Write-Host "building audio\manifest.json ..."
+node tools\tts\build-manifest.mjs
+
 Write-Host "logs in $logDir"
