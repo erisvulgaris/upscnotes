@@ -234,6 +234,10 @@ body.reading {
   display: flex; align-items: center; gap: var(--sp-2);
   min-height: var(--dock-h); padding-inline: var(--sp-3);
 }
+/* Transport steps sit in the always-visible row; they are narrower than the
+   primary control but never below 36px, and 44px on touch. */
+.tts-step { width: 40px; height: 40px; }
+@media (hover: none) and (pointer: coarse) { .tts-step { width: 44px; height: 44px; } }
 .tts-btn {
   width: 44px; height: 44px; flex: none; border-radius: 50%;
   display: inline-flex; align-items: center; justify-content: center;
@@ -345,9 +349,13 @@ body.reading {
   }
   .tts-dock.is-open { width: 384px; }
   .tts-dock.is-min { transform: none; }
-  .tts-main { padding-inline: var(--sp-3); }
+  .tts-main { padding-inline: var(--sp-2); gap: 2px; }
   .tts-panel { padding-inline: var(--sp-4); }
   .tts-count { display: none; }
+  /* Below ~360px of dock there is no room for a truncated title beside five
+     controls; the progress bar alone still conveys position. */
+  .tts-now { display: none; }
+  .tts-track { height: 4px; }
   body.reading { padding-bottom: var(--sp-16); }
 }
 

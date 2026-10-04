@@ -22,10 +22,16 @@ const db = new DatabaseSync(path.join(ROOT, 'data', 'upscbooks.db'));
 // way the reader renders it, so the synthesiser never reads structural keys
 // ("sec-1", "subhead", image paths) as if they were prose.
 
-// Group sentences into chunks of at most ~700 characters. Edge TTS keeps
-// prosody reasonable up to a few hundred characters; longer chunks lose
-// sentence-level sync accuracy, which the fallback player depends on.
-function chunkSentences(sentences, maxChars = 700) {
+// Group sentences into chunks. Edge TTS keeps natural prosody on short
+// chunks, and the chunk size is also what bounds how precisely the fallback
+// player can highlight: sentence boundaries inside a chunk are interpolated by
+// character weight, so a bigger chunk means a coarser highlight.
+//
+// At 700 characters a chunk is roughly 45s of speech, which produced
+// interpolated spans as long as 20s. 300 characters halves that error for
+// about 2.3x the requests. Chapters average ~5,400 words, so the whole library
+// is ~30,000 chunks either way.
+function chunkSentences(sentences, maxChars = 300) {
   const chunks = [];
   let buf = [];
   let len = 0;

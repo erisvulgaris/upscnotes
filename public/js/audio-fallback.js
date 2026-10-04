@@ -36,6 +36,9 @@
   var idx = -1;
   var mode = 'idle';       // idle | loading | playing | paused
   var seeking = false;
+  // Zeroing currentTime fires a timeupdate, which would immediately re-light
+  // sentence 0 over the reset. Ignore sync callbacks until we are playing again.
+  var suppressed = false;
 
   var PLAY_ICON = '<svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>';
   var PAUSE_ICON = '<svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><rect x="7" y="5" width="3.5" height="14" rx="1.2"/><rect x="13.5" y="5" width="3.5" height="14" rx="1.2"/></svg>';
@@ -105,7 +108,7 @@
         audio.crossOrigin = 'anonymous';
 
         audio.addEventListener('timeupdate', function () {
-          if (seeking) return;
+          if (seeking || suppressed) return;
           var i = sentenceAt(audio.currentTime);
           if (i !== idx) { idx = i; paint(); }
         });
@@ -138,6 +141,7 @@
   function toggle() {
     if (!audio) return load();
     if (audio.paused) {
+      suppressed = false;
       audio.play().then(function () {
         mode = 'playing';
         setButton(PAUSE_ICON);
@@ -153,6 +157,7 @@
     if (!audio || !timings || !timings.length) return;
     var target = Math.max(0, Math.min(timings.length - 1, idx + delta));
     seeking = true;
+    suppressed = false;
     audio.currentTime = timings[target].t;
     idx = target;
     paint();
@@ -160,6 +165,9 @@
   }
 
   function stop() {
+    // Suppress timeupdate across the reset: assigning currentTime fires one,
+    // and it would light sentence 0 straight back up.
+    suppressed = true;
     if (audio) { audio.pause(); audio.currentTime = 0; }
     idx = -1;
     mode = 'idle';

@@ -103,17 +103,33 @@ content-stable), and a CORS policy allowing `GET`/`HEAD` from your origins.
 ## How the player chooses
 
 `public/js/tts.js` is the primary path: the device's own speech engine, offline
-and instant.
+and instant. It works sentence-by-sentence off the server-rendered
+`.tts-sent[data-sid]` spans, so its highlight is exact.
 
 `public/js/audio-fallback.js` stays dormant until it finds **no usable voice**
 (`speechSynthesis` missing, or zero installed voices — older WebKit, some
 in-app browsers, locked-down enterprise builds). Then it takes over the dock,
 loads `/audio/<slug>/<n>.json` for the sentence timings, streams the Opus, and
-highlights the sentence being spoken by binary-searching the current time
-against the timing list.
+highlights by binary-searching `audio.currentTime` against the timing list.
 
-Both paths expose the same controls: play/pause, previous/next sentence, stop,
-and `Space` / `J` / `K` / `T` / `S`.
+### Highlight granularity
+
+Chunk boundaries are exact. Sentence boundaries **inside** a chunk are
+interpolated by character weight, because measuring them exactly would mean one
+Edge TTS request per sentence — roughly 170,000 requests instead of 30,000.
+
+At the original 700-character chunk size this produced interpolated spans up to
+20 seconds long: a highlight that sat still for 20s then jumped. The extractor
+now uses 300-character chunks, which halves the worst case for about 2.3x the
+requests. If you rebuild, expect a mean sentence span of ~3s and a worst case
+of ~10s.
+
+This only affects the fallback. The Web Speech path highlights exactly, because
+it knows when it starts and ends each sentence.
+
+Both paths expose the same controls — play/pause, previous/next sentence, stop,
+options — all in the dock's always-visible row, plus `Space` / `J` / `K` /
+`T` / `S`.
 
 ## Verifying
 
