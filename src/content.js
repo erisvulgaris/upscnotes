@@ -156,14 +156,35 @@ export function renderChapter(sections, ctx) {
   return out;
 }
 
-export function sentenceCount(sections) {
-  let n = 0;
+/**
+ * The sentences renderChapter wraps in `.tts-sent`, in document order.
+ *
+ * This is the single source of truth for both the highlighted spans and the
+ * audio timeline. Deriving the timeline from anything else - narrationText()'s
+ * chunking, say - produced 12% extra material (tables and captions the reader
+ * never highlights) and left every chapter's highlight pointing at the wrong
+ * sentence.
+ */
+export function sentenceList(sections) {
+  const out = [];
   for (const sec of (sections || [])) {
     for (const b of (sec.blocks || [])) {
-      if (b.kind === 'para' && b.runs && b.runs.some((r) => (r.text || '').trim())) n += 1;
+      if (b.kind !== 'para') continue;
+      const text = runsText(b.runs);
+      if (!text.trim()) continue;
+      // Same segmentation the renderer uses, so index i here is the i-th
+      // highlighted span. Section headings are not spans, and tables, captions
+      // and notes are not either.
+      const segs = Array.from(SEGMENTER.segment(text)).filter((s) => s.segment.trim());
+      if (!segs.length) { out.push(text.trim()); continue; }
+      for (const s of segs) out.push(s.segment.trim());
     }
   }
-  return n;
+  return out;
+}
+
+export function sentenceCount(sections) {
+  return sentenceList(sections).length;
 }
 
 // ---------------------------------------------------------------------------
