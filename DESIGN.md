@@ -273,6 +273,28 @@ Sentence-level playback over server-rendered `.tts-sent[data-sid]` spans.
 1. Start from `tokens.css`. If a colour or font is not a token, add the token first.
 2. Write the phone layout first; add breakpoints after.
 3. Check the dark theme before calling a screen done.
-4. Verify: 44px targets, no horizontal scroll at 360px, keyboard reachability, live-region
+4. Verify: 44px targets, no horizontal scroll at 320px, keyboard reachability, live-region
    updates, and no console errors.
-5. Run the Canary QA session across 390px and 1440px before pushing.
+5. Run the Canary QA suite before pushing — see `tools/qa/README.md`.
+
+## 11. What the QA harness gets wrong
+
+Three checks in this repo produced false failures before they produced real ones.
+They are easy to repeat, so they are written down.
+
+- **`documentElement.scrollWidth` is not an overflow signal** once `body` has
+  `overflow-x: hidden`. A wide descendant inside its own `overflow-x: auto`
+  wrapper still inflates it. Ask whether the *user* can scroll the page sideways,
+  and whether anything past the viewport is outside a scroll container or a
+  closed dialog. Six CSS fixes were tried against the wrong metric before that
+  became obvious.
+- **`offsetParent !== null` is not "visible".** A `visibility: hidden` drawer
+  reports a bounding box but cannot take focus, so a focus probe reads "no focus
+  ring" on a control that is correctly unfocusable.
+- **A fixed element always overlaps something.** A full-width bottom bar covers
+  whatever is at the foot of the viewport — that is fine on a phone. The
+  assertion that matters is that the *end of the document* stays reachable, and
+  that a floating panel is clear of the reading column.
+
+The general rule: assert on what a reader would notice, not on a number that
+happens to correlate with it.
