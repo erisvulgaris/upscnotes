@@ -1177,11 +1177,17 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
 .pricing-note p { font-size: var(--fs-sm); color: var(--fg-2); line-height: 1.6; }
 .pricing-note p + p { margin-top: var(--sp-2); }
 .pricing-fine {
-  margin-top: var(--sp-4); text-align: center;
-  font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--ash);
+  margin-top: var(--sp-3); text-align: center;
+  font-family: var(--font-ui); font-size: var(--fs-2xs); color: var(--ash);
 }
-.pricing-fine a { color: var(--fg-3); text-decoration: none; }
+/* These three links are the only route to the legal pages from the price, so
+   they need a real hit area even though they read as inline text. */
+.pricing-fine a {
+  display: inline-flex; align-items: center; min-height: 32px; padding-inline: var(--sp-2);
+  color: var(--fg-3); text-decoration: none; border-radius: var(--r-xs);
+}
 .pricing-fine a:hover { text-decoration: underline; color: var(--brand); }
+.pricing-fine a:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; }
 
 @media (min-width: 900px) {
   .pricing-cols { grid-template-columns: minmax(0, 1.25fr) 21rem; gap: var(--sp-12); }

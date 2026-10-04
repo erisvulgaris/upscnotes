@@ -95,12 +95,22 @@ Brand lifts to `#8FA3E8` and gold to `#F0B44A` so both keep contrast on dark sur
 - **Mono:** `ui-monospace` — codes, chapter numbers, order ids only.
 
 ### Fluid scale (min = phone, max = desktop cap)
-Display `clamp(2rem → 3.5rem)` · H1 `clamp(1.6 → 2.25rem)` · H2 `clamp(1.3 → 1.75rem)` ·
-H3 `clamp(1.05 → 1.2rem)` · Lead `clamp(1 → 1.15rem)` · Body `1rem` · Sm `.875` · Xs `.8125`
-· 2xs `.75` · Micro `.6875`.
 
-Line height: display 1.12 · headings 1.22–1.32 · body 1.62 · relaxed (reading) 1.75.
+Eight deliberate steps, not twelve. The previous scale resolved to 56/28/19/18/
+17/16/14/13/12/11 on a desktop, which gave the eye no ranking to follow: 17px
+and 18px sat a pixel apart while competing with 19px for the same level.
+
+Display `clamp(2.375 → 3.625rem)` · H1 `clamp(1.875 → 2.5rem)` · H2 `clamp(1.5 →
+1.875rem)` · H3 `clamp(1.1875 → 1.375rem)` · Lead `clamp(1.0625 → 1.25rem)` ·
+Body `1rem` · Sm `.9375` · Xs `.8125` · 2xs `.75` · Micro `.6875`.
+
+Line height: display 1.1 · headings 1.18–1.3 · body 1.62 · relaxed (reading) 1.75.
 Reading column is `max-width: 720px`; body text is never justified.
+
+**Four `clamp()`s remain that are not scale steps**, and that is deliberate:
+cover art (which must scale with its container rather than the page), the hero
+cover title, the price, and the 404. Anything else that wants a size asks the
+scale.
 
 **Every `@font-face` must declare a `unicode-range`.** A face without one is a
 catch-all, and because the last matching face wins, two catch-alls were being
@@ -150,13 +160,45 @@ Password fields get a real `Show/Hide` button wired in `app.js` (never an inline
 Base unit 4px: 4 · 8 · 12 · 16 · 20 · 24 · 28 · 32 · 40 · 48 · 56 · 64 · 80 · 96.
 Container `1180px`. Gutters 16 / 20 / 24px by breakpoint.
 Book grid: **2 phone · 3 tablet · 4 desktop**. Feature grid: 1 · 2 · 4.
-Section padding: 48 phone · 56 tablet · 64 desktop.
 
 **Navigation** — phone: brand + theme toggle + auth CTA + burger. ≥900px: inline links,
 `aria-current` with a 2px Midnight underline, inline search field, CTA. The burger opens a
 right-hand drawer with a focus trap, `Escape` to close, scroll lock, and auto-close past
 900px. Hidden elements use `display: none` — never `visibility: hidden` — so they cannot
-receive focus or read to assistive tech.
+receive focus or read to assistive tech. (The drawer itself *is* `visibility: hidden`,
+which is why a focus probe must not treat `offsetParent !== null` as "visible".)
+
+### Section rhythm
+
+Every band on the landing page measured 0.31–0.75 screens tall, which is why it read
+as an undifferentiated stack of equal-weight blocks. Two bands now own a full
+screen and the transitions stay deliberately thin:
+
+| Class | Padding (≥560px) | Used for |
+|---|---|---|
+| `.band-lg` | 96px | the sample passage, the price, the closing CTA |
+| `.band-tight` | 48px | subject index, features, NCERT, FAQ |
+| `.band-framed` | — | surface fill + hairline, so the gaps read as breathing room |
+
+Measured result: 0.44 to 2.5 screens across the page, with the sample passage
+and the price as the two full-screen beats.
+
+### Cover fans
+
+Where covers overlap, **each cover hides part of its neighbour's right edge**.
+So covers underneath carry their text on the left, and only the topmost one is
+styled as the hero. Putting the featured title first and on top made
+"Modern Indian History" render as "ler an or" behind it; the featured cover
+sits last in the fan and raised above the rest. The same rule applies to the
+subject shelf, which is why those covers are left-aligned.
+
+### Encoding
+
+Any file containing non-ASCII is written with the edit tool or a Node script,
+**never** with PowerShell's `Set-Content`: it re-reads UTF-8 as Latin-1 and writes
+the result back as mojibake. It cost the rupee sign twice. `tools/check-encoding.mjs`
+fails on any mojibake sequence or stray BOM and asserts the rupee really is
+U+20B9 on the landing page. Run it before committing.
 
 ---
 
@@ -279,22 +321,55 @@ Sentence-level playback over server-rendered `.tts-sent[data-sid]` spans.
 
 ## 11. What the QA harness gets wrong
 
-Three checks in this repo produced false failures before they produced real ones.
+Four checks in this repo produced false failures before they produced real ones.
 They are easy to repeat, so they are written down.
 
 - **`documentElement.scrollWidth` is not an overflow signal** once `body` has
   `overflow-x: hidden`. A wide descendant inside its own `overflow-x: auto`
   wrapper still inflates it. Ask whether the *user* can scroll the page sideways,
-  and whether anything past the viewport is outside a scroll container or a
-  closed dialog. Six CSS fixes were tried against the wrong metric before that
-  became obvious.
+  and whether anything past the viewport is inside a scroll container or a closed
+  dialog. Six CSS fixes were tried against the wrong metric before that became
+  obvious.
+- **A detector that does not know what is scrollable will invent defects.** The
+  mobile pass flagged eight failures that were all items inside a chip row
+  designed to run off the edge, on a page reporting zero overflow.
 - **`offsetParent !== null` is not "visible".** A `visibility: hidden` drawer
   reports a bounding box but cannot take focus, so a focus probe reads "no focus
   ring" on a control that is correctly unfocusable.
+- **A pseudo-element scrim is invisible to a `backgroundColor` walk.** Cover
+  text at "3.73:1" was actually fine; the probe could not see the gradient
+  doing the work. It now composites whichever pseudo carries the scrim and knows
+  all six cover components.
 - **A fixed element always overlaps something.** A full-width bottom bar covers
   whatever is at the foot of the viewport — that is fine on a phone. The
-  assertion that matters is that the *end of the document* stays reachable, and
-  that a floating panel is clear of the reading column.
+  assertion that matters is that the *end of the document* stays reachable.
 
-The general rule: assert on what a reader would notice, not on a number that
-happens to correlate with it.
+The general rule: **assert on what a reader would notice, not on a number that
+happens to correlate with it.**
+
+## 12. Landing page
+
+A library's front door should show a book, not a feature list. Measured on the
+rebuilt page: three paragraphs of real chapter text, seven screens at 1440,
+12.5 at 390px, and no band outside the 0.44–2.5 screen band above.
+
+Order, and why:
+
+1. **Hero** — the statement, two actions, the library's real size, and a fan of
+   four actual covers with the featured title forward.
+2. **Sample passage** — real prose from a real chapter, in the reader's own type
+   at the reader's own measure, with a drop cap and the book it came from. This
+   is the section that makes the rest of the page credible.
+3. **Subject index** — six subjects, each showing three of its own covers, so it
+   reads as a shelf rather than as six identical boxes.
+4. **Featured title** — the richest book, with its live study-tool counts.
+5. **Why it reads better** — four numbered points beside a sticky heading.
+6. **NCERT shelf** — one representative title per subject, horizontally
+   scrollable with an edge fade.
+7. **Price** — the argument and the card balanced so neither column starves.
+8. **FAQ** — heading beside the answers, with a support address for what is not
+   covered.
+9. **Closing CTA** — a constrained column with two real choices.
+
+Every number on the page comes from the database or the content bundles. There
+are no round marketing figures and no invented testimonials.
