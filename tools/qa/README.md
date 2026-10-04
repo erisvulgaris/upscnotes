@@ -81,6 +81,7 @@ These need Node and a signed-in session rather than a browser:
 ```powershell
 node tools\check-routes.mjs        # status codes, auth redirects, open-redirect guard
 node tools\check-audio.mjs         # Range requests, timings, traversal, container magic
+node tools\check-all-audio.mjs     # integrity across EVERY built chapter, not a sample
 node tools\check-compression.mjs   # brotli on text, never on audio or a byte range
 node tools\measure-audio.mjs       # word counts and estimated hours per book
 node tools\audit-content.mjs       # typographic findings in the stored chapter text
@@ -91,8 +92,12 @@ the login POST was rejected — the session cookie is named `upscbooks.sid`, and
 the id is regenerated on login, so the cookie from the POST response has to
 replace the one from the GET.
 
-`check-audio.mjs` needs a session cookie in `$env:UPSC_COOKIE`; see
-`docs/AUDIOBOOKS.md`.
+`check-all-audio.mjs` needs no session. It walks every `.opus` and asserts each
+one has a sidecar, starts with the OggS magic, and has monotonic timings that
+sit inside its own duration — plus the reverse, that no sidecar is left behind
+without audio. It also reports the library totals, and flags any chapter whose
+mean sentence span is over 15 seconds, which means the highlight would sit
+still for too long to be useful.
 
 ## Worth asserting
 
