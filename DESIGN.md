@@ -102,6 +102,18 @@ H3 `clamp(1.05 → 1.2rem)` · Lead `clamp(1 → 1.15rem)` · Body `1rem` · Sm 
 Line height: display 1.12 · headings 1.22–1.32 · body 1.62 · relaxed (reading) 1.75.
 Reading column is `max-width: 720px`; body text is never justified.
 
+**Every `@font-face` must declare a `unicode-range`.** A face without one is a
+catch-all, and because the last matching face wins, two catch-alls were being
+fetched ahead of the Latin subsets — 104.5KB of fonts on a page with no
+Devanagari on it, including both preloaded files. With explicit ranges a Latin
+page fetches 65KB and a page containing Hindi fetches one more. Put currency
+signs and arrows you actually use (`₹` U+20B9) in the Latin range, or they drag
+in the extended subset.
+
+Brotli is enabled for every text response, and deliberately disabled for audio
+and for anything carrying a `Content-Range` — compressing Opus or mangling a byte
+range breaks seeking.
+
 ---
 
 ## 4. Components
@@ -163,13 +175,40 @@ The highest-value surface; it gets its own opinions.
 - **Top bar** — back, chapter-list button, current chapter, text-size, study-tools. 60px.
 - **Chapter sheet** — bottom sheet on phone (86vh, rounded top, safe-area padding), fixed
   side panel ≥900px. Live search: 1 character filters titles locally, 2+ hits the server.
-- **Reading column** — 720px max, 1.75 line height, generous paragraph spacing.
+- **Reading column** — 720px max, line-height 1.75, generous paragraph spacing.
+
+**Type scale for reading, measured rather than guessed.** A UI body size of 16px is
+wrong here, because the phone column is only ~345px wide: anything larger drops the
+line under 40 characters and the text reads as chopped. So the reader body is pinned
+at 16px on phones and steps to 18px at 700px and 19px at 1100px — about 43
+characters per line at 390px, and 70–80 at 1440px. Explicit breakpoints, not a
+`vw` term: a fluid term grows fastest exactly where there is least room for it.
+
 - **Wide content** — tables get `min-width` inside a scroll wrapper; figures are fluid with
   a border and open in a lightbox.
 - **Continuous reading** — the next chapter is pre-fetched as a fragment, appended with its
   `data-sid` ids renumbered so a single reading queue spans chapters.
 - **Text size** — `--font-scale` on `:root`, stepped S/M/L/XL, persisted.
 - **Progress bar** — 3px gradient hairline, `role="progressbar"` with a live `aria-valuenow`.
+
+### Where the text-to-speech dock sits
+
+A layout decision, not a preference — and it was wrong twice.
+
+- **<900px** — a full-width **bottom bar**. It necessarily overlays whatever is at
+  the foot of the viewport, which is correct mobile behaviour. `body.reading`
+  reserves `dock + safe-area` so the end of a chapter is never trapped under it.
+- **900–1279px** — a **floating 208px dock** in the right margin. There is not
+  enough width for both a 720px centred column and a floating panel, so the
+  reading column moves left and narrows to 640px to give the dock its own space.
+- **≥1280px** — a **floating 208px dock**, widening to 384px only while the
+  options panel is open. The 720px centred column ends at
+  `(viewport + 720) / 2`, which the dock clears at every width from 1280px up.
+
+A 380px floating dock sat on top of the right-hand end of the reading column at
+*every* scroll position, not just the last few lines. Verified by sweeping five
+scroll positions per viewport and asserting that no on-screen text rectangle
+intersects the dock.
 
 ### Text to speech (the differentiator)
 

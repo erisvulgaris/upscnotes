@@ -145,8 +145,11 @@ export function renderChapter(sections, ctx) {
   let out = '';
   for (const sec of (sections || [])) {
     const sid = sec.id || sec.num;
+    // Some stored sections carry num: 0 or an empty string. Rendering that
+    // produced a literal "0" in front of the heading ("0 Start").
+    const num = (sec.num === 0 || sec.num === '' || sec.num == null) ? '' : sec.num;
     out += `<section class="sectitle-anchor" id="sec-${sid}">`;
-    out += `<h3 class="rd-sectitle"><span class="muted">${esc(sec.num ?? '')}</span> ${esc(sec.title || '')}</h3>`;
+    out += `<h3 class="rd-sectitle">${num ? `<span class="muted">${esc(num)}</span> ` : ''}${esc(sec.title || '')}</h3>`;
     out += (sec.blocks || []).map((b) => blockHtml(b, ctx)).join('');
     out += `</section>`;
   }

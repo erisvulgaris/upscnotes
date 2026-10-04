@@ -1,5 +1,5 @@
-/* =====================================================================
-   UPSCbooks — reader
+﻿/* =====================================================================
+   UPSCbooks â€” reader
    Mobile-first: the chapter sheet is a bottom sheet, the reading tools are
    a bottom dock, and the reading column is the whole screen on a phone.
    ===================================================================== */
@@ -100,12 +100,20 @@ body.reading {
 .rd-body {
   max-width: var(--read-w); margin-inline: auto;
   padding: var(--sp-6) var(--gutter) var(--sp-10);
-  font-size: calc(1rem * var(--font-scale));
+  /* 16px is a UI size, not a reading size. The phone column is only ~345px
+     wide, and above 16px there the line drops under 40 characters and the
+     text feels chopped. So the scale is pinned at 16px on phones and opens up
+     once the column has room for a proper measure. Measured:
+     360px -> ~43 chars at 16px, 1440px -> ~70 chars at 19px. Explicit
+     breakpoints rather than a vw term, because a fluid term grows fastest
+     exactly where there is least room for it. */
+  font-size: 1rem;
 }
 .rd-eyebrow { margin-bottom: var(--sp-2); }
 .rd-chtitle {
   font-size: clamp(1.5rem, 1.2rem + 2vw, 2.1rem);
   line-height: 1.22; letter-spacing: var(--tr-tight); margin-bottom: var(--sp-2);
+  text-wrap: balance;
 }
 .rd-sub {
   font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--muted);
@@ -116,7 +124,12 @@ body.reading {
   color: var(--accent-deep); font-weight: 650; white-space: nowrap;
 }
 .rd-audio svg { flex: none; }
-.rd-para { margin-bottom: 1.15em; line-height: var(--lh-relaxed); color: var(--ink); }
+.rd-para {
+  margin-bottom: 1.35em; line-height: var(--lh-relaxed); color: var(--ink);
+  /* Orphans and widows are what make a chapter look ragged when it breaks
+     across a page or a screen. */
+  orphans: 3; widows: 3;
+}
 .rd-para .tts-sent { cursor: pointer; border-radius: 3px; padding: 1px 0; transition: background var(--d-fast) var(--ease-soft); }
 .rd-para .tts-sent:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); }
 .tts-sent.is-active {
@@ -149,7 +162,7 @@ body.reading {
 .rd-alert-warning { background: var(--warning-tint); border-color: color-mix(in srgb, var(--warning) 32%, transparent); }
 
 /* Tables and wide figures scroll inside their own box instead of
-   stretching the page — the old 100vw trick overflowed the phone viewport. */
+   stretching the page â€” the old 100vw trick overflowed the phone viewport. */
 .rd-tablewrap {
   overflow-x: auto; margin: var(--sp-5) 0; -webkit-overflow-scrolling: touch;
   border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface);
@@ -282,8 +295,61 @@ body.reading {
   border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; background: var(--surface-2);
 }
 
-/* Keyboard hint is meaningless on touch — hide it there. */
+/* Keyboard hint is meaningless on touch â€” hide it there. */
 @media (hover: none) { .tts-shortcuts { display: none; } }
+
+/* The reading column has grown enough for a longer measure. */
+@media (min-width: 700px) {
+  .rd-body { font-size: 1.125rem; }
+}
+@media (min-width: 1100px) {
+  .rd-body { font-size: 1.1875rem; }
+}
+
+/* Below 1280px the dock stays a full-width bottom bar, which is the correct
+     mobile behaviour: it overlays whatever is at the foot of the viewport and
+     body.reading reserves space so the end of the chapter is never trapped.
+     A floating panel at those widths would sit on top of a centred 720px
+     column at every scroll position, which is worse. */
+@media (max-width: 1279px) {
+  .tts-dock.is-min { transform: translateY(calc(var(--dock-h) - 100%)); }
+}
+
+/* 900–1279px: enough width for a floating dock, but not enough to also hold
+     a 720px centred column. The reading column moves left and narrows to 640px
+     so the dock has the right margin to itself. */
+@media (min-width: 900px) and (max-width: 1279px) {
+  .rd-body { max-width: 640px; margin-left: var(--gutter); margin-right: auto; }
+  .tts-dock {
+    left: auto; right: var(--sp-6); bottom: var(--sp-6);
+    width: 208px;
+    border-radius: var(--r-xl); border: 1px solid var(--line);
+    box-shadow: var(--elev-float);
+  }
+  .tts-dock.is-open { width: 360px; }
+  .tts-dock.is-min { transform: none; }
+  .tts-panel { padding-inline: var(--sp-4); }
+  .tts-count { display: none; }
+  body.reading { padding-bottom: var(--sp-12); }
+}
+
+@media (min-width: 1280px) {
+  /* The reading column ends at (viewport + 720) / 2. A compact 208px dock in
+     the right margin clears it at every width from 1280px up, and expands to
+     384px only while the options panel is open. */
+  .tts-dock {
+    left: auto; right: var(--sp-6); bottom: var(--sp-6);
+    width: 208px;
+    border-radius: var(--r-xl); border: 1px solid var(--line);
+    box-shadow: var(--elev-float);
+  }
+  .tts-dock.is-open { width: 384px; }
+  .tts-dock.is-min { transform: none; }
+  .tts-main { padding-inline: var(--sp-3); }
+  .tts-panel { padding-inline: var(--sp-4); }
+  .tts-count { display: none; }
+  body.reading { padding-bottom: var(--sp-16); }
+}
 
 @media (min-width: 900px) {
   .ch-sheet-panel {
@@ -294,11 +360,6 @@ body.reading {
   .ch-sheet.open .ch-sheet-panel { transform: none; }
   .ch-sheet-grip { display: none; }
   .ch-sheet-panel { padding-bottom: 0; }
-  body.reading { padding-bottom: 0; }
-  .tts-dock { left: auto; right: var(--sp-6); bottom: var(--sp-6); width: 380px; border-radius: var(--r-xl); border: 1px solid var(--line); box-shadow: var(--elev-float); }
-  .tts-dock.is-min { transform: none; }
-  .tts-main { padding-inline: var(--sp-3); }
-  .tts-panel { padding-inline: var(--sp-4); }
 }
 
 @media (min-width: 1180px) {
