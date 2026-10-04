@@ -41,7 +41,8 @@ powershell -File tools\tts\run.ps1 -Workers 12      # resumable, loses nothing
 | Script | Asserts |
 |---|---|
 | `layout-a11y.js` | 4 widths x 5 routes: no horizontal overflow, no `href="#"` or `/#features`, a visible focus ring on a real (non-hidden) button, exactly one `h1`, a skip link, `alt` on every image, no emoji used as icons, a meta description, and no console errors. |
-| `overflow.js` | No document overflow at 320/360/390px. Ignores elements inside horizontal scrollers and closed dialogs — those are legitimately off-screen — so it only reports what genuinely widens the page. |
+| `overflow.js` | The page cannot be scrolled sideways, and nothing sits past the viewport outside a scroll container or a closed dialog. Public pages at 320/360/390px. |
+| `overflow-auth.js` | The same, on `/dashboard`, the three admin tables and the question bank — the surfaces where a genuinely wide table exists. |
 | `reader-dock.js` | The TTS dock never intersects on-screen reading text at five widths and two scroll positions, and the end of a chapter is never trapped under it. Checks both axes: the floating dock sits *beside* the column, not under it. |
 | `keyboard.js` | Tabs through five pages plus the reader. Every stop has a visible ring, none lands on a hidden element, the skip link is the first stop and becomes visible, and no target is under 24px. |
 | `contrast.js` | WCAG AA on the landing page in both themes. Composes the cover `::before` scrim over the cover colour, which a naive `backgroundColor` walk cannot see. |
@@ -51,14 +52,22 @@ powershell -File tools\tts\run.ps1 -Workers 12      # resumable, loses nothing
 | `reader-typography.js` | Line length in characters per line, measured with canvas at the paragraph's real font, across four widths. Catches both "too wide to read" and "so few characters it feels chopped". |
 | `font-subsetting.js` | Watches `Network.requestWillBeSent` to confirm a Latin page does not fetch the Devanagari subsets, and that a page with Hindi does. |
 
-## Two traps these scripts fell into
+## Three traps these scripts fell into
 
-Both produced false failures first, and both are worth remembering:
+All three produced false failures first, and all three are worth remembering:
 
+- **`documentElement.scrollWidth` is not an overflow signal when `body` has
+  `overflow-x: hidden`.** The admin members table is 620px inside a 375px
+  scroller, which inflates `scrollWidth` by 174px even though the reader
+  cannot scroll the page sideways and every column — including the rightmost
+  "Actions" column — is reachable by scrolling the table. Six candidate CSS
+  fixes were tried and none moved the metric, which is what proved the metric
+  was wrong rather than the layout. Assert *"can the user scroll the page
+  sideways?"* instead, and treat `scrollWidth` as a hint.
 - **`offsetParent !== null` is not "visible".** The mobile drawer uses
   `visibility: hidden`, so its buttons report a bounding box but cannot take
-  focus. A focus probe that stops there reads "no focus ring" on a control that
-  is correctly unfocusable.
+  focus. A focus probe that stops there reads "no focus ring" on a control
+  that is correctly unfocusable.
 - **A full-width fixed bottom bar always overlaps something.** On a phone the
   TTS dock necessarily covers whatever is at the foot of the viewport. Asserting
   "no overlap at any scroll position" is the wrong test; the right one is that
