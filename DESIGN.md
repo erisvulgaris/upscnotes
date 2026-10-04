@@ -126,6 +126,12 @@ Focus ring `0 0 0 3px color-mix(in srgb, var(--brand) 30%, transparent)`.
 cards lift 2px and take a Midnight border on hover. Cards use hairline depth; only floating
 elements (drawer, dock, lightbox, toast) get elevation.
 
+**Book cards specifically** — the cover art carries the genre and the title, so the
+block underneath must not repeat either. It shows what the cover does not: subject,
+author, chapter count. Books with a real cover *image* are decorative (`alt=""`) and
+get the title in the meta block instead. Getting this wrong put every title and author
+on screen twice.
+
 **Chips** — 34px min height, pill. `chip-filter.is-active` fills Midnight. Long filter rows
 use `.chip-scroll` (horizontal scroll, hidden scrollbar) rather than wrapping on a phone.
 
