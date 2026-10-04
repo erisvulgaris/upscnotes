@@ -10,6 +10,117 @@ const SUBJECT_ORDER = [
 ];
 const SUBJECT_ALIAS = { Economy: 'Economics' };
 
+// ---- sample chapter for the landing page -----------------------------------
+import { getBookBySlug, getChapter, getChapters } from '../model.js';
+import { hasAudio } from '../audio.js';
+
+/**
+ * Paragraph blocks only. Read from the structured graph rather than from the
+ * flattened narration text: a table flattened to "SI. No. Name. Constituency.
+ * 1.. Ammu Swaminathan…" scores well on any heuristic (many periods, few
+ * colons) and was picked as the landing page's showcase paragraph.
+ */
+function paragraphBlocks(sections) {
+  const out = [];
+  for (const sec of (sections || [])) {
+    for (const b of (sec.blocks || [])) {
+      if (b.kind !== 'para') continue;
+      const t = (b.runs || []).map((r) => r.text || '').join('').replace(/\s+/g, ' ').trim();
+      if (t.length >= 200) out.push(t);
+    }
+  }
+  return out;
+}
+
+/** Prefer running text: no leading list marker, enough sentences, few digits. */
+function proseScore(p) {
+  const words = p.split(/\s+/).filter(Boolean);
+  if (words.length < 45) return -1;
+  const sentences = (p.match(/[.!?](\s|$)/g) || []).length;
+  if (sentences < 3) return -1;
+  if (/^\s*(?:\d+[.)]|[a-z][.)]|[-*•>]|#+\.?)\s/.test(p)) return -1;
+
+  let s = Math.min(sentences, 12);
+  s += (words.filter((w) => w.replace(/[^\w]/g, '').length > 7).length / words.length) * 40;
+  s -= (p.match(/[=:#]|\b\d{4}\b/g) || []).length * 4;
+  s -= /[A-Z]\.[A-Z]\./.test(p) ? 20 : 0;
+  return s;
+}
+
+/**
+ * Picks a real chapter and returns a real passage from it, returned as raw
+ * text: the template escapes it once, and escaping here too rendered "&amp;"
+ * on the page.
+ */
+function buildSample() {
+  const candidates = [
+    ['modern-indian-history', 1],
+    ['indian-polity', 1],
+    ['history-india-and-contemporary-world', 1],
+    ['geography-india-physical-environment', 1],
+    ['history-themes-in-world-history', 1],
+    ['modern-indian-history', 2],
+    ['indian-polity', 2],
+  ];
+
+  let best = null;
+
+  for (const [slug, n] of candidates) {
+    const book = getBookBySlug(slug);
+    if (!book) continue;
+    const chapter = getChapter(book.id, n);
+    if (!chapter) continue;
+
+    let sections;
+    try {
+      sections = JSON.parse(chapter.sections_json);
+    } catch {
+      continue;
+    }
+
+    const paras = paragraphBlocks(sections);
+    const scored = paras
+      .map((p) => ({ p, score: proseScore(p) }))
+      .filter((x) => x.score > 0)
+      .sort((a, b) => b.score - a.score);
+    if (!scored.length) continue;
+
+    // Two consecutive paragraphs read as a passage; two arbitrary ones read
+    // as a collage.
+    let start = 0;
+    for (let i = 0; i < paras.length - 1; i++) {
+      if (scored.some((s) => s.p === paras[i]) && scored.some((s) => s.p === paras[i + 1])) {
+        start = i;
+        break;
+      }
+    }
+    const first = scored.find((s) => s.p === paras[start]) || scored[0];
+
+    const passage = [];
+    for (let i = start; i < Math.min(paras.length, start + 2); i++) {
+      const p = paras[i];
+      passage.push(p.length > 420 ? p.slice(0, 420).replace(/\s+\S*$/, '') + '…' : p);
+    }
+    if (passage.length < 2) continue;
+
+    const entry = {
+      book: {
+        slug: book.slug, title: book.title, author: book.author,
+        subject: book.subject, color: book.color,
+      },
+      chapter: { n: chapter.number, title: chapter.title },
+      totalChapters: getChapters(book.id).length,
+      paragraphs: passage,
+      hasAudio: hasAudio(slug, chapter.number),
+      score: Math.round(first.score),
+    };
+    if (!best || entry.score > best.score) best = entry;
+    if (best && best.score >= 30) break;
+  }
+
+  return best;
+}
+
 export function subjectKey(book) {
   const raw = (book.subject || '').trim();
   return raw ? (SUBJECT_ALIAS[raw] || raw) : 'Others';
@@ -94,6 +205,11 @@ router.get('/', (req, res) => {
     ncertShelf.push(b);
   }
 
+  // A real sample of the actual reading experience. The landing page was
+  // showing feature bullets and no book content at all, which is a strange
+  // thing to do on the front door of a library.
+  const sample = buildSample();
+
   renderPage(res, 200, 'home', {
     title: 'Civil services book library',
     metaDesc: `One lifetime library for UPSC — ${ncerts.length} NCERT textbooks, ${textbooks.length} standard UPSC titles, ${allChapters} chapters with text-to-speech reading, search and practice material.`,
@@ -106,6 +222,7 @@ router.get('/', (req, res) => {
     subjectSamples,
     shelfBooks,
     ncertShelf,
+    sample,
     spotlight,
     spotlightExtras,
   });

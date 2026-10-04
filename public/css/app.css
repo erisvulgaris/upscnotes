@@ -136,6 +136,13 @@ h3, .card-title { font-size: var(--fs-h3); line-height: 1.32; font-weight: 700; 
 
 .section { padding-block: var(--section-y); }
 .section-head { margin-bottom: var(--sp-6); }
+/* ---------- Rhythm ------------------------------------------------------
+   Measured: every band on the landing page was 0.31–0.75 screens tall, which
+   is why the page read as an undifferentiated stack of equal-weight blocks.
+   Two bands now own a full screen (the sample passage, the price), and the
+   transitions between them stay deliberately thin. */
+.band-lg { padding-block: var(--sp-20); }
+.band-tight { padding-block: var(--sp-10); }
 .section-head.center { text-align: center; max-width: 34rem; margin-inline: auto; }
 .section-head p { margin-top: var(--sp-2); color: var(--fg-2); }
 .section-sub { color: var(--fg-2); font-size: var(--fs-sm); margin-top: var(--sp-1); }
@@ -507,96 +514,158 @@ input[aria-invalid="true"] { border-color: var(--danger); }
 /* =====================================================================
    HOME
    ===================================================================== */
-.hero { position: relative; padding-block: var(--sp-12) var(--sp-10); overflow: hidden; }
-.hero::before,
-.hero::after {
-  content: ""; position: absolute; border-radius: 50%; pointer-events: none; z-index: 0;
+/* =====================================================================
+   HERO
+   Full-height editorial band. The books are the subject, so they are given a
+   real size and a real arrangement: one title pulled forward, the rest fanned
+   behind it like a hand of cards. The previous version used four ~100px
+   covers in the middle of the right column, which read as stickers floating in
+   dead space.
+   ===================================================================== */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--sp-14) var(--sp-16);
+  border-bottom: 1px solid var(--line);
 }
 .hero::before {
-  width: 62vw; max-width: 560px; aspect-ratio: 1; top: -30%; right: -22%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--brand) 7%, transparent) 0%, transparent 70%);
+  content: ""; position: absolute; border-radius: 50%; pointer-events: none; z-index: 0;
+  width: 62vw; max-width: 560px; aspect-ratio: 1; top: -26%; right: -18%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--brand) 8%, transparent) 0%, transparent 70%);
 }
 .hero::after {
-  width: 54vw; max-width: 460px; aspect-ratio: 1; bottom: -42%; left: -18%;
+  content: ""; position: absolute; border-radius: 50%; pointer-events: none; z-index: 0;
+  width: 54vw; max-width: 460px; aspect-ratio: 1; bottom: -46%; left: -16%;
   background: radial-gradient(circle, color-mix(in srgb, var(--accent) 6%, transparent) 0%, transparent 70%);
 }
+
 .hero-inner { position: relative; z-index: 1; }
-.hero-title { margin-bottom: var(--sp-4); text-wrap: balance; }
+.hero-title {
+  margin-bottom: var(--sp-5);
+  text-wrap: balance;
+  max-width: 19ch;
+}
+/* text-decoration rather than a positioned pseudo-element: the pseudo's
+   bottom is relative to the inline box, which spans the full line-height, so
+   at 56px it drew straight through the word. */
 .hero-title .hl {
   color: var(--brand);
-  /* A background gradient broke awkwardly across the line wrap and read as an
-     accidental highlighter smear; a box background then cut through the
-     descenders. A positioned rule sits below the line box instead. */
-  background-image: none;
-  position: relative;
-  white-space: nowrap;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: .055em;
+  text-underline-offset: .14em;
+  text-decoration-skip-ink: none;
 }
-.hero-title .hl::after {
-  content: ""; position: absolute; left: 0; right: 0;
-  bottom: .06em; height: .07em; border-radius: .04em;
-  background: var(--accent);
+.hero-sub {
+  color: var(--fg-2);
+  max-width: 40ch;
+  margin-bottom: var(--sp-7);
+  font-size: var(--fs-lead);
 }
-.hero-sub { color: var(--fg-2); max-width: 46ch; margin-bottom: var(--sp-6); font-size: var(--fs-lead); }
+.hero-cta { display: grid; gap: var(--sp-3); margin-bottom: var(--sp-8); }
 
 /* One compact fact strip. These numbers used to appear three times on one
    screen (hero card, tag row, stats band) which read as carelessness. */
 .hero-facts {
-  display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-5);
-  list-style: none; margin: 0; padding: var(--sp-4) 0 0;
+  display: flex; flex-wrap: wrap; gap: var(--sp-3) var(--sp-6);
+  list-style: none; margin: 0; padding: var(--sp-5) 0 0;
   border-top: 1px solid var(--line);
   font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--muted);
 }
 .hero-facts li { display: flex; align-items: baseline; gap: var(--sp-2); }
 .hero-facts b {
   font-family: var(--font-display); font-size: var(--fs-h3); font-weight: 700;
-  color: var(--brand); line-height: 1; font-variant-numeric: tabular-nums;
+  color: var(--brand); line-height: 1; letter-spacing: -.01em;
+  font-variant-numeric: tabular-nums;
 }
 
-.hero-cta { display: grid; gap: var(--sp-3); margin-bottom: var(--sp-6); }
-
-/* ---------- Hero shelf â€” show the product, not a feature list ---------- */
-.hero-visual { position: relative; margin-top: var(--sp-10); }
-.shelf {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-3);
-  align-items: end;
+/* ---------- The fan ---------- */
+.hero-visual { position: relative; }
+/* Flex with a wider lead, not equal grid tracks with negative margins: a
+   negative margin widened every subsequent track, so the *last* cover came out
+   largest and the lead smallest, and the overlap hid the book titles — which
+   is the one thing a fan of books must not do. */
+.stack {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  isolation: isolate;
 }
-.shelf-book {
-  position: relative; display: block; aspect-ratio: 2 / 3;
-  border-radius: var(--r-sm) var(--r-sm) var(--r-xs) var(--r-xs);
-  overflow: hidden; text-decoration: none;
-  background: var(--cover);
+.stack-book {
+  position: relative;
+  flex: 0 0 29%;
+  display: block;
+  aspect-ratio: 2 / 3;
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  text-decoration: none;
+  background: var(--cover, var(--brand));
   box-shadow: var(--elev-raised);
   transform-origin: bottom center;
   transition: transform var(--d-slow) var(--ease), box-shadow var(--d-slow) var(--ease);
 }
-/* A spine so the covers read as physical books rather than flat swatches. */
-.shelf-spine {
-  position: absolute; inset: 0 auto 0 0; width: 7px; z-index: 1;
-  background: linear-gradient(90deg, rgba(0,0,0,.32), rgba(0,0,0,.06) 60%, transparent);
+/* Just enough overlap to read as one stack. At -16% the second cover lost its
+   title entirely, which is the one thing a fan of books must never do. */
+.stack-book + .stack-book { margin-left: -8%; }
+.stack-book:nth-child(1) { z-index: 1; transform: rotate(-4deg) translateY(2%); }
+.stack-book:nth-child(2) { z-index: 2; transform: rotate(-1.4deg); }
+.stack-book:nth-child(3) { z-index: 3; transform: rotate(1.4deg); }
+.stack-book:nth-child(4) { z-index: 4; transform: rotate(4deg) translateY(2%); }
+/* The hero title comes forward and stays the largest object. */
+.stack-book.is-lead {
+  z-index: 6;
+  flex-basis: 36%;
+  transform: rotate(-1.5deg) translateY(-3%);
+  box-shadow: var(--elev-float), 0 26px 50px -18px rgba(20, 22, 30, .38);
+}
+.stack:hover .stack-book { transform: rotate(0deg) translateY(-5%); }
+.stack:hover .stack-book.is-lead { transform: rotate(-1.5deg) translateY(-8%); }
+
+.stack-spine {
+  position: absolute; inset: 0 auto 0 0; width: 9px; z-index: 2;
+  background: linear-gradient(90deg, rgba(0,0,0,.36), rgba(0,0,0,.06) 60%, transparent);
   border-right: 1px solid rgba(0,0,0,.14);
 }
-.shelf-book .cover-art { padding-left: calc(var(--sp-3) + 7px); }
-.shelf-book .cover-title {
-  font-size: clamp(.625rem, .52rem + .5vw, .875rem);
+.stack-book .cover-art { padding: var(--sp-5) var(--sp-4) var(--sp-4) calc(var(--sp-4) + 9px); }
+.stack-book .cover-title {
+  font-size: clamp(.875rem, .72rem + .62vw, 1.25rem);
   -webkit-line-clamp: 5;
 }
-.shelf-book .cover-genre, .shelf-book .cover-author {
-  font-size: clamp(.5rem, .46rem + .2vw, .6875rem);
+.stack-book .cover-genre {
+  font-size: clamp(.5625rem, .52rem + .18vw, .75rem);
+  letter-spacing: var(--tr-wider);
 }
-.shelf-book:nth-child(1) { transform: rotate(-1.6deg); }
-.shelf-book:nth-child(2) { transform: rotate(.9deg); }
-.shelf-book:nth-child(3) { transform: rotate(-.6deg); }
-.shelf-book:nth-child(4) { transform: rotate(1.4deg); }
-.shelf:hover .shelf-book { transform: rotate(0) translateY(-6px); }
-.shelf:hover .shelf-book:nth-child(odd) { transform: rotate(-.6deg) translateY(-6px); }
 
-.shelf-note {
-  display: flex; align-items: center; gap: var(--sp-2);
-  margin-top: var(--sp-5); padding: var(--sp-3) var(--sp-4);
-  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md);
-  font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--fg-2); line-height: 1.45;
+.stack-note {
+  display: flex; align-items: center; gap: var(--sp-3);
+  margin-top: var(--sp-8);
+  padding: var(--sp-4) var(--sp-5);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--elev-hair);
+  font-family: var(--font-ui); font-size: var(--fs-sm); color: var(--fg-2); line-height: 1.5;
 }
-.shelf-note svg { flex: none; color: var(--accent-deep); }
+.stack-note svg { flex: none; color: var(--accent-text); }
+.stack-note b { color: var(--ink); font-weight: 650; }
+
+/* Below the fan breakpoint the covers overlap far less: a narrow screen cannot
+   afford to hide most of every book. */
+@media (min-width: 560px) and (max-width: 899px) {
+  .stack-book { flex-basis: 27%; }
+  .stack-book.is-lead { flex-basis: 33%; }
+  .stack-book + .stack-book { margin-left: -11%; }
+  .stack-book:nth-child(1) { transform: rotate(-3deg) translateY(2%); }
+  .stack-book:nth-child(4) { transform: rotate(3deg) translateY(2%); }
+}
+@media (max-width: 559px) {
+  .stack-book { flex-basis: 27%; }
+  .stack-book.is-lead { flex-basis: 34%; }
+  .stack-book + .stack-book { margin-left: -9%; }
+  .stack-book .cover-title { font-size: .75rem; -webkit-line-clamp: 4; }
+  .stack-book .cover-author { display: none; }
+  .stack-book .cover-genre { font-size: .4375rem; }
+}
 
 /* Stats band */
 .stats-band {
@@ -632,6 +701,120 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
   display: grid; place-items: center; margin-bottom: var(--sp-3);
 }
 .feature-ico.is-gold { background: var(--accent-tint); color: var(--accent-deep); }
+
+/* ---------- Sample chapter ----------------------------------------------
+   The front door of a library should show a book, not a feature list. This is
+   real prose pulled from a real chapter, set in the reader's own type at the
+   reader's own measure. */
+.sample-band {
+  background: var(--surface);
+  border-block: 1px solid var(--line);
+  padding-block: var(--sp-14);
+}
+.sample-grid { display: grid; gap: var(--sp-10); align-items: start; }
+
+.sample-page {
+  position: relative;
+  padding: var(--sp-7) var(--sp-6);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  box-shadow: var(--elev-raised);
+  overflow: hidden;
+}
+/* A spine, so it reads as a page rather than a card. */
+.sample-page::before {
+  content: ""; position: absolute; inset: 0 auto 0 0; width: 10px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--brand) 24%, transparent), transparent 85%);
+}
+.sample-where {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--sp-2);
+  margin-bottom: var(--sp-4);
+  font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--muted);
+}
+.sample-dash { color: var(--line-strong); }
+.sample-title {
+  font-size: var(--fs-h1);
+  line-height: 1.18; letter-spacing: var(--tr-tight);
+  margin-bottom: var(--sp-2);
+}
+.sample-meta {
+  font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--ash);
+  padding-bottom: var(--sp-5); border-bottom: 1px solid var(--line);
+  margin-bottom: var(--sp-5);
+}
+.sample-audio { color: var(--accent-text); font-weight: 650; }
+.sample-prose { position: relative; max-width: 62ch; }
+.sample-prose p {
+  font-size: var(--fs-lead);
+  line-height: 1.7;
+  color: var(--ink);
+  margin-bottom: 1.05em;
+}
+.sample-prose .lede::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-size: 2.9em;
+  line-height: .78;
+  /* Enough room that the first two lines clear the glyph's right edge. */
+  padding: .1em .16em 0 0;
+  color: var(--brand);
+  font-weight: 700;
+}
+/* Fades the last paragraph so the section ends rather than simply stops. */
+.sample-fade {
+  position: absolute; inset: auto 0 0 0; height: 4.5rem;
+  background: linear-gradient(transparent, var(--bg));
+  pointer-events: none;
+}
+.sample-actions {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3) var(--sp-4);
+  margin-top: var(--sp-6);
+}
+.sample-note { font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--ash); }
+
+.sample-aside { display: grid; gap: var(--sp-5); align-content: start; }
+/* The book the passage came from, so the sample has an owner. */
+.sample-book {
+  display: flex; align-items: center; gap: var(--sp-4);
+  padding-bottom: var(--sp-5); border-bottom: 1px solid var(--line);
+}
+.sample-book-cover {
+  position: relative; width: 76px; flex: none; aspect-ratio: 2 / 3;
+  border-radius: var(--r-xs); overflow: hidden;
+  background: var(--cover); box-shadow: var(--elev-raised);
+}
+.sample-book-cover .cover-art { padding: var(--sp-2); }
+.sample-book-cover .cover-title { font-size: .5625rem; -webkit-line-clamp: 4; }
+.sample-book-cover .cover-genre { font-size: .375rem; }
+.sample-book-meta { display: grid; gap: 3px; min-width: 0; }
+.sample-book-meta b {
+  font-family: var(--font-display); font-size: var(--fs-body); font-weight: 700;
+  line-height: 1.25;
+}
+.sample-book-meta > span:last-child {
+  font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--muted);
+}
+.sample-points { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--sp-4); }
+.sample-points li {
+  display: flex; gap: var(--sp-3); align-items: flex-start;
+  font-size: var(--fs-sm); color: var(--fg-2); line-height: 1.55;
+}
+.sample-points svg { flex: none; margin-top: 3px; color: var(--brand); }
+.sample-aside-link {
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  min-height: 40px;
+  font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 700;
+  color: var(--brand); text-decoration: none;
+}
+.sample-aside-link:hover { text-decoration: underline; }
+
+@media (min-width: 900px) {
+  .sample-grid { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: var(--sp-12); }
+  .sample-aside { position: sticky; top: calc(var(--head-h) + var(--sp-6)); }
+  .sample-page { padding: var(--sp-10) var(--sp-9); }
+  .sample-band { padding-block: var(--sp-20); }
+}
 
 /* ---------- Subject index ------------------------------------------------
    Six identical empty boxes told the reader nothing. Each subject now carries
@@ -848,7 +1031,7 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
 .ncert-strip-item:hover .ncert-strip-cover { transform: translateY(-4px); }
 .ncert-strip-cover .cover-art { padding: var(--sp-2); }
 .ncert-strip-cover .cover-art::before { background: var(--cover-scrim-sm); }
-.shelf-book .cover-art::before { background: var(--cover-scrim-sm); }
+.stack-book .cover-art::before { background: var(--cover-scrim-sm); }
 .ncert-strip-cover .cover-title { font-size: .625rem; -webkit-line-clamp: 4; }
 .ncert-strip-cover .cover-genre { font-size: .4375rem; }
 .ncert-strip-t {
@@ -1112,6 +1295,8 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
 
 @media (min-width: 560px) {
   :root { --gutter: var(--sp-5); --section-y: var(--sp-14); }
+  .band-lg { padding-block: var(--sp-24); }
+  .band-tight { padding-block: var(--sp-12); }
   .brand-tag { display: block; }
   .brand { flex: none; }
 }
@@ -1161,11 +1346,13 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
   .head-search svg { flex: none; color: var(--ash); }
   .head-nav .btn { margin-left: var(--sp-2); }
 
-  .hero { padding-block: var(--sp-16) var(--sp-14); }
-  .hero-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-12); align-items: center; }
+  .hero-split { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: var(--sp-12); align-items: center; }
   .hero-visual { margin-top: 0; }
-  .shelf { gap: var(--sp-4); }
-  .shelf-book .cover-title { -webkit-line-clamp: 6; }
+  /* Full height on a desktop viewport: the fold should be the hero, not the
+     hero plus a slice of the next section. */
+  .hero { padding-block: var(--sp-16) var(--sp-20); }
+  .stack-book + .stack-book { margin-left: -16%; }
+  .stack-note { margin-top: var(--sp-6); }
 
   /* Below 1200px the inline search cannot coexist with the full nav without
      either wrapping or sliding over the last item. The drawer carries it. */

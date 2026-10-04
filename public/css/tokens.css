@@ -81,20 +81,23 @@
   --font-ui:      system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono:    ui-monospace, "SFMono-Regular", "Cascadia Mono", Menlo, Consolas, monospace;
 
-  /* Fluid type. Min values are the phone sizes; max is the desktop cap. */
-  --fs-display: clamp(2rem, 1.35rem + 3.2vw, 3.5rem);
-  --fs-h1:      clamp(1.6rem, 1.25rem + 1.7vw, 2.25rem);
-  --fs-h2:      clamp(1.3rem, 1.12rem + 0.9vw, 1.75rem);
-  --fs-h3:      clamp(1.05rem, 0.98rem + 0.35vw, 1.2rem);
-  --fs-lead:    clamp(1rem, 0.96rem + 0.3vw, 1.15rem);
+  /* Fluid type. The scale used to resolve to twelve distinct steps
+     (56/28/19/18/17/16/14/13/12/11), which gives the eye no ranking to
+     follow: 17 and 18 sit a pixel apart and read as the same level while
+     competing with the 19. These are eight deliberate steps. */
+  --fs-display: clamp(2.375rem, 1.6rem + 3.4vw, 3.625rem);  /* hero only      */
+  --fs-h1:      clamp(1.875rem, 1.5rem + 1.8vw, 2.5rem);     /* page + samples */
+  --fs-h2:      clamp(1.5rem, 1.3rem + 1vw, 1.875rem);      /* section heads  */
+  --fs-h3:      clamp(1.1875rem, 1.1rem + .45vw, 1.375rem);  /* card titles    */
+  --fs-lead:    clamp(1.0625rem, 1rem + .4vw, 1.25rem);     /* hero + lede    */
   --fs-body:    1rem;
-  --fs-sm:      0.875rem;
+  --fs-sm:      0.9375rem;
   --fs-xs:      0.8125rem;
-  --fs-2xs:     0.75rem;
-  --fs-micro:   0.6875rem;
+  --fs-2xs:     0.75rem;    /* meta, chips — not a heading size */
+  --fs-micro:   0.6875rem;  /* overlines only */
 
-  --lh-tight:   1.12;
-  --lh-snug:    1.32;
+  --lh-tight:   1.1;
+  --lh-snug:    1.3;
   --lh-body:    1.62;
   --lh-relaxed: 1.75;
 

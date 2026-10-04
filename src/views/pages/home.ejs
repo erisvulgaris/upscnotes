@@ -1,4 +1,4 @@
-<%
+﻿<%
   var ncertBooks  = ncertCount || 0;
   var textbookN  = textbooks ? textbooks.length : 0;
   var subjectList = subjects || [];
@@ -27,7 +27,7 @@
           One library for your <span class="hl">entire</span> civil services journey
         </h1>
         <p class="hero-sub">
-          NCERT through standard UPSC titles, chapter-wise and searchable — with text-to-speech
+          NCERT through standard UPSC titles, chapter-wise and searchable â€” with text-to-speech
           reading, question banks, flashcards and timelines alongside every book.
         </p>
 
@@ -48,13 +48,14 @@
         </ul>
       </div>
 
-      <!-- The library itself. A book platform should show books. -->
+      <!-- The library itself. One title pulled forward, the rest fanned behind
+           it: the books are the product, so they get a real size. -->
       <div class="hero-visual">
-        <div class="shelf" aria-hidden="true">
+        <div class="stack" style="--fan-n:<%= Math.min(shelf.length, 4) %>" aria-hidden="true">
           <% shelf.forEach(function (b, i) { %>
-            <a class="shelf-book" href="/read/<%= b.slug %>/1" tabindex="-1" aria-hidden="true"
-               style="--i:<%= i %>;--cover:<%= b.color || '#1E2A52' %>">
-              <span class="shelf-spine"></span>
+            <a class="stack-book <%= i === 0 ? 'is-lead' : '' %>" tabindex="-1"
+               href="/read/<%= b.slug %>/1" style="--cover:<%= b.color || '#1E2A52' %>">
+              <span class="stack-spine"></span>
               <span class="cover-art">
                 <span class="cover-genre"><%= b.category === 'ncert' ? 'NCERT' : 'UPSC' %></span>
                 <span class="cover-title"><%= b.title %></span>
@@ -63,16 +64,96 @@
             </a>
           <% }); %>
         </div>
-        <p class="shelf-note">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>
-          Every chapter reads aloud — sentence by sentence, at your pace.
+        <p class="stack-note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>
+          <span>Every chapter <b>reads aloud</b> â€” tap any sentence to start, at your pace.</span>
         </p>
       </div>
     </div>
   </section>
 
+  <!-- ============================ SAMPLE ============================ -->
+  <% if (sample) { %>
+  <section class="section sample-band" id="sample">
+    <div class="container sample-grid">
+      <div class="sample-page">
+        <p class="sample-where">
+          <%# The overline is only worth showing when the book title does not
+              already lead with the subject: "HISTORY / History (India andâ€¦)"
+              read as a stutter. %>
+          <% var subj = sample.book.subject || ''; %>
+          <% if (subj && sample.book.title.toLowerCase().indexOf(subj.toLowerCase()) !== 0) { %>
+            <span class="overline"><%= subj %></span>
+            <span class="sample-dash" aria-hidden="true">/</span>
+          <% } %>
+          <span><%= sample.book.title %></span>
+        </p>
+        <h2 class="sample-title"><%= sample.chapter.title %></h2>
+        <p class="sample-meta">
+          Chapter <%= sample.chapter.n %> of <%= sample.totalChapters %>
+          &middot; <%= sample.book.author %>
+          <% if (sample.hasAudio) { %>
+            &middot; <span class="sample-audio">reads aloud</span>
+          <% } %>
+        </p>
+        <div class="sample-prose">
+          <% sample.paragraphs.forEach(function (p, i) { %>
+            <p class="<%= i === 0 ? 'lede' : '' %>"><%= p %></p>
+          <% }); %>
+          <p class="sample-fade" aria-hidden="true"></p>
+        </div>        <div class="sample-actions">
+          <a class="btn btn-primary" href="/read/<%= sample.book.slug %>/<%= sample.chapter.n %>">
+            Read the chapter
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <p class="sample-note">This is the real text, from the book.</p>
+        </div>
+      </div>
+
+      <aside class="sample-aside">
+        <div class="sample-book">
+          <span class="sample-book-cover" style="--cover:<%= sample.book.color || '#1E2A52' %>">
+            <span class="cover-art">
+              <span class="cover-genre"><%= sample.book.subject ? String(sample.book.subject).toUpperCase() : 'TEXTBOOK' %></span>
+              <span class="cover-title"><%= sample.book.title %></span>
+            </span>
+          </span>
+          <span class="sample-book-meta">
+            <span class="overline">From the library</span>
+            <b><%= sample.book.title %></b>
+            <span><%= sample.book.author %></span>
+          </span>
+        </div>
+        <p class="overline">Why it reads better</p>
+        <ul class="sample-points">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="17" height="17" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <span>Every chapter is here in full â€” nothing summarised, nothing abridged.</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="17" height="17" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/></svg>
+            <span>Tap any sentence to have it read to you, at your own pace.</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="17" height="17" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <span>Search the full text and jump straight to the section you need.</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" width="17" height="17" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M12 4v16M2 12h20"/></svg>
+            <span><%= allChapters %> chapters across <%= totalBooks %> books, all on one account.</span>
+          </li>
+        </ul>
+        <a class="sample-aside-link" href="/library">
+          See the whole shelf
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="15" height="15" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </aside>
+    </div>
+  </section>
+  <% } %>
+
   <!-- ============================ SUBJECTS ============================ -->
-  <section class="section" id="subjects">
+  <section class="section band-tight" id="subjects">
     <div class="container">
       <div class="section-head">
         <h2 class="section-title">Start from your subject</h2>
@@ -104,13 +185,13 @@
 
   <!-- ============================ SPOTLIGHT ============================ -->
   <% if (spotlightBook) { %>
-  <section class="section" id="spotlight">
+  <section class="section band-lg" id="spotlight">
     <div class="container">
       <div class="spotlight reveal" style="--spot-color:<%= spotlightBook.color || '#1E2A52' %>">
         <div class="spotlight-art">
           <div class="spotlight-cover">
             <span class="cover-art">
-              <span class="cover-genre"><%= spotlightBook.category === 'ncert' ? 'NCERT' : 'UPSC' %> · <%= spotlightBook.subject || 'General' %></span>
+              <span class="cover-genre"><%= spotlightBook.category === 'ncert' ? 'NCERT' : 'UPSC' %> Â· <%= spotlightBook.subject || 'General' %></span>
               <span class="cover-title"><%= spotlightBook.title %></span>
               <span class="cover-author"><%= spotlightBook.author %></span>
             </span>
@@ -123,7 +204,7 @@
           <h2 class="section-title"><%= spotlightBook.title %></h2>
           <p class="lead" style="margin-top:var(--sp-2);max-width:46ch;">
             <%= spotlightBook.chapter_count %> chapters by <%= spotlightBook.author %>, fully searchable
-            and readable aloud — plus practice material built from the book itself.
+            and readable aloud â€” plus practice material built from the book itself.
           </p>
 
           <% if (spotlightTools && spotlightTools.length) { %>
@@ -152,7 +233,7 @@
   <% } %>
 
   <!-- ============================ FEATURES ============================ -->
-  <section class="section" id="features">
+  <section class="section band-tight" id="features">
     <div class="container">
       <div class="section-head center">
         <h2 class="section-title">Built for reading, not scrolling</h2>
@@ -164,7 +245,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           </span>
           <h3>Complete books</h3>
-          <p>Every chapter present and navigable — no summaries standing in for the real text.</p>
+          <p>Every chapter present and navigable â€” no summaries standing in for the real text.</p>
         </div>
         <div class="feature-card reveal">
           <span class="feature-ico is-gold" aria-hidden="true">
@@ -192,13 +273,13 @@
   </section>
 
   <!-- ============================ NCERT ============================ -->
-  <section class="section" id="ncert">
+  <section class="section band-tight" id="ncert">
     <div class="container">
       <div class="section-head">
         <h2 class="section-title">The NCERT shelf, complete</h2>
         <p class="section-sub">
           <%= ncertBooks %> textbooks across History, Geography, Economics, Political Science and
-          Social Science — the foundation everything else is built on.
+          Social Science â€” the foundation everything else is built on.
         </p>
       </div>
 
@@ -229,7 +310,7 @@
   </section>
 
   <!-- ============================ PRICING ============================ -->
-  <section class="section" id="pricing">
+  <section class="section band-lg" id="pricing">
     <div class="container">
       <div class="checkout-cols">
         <div>
@@ -239,10 +320,10 @@
             No subscription, no renewal, no per-book charges.
           </p>
           <ul class="price-feats" style="max-width:34rem;">
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>All <%= totalBooks %> books — <%= ncertBooks %> NCERT and <%= textbookN %> standard UPSC titles</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>All <%= totalBooks %> books â€” <%= ncertBooks %> NCERT and <%= textbookN %> standard UPSC titles</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><%= allChapters %> chapters and growing</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Text-to-speech reading, full-text search, flashcards and question banks</span></li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Any device, any time — phone, tablet or desktop</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Any device, any time â€” phone, tablet or desktop</span></li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>7-day money-back guarantee</span></li>
           </ul>
         </div>
@@ -251,18 +332,18 @@
           <div class="pricing-card">
             <span class="pricing-tag">Lifetime</span>
             <div class="price">
-              <span class="price-cur">₹</span><span class="price-num">999</span>
+              <span class="price-cur">â‚¹</span><span class="price-num">999</span>
               <span class="price-per">one-time</span>
             </div>
-            <div class="price-old" data-price-strike>₹1,199 launch price</div>
+            <div class="price-old" data-price-strike>â‚¹1,199 launch price</div>
             <p class="price-alt">
-              Already a member? <strong>UPSC299</strong> takes it to <strong>₹299</strong> at checkout.
+              Already a member? <strong>UPSC299</strong> takes it to <strong>â‚¹299</strong> at checkout.
             </p>
             <a class="btn btn-gold btn-lg btn-block" style="margin-top:var(--sp-5);" href="/<%= user ? 'checkout' : 'signup' %>">
               <%= user ? 'Get lifetime access' : 'Create account & unlock' %>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
-<p class="price-note muted">UPI · Cards · Netbanking · Secured by Razorpay</p>
+<p class="price-note muted">UPI Â· Cards Â· Netbanking Â· Secured by Razorpay</p>
             </div>
 
             <div class="pricing-note">
@@ -283,7 +364,7 @@
   </section>
 
   <!-- ============================ FAQ ============================ -->
-  <section class="section" id="faq">
+  <section class="section band-tight" id="faq">
     <div class="container" style="max-width:46rem;">
       <div class="section-head center">
         <h2 class="section-title">Questions people ask</h2>
@@ -291,7 +372,7 @@
       <div class="faq-list">
         <details class="faq-item">
           <summary>What exactly does lifetime access include?</summary>
-          <p>Every book currently in the library — all NCERT titles and the standard UPSC books — plus everything added in future, at no extra cost. There is no renewal date.</p>
+          <p>Every book currently in the library â€” all NCERT titles and the standard UPSC books â€” plus everything added in future, at no extra cost. There is no renewal date.</p>
         </details>
         <details class="faq-item">
           <summary>Can I read on my phone?</summary>
@@ -314,7 +395,7 @@
   </section>
 
   <!-- ============================ CTA ============================ -->
-  <section class="section" style="padding-block:var(--sp-8);">
+  <section class="section band-lg">
     <div class="container">
       <div class="cta-band reveal">
         <div>
