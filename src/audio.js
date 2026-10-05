@@ -290,6 +290,66 @@ export function audioUrl(slug, chapter) {
   return `/audio/${s}/${chapter}.opus`;
 }
 
+/**
+ * A presigned URL for any object in the audio tree, not just the .opus media.
+ *
+ * The sidecars (.json timings, .sync.json highlight index) matter as much as the
+ * media: without them the player has no duration for the scrub bar and no
+ * sentence timeline to highlight against. They were only ever readable from
+ * AUDIO_ROOT, which is not in the image, so on a deployed instance every chapter
+ * reported "no narration" even though the objects were sitting in R2.
+ */
+export function audioAssetUrl(key) {
+  const clean = String(key || '').split('/').filter((seg) => seg && seg !== '.' && seg !== '..');
+  if (!clean.length || !clean.every((seg) => /^[\w.-]{1,120}$/.test(seg))) return null;
+  const objectKey = clean.join('/');
+  if (signingEnabled) return presign(objectKey);
+  if (CDN) return `${CDN}/${objectKey}`;
+  return null;
+}
+
+// Sidecars are immutable per chapter, so one read is enough for the process's
+// lifetime. Without this every chapter view would make a signed R2 round trip
+// before the browser could ask for the audio itself.
+const assetCache = new Map();
+const ASSET_CACHE_MAX = 256;
+
+/**
+ * Reads a JSON sidecar from disk if the local build has it, otherwise from R2.
+ * Returns null when neither has it, which the routes turn into a 404.
+ */
+export async function readAudioJson(key) {
+  if (assetCache.has(key)) return assetCache.get(key);
+
+  let value = null;
+  const abs = path.join(AUDIO_ROOT, key);
+  if (abs.startsWith(AUDIO_ROOT + path.sep)) {
+    try {
+      value = JSON.parse(fs.readFileSync(abs, 'utf8'));
+    } catch {
+      value = null;
+    }
+  }
+
+  if (value === null) {
+    const url = audioAssetUrl(key);
+    if (url) {
+      try {
+        const res = await fetch(url, { headers: { Accept: 'application/json' } });
+        if (res.ok) value = await res.json();
+      } catch {
+        value = null;
+      }
+    }
+  }
+
+  if (value !== null) {
+    if (assetCache.size >= ASSET_CACHE_MAX) assetCache.delete(assetCache.keys().next().value);
+    assetCache.set(key, value);
+  }
+  return value;
+}
+
 /** How the audio for this deployment is being delivered, for diagnostics. */
 export function audioDelivery() {
   return signingEnabled

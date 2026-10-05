@@ -2,7 +2,7 @@ import { Router } from 'express';
 import fs from 'node:fs';
 import path from 'node:path';
 import {
-  AUDIO_ROOT, buildManifest, audioPath, audioUrl, readTimings, safeSlug,
+  buildManifest, audioPath, audioUrl, readAudioJson, safeSlug,
 } from '../audio.js';
 import { requireAuth } from '../middleware.js';
 import { getActiveSubscription } from '../model.js';
@@ -24,43 +24,37 @@ router.get('/manifest.json', requireAuth, (req, res) => {
 
 // Highlight timeline: which spoken sentence starts each highlighted sentence.
 // Built by tools/tts/fix-sync.mjs. Membership-gated like the media.
-router.get('/:slug/:chapter.sync.json', requireAuth, (req, res) => {
+router.get('/:slug/:chapter.sync.json', requireAuth, async (req, res) => {
   if (!getActiveSubscription(req.session.userId)) {
     return res.status(403).json({ error: 'Membership required' });
   }
   const slug = safeSlug(req.params.slug);
   const chapter = req.params.chapter;
   if (!slug || !chapterRe.test(chapter)) return res.status(404).end();
-  const file = path.join(AUDIO_ROOT, slug, `${chapter}.sync.json`);
-  let body;
-  try {
-    const stat = fs.statSync(file);
-    body = fs.readFileSync(file);
-    res.setHeader('ETag', '"' + stat.size + '-' + stat.mtimeMs.toString(36) + '"');
-  } catch {
-    return res.status(404).end();
-  }
+  const data = await readAudioJson(`${slug}/${chapter}.sync.json`);
+  if (!data) return res.status(404).end();
   res.type('application/json');
   res.set('Cache-Control', 'private, max-age=86400');
-  return res.send(body);
+  return res.json(data);
 });
 
 // Timing sidecar for one chapter — small, and drives sentence highlighting.
-router.get('/:slug/:chapter.json', requireAuth, (req, res) => {
+router.get('/:slug/:chapter.json', requireAuth, async (req, res) => {
   if (!getActiveSubscription(req.session.userId)) {
     return res.status(403).json({ error: 'Membership required' });
   }
   const slug = safeSlug(req.params.slug);
   const chapter = req.params.chapter;
   if (!slug || !chapterRe.test(chapter)) return res.status(404).end();
-  const meta = readTimings(slug, chapter);
+  const meta = await readAudioJson(`${slug}/${chapter}.json`);
   if (!meta) return res.status(404).end();
   res.type('application/json');
   res.set('Cache-Control', 'private, max-age=3600');
+  // `url` is filled in per response rather than read from the sidecar: a
+  // presigned URL expires, so a cached copy would hand out a dead link.
   res.json({
-    slug: meta.slug, chapter: meta.chapter, title: meta.title,
-    duration: meta.duration, url: audioUrl(slug, chapter),
-    sentenceTimings: meta.sentenceTimings,
+    slug, chapter, title: meta.title, duration: meta.duration,
+    sentenceTimings: meta.sentenceTimings, url: audioUrl(slug, chapter),
   });
 });
 
@@ -75,7 +69,15 @@ router.get('/:slug/:chapter.opus', requireAuth, (req, res) => {
   if (!slug || !chapterRe.test(chapter)) return res.status(404).end();
 
   const abs = audioPath(slug, chapter);
-  if (!abs) return res.status(404).end();
+  if (!abs) {
+    // No local copy — this is the deployed case, where the media lives in R2.
+    // Hand back a short-lived signature instead of a 404.
+    const remote = audioUrl(slug, chapter);
+    if (remote && remote !== `/audio/${slug}/${chapter}.opus`) {
+      return res.redirect(302, remote);
+    }
+    return res.status(404).end();
+  }
 
   let stat;
   try {
