@@ -26,6 +26,8 @@ const DEFAULTS = {
   pricing_note: '',
   // Whether a lapsed yearly subscription blocks reading.
   grace_days: '0',
+  request_book_email: '',
+  request_book_message: '',
 };
 
 let cache = null;

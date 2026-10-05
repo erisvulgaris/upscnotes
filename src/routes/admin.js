@@ -219,6 +219,8 @@ router.post('/pricing', (req, res) => {
     setSetting('pricing_note', String(b.pricing_note || '').slice(0, 200));
     setSetting('grace_days', Math.max(0, Math.round(Number(b.grace_days) || 0)));
     setSetting('coupons_enabled', b.coupons_enabled ? '1' : '0');
+    setSetting('request_book_email', String(b.request_book_email || '').trim().slice(0, 200));
+    setSetting('request_book_message', String(b.request_book_message || '').trim().slice(0, 1000));
 
     const p = getPricing();
     flash(req, 'success', 'Saved. Visitors now see ' + p.amountLabel + ' ' + p.terms.cadence + '.');

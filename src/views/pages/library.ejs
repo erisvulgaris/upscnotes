@@ -99,4 +99,30 @@
   });
   apply();
 })();
+
+<% if (requestBookEmail) { %>
+  <div class="library-request" style="margin-top:var(--sp-8);">
+    <h2 class="admin-subhead">Can't find a book?</h2>
+    <p class="section-sub">Request it and we'll add it within 48 hours.</p>
+    <form id="requestBookForm" style="display:flex;gap:var(--sp-2);flex-wrap:wrap;align-items:center;">
+      <input class="library-search-input" id="requestBookTitle" type="text" placeholder="Book title, author or ISBN" required>
+      <input type="hidden" id="requestBookEmail" value="<%= requestBookEmail %>">
+      <input type="hidden" id="requestBookMessage" value="<%= requestBookMessage %>">
+      <button class="btn btn-primary" type="submit">Request</button>
+    </form>
+  </div>
+<% } %>
+  var reqForm = document.getElementById('requestBookForm');
+  if (reqForm) {
+    reqForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var title = document.getElementById('requestBookTitle').value.trim();
+      var email = document.getElementById('requestBookEmail').value.trim();
+      var message = document.getElementById('requestBookMessage').value.trim();
+      if (!title || !email) return;
+      var subject = encodeURIComponent('Book request: ' + title);
+      var body = encodeURIComponent(message.replace('{title}', title).replace('{email}', email));
+      window.location.href = 'mailto:' + encodeURIComponent(email) + '?subject=' + subject + '&body=' + body;
+    });
+  }
 </script>

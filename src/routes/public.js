@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { renderPage } from '../render.js';
 import { listBooks, listBooksByCategory } from '../model.js';
 import { hasContentBundle, availableTools } from '../content-cache.js';
-import { getPricing } from '../pricing.js';
+import { getPricing, getSetting } from '../pricing.js';
 
 // Preferred display order for library groupings; anything else trails.
 const SUBJECT_ORDER = [
@@ -254,6 +254,8 @@ router.get('/library', (req, res) => {
     totalBooks: all.length,
     allChapters,
     ncertCount: all.filter((b) => b.category === 'ncert').length,
+    requestBookEmail: getSetting('request_book_email') || '',
+    requestBookMessage: getSetting('request_book_message') || '',
   });
 });
 

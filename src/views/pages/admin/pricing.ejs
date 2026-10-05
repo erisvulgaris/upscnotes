@@ -188,5 +188,24 @@
         </table>
       </div>
     <% } %>
+
+    <!-- Book requests -->
+    <h2 class="admin-subhead">Book requests</h2>
+    <p class="section-sub">When a visitor asks for a book that is not in the library, they are shown a mailto link pre-filled with the address and message below. Leave the address blank to hide the form.</p>
+    <form method="post" action="/admin/pricing" class="admin-panel">
+      <input type="hidden" name="_csrf" value="<%= csrf %>">
+      <div class="field-grid">
+        <label>
+          <span>Request email</span>
+          <input type="email" name="request_book_email" value="<%= settings.request_book_email || '' %>" placeholder="ERISKOTA+upscnotesshop@gmail.com">
+        </label>
+        <label>
+          <span>Request message</span>
+          <textarea name="request_book_message" rows="3" maxlength="1000" placeholder="Your requested book will be added within 48 hours."><%= settings.request_book_message || '' %></textarea>
+          <span class="field-hint">Use <code>{title}</code> and <code>{email}</code> as placeholders.</span>
+        </label>
+      </div>
+      <button class="btn btn-primary" type="submit" style="margin-top:var(--sp-4);">Save request settings</button>
+    </form>
   </div>
 </div>
