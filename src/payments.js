@@ -41,10 +41,11 @@ export function priceFor(code) {
   }
 }
 
-/** Legacy helpers retained so nothing downstream breaks. */
+// Every amount the product charges comes from getPricing(), which is editable in
+// the admin. These remain only so nothing downstream breaks; the old
+// COUPON_PRICE_PAISE/COUPON_CODE pair advertised a Rs 299 price that is no longer
+// sold and was never validated against the coupons table.
 export const PRICE_PAISE = 99900;
-export const COUPON_PRICE_PAISE = 29900;
-export const COUPON_CODE = 'UPSC299';
 export function couponApplies(code) {
   try {
     return !!validateCoupon(code, getPricing().amount).code;

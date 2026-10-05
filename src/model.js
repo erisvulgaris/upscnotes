@@ -40,7 +40,7 @@ export const countUsers = () => db.prepare('SELECT COUNT(*) AS n FROM users').ge
  * from the admin cannot silently extend a plan someone already paid for.
  */
 export function upsertLifetimeSubscription(userId, {
-  source = 'razorpay', price_paise = 29900, payment_id = null,
+  source = 'razorpay', price_paise = 99900, payment_id = null,
   plan = 'lifetime', expiresAt = null,
 } = {}) {
   const existing = db.prepare(

@@ -240,7 +240,6 @@
   var COUPON = {
     retail: PRICING.amount,
     key: 'upscbooks-coupon',
-    legacy: { code: 'UPSC299', amount: 29900 },
   };
   var applied = null;
   var widgets = $$('[data-coupon-widget]');

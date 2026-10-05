@@ -53,7 +53,7 @@ export function migrate() {
       user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
       plan TEXT NOT NULL DEFAULT 'lifetime',
       status TEXT NOT NULL DEFAULT 'active',       -- 'active' | 'lapsed'
-      price_paise INTEGER NOT NULL DEFAULT 29900,
+      price_paise INTEGER NOT NULL DEFAULT 99900,
       activated_at TEXT NOT NULL DEFAULT (datetime('now')),
       expires_at TEXT,                             -- NULL = lifetime
       source TEXT NOT NULL DEFAULT 'razorpay',     -- 'razorpay' | 'admin'
