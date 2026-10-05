@@ -2,6 +2,7 @@ import ejs from 'ejs';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { coverUrl as _coverUrl } from './cover.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const VIEWS = path.join(__dirname, 'views');
@@ -42,6 +43,7 @@ export function renderPage(res, status, page, locals = {}) {
     ...locals,
   };
   merged.getYear = () => new Date().getFullYear();
+  merged.coverUrl = (slug) => _coverUrl(slug);
 
   const partialPath = path.join(VIEWS, 'pages', page + '.ejs');
   const bodyFn = template(partialPath);

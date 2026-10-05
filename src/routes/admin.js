@@ -1,14 +1,17 @@
 import { Router } from 'express';
+import multer from 'multer';
 import { requireAdmin } from '../middleware.js';
 import { renderPage } from '../render.js';
 import {
   listUsers, countUsers, countActiveSubs, listPayments, sumCaptured,
   listBooks, activateForUserByAdmin, setSubscriptionStatus, getActiveSubscription,
+  getBookBySlug, updateBook,
 } from '../model.js';
 import {
   getPricing, setSetting, listCoupons, createCoupon,
   setCouponActive, deleteCoupon, rupees, getSetting,
 } from '../pricing.js';
+import { safeSlug, uploadCover, deleteCover, r2Configured } from '../cover.js';
 
 const router = Router();
 
@@ -63,7 +66,100 @@ router.get('/payments', (req, res) => {
 });
 
 router.get('/books', (req, res) => {
-  renderPage(res, 200, 'admin/books', { title: 'Admin · Books', active: 'books', books: listBooks() });
+  renderPage(res, 200, 'admin/books', {
+    title: 'Admin · Books',
+    active: 'books',
+    books: listBooks(),
+    r2Configured,
+    flash: req.session.flash || null,
+  });
+  delete req.session.flash;
+});
+
+// ------------------------------------------------------------ cover upload
+//
+// Covers are written straight to R2 at covers/<slug>.jpg, which is the same
+// path /covers/<slug>.jpg serves, so an upload shows up across the site with
+// no further wiring. Bytes are held in memory (covers are small) and validated
+// on both the declared type and the actual magic number.
+
+const MAX_COVER_BYTES = 4 * 1024 * 1024;
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: MAX_COVER_BYTES, files: 1 },
+});
+
+// Multer reports failures through next(err), which would bypass the handler's
+// try/catch and land in the generic error page. Park the error on the request
+// so the upload path can report it through the same flash channel as the rest.
+const captureUpload = (field) => (req, res, next) => {
+  upload.single(field)(req, res, (err) => {
+    if (err) req.uploadError = err;
+    next();
+  });
+};
+
+const ALLOWED_TYPES = new Set(['image/jpeg']);
+
+// A declared content-type is attacker-controlled, so confirm the bytes really
+// are the image type we are about to serve as. JPEG only: the whole cover
+// pipeline (R2 key, /covers route, template URLs) is .jpg, so accepting PNG or
+// WebP would store those bytes under a .jpg key with a mismatched content type.
+function sniffImage(buf) {
+  if (buf.length < 12) return null;
+  if (buf[0] === 0xff && buf[1] === 0xd8 && buf[2] === 0xff) return 'image/jpeg';
+  return null;
+}
+
+const EXT_FOR = { 'image/jpeg': 'jpg' };
+
+router.post('/books/:slug/cover', captureUpload('cover'), async (req, res) => {
+  const slug = safeSlug(req.params.slug);
+  try {
+    if (req.uploadError) {
+      throw new Error(
+        req.uploadError.code === 'LIMIT_FILE_SIZE'
+          ? 'That image is larger than 4 MB.'
+          : 'That file could not be read.'
+      );
+    }
+    if (!slug) throw new Error('Invalid book.');
+    const book = getBookBySlug(slug);
+    if (!book) throw new Error('No such book.');
+
+    const file = req.file;
+    if (!file) throw new Error('Choose an image file to upload.');
+
+    const sniffed = sniffImage(file.buffer);
+    if (!sniffed || !ALLOWED_TYPES.has(sniffed)) {
+      throw new Error('Cover must be a JPEG image. Re-save the file as JPEG and try again.');
+    }
+
+    await uploadCover(slug, file.buffer, sniffed);
+    updateBook(slug, { cover: EXT_FOR[sniffed] });
+
+    flash(req, 'success', 'Cover updated for ' + book.title + '.');
+  } catch (e) {
+    flash(req, 'error', e.message || 'Upload failed.');
+  }
+  res.redirect('/admin/books');
+});
+
+router.post('/books/:slug/cover/remove', async (req, res) => {
+  const slug = safeSlug(req.params.slug);
+  try {
+    if (!slug) throw new Error('Invalid book.');
+    const book = getBookBySlug(slug);
+    if (!book) throw new Error('No such book.');
+    await deleteCover(slug);
+    // books.cover is NOT NULL; the schema treats '' as "no cover".
+    updateBook(slug, { cover: '' });
+    flash(req, 'success', 'Cover removed for ' + book.title + '. It will use the generated cover art.');
+  } catch (e) {
+    flash(req, 'error', e.message || 'Could not remove that cover.');
+  }
+  res.redirect('/admin/books');
 });
 
 // Grant a member lifetime access (admin-comped).

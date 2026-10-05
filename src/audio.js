@@ -10,12 +10,97 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { createHash, createHmac } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const AUDIO_ROOT = path.join(__dirname, '..', 'audio');
 
 const CDN = (process.env.AUDIO_CDN_URL || '').replace(/\/+$/, '');
+
+// ---------------------------------------------------------------------------
+// Presigned read URLs
+//
+// The audiobook set is paid content, so making the bucket world-readable just
+// to let a browser fetch it would publish it to anyone who can guess a path.
+// Instead the bucket stays private and the app hands out short-lived S3
+// signatures for the specific chapter a signed-in member is reading.
+//
+//   AUDIO_CDN_URL=https://…r2.dev     (or a custom domain)
+//   R2_ENDPOINT, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_ACCOUNT_ID
+//   AUDIO_URL_TTL=<seconds, default 900>
+//
+// With no signing key configured, audioUrl() returns the plain CDN URL, and
+// with no CDN at all it returns the local route. Each level is a fallback, not
+// a branch the caller has to choose between.
+
+const SIGN_KEY = process.env.R2_ACCESS_KEY_ID || '';
+const SIGN_SECRET = process.env.R2_SECRET_ACCESS_KEY || '';
+const SIGN_ENDPOINT = (process.env.R2_ENDPOINT || '').replace(/\/+$/, '');
+const SIGN_BUCKET = process.env.R2_BUCKET || '';
+const SIGN_REGION = 'auto';
+const SIGN_TTL = Math.max(60, Math.min(86400, parseInt(process.env.AUDIO_URL_TTL, 10) || 900));
+
+export const signingEnabled = !!(SIGN_KEY && SIGN_SECRET && SIGN_ENDPOINT && SIGN_BUCKET);
+
+const sha256hex = (s) => createHash('sha256').update(s, 'utf8').digest('hex');
+const hmac = (key, s) => createHmac('sha256', key).update(s, 'utf8').digest();
+
+/** RFC 3986 encoding, which is stricter than encodeURIComponent for the path. */
+const uriEncode = (s, encodeSlash) =>
+  encodeURIComponent(s).replace(/[!'()*]/g, (c) => '%' + c.charCodeAt(0).toString(16).toUpperCase())
+    .replace(/%2F/g, encodeSlash ? '%2F' : '/');
+
+/**
+ * A presigned S3 GET URL, valid for SIGN_TTL seconds.
+ * Only the host is signed, which is what a browser needs and keeps the
+ * signature short.
+ */
+function presign(key) {
+  const now = new Date();
+  const amzDate = now.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+  const dateStamp = amzDate.slice(0, 8);
+  const host = SIGN_ENDPOINT.replace(/^https?:\/\//, '');
+  const objectKey = key.split('/').map((seg) => uriEncode(seg, true)).join('/');
+
+  const scope = `${dateStamp}/${SIGN_REGION}/s3/aws4_request`;
+  const q = {
+    'X-Amz-Algorithm': 'AWS4-HMAC-SHA256',
+    'X-Amz-Credential': uriEncode(`${SIGN_KEY}/${scope}`, false),
+    'X-Amz-Date': amzDate,
+    'X-Amz-Expires': String(SIGN_TTL),
+    'X-Amz-SignedHeaders': 'host',
+  };
+  const canonicalQuery = Object.keys(q)
+    .sort()
+    .map((k) => `${uriEncode(k, false)}=${uriEncode(q[k], false)}`)
+    .join('&');
+
+  const canonicalRequest = [
+    'GET',
+    `/${uriEncode(SIGN_BUCKET, false)}/${objectKey}`,
+    canonicalQuery,
+    `host:${host}\n`,
+    'host',
+    'UNSIGNED-PAYLOAD',
+  ].join('\n');
+
+  const stringToSign = [
+    'AWS4-HMAC-SHA256',
+    amzDate,
+    scope,
+    sha256hex(canonicalRequest),
+  ].join('\n');
+
+  const kDate = hmac('AWS4' + SIGN_SECRET, dateStamp);
+  const kRegion = hmac(kDate, SIGN_REGION);
+  const kService = hmac(kRegion, 's3');
+  const kSigning = hmac(kService, 'aws4_request');
+  const signature = createHmac('sha256', kSigning).update(stringToSign, 'utf8').digest('hex');
+
+  return `https://${host}/${uriEncode(SIGN_BUCKET, false)}/${objectKey}` +
+    `?${canonicalQuery}&X-Amz-Signature=${signature}`;
+}
 
 // slug/n must be conservative: this value becomes a filesystem path.
 const SAFE = /^[a-z0-9][a-z0-9-]{0,80}$/;
@@ -77,8 +162,12 @@ let manifestMtime = 0;
  * audio affordance and fall back at the right moment.
  */
 export function buildManifest() {
-  if (CDN) return { source: 'cdn', cdn: CDN, books: {} };
-
+  // The manifest is always built locally, even when the media itself is
+  // delivered from R2. It is a small index of *which chapters have audio*, not
+  // the media, and the reader needs it to show the audio affordance and to
+  // decide whether a chapter is readable. Returning an empty manifest whenever a
+  // CDN or signing key was configured made hasAudio() return false for every
+  // chapter and silently hid the whole feature.
   // Keep the served manifest for a short window so a burst of requests, or a
   // build adding files, cannot turn this into a per-request cost.
   if (manifestCache && Date.now() - manifestBuiltAt < 30_000) return manifestCache;
@@ -175,10 +264,33 @@ export function audioPath(slug, chapter) {
   return fs.existsSync(abs) ? abs : null;
 }
 
-/** Public URL for a chapter's audio (CDN if configured, else local route). */
+/**
+ * Where a chapter's audio should be read from, in order of preference:
+ *
+ *   1. a presigned R2 URL, when signing keys are configured — the bucket stays
+ *      private and a signed-in member gets a URL good for SIGN_TTL seconds
+ *   2. the public CDN URL, when AUDIO_CDN_URL is set and the bucket is public
+ *   3. the local route, which streams from disk
+ *
+ * The default for this deployment is (1): the audiobook set is paid content,
+ * so the bucket is not world-readable and every read is authorised and short
+ * lived.
+ */
 export function audioUrl(slug, chapter) {
-  if (CDN) return `${CDN}/${safeSlug(slug)}/${chapter}.opus`;
-  return `/audio/${safeSlug(slug)}/${chapter}.opus`;
+  const s = safeSlug(slug);
+  if (!s || !chapterRe.test(String(chapter))) return null;
+  if (signingEnabled) return presign(`${s}/${chapter}.opus`);
+  if (CDN) return `${CDN}/${s}/${chapter}.opus`;
+  return `/audio/${s}/${chapter}.opus`;
+}
+
+/** How the audio for this deployment is being delivered, for diagnostics. */
+export function audioDelivery() {
+  return signingEnabled
+    ? { mode: 'signed', ttl: SIGN_TTL, endpoint: SIGN_ENDPOINT }
+    : CDN
+      ? { mode: 'cdn', url: CDN }
+      : { mode: 'local' };
 }
 
 export { CDN as AUDIO_CDN_URL, AUDIO_ROOT };

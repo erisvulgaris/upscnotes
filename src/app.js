@@ -20,6 +20,7 @@ import extrasRoutes from './routes/extras.js';
 import adminRoutes from './routes/admin.js';
 import apiRoutes from './routes/api.js';
 import audioRoutes from './routes/audio.js';
+import coverRoutes from './routes/covers.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SESSION_SECRET = process.env.SESSION_SECRET || 'dev-only-secret-change-me';
@@ -98,6 +99,10 @@ export function createApp() {
   app.use('/api', apiRoutes);
   // Pre-rendered Edge TTS audio (16 kHz Opus), served from disk or R2.
   app.use('/audio', audioRoutes);
+
+  // Book cover images (public content — served from R2 via COVER_CDN_URL in
+  // production, from disk during development).
+  app.use('/covers', coverRoutes);
 
   app.use((req, res) => {
     renderPage(res, 404, '404', { title: 'Not found' });

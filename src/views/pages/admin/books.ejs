@@ -3,25 +3,66 @@
     <div class="section-head">
       <p class="admin-eyebrow">Admin</p>
       <h1 class="page-title">Books</h1>
-      <p class="section-sub">Imported titles and their chapter counts.</p>
+      <p class="section-sub">Imported titles and their chapter counts. Covers upload straight to Cloudflare R2.</p>
     </div>
 
     <%- include('../partials/admin-nav', { active: active }) %>
+
+    <% if (flash) { %>
+      <div class="alert alert-<%= flash.kind === 'success' ? 'success' : 'error' %>"><%= flash.text %></div>
+    <% } %>
+
+    <% if (!r2Configured) { %>
+      <div class="alert alert-error">
+        R2 is not configured, so uploads will fail. Set R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY,
+        R2_ENDPOINT and R2_BUCKET in .env.
+      </div>
+    <% } %>
 
     <% if (books.length) { %>
       <div class="table-scroll">
         <table class="admin-table">
           <thead>
-            <tr><th scope="col">Book</th><th scope="col">Subject</th><th scope="col">Chapters</th><th scope="col">Status</th><th scope="col">Added</th></tr>
+            <tr>
+              <th scope="col">Cover</th>
+              <th scope="col">Book</th>
+              <th scope="col">Subject</th>
+              <th scope="col">Chapters</th>
+              <th scope="col">Status</th>
+              <th scope="col">Added</th>
+              <th scope="col">Actions</th>
+            </tr>
           </thead>
           <tbody>
             <% books.forEach(function (b) { %>
               <tr>
+                <td>
+                  <% if (b.cover) { %>
+                    <img class="admin-cover-thumb" src="/covers/<%= b.slug %>.<%= b.cover %>"
+                         alt="" width="44" height="62" loading="lazy">
+                  <% } else { %>
+                    <span class="muted tiny">None</span>
+                  <% } %>
+                </td>
                 <td class="cell-strong"><%= b.title %></td>
                 <td class="muted tiny"><%= b.subject || '—' %></td>
                 <td><%= b.chapter_count %></td>
                 <td><span class="badge badge-<%= b.status %>"><%= b.status %></span></td>
                 <td class="muted tiny"><%= b.created_at %></td>
+                <td class="cell-actions cell-actions-stack">
+                  <form method="post" enctype="multipart/form-data"
+                        action="/admin/books/<%= b.slug %>/cover?_csrf=<%= csrf %>">
+                    <input class="admin-cover-input" type="file" name="cover" accept="image/jpeg" required>
+                    <button class="btn btn-ghost btn-sm" type="submit"><%= b.cover ? 'Replace' : 'Upload' %></button>
+                  </form>
+                  <% if (b.cover) { %>
+                    <form method="post" action="/admin/books/<%= b.slug %>/cover/remove"
+                          onsubmit="return confirm('Remove the cover for <%= b.title %>?')">
+                      <input type="hidden" name="_csrf" value="<%= csrf %>">
+                      <button class="btn btn-danger btn-sm" type="submit">Remove</button>
+                    </form>
+                  <% } %>
+                </td>
               </tr>
             <% }); %>
           </tbody>

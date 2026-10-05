@@ -15,10 +15,22 @@ booksrc    # local-only, already imported into seed
 #   powershell -File tools/tts/run.ps1 -Workers 14
 # then upload audio/ to Cloudflare R2. Nothing here belongs in git —
 # it is several gigabytes of derived media.
+# manifest.json is the exception: it is a small index that tells the app
+# which chapters have audio, and it must be tracked so the audio affordance
+# works in deployments that stream from R2.
 audio/*.opus
 audio/*.json
 audio/*/
+!audio/manifest.json
+!audio/manifest.json.tmp
 audio/logs/
+
+# Book cover artwork fetched from Open Library. The images are served from
+# Cloudflare R2 and can be re-fetched or re-uploaded from the admin panel, so
+# the binaries stay out of git on the same reasoning as the audio above.
+# provenance.json is tracked: it records which slug came from which source.
+covers/*.jpg
+!covers/provenance.json
 
 # Python bytecode from the TTS tooling
 __pycache__/

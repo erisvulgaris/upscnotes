@@ -7,8 +7,9 @@
 <a class="book-card" href="<%= typeof href !== 'undefined' && href ? href : '/read/' + b.slug + '/1' %>"
    data-search="<%= (b.title + ' ' + (b.author || '') + ' ' + (subject || '')).toLowerCase().replace(/[<>&"]/g, '') %>">
   <span class="book-cover" <% if (b.color) { %>style="--cover:<%= b.color %>"<% } %>>
-    <% if (b.cover) { %>
-      <img loading="lazy" decoding="async" src="/content/<%= b.slug %>/cover.<%= b.cover.split('.').pop() %>" alt="">
+    <% const cover = coverUrl(b.slug); %>
+    <% if (cover) { %>
+      <img loading="lazy" decoding="async" src="<%= cover %>" alt="">
     <% } else { %>
       <span class="cover-art">
         <span class="cover-genre"><%= b.category === 'ncert' ? 'NCERT' : 'UPSC' %></span>

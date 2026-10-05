@@ -20,6 +20,7 @@
     "express-session": "^1.18.0",
     "helmet": "^7.1.0",
     "morgan": "^1.10.0",
+    "multer": "^2.4.0",
     "razorpay": "^2.9.4"
   },
   "devDependencies": {

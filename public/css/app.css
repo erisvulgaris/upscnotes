@@ -1546,6 +1546,42 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
 .cell-actions { text-align: right; white-space: nowrap; }
 .cell-actions form { display: inline; }
 
+/* Cover uploads stack the file picker above its button, which needs vertical
+   room and a stack rather than the inline layout used by the other admin tables. */
+.cell-actions-stack { text-align: right; white-space: normal; }
+.cell-actions-stack form { display: block; margin-top: var(--sp-1); }
+.cell-actions-stack form:first-child { margin-top: 0; }
+
+.admin-cover-thumb {
+  display: block;
+  width: 44px;
+  height: 62px;
+  object-fit: cover;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+}
+
+.admin-cover-input {
+  display: block;
+  max-width: 100%;
+  margin-bottom: var(--sp-2);
+  font-family: var(--font-ui);
+  font-size: var(--fs-micro);
+  color: var(--fg-2);
+}
+.admin-cover-input::file-selector-button {
+  margin-right: var(--sp-2);
+  padding: var(--sp-1) var(--sp-2);
+  font: inherit;
+  color: var(--fg);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+}
+.admin-cover-input::file-selector-button:hover { border-color: var(--fg-3); }
+
 /* =====================================================================
    BREAKPOINTS — everything scales up from here, never down.
    ===================================================================== */

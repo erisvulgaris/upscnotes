@@ -23,7 +23,16 @@ export function attachCsrf(req, res, next) {
 export function csrfProtect(req, res, next) {
   if (SAFE_METHODS.has(req.method)) return next();
   const expected = req.session?.csrf;
-  const supplied = String(req.body?._csrf || req.headers['x-csrf-token'] || '');
+  // Multipart bodies are not parsed yet when this runs, so the token arrives in
+  // the query string instead of a form field. Accepted only for that content
+  // type, which keeps the fallback narrow.
+  const isMultipart = String(req.headers['content-type'] || '').startsWith('multipart/form-data');
+  const supplied = String(
+    req.body?._csrf ||
+    req.headers['x-csrf-token'] ||
+    (isMultipart ? req.query?._csrf : '') ||
+    ''
+  );
   if (!expected || !supplied) return res.status(403).send('CSRF token missing');
   const a = Buffer.from(expected);
   const b = Buffer.from(supplied);
