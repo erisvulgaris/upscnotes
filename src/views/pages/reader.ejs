@@ -138,6 +138,55 @@
     </figure>
   </div>
 
+  <!-- Bookmarks + notes panel -->
+  <button class="rd-study-fab" id="rd-study-open" type="button" aria-label="Bookmarks and notes" title="Bookmarks and notes">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="20" height="20" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+  </button>
+  <div class="rd-study" id="rd-study" hidden>
+    <div class="rd-study-head">
+      <h2 class="rd-study-title">Study</h2>
+      <div class="rd-study-tabs" role="tablist">
+        <button class="rd-study-tab is-active" role="tab" aria-selected="true" data-tab="bookmarks">Bookmarks</button>
+        <button class="rd-study-tab" role="tab" aria-selected="false" data-tab="notes">Notes</button>
+      </div>
+      <button class="rd-study-close" id="rd-study-close" type="button" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="20" height="20" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="rd-study-body">
+      <div class="rd-study-pane" id="pane-bookmarks">
+        <form class="rd-study-form" id="bm-form">
+          <input type="hidden" name="_csrf" value="<%= csrf %>">
+          <input type="hidden" name="chapter" value="<%= chapter.number %>">
+          <input type="hidden" name="audioMs" value="0">
+          <input type="hidden" name="scrollPct" value="0">
+          <input class="rd-study-input" type="text" name="label" placeholder="Bookmark label" maxlength="200" required>
+          <button class="btn btn-primary btn-sm" type="submit">Add bookmark</button>
+        </form>
+        <div class="rd-study-list" id="bm-list"></div>
+      </div>
+      <div class="rd-study-pane" id="pane-notes" hidden>
+        <form class="rd-study-form" id="note-form">
+          <input type="hidden" name="_csrf" value="<%= csrf %>">
+          <input type="hidden" name="chapter" value="<%= chapter.number %>">
+          <input type="hidden" name="audioMs" value="0">
+          <input type="hidden" name="scrollPct" value="0">
+          <textarea class="rd-study-input" name="body" rows="3" placeholder="Your note" maxlength="8000" required></textarea>
+          <div class="rd-study-actions">
+            <button class="btn btn-primary btn-sm" type="submit">Save note</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="note-export">Export Markdown</button>
+          </div>
+        </form>
+        <div class="rd-study-list" id="note-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Theme toggle -->
+  <button class="rd-theme-toggle" id="rd-theme" type="button" aria-label="Toggle reading theme" title="Toggle reading theme">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+  </button>
+
   <!-- Audio player dock (recorded narration primary, Web Speech fallback). -->
   <div class="tts-dock" id="tts-dock" hidden>
     <div class="tts-main">
@@ -211,6 +260,7 @@
   <script>
     window.UPSCBOOKS = {
       slug: "<%= book.slug %>",
+      title: <%- JSON.stringify(book.title) %>,
       chapter: <%= chapter.number %>,
       last: <%= chapters.length ? chapters[chapters.length - 1].number : chapter.number %>,
       sentences: <%= sentenceCount %>

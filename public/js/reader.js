@@ -349,7 +349,219 @@
     });
   }
 
-  /* ------------------------------------------ public API for the TTS engine */
+  /* ------------------------------------------ study panel (bookmarks + notes) */
+
+  var studyPanel = document.getElementById('rd-study');
+  var studyOpen = document.getElementById('rd-study-open');
+  var studyClose = document.getElementById('rd-study-close');
+  var bmForm = document.getElementById('bm-form');
+  var noteForm = document.getElementById('note-form');
+  var bmList = document.getElementById('bm-list');
+  var noteList = document.getElementById('note-list');
+  var noteExport = document.getElementById('note-export');
+  var tabs = document.querySelectorAll('.rd-study-tab');
+  var panes = {
+    bookmarks: document.getElementById('pane-bookmarks'),
+    notes: document.getElementById('pane-notes'),
+  };
+
+  function openStudy() {
+    if (!studyPanel) return;
+    studyPanel.hidden = false;
+    loadBookmarks();
+    loadNotes();
+  }
+  function closeStudy() {
+    if (!studyPanel) return;
+    studyPanel.hidden = true;
+  }
+  function showTab(name) {
+    tabs.forEach(function (t) {
+      var active = t.getAttribute('data-tab') === name;
+      t.classList.toggle('is-active', active);
+      t.setAttribute('aria-selected', active ? 'true' : 'false');
+    });
+    Object.keys(panes).forEach(function (k) {
+      panes[k].classList.toggle('is-active', k === name);
+    });
+  }
+
+  if (studyOpen) studyOpen.addEventListener('click', openStudy);
+  if (studyClose) studyClose.addEventListener('click', closeStudy);
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () { showTab(t.getAttribute('data-tab')); });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && studyPanel && !studyPanel.hidden) closeStudy();
+  });
+
+  function csrfToken() {
+    var m = document.querySelector('meta[name="csrf"]');
+    return m ? m.getAttribute('content') : '';
+  }
+  function api(url, opts) {
+    var headers = { 'x-csrf-token': csrfToken() };
+    if (opts && opts.json) headers['content-type'] = 'application/json';
+    return fetch('/api' + url, { ...opts, headers }).then(function (r) { return r.ok ? r.json() : Promise.reject(r); });
+  }
+
+  function loadBookmarks() {
+    api('/bookmarks/' + CFG.slug).then(function (data) {
+      if (!bmList) return;
+      var items = data.bookmarks || [];
+      if (!items.length) { bmList.innerHTML = '<p class="rd-study-empty">No bookmarks yet.</p>'; return; }
+      bmList.innerHTML = items.map(function (b) {
+        return '<div class="rd-study-item" data-id="' + b.id + '">' +
+          '<div class="rd-study-item-meta">Ch. ' + b.chapter_number + (b.label ? ' · ' + escHtml(b.label) : '') + ' · ' + fmtWhen(b.created_at) + '</div>' +
+          '<div class="rd-study-item-actions"><button data-del="' + b.id + '">Delete</button></div>' +
+        '</div>';
+      }).join('');
+    }).catch(function () {
+      if (bmList) bmList.innerHTML = '<p class="rd-study-empty">Could not load bookmarks.</p>';
+    });
+  }
+
+  function loadNotes() {
+    api('/notes/' + CFG.slug).then(function (data) {
+      if (!noteList) return;
+      var items = data.notes || [];
+      if (!items.length) { noteList.innerHTML = '<p class="rd-study-empty">No notes yet.</p>'; return; }
+      noteList.innerHTML = items.map(function (n) {
+        return '<div class="rd-study-item" data-id="' + n.id + '">' +
+          '<div class="rd-study-item-meta">Ch. ' + n.chapter_number + ' · ' + fmtWhen(n.updated_at) + '</div>' +
+          '<div class="rd-study-item-body">' + escHtml(n.body) + '</div>' +
+          '<div class="rd-study-item-actions">' +
+            '<button data-edit="' + n.id + '">Edit</button>' +
+            '<button data-del="' + n.id + '">Delete</button>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }).catch(function () {
+      if (noteList) noteList.innerHTML = '<p class="rd-study-empty">Could not load notes.</p>';
+    });
+  }
+
+  function escHtml(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+    });
+  }
+  function fmtWhen(iso) {
+    if (!iso) return '';
+    try { return new Date(iso).toLocaleString(); } catch (e) { return iso; }
+  }
+
+  if (bmForm) {
+    bmForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var fd = new FormData(bmForm);
+      var data = {
+        chapter: fd.get('chapter'),
+        audioMs: fd.get('audioMs'),
+        scrollPct: fd.get('scrollPct'),
+        label: fd.get('label'),
+      };
+      api('/bookmarks/' + CFG.slug, { method: 'POST', json: true, body: JSON.stringify(data) })
+        .then(function () { bmForm.reset(); loadBookmarks(); })
+        .catch(function () { alert('Could not save bookmark.'); });
+    });
+  }
+
+  if (noteForm) {
+    noteForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var fd = new FormData(noteForm);
+      var data = {
+        chapter: fd.get('chapter'),
+        audioMs: fd.get('audioMs'),
+        scrollPct: fd.get('scrollPct'),
+        body: fd.get('body'),
+      };
+      api('/notes/' + CFG.slug, { method: 'POST', json: true, body: JSON.stringify(data) })
+        .then(function () { noteForm.reset(); loadNotes(); })
+        .catch(function () { alert('Could not save note.'); });
+    });
+  }
+
+  function deleteStudyItem(url) {
+    if (!confirm('Delete this?')) return;
+    api(url, { method: 'DELETE' }).then(function () {
+      loadBookmarks();
+      loadNotes();
+    }).catch(function () { alert('Could not delete.'); });
+  }
+
+  bmList && bmList.addEventListener('click', function (e) {
+    var btn = e.target.closest('button[data-del]');
+    if (btn) deleteStudyItem('/bookmarks/' + CFG.slug + '/' + btn.getAttribute('data-del'));
+  });
+  noteList && noteList.addEventListener('click', function (e) {
+    var del = e.target.closest('button[data-del]');
+    var edit = e.target.closest('button[data-edit]');
+    if (del) deleteStudyItem('/notes/' + CFG.slug + '/' + del.getAttribute('data-del'));
+    if (edit) {
+      var item = edit.closest('.rd-study-item');
+      var bodyEl = item && item.querySelector('.rd-study-item-body');
+      if (!bodyEl) return;
+      var current = bodyEl.textContent;
+      var ta = document.createElement('textarea');
+      ta.className = 'rd-study-input';
+      ta.rows = 3;
+      ta.value = current;
+      bodyEl.replaceWith(ta);
+      ta.focus();
+      var save = function () {
+        var newBody = ta.value.trim();
+        if (!newBody) { loadNotes(); return; }
+        api('/notes/' + CFG.slug + '/' + edit.getAttribute('data-edit'), {
+          method: 'PUT', json: true, body: JSON.stringify({ body: newBody }),
+        }).then(loadNotes).catch(function () { alert('Could not update note.'); loadNotes(); });
+      };
+      ta.addEventListener('blur', save);
+      ta.addEventListener('keydown', function (k) { if (k.key === 'Enter' && (k.metaKey || k.ctrlKey)) save(); });
+    }
+  });
+
+  if (noteExport) {
+    noteExport.addEventListener('click', function () {
+      api('/notes/' + CFG.slug).then(function (data) {
+        var items = data.notes || [];
+        if (!items.length) { alert('No notes to export.'); return; }
+        var md = '# ' + (CFG.title || CFG.slug) + ' — Notes\n\n';
+        items.forEach(function (n) {
+          md += '## Chapter ' + n.chapter_number + '\n';
+          if (n.body) md += '\n' + n.body + '\n';
+          md += '\n---\n\n';
+        });
+        var blob = new Blob([md], { type: 'text/markdown' });
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = (CFG.slug || 'notes') + '-notes.md';
+        a.click();
+        URL.revokeObjectURL(a.href);
+      }).catch(function () { alert('Could not load notes for export.'); });
+    });
+  }
+
+  /* ------------------------------------------ reading themes */
+
+  var themeBtn = document.getElementById('rd-theme');
+  var themes = ['light', 'dark', 'sepia'];
+  function currentTheme() {
+    try { return localStorage.getItem('upscbooks-theme') || 'light'; } catch (e) { return 'light'; }
+  }
+  function applyTheme(name) {
+    document.documentElement.setAttribute('data-theme', name);
+    try { localStorage.setItem('upscbooks-theme', name); } catch (e) { /* ignore */ }
+  }
+  applyTheme(currentTheme());
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function () {
+      var idx = themes.indexOf(currentTheme());
+      var next = themes[(idx + 1) % themes.length];
+      applyTheme(next);
+    });
+  }
 
   window.UPSC_Reader = {
     get current() { return cur; },
