@@ -1,7 +1,17 @@
 node_modules
 data
-seed
 .git
+
+# seed/ is deliberately NOT ignored. It holds the pre-built SQLite DB that the
+# Dockerfile copies into the image and the entrypoint unpacks into /app/data on
+# first boot. It is the only route by which books and chapters reach production:
+# tools/import-*.mjs read from sibling directories outside this repo and from
+# data/, neither of which exists in a fresh clone, so a git clone with no seed
+# builds an image with an empty library. Regenerate after changing book data:
+#   node tools/make-seed.mjs
+seed/*.db-wal
+seed/*.db-shm
+
 *.log
 nohup.out
 .env

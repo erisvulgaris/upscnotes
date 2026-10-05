@@ -64,16 +64,22 @@ function presign(key) {
   const objectKey = key.split('/').map((seg) => uriEncode(seg, true)).join('/');
 
   const scope = `${dateStamp}/${SIGN_REGION}/s3/aws4_request`;
+  // Raw values here, encoded exactly once below. Pre-encoding and then encoding
+  // again in the canonical query turns %2F into %252F, which R2 reads as a single
+  // credential part and rejects.
   const q = {
     'X-Amz-Algorithm': 'AWS4-HMAC-SHA256',
-    'X-Amz-Credential': uriEncode(`${SIGN_KEY}/${scope}`, false),
+    'X-Amz-Credential': `${SIGN_KEY}/${scope}`,
     'X-Amz-Date': amzDate,
     'X-Amz-Expires': String(SIGN_TTL),
     'X-Amz-SignedHeaders': 'host',
   };
+  // encodeSlash must stay true: R2 re-encodes each decoded value for the
+  // canonical form, so a literal slash here signs a different string than the
+  // one the server builds and every URL fails SignatureDoesNotMatch.
   const canonicalQuery = Object.keys(q)
     .sort()
-    .map((k) => `${uriEncode(k, false)}=${uriEncode(q[k], false)}`)
+    .map((k) => `${uriEncode(k, true)}=${uriEncode(q[k], true)}`)
     .join('&');
 
   const canonicalRequest = [

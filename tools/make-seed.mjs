@@ -25,11 +25,23 @@ fs.copyFileSync(SRC, DST);
 fs.rmSync(DST + '-wal', { force: true });
 fs.rmSync(DST + '-shm', { force: true });
 
-// 3) Scrub dev/smoke users from the copy.
+// 3) Ship only the admin accounts.
+//
+// Anything else in a local DB is either a throwaway QA fixture (reader*, *@test*,
+// qa*, pricing-*@example.test) or a real person who signed up locally. Neither
+// belongs in a production image: the fixtures are noise, and a personal row
+// copied into a public deployment leaks an account that was never meant to
+// exist there. Real members are created by signing up on the live site.
 const db = new DatabaseSync(DST);
-const info = db.prepare(
-  "DELETE FROM users WHERE email LIKE 'reader%' OR email LIKE '%@test%' OR email LIKE '%@t.com'"
-).run();
+const removed = db.prepare('SELECT email FROM users WHERE role <> ? ORDER BY email').all('admin');
+const info = db.prepare('DELETE FROM users WHERE role <> ?').run('admin');
 db.exec('PRAGMA wal_checkpoint(TRUNCATE);');
 db.close();
-console.log(`seed ok -> ${DST} (removed ${info.changes} users)`);
+
+const kept = removed.length - info.changes;
+console.log(`seed ok -> ${DST}`);
+console.log(`  books+chapters copied from ${SRC}`);
+console.log(`  removed ${info.changes} non-admin user(s)${kept ? ` (${kept} listed but unaffected)` : ''}`);
+if (removed.length) {
+  console.log('  removed: ' + removed.map((u) => u.email).join(', '));
+}
