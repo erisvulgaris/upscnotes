@@ -156,19 +156,121 @@ export const countChapters = (bookId) =>
   db.prepare('SELECT COUNT(*) AS n FROM chapters WHERE book_id = ?').get(bookId).n;
 
 // ---- reading progress ----
-export function setProgress(userId, bookId, chapterNumber) {
+//
+// Resuming needs more than the chapter number: a 45-minute narration restarted
+// from zero is not a resume. audio_ms and scroll_pct are stored separately so a
+// reader who only listened, or only scrolled, still gets back where they were.
+const clamp01 = (n) => {
+  const v = Number(n);
+  if (!Number.isFinite(v)) return 0;
+  return Math.max(0, Math.min(1, v));
+};
+
+/**
+ * Marks which chapter a reader is in.
+ *
+ * The stored position is cleared only when the chapter actually changes.
+ * Reopening the same chapter must not throw away the position the reader would
+ * have been restored to moments earlier.
+ */
+export function setProgress(userId, bookId, chapterNumber, extra = {}) {
   db.prepare(
-    `INSERT INTO reading_progress (user_id, book_id, chapter_number, updated_at)
-     VALUES (?, ?, ?, datetime('now'))
+    `INSERT INTO reading_progress (user_id, book_id, chapter_number, audio_ms, scroll_pct, completed, updated_at)
+     VALUES (?, ?, ?, 0, 0, 0, datetime('now'))
      ON CONFLICT(user_id, book_id) DO UPDATE SET
+       audio_ms = CASE WHEN reading_progress.chapter_number = excluded.chapter_number
+                       THEN reading_progress.audio_ms ELSE 0 END,
+       scroll_pct = CASE WHEN reading_progress.chapter_number = excluded.chapter_number
+                         THEN reading_progress.scroll_pct ELSE 0 END,
+       completed = CASE WHEN reading_progress.chapter_number = excluded.chapter_number
+                        THEN reading_progress.completed ELSE 0 END,
        chapter_number = excluded.chapter_number,
        updated_at = excluded.updated_at`
   ).run(userId, bookId, chapterNumber);
 }
+
+/**
+ * Records where inside the current chapter the reader is, without touching which
+ * chapter that is. Called on a timer while listening or scrolling, so it is kept
+ * to a single narrow statement.
+ */
+export function setReadingPosition(userId, bookId, { audioMs, scrollPct, completed } = {}) {
+  db.prepare(
+    `UPDATE reading_progress
+     SET audio_ms = ?, scroll_pct = ?, completed = ?, updated_at = datetime('now')
+     WHERE user_id = ? AND book_id = ?`
+  ).run(
+    Math.max(0, Math.round(Number(audioMs) || 0)),
+    clamp01(scrollPct),
+    completed ? 1 : 0,
+    userId, bookId
+  );
+}
+
 export const getProgress = (userId, bookId) =>
   db.prepare(
-    'SELECT chapter_number, updated_at FROM reading_progress WHERE user_id = ? AND book_id = ?'
+    `SELECT chapter_number, audio_ms, scroll_pct, completed, updated_at
+     FROM reading_progress WHERE user_id = ? AND book_id = ?`
   ).get(userId, bookId);
+
+// ---- bookmarks ----
+
+export function listBookmarks(userId, bookId) {
+  return db.prepare(
+    `SELECT id, chapter_number, audio_ms, scroll_pct, label, created_at
+     FROM bookmarks WHERE user_id = ? AND book_id = ? ORDER BY chapter_number, id`
+  ).all(userId, bookId);
+}
+export function createBookmark(userId, bookId, data) {
+  const r = db.prepare(
+    `INSERT INTO bookmarks (user_id, book_id, chapter_number, audio_ms, scroll_pct, label)
+     VALUES (?, ?, ?, ?, ?, ?)`
+  ).run(
+    userId, bookId,
+    Math.max(1, Math.round(Number(data.chapterNumber) || 1)),
+    Math.max(0, Math.round(Number(data.audioMs) || 0)),
+    clamp01(data.scrollPct),
+    String(data.label || '').slice(0, 200)
+  );
+  return db.prepare('SELECT * FROM bookmarks WHERE id = ?').get(r.lastInsertRowid);
+}
+// Scoped to the owner so one member cannot delete another's bookmark by guessing
+// an id.
+export const deleteBookmark = (userId, id) =>
+  db.prepare('DELETE FROM bookmarks WHERE id = ? AND user_id = ?').run(id, userId).changes > 0;
+
+// ---- notes ----
+
+export function listNotes(userId, bookId) {
+  return db.prepare(
+    `SELECT id, chapter_number, body, audio_ms, scroll_pct, created_at, updated_at
+     FROM notes WHERE user_id = ? AND book_id = ? ORDER BY chapter_number, id`
+  ).all(userId, bookId);
+}
+export function createNote(userId, bookId, data) {
+  const body = String(data.body || '').trim().slice(0, 8000);
+  if (!body) throw new Error('A note cannot be empty.');
+  const r = db.prepare(
+    `INSERT INTO notes (user_id, book_id, chapter_number, body, audio_ms, scroll_pct)
+     VALUES (?, ?, ?, ?, ?, ?)`
+  ).run(
+    userId, bookId,
+    Math.max(1, Math.round(Number(data.chapterNumber) || 1)),
+    body,
+    Math.max(0, Math.round(Number(data.audioMs) || 0)),
+    clamp01(data.scrollPct)
+  );
+  return db.prepare('SELECT * FROM notes WHERE id = ?').get(r.lastInsertRowid);
+}
+export function updateNote(userId, id, body) {
+  const text = String(body || '').trim().slice(0, 8000);
+  if (!text) throw new Error('A note cannot be empty.');
+  return db.prepare(
+    `UPDATE notes SET body = ?, updated_at = datetime('now') WHERE id = ? AND user_id = ?`
+  ).run(text, id, userId).changes > 0;
+}
+export const deleteNote = (userId, id) =>
+  db.prepare('DELETE FROM notes WHERE id = ? AND user_id = ?').run(id, userId).changes > 0;
 
 // ---- chapter content search ----
 // Titles first (cheap, exact-ish), then full-text over the raw sections JSON.

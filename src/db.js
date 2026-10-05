@@ -110,6 +110,45 @@ export function migrate() {
   // product shipped with, so switching to yearly or adding a code is a change
   // in the admin rather than a code edit.
   ensurePricingTables();
+
+  // Reading position now carries where inside a chapter the reader was, not just
+  // which chapter, so a long narration resumes mid-sentence rather than at the top.
+  addColumnIfMissing('reading_progress', 'audio_ms', 'INTEGER NOT NULL DEFAULT 0');
+  addColumnIfMissing('reading_progress', 'scroll_pct', 'REAL NOT NULL DEFAULT 0');
+  addColumnIfMissing('reading_progress', 'completed', 'INTEGER NOT NULL DEFAULT 0');
+
+  ensureStudyTables();
+}
+
+// Bookmarks and notes are the reader's own work, so they cascade with the user
+// and the book: deleting either must not leave orphaned rows behind.
+function ensureStudyTables() {
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS bookmarks (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      book_id INTEGER NOT NULL REFERENCES books(id) ON DELETE CASCADE,
+      chapter_number INTEGER NOT NULL,
+      audio_ms INTEGER NOT NULL DEFAULT 0,
+      scroll_pct REAL NOT NULL DEFAULT 0,
+      label TEXT NOT NULL DEFAULT '',
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+    CREATE INDEX IF NOT EXISTS idx_bookmarks_user ON bookmarks(user_id, book_id);
+
+    CREATE TABLE IF NOT EXISTS notes (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+      book_id INTEGER NOT NULL REFERENCES books(id) ON DELETE CASCADE,
+      chapter_number INTEGER NOT NULL,
+      body TEXT NOT NULL,
+      audio_ms INTEGER NOT NULL DEFAULT 0,
+      scroll_pct REAL NOT NULL DEFAULT 0,
+      updated_at TEXT NOT NULL DEFAULT (datetime('now')),
+      created_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+    CREATE INDEX IF NOT EXISTS idx_notes_user ON notes(user_id, book_id);
+  `);
 }
 
 // ALTER TABLE ADD COLUMN throws when the column exists, which is how these

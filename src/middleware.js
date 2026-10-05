@@ -34,6 +34,14 @@ export function subjectNav() {
 
 export function requireAuth(req, res, next) {
   if (!req.session.userId) {
+    // An XHR wants a status it can branch on. Redirecting it to the login page
+    // hands the client a 200 of HTML, which then fails to parse as JSON and
+    // surfaces as a confusing error instead of "please sign in".
+    // originalUrl, not path: inside a router mounted at /api, req.path has the
+    // mount point stripped and would read "/progress/<slug>".
+    if (req.originalUrl.startsWith('/api/') || req.get('x-requested-with') === 'fetch') {
+      return res.status(401).json({ ok: false, error: 'Sign in required' });
+    }
     const target = encodeURIComponent(req.originalUrl);
     return res.redirect('/login?next=' + target);
   }
