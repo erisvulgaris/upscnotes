@@ -138,39 +138,42 @@
     </figure>
   </div>
 
-  <!-- Text-to-speech dock -->
+  <!-- Audio player dock (recorded narration primary, Web Speech fallback). -->
   <div class="tts-dock" id="tts-dock" hidden>
     <div class="tts-main">
-      <button class="tts-btn tts-btn-primary" id="tts-play" type="button" aria-label="Play reading aloud" title="Play">
+      <button class="tts-btn tts-btn-primary" id="tts-play" type="button" aria-label="Play" title="Play">
         <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
       </button>
-      <!-- Transport lives in the always-visible row. Hiding prev/next inside the
-           options panel left sentence navigation unreachable until the panel was
-           opened, which is exactly what a reader wants mid-playback. -->
-      <button class="tts-btn tts-step" id="tts-prev" type="button" aria-label="Previous sentence" title="Previous sentence (K)">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M7 6h2v12H7zM19 6v12l-9-6z"/></svg>
+      <button class="tts-btn tts-step" id="tts-prev-ch" type="button" aria-label="Previous chapter" title="Previous chapter">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M6 6h2v12H6zM16 6v12l-8-6z"/></svg>
       </button>
-      <button class="tts-btn tts-step" id="tts-next" type="button" aria-label="Next sentence" title="Next sentence (J)">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M15 6h2v12h-2zM5 6v12l9-6z"/></svg>
+      <button class="tts-btn tts-step" id="tts-prev" type="button" aria-label="Back 10 seconds" title="Back 10 seconds (K)">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M12.5 8c-2.65 0-5.05 1-6.9 2.6L2 7v9h9l-2.63-2.63C9.8 12.54 11.07 12 12.5 12c3.17 0 5.96 1.58 7.62 4H20v2h-5v1h2.5c-1.2 2.87-3.88 5-7.5 5a8.96 8.96 0 0 1-3.55-.72L6.8 20.4A10.96 10.96 0 0 0 12.5 22c6.08 0 11.15-4.3 12.26 10h2.24V7.2H22.5C21.35 3.3 17.13 0 12.5 0z"/></svg>
+      </button>
+      <button class="tts-btn tts-step" id="tts-next" type="button" aria-label="Forward 10 seconds" title="Forward 10 seconds (J)">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M11.5 16c2.65 0 5.05-1 6.9-2.6L22 17V8h-9l2.63 2.63C14.2 12.46 12.93 13 11.5 13c-3.17 0-5.96-1.58-7.62-4H4V7h5v-1H6.5C7.7 3.3 11.92 0 16.5 0c6.08 0 11.15 4.3 12.26 10h-2.24v9.8H7.5C8.65 23.7 12.87 27 17.5 27z"/></svg>
+      </button>
+      <button class="tts-btn tts-step" id="tts-next-ch" type="button" aria-label="Next chapter" title="Next chapter">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true"><path d="M16 18h2v-6h-2v6zM8 18h2v-6H8v6zM6 7l8-6v12l-8-6v18h16V7H6z"/></svg>
       </button>
       <span class="tts-info">
-        <span class="tts-now" id="tts-now">Ready to read aloud</span>
-        <span class="tts-track"><span class="tts-fill" id="tts-fill"></span></span>
+        <span class="tts-now" id="tts-now">Ready</span>
+        <span class="tts-times"><span id="tts-cur">0:00</span> / <span id="tts-dur">0:00</span></span>
+        <span class="tts-track"><input type="range" id="tts-seek" class="tts-seek" min="0" max="1000" value="0" step="1" aria-label="Seek"></span>
       </span>
-      <span class="tts-count" id="tts-pos">0 / 0</span>
-      <button class="tts-btn" id="tts-stop" type="button" aria-label="Stop reading" title="Stop (S)">
+      <span class="tts-pos" id="tts-pos"></span>
+      <button class="tts-btn" id="tts-mute" type="button" aria-label="Mute" title="Mute">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="16" height="16" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5zM15.5 8.5a5 5 0 0 1 0 7"/></svg>
+      </button>
+      <button class="tts-btn" id="tts-stop" type="button" aria-label="Stop" title="Stop (S)">
         <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
       </button>
-      <button class="tts-btn" id="tts-toggle" type="button" aria-label="Reading options" aria-expanded="false" title="Options (T)">
+      <button class="tts-btn" id="tts-toggle" type="button" aria-label="Options" aria-expanded="false" title="Options (T)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="20" height="20" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
     </div>
 
     <div class="tts-panel" id="tts-panel">
-      <div class="tts-panel-row">
-        <label for="tts-voice">Voice</label>
-        <select id="tts-voice" aria-label="Text-to-speech voice"></select>
-      </div>
       <div class="tts-panel-row">
         <label>Speed</label>
         <span class="tts-rates" role="group" aria-label="Playback speed">
@@ -199,7 +202,7 @@
       </div>
       <div class="tts-panel-row">
         <span class="tts-shortcuts">
-          <kbd>Space</kbd> play/pause · <kbd>J</kbd>/<kbd>K</kbd> sentence · <kbd>T</kbd> options · <kbd>S</kbd> stop
+          <kbd>Space</kbd> play/pause · <kbd>←</kbd>/<kbd>→</kbd> ±10 s · <kbd>T</kbd> options · <kbd>S</kbd> stop
         </span>
       </div>
     </div>
