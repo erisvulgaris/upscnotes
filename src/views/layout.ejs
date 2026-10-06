@@ -95,6 +95,8 @@
         <% } %>
         <% if (user) { %>
           <a href="/dashboard" <%= path === '/dashboard' ? 'aria-current="page"' : '' %>>My library</a>
+          <a href="/revision" <%= path === '/revision' ? 'aria-current="page"' : '' %>>Revision</a>
+          <a href="/analytics" <%= path === '/analytics' ? 'aria-current="page"' : '' %>>Analytics</a>
           <% if (isAdmin) { %><a href="/admin" <%= path.startsWith('/admin') ? 'aria-current="page"' : '' %>>Admin</a><% } %>
         <% } %>
       </nav>
@@ -166,6 +168,8 @@
           <span class="overline drawer-label">Your account</span>
           <a href="/dashboard" <%= path === '/dashboard' ? 'aria-current="page"' : '' %>>My library
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+          <a href="/revision" <%= path === '/revision' ? 'aria-current="page"' : '' %>>Revision</a>
+          <a href="/analytics" <%= path === '/analytics' ? 'aria-current="page"' : '' %>>Analytics</a>
           <% if (isAdmin) { %>
             <a href="/admin" <%= path.startsWith('/admin') ? 'aria-current="page"' : '' %>>Admin
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="18" height="18" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
@@ -238,6 +242,8 @@
           <nav>
             <% if (user) { %>
               <a href="/dashboard">My library</a>
+              <a href="/revision">Revision</a>
+              <a href="/analytics">Analytics</a>
               <a href="/checkout">Lifetime access</a>
             <% } else { %>
               <a href="/login">Sign in</a>

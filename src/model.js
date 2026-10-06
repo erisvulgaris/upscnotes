@@ -72,6 +72,32 @@ export function activateForUserByAdmin(userId, price_paise = 0) {
 export const countActiveSubs = () =>
   db.prepare(`SELECT COUNT(*) AS n FROM subscriptions WHERE status = 'active'`).get().n;
 
+export function extendSubscription(id, days = 365) {
+  const sub = db.prepare('SELECT * FROM subscriptions WHERE id = ?').get(id);
+  if (!sub) return null;
+  const now = new Date();
+  const currentExpiry = sub.expires_at ? new Date(sub.expires_at) : now;
+  const newExpiry = new Date(currentExpiry < now ? now : currentExpiry);
+  newExpiry.setDate(newExpiry.getDate() + Math.max(1, days));
+  db.prepare('UPDATE subscriptions SET expires_at = ?, status = ? WHERE id = ?')
+    .run(newExpiry.toISOString().slice(0, 10), 'active', id);
+  return db.prepare('SELECT * FROM subscriptions WHERE id = ?').get(id);
+}
+
+export function getUserSubscriptions(userId) {
+  return db.prepare('SELECT * FROM subscriptions WHERE user_id = ? ORDER BY id DESC').all(userId);
+}
+export function getUserPayments(userId) {
+  return db.prepare('SELECT * FROM payments WHERE user_id = ? ORDER BY created_at DESC').all(userId);
+}
+export function searchUsers(q) {
+  const term = String(q || '').trim().slice(0, 80);
+  if (!term) return listUsers();
+  const like = '%' + term.replace(/[%_]/g, (c) => '\\' + c) + '%';
+  return db.prepare('SELECT * FROM users WHERE email LIKE ? ESCAPE ? OR (name IS NOT NULL AND name LIKE ? ESCAPE ?) ORDER BY created_at DESC')
+    .all(like, '\\', like, '\\');
+}
+
 // ---- payments ----
 export function createPayment({
   razorpay_order_id, user_id, amount_paise,

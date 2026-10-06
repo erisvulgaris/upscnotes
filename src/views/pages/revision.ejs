@@ -1,0 +1,66 @@
+<div class="page">
+  <div class="container">
+    <div class="section-head">
+      <p class="overline">Revision</p>
+      <h1 class="page-title">Due for review</h1>
+      <p class="section-sub">
+        <%= total %> book<%= total === 1 ? '' : 's' %> in progress &middot;
+        <%= due.length %> due &middot; <%= upToDate.length %> up to date
+      </p>
+    </div>
+
+    <% if (due.length) { %>
+      <h2 class="card-title" style="margin-bottom:var(--sp-3);">Due now</h2>
+      <div class="book-grid">
+        <% due.forEach(function (b) { %>
+          <div class="book-card-wrap">
+            <a class="book-card" href="/read/<%= b.slug %>/<%= b.inProgress ? b.inProgress.number : 1 %>">
+              <div class="book-cover">
+                <% if (b.cover) { %>
+                  <img src="/content/<%= b.slug %>/cover.<%= b.cover.split('.').pop() %>" alt="" loading="lazy">
+                <% } else { %>
+                  <span class="cover-art"><span class="cover-title"><%= b.title %></span></span>
+                <% } %>
+              </div>
+              <div class="book-meta">
+                <span class="book-title"><%= b.title %></span>
+                <span class="muted tiny">Ch <%= b.inProgress ? b.inProgress.number : 1 %> &middot; <%= b.inProgress ? b.inProgress.title : '' %></span>
+                <span class="badge badge-lapsed"><%= b.daysSince %> day<%= b.daysSince === 1 ? '' : 's' %> since last read</span>
+              </div>
+            </a>
+            <a class="book-extras" href="/read/<%= b.slug %>/<%= b.inProgress ? b.inProgress.number : 1 %>">
+              Review now
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </div>
+        <% }); %>
+      </div>
+    <% } else { %>
+      <div class="alert alert-success">Nothing is due for review right now. Keep reading!</div>
+    <% } %>
+
+    <% if (upToDate.length) { %>
+      <h2 class="card-title" style="margin-top:var(--sp-8);margin-bottom:var(--sp-3);">Up to date</h2>
+      <div class="book-grid">
+        <% upToDate.forEach(function (b) { %>
+          <div class="book-card-wrap">
+            <a class="book-card" href="/read/<%= b.slug %>/<%= b.inProgress ? b.inProgress.number : 1 %>">
+              <div class="book-cover">
+                <% if (b.cover) { %>
+                  <img src="/content/<%= b.slug %>/cover.<%= b.cover.split('.').pop() %>" alt="" loading="lazy">
+                <% } else { %>
+                  <span class="cover-art"><span class="cover-title"><%= b.title %></span></span>
+                <% } %>
+              </div>
+              <div class="book-meta">
+                <span class="book-title"><%= b.title %></span>
+                <span class="muted tiny">Ch <%= b.inProgress ? b.inProgress.number : 1 %> &middot; <%= b.inProgress ? b.inProgress.title : '' %></span>
+                <span class="badge badge-active"><%= b.daysSince %> day<%= b.daysSince === 1 ? '' : 's' %> ago</span>
+              </div>
+            </a>
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+</div>

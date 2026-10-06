@@ -1,0 +1,92 @@
+<div class="page">
+  <div class="container">
+    <div class="section-head">
+      <p class="admin-eyebrow">Admin</p>
+      <h1 class="page-title"><%= user.name || user.email %></h1>
+      <p class="section-sub">Member since <%= user.created_at %> · Role: <%= user.role %></p>
+    </div>
+
+    <%- include('../partials/admin-nav', { active: active }) %>
+
+    <% if (flash) { %>
+      <div class="alert alert-<%= flash.kind === 'success' ? 'success' : 'error' %>"><%= flash.text %></div>
+    <% } %>
+
+    <div class="admin-panel" style="margin-top:var(--sp-5);">
+      <h2 class="card-title">Access</h2>
+      <form method="post" action="/admin/users/<%= user.id %>/grant" style="display:inline">
+        <input type="hidden" name="_csrf" value="<%= csrf %>">
+        <button class="btn btn-primary btn-sm" type="submit">Grant lifetime access</button>
+      </form>
+    </div>
+
+    <div class="admin-panel" style="margin-top:var(--sp-5);">
+      <h2 class="card-title">Subscriptions</h2>
+      <% if (subscriptions.length) { %>
+        <div class="table-scroll">
+          <table class="admin-table">
+            <thead>
+              <tr><th scope="col">ID</th><th scope="col">Plan</th><th scope="col">Status</th><th scope="col">Price</th><th scope="col">Activated</th><th scope="col">Expires</th><th scope="col">Source</th><th scope="col"><span class="sr-only">Actions</span></th></tr>
+            </thead>
+            <tbody>
+              <% subscriptions.forEach(function (s) { %>
+                <tr>
+                  <td><%= s.id %></td>
+                  <td><%= s.plan %></td>
+                  <td><span class="badge badge-<%= s.status %>"><%= s.status %></span></td>
+                  <td><%= s.price_paise ? rupees(s.price_paise) : '—' %></td>
+                  <td class="muted tiny"><%= s.activated_at %></td>
+                  <td class="muted tiny"><%= s.expires_at || '—' %></td>
+                  <td class="muted tiny"><%= s.source %></td>
+                  <td class="cell-actions">
+                    <form method="post" action="/admin/users/<%= user.id %>/revoke" style="display:inline"
+                          onsubmit="return confirm('Revoke subscription #<%= s.id %> for <%= user.email %>?')">
+                      <input type="hidden" name="_csrf" value="<%= csrf %>">
+                      <input type="hidden" name="sub_id" value="<%= s.id %>">
+                      <button class="btn btn-danger btn-sm" type="submit">Revoke</button>
+                    </form>
+                    <form method="post" action="/admin/users/<%= user.id %>/extend" style="display:inline;margin-left:var(--sp-1)">
+                      <input type="hidden" name="_csrf" value="<%= csrf %>">
+                      <input type="hidden" name="sub_id" value="<%= s.id %>">
+                      <input type="number" name="days" value="365" min="1" max="3650" style="width:70px;padding:var(--sp-1)">
+                      <button class="btn btn-ghost btn-sm" type="submit">Extend (days)</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      <% } else { %>
+        <div class="alert alert-info">No subscriptions yet.</div>
+      <% } %>
+    </div>
+
+    <div class="admin-panel" style="margin-top:var(--sp-5);">
+      <h2 class="card-title">Payments</h2>
+      <% if (payments.length) { %>
+        <div class="table-scroll">
+          <table class="admin-table">
+            <thead>
+              <tr><th scope="col">ID</th><th scope="col">Amount</th><th scope="col">Status</th><th scope="col">Plan</th><th scope="col">Coupon</th><th scope="col">Date</th></tr>
+            </thead>
+            <tbody>
+              <% payments.forEach(function (p) { %>
+                <tr>
+                  <td><%= p.id %></td>
+                  <td><%= p.amount_paise ? rupees(p.amount_paise) : '—' %></td>
+                  <td><span class="badge badge-<%= p.status %>"><%= p.status %></span></td>
+                  <td><%= p.plan %></td>
+                  <td class="muted tiny"><%= p.coupon_code || '—' %></td>
+                  <td class="muted tiny"><%= p.created_at %></td>
+                </tr>
+              <% }); %>
+            </tbody>
+          </table>
+        </div>
+      <% } else { %>
+        <div class="alert alert-info">No payments yet.</div>
+      <% } %>
+    </div>
+  </div>
+</div>

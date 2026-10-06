@@ -5,7 +5,7 @@ import { renderPage } from '../render.js';
 import {
   listUsers, countUsers, countActiveSubs, listPayments, sumCaptured,
   listBooks, activateForUserByAdmin, setSubscriptionStatus, getActiveSubscription,
-  getBookBySlug, updateBook,
+  getUserById, searchUsers, getUserSubscriptions, getUserPayments, extendSubscription,
 } from '../model.js';
 import {
   getPricing, setSetting, listCoupons, createCoupon,
@@ -52,11 +52,27 @@ router.get('/', (req, res) => {
 });
 
 router.get('/users', (req, res) => {
+  const q = String(req.query.q || '').trim();
   const users = listUsers().map((u) => ({
     ...u,
     active_sub: getActiveSubscription(u.id) || null,
   }));
-  renderPage(res, 200, 'admin/users', { title: 'Admin · Members', active: 'users', users });
+  renderPage(res, 200, 'admin/users', { title: 'Admin · Members', active: 'users', users, q, csrf: res.locals.csrf });
+});
+
+router.get('/users/:id', (req, res) => {
+  const id = Number(req.params.id);
+  if (!Number.isFinite(id)) return res.redirect('/admin/users');
+  const user = getUserById(id);
+  if (!user) return res.redirect('/admin/users');
+  renderPage(res, 200, 'admin/user-detail', {
+    title: 'Admin · ' + (user.name || user.email), active: 'users',
+    user,
+    subscriptions: getUserSubscriptions(id),
+    payments: getUserPayments(id),
+    flash: req.session.flash || null,
+  });
+  delete req.session.flash;
 });
 
 router.get('/payments', (req, res) => {
@@ -167,6 +183,7 @@ router.post('/users/:id/grant', (req, res) => {
   const id = Number(req.params.id);
   if (id && !isNaN(id) && Number(id) !== req.session.userId) {
     activateForUserByAdmin(id, 0);
+    flash(req, 'success', 'Lifetime access granted.');
   }
   res.redirect('/admin/users');
 });
@@ -176,9 +193,29 @@ router.post('/users/:id/revoke', (req, res) => {
   const id = Number(req.params.id);
   if (id && !isNaN(id)) {
     const sub = getActiveSubscription(id);
-    if (sub) setSubscriptionStatus(sub.id, 'lapsed');
+    if (sub) {
+      setSubscriptionStatus(sub.id, 'lapsed');
+      flash(req, 'success', 'Subscription revoked.');
+    } else {
+      flash(req, 'error', 'No active subscription found.');
+    }
   }
   res.redirect('/admin/users');
+});
+
+// Extend a specific subscription by N days.
+router.post('/users/:id/extend', (req, res) => {
+  const id = Number(req.params.id);
+  const subId = Number(req.body.sub_id);
+  const days = Math.max(1, Math.round(Number(req.body.days) || 365));
+  if (!Number.isFinite(id) || !Number.isFinite(subId)) return res.redirect('/admin/users');
+  const sub = extendSubscription(subId, days);
+  if (!sub) {
+    flash(req, 'error', 'Subscription not found.');
+    return res.redirect('/admin/users/' + id);
+  }
+  flash(req, 'success', 'Extended to ' + sub.expires_at + '.');
+  res.redirect('/admin/users/' + id);
 });
 
 // ---------------------------------------------------------------- pricing

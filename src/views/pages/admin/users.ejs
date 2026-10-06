@@ -8,17 +8,23 @@
 
     <%- include('../partials/admin-nav', { active: active }) %>
 
+    <form method="get" action="/admin/users" class="admin-search" style="margin-top:var(--sp-4);">
+      <input type="search" name="q" value="<%= q || '' %>" placeholder="Search by email or name…" autocomplete="off">
+      <button class="btn btn-ghost btn-sm" type="submit">Search</button>
+      <% if (q) { %><a class="btn btn-ghost btn-sm" href="/admin/users">Clear</a><% } %>
+    </form>
+
     <% if (users.length) { %>
       <div class="table-scroll">
         <table class="admin-table">
           <thead>
             <tr><th scope="col">User</th><th scope="col">Role</th><th scope="col">Access</th><th scope="col">Joined</th><th scope="col"><span class="sr-only">Actions</span></th></tr>
           </thead>
-          <tbody>
+            <tbody>
             <% users.forEach(function (u) { %>
               <tr>
                 <td>
-                  <div class="cell-strong"><%= u.name || u.email %></div>
+                  <a class="cell-strong" href="/admin/users/<%= u.id %>"><%= u.name || u.email %></a>
                   <div class="muted mono"><%= u.email %></div>
                 </td>
                 <td><span class="badge badge-<%= u.role %>"><%= u.role %></span></td>
