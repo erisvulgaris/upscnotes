@@ -1,4 +1,4 @@
-# UPSCbooks Design System
+# upscnotes Design System
 
 > Category: Books / Education Platform
 > A digital library for civil services aspirants. Deep indigo + warm amber, serif display,
@@ -32,7 +32,7 @@ Every rule below is written for a **360–390px phone** and only scales *up*.
 
 ## 1. Visual Theme & Atmosphere
 
-UPSCbooks should feel like a *modern publishing house*: confident, trustworthy, calm — not a
+upscnotes should feel like a *modern publishing house*: confident, trustworthy, calm — not a
 cluttered exam portal.
 
 - Deep indigo (**Midnight Ink**) anchors the brand: authority, focus, study-room-at-dusk calm.

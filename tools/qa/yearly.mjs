@@ -8,7 +8,7 @@ import { DatabaseSync } from 'node:sqlite';
 import { signIn } from '../lib.mjs';
 
 const BASE = 'http://localhost:4177';
-const db = new DatabaseSync('data/upscbooks.db');
+const db = new DatabaseSync('data/upscnotes.db');
 
 let fails = 0;
 function fail(m) { fails++; console.log('FAIL  ' + m); }

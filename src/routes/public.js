@@ -247,7 +247,7 @@ router.get('/library', (req, res) => {
   for (const b of all) hasExtras[b.slug] = hasContentBundle(b.slug);
   renderPage(res, 200, 'library', {
     title: 'All books',
-    metaDesc: `Browse all ${all.length} books in the UPSCbooks library, grouped by subject.`,
+    metaDesc: `Browse all ${all.length} books in the upscnotes library, grouped by subject.`,
     groups,
     books: all,
     hasExtras,
@@ -275,7 +275,7 @@ router.get('/search', (req, res) => {
 
   renderPage(res, 200, 'search', {
     title: q ? `Search: ${q}` : 'Search',
-    metaDesc: 'Search every title, author and subject in the UPSCbooks library.',
+    metaDesc: 'Search every title, author and subject in the upscnotes library.',
     q,
     results,
     searched: terms.length > 0,
@@ -306,11 +306,11 @@ router.get('/ncerts', (req, res) => {
 const LEGAL = {
   terms: {
     title: 'Terms of Service',
-    metaDesc: 'Terms of service for the UPSCbooks digital library.',
+    metaDesc: 'Terms of service for the upscnotes digital library.',
   },
   privacy: {
     title: 'Privacy Policy',
-    metaDesc: 'How UPSCbooks handles your account and reading data.',
+    metaDesc: 'How upscnotes handles your account and reading data.',
   },
   refunds: {
     title: 'Refund Policy',

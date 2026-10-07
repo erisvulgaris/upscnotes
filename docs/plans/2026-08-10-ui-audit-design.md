@@ -2,7 +2,7 @@
 
 ## Audit Summary
 
-Full audit of the UPSCbooks frontend (26 EJS templates, 4 CSS files, 4 JS files, vanilla stack). The existing design system is well-structured (token-based, dark mode, responsive). No recreation needed — targeted enhancements only.
+Full audit of the upscnotes frontend (26 EJS templates, 4 CSS files, 4 JS files, vanilla stack). The existing design system is well-structured (token-based, dark mode, responsive). No recreation needed — targeted enhancements only.
 
 ## Critical Fixes
 

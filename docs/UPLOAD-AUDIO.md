@@ -1,4 +1,4 @@
-# UPSCbooks audiobook upload — R2
+# upscnotes audiobook upload — R2
 
 The build is finished and verified. Everything below is what remains, and it
 needs no code changes.
@@ -26,7 +26,7 @@ audio/<slug>/<chapter>.json     timings + metadata
 # rclone config -> name the remote "r2" (S3 provider, endpoint
 # https://<account-id>.r2.cloudflarestorage.com, access key + secret)
 
-rclone sync audio r2:upscbooks-audio `
+rclone sync audio r2:upscnotes-audio `
   --include "*.opus" --include "*.json" `
   --include "manifest.json" `
   --exclude "logs/*" --exclude "audio-source.json" --exclude "content-qa-report.json" `
@@ -39,7 +39,7 @@ count. R2 has no egress charge, which is the point of putting it there.
 Verify:
 
 ```powershell
-rclone lsf r2:upscbooks-audio --recursive | Measure-Object
+rclone lsf r2:upscnotes-audio --recursive | Measure-Object
 # expect 653 *.opus and 653 *.json under <slug>/, plus manifest.json
 ```
 

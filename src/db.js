@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const DATA_DIR = path.join(__dirname, '..', 'data');
-export const DB_PATH = path.join(DATA_DIR, 'upscbooks.db');
+export const DB_PATH = path.join(DATA_DIR, 'upscnotes.db');
 
 fs.mkdirSync(DATA_DIR, { recursive: true });
 

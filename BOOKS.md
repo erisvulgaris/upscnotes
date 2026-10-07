@@ -1,4 +1,4 @@
-# UPSCbooks — Book Inventory
+# upscnotes — Book Inventory
 
 Generated: 2026-10-06
 

@@ -31,7 +31,23 @@ BASE = r'C:\Users\Vulgaris\Documents\iCloudDrive\UPSC E-books'
 NCERT_BASE = r'C:\Users\Vulgaris\Documents\iCloudDrive\UPSC all ncerts EPub'
 PROJECT_ROOT = Path(__file__).parent.parent
 COVERS_DIR = PROJECT_ROOT / 'covers'
-DB_PATH = PROJECT_ROOT / 'data' / 'upscbooks.db'
+DB_PATH = PROJECT_ROOT / 'data' / 'upscnotes.db'
+LOCAL_BOOKS_DIR = PROJECT_ROOT / 'books'
+
+def resolve_source(slug, src_path):
+    if src_path and os.path.exists(src_path):
+        return src_path
+    if slug in BOOKS:
+        rel = Path(BOOKS[slug])
+        local = LOCAL_BOOKS_DIR / rel
+        if local.exists():
+            return str(local)
+    if slug in NCERT_BOOKS:
+        rel = Path(NCERT_BOOKS[slug])
+        local = LOCAL_BOOKS_DIR / rel
+        if local.exists():
+            return str(local)
+    return src_path
 
 env_path = PROJECT_ROOT / '.env'
 if env_path.exists():
@@ -127,9 +143,11 @@ def find_ncert_source(slug):
 
 def get_source(slug):
     if slug in BOOKS:
-        return BOOKS[slug], 'pdf' if BOOKS[slug].endswith('.pdf') else 'epub'
+        src = resolve_source(slug, BOOKS[slug])
+        return src, 'pdf' if src.endswith('.pdf') else 'epub'
     if slug in NCERT_BOOKS:
         src = find_ncert_source(slug)
+        src = resolve_source(slug, src)
         if src:
             return src, 'epub'
     return None, None

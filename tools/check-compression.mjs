@@ -17,7 +17,7 @@ const csrf = (html.match(/name="_csrf" value="([^"]+)"/) || [])[1];
 r = await fetch(BASE + '/login', {
   method: 'POST',
   headers: { 'content-type': 'application/x-www-form-urlencoded', cookie: cookieHeader() },
-  body: new URLSearchParams({ _csrf: csrf, email: 'admin@upscbooks.in', password: 'admin12345' }),
+  body: new URLSearchParams({ _csrf: csrf, email: 'admin@upscnotes.in', password: 'admin12345' }),
   redirect: 'follow',
 });
 absorb(r);

@@ -5,7 +5,7 @@ import path from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
 import { sentenceList, narrationText } from '../src/content.js';
 
-const db = new DatabaseSync('data/upscbooks.db');
+const db = new DatabaseSync('data/upscnotes.db');
 
 function norm(s) {
   return String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();

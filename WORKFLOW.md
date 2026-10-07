@@ -1,8 +1,8 @@
-# UPSCbooks Book Processing Workflow
+# upscnotes Book Processing Workflow
 
 ## Overview
 
-This workflow describes the complete end-to-end process for ingesting any new PDF or EPUB book into the UPSCbooks platform. The workflow handles text extraction, image/chart/graph extraction, cover art extraction, audio generation, and R2 upload.
+This workflow describes the complete end-to-end process for ingesting any new PDF or EPUB book into the upscnotes platform. The workflow handles text extraction, image/chart/graph extraction, cover art extraction, audio generation, and R2 upload.
 
 ## Prerequisites
 

@@ -1,5 +1,5 @@
 /* =====================================================================
-   UPSCbooks — audio player (recorded narration primary, Web Speech fallback)
+   upscnotes — audio player (recorded narration primary, Web Speech fallback)
 
    Preferred path is the device's own recorded narration streamed from R2: it
    is consistent, accurate, and drives a real seek bar, speed control, volume,
@@ -181,7 +181,7 @@
 
   function getProgress() {
     try {
-      var stored = localStorage.getItem('upscbooks-tts-pos:' + slug + ':' + chapter);
+      var stored = localStorage.getItem('upscnotes-tts-pos:' + slug + ':' + chapter);
       return stored ? JSON.parse(stored) : {};
     } catch (e) { return {}; }
   }
@@ -189,7 +189,7 @@
     try {
       var p = getProgress();
       if (pos) Object.assign(p, pos);
-      localStorage.setItem('upscbooks-tts-pos:' + slug + ':' + chapter, JSON.stringify(p));
+      localStorage.setItem('upscnotes-tts-pos:' + slug + ':' + chapter, JSON.stringify(p));
     } catch (e) { /* ignore */ }
   }
 
@@ -399,11 +399,11 @@
         var rate = parseFloat(b.getAttribute('data-rate')) || 1;
         if (audio) audio.playbackRate = rate;
         elRates.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
-        try { localStorage.setItem('upscbooks-tts-rate', String(rate)); } catch (e) { /* ignore */ }
+        try { localStorage.setItem('upscnotes-tts-rate', String(rate)); } catch (e) { /* ignore */ }
       });
     });
     try {
-      var savedRate = parseFloat(localStorage.getItem('upscbooks-tts-rate')) || 1;
+      var savedRate = parseFloat(localStorage.getItem('upscnotes-tts-rate')) || 1;
       if (audio) audio.playbackRate = savedRate;
       elRates.forEach(function (x) {
         x.setAttribute('aria-pressed', parseFloat(x.getAttribute('data-rate')) === savedRate ? 'true' : 'false');

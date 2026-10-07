@@ -8,7 +8,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
 
-const db = new DatabaseSync('data/upscbooks.db');
+const db = new DatabaseSync('data/upscnotes.db');
 const q = db.prepare(
   'SELECT c.number, c.sections_json, b.slug, b.title FROM chapters c JOIN books b ON b.id = c.book_id'
 );

@@ -1,5 +1,5 @@
 import { DatabaseSync } from 'node:sqlite';
-const db = new DatabaseSync('data/upscbooks.db');
+const db = new DatabaseSync('data/upscnotes.db');
 
 const books = db.prepare("SELECT id, slug, title, category, subject, chapter_count FROM books WHERE status='published'").all();
 const q = db.prepare('SELECT number, title, sections_json FROM chapters WHERE book_id=? ORDER BY number');

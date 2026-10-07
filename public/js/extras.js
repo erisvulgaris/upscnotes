@@ -1,5 +1,5 @@
 /* =====================================================================
-   UPSCbooks — study tools client
+   upscnotes — study tools client
    The data bundles live under content/<slug> and are served by /content,
    which is already auth- and subscription-gated. Everything renders
    client-side so a filter never costs a full page load.

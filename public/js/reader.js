@@ -1,5 +1,5 @@
 /* =====================================================================
-   UPSCbooks reader
+   upscnotes reader
    - Chapter sheet (bottom sheet on phone, side panel on desktop)
    - Full-text search inside the book
    - Continuous reading: the next chapter is pre-fetched and appended
@@ -12,7 +12,7 @@
   var main = document.getElementById('rd-body');
   if (!main) return;
 
-  var CFG = window.UPSCBOOKS || {};
+  var CFG = window.upscnotes || {};
   var slug = main.getAttribute('data-slug') || CFG.slug;
   var cur = parseInt(main.getAttribute('data-chapter'), 10) || CFG.chapter || 1;
   var last = parseInt(main.getAttribute('data-last'), 10) || CFG.last || cur;
@@ -313,7 +313,7 @@
   var SCALES = [0.9, 1, 1.15, 1.3];
   function applyScale(v) {
     document.documentElement.style.setProperty('--font-scale', String(v));
-    try { localStorage.setItem('upscbooks-font-scale', String(v)); } catch (e) {}
+    try { localStorage.setItem('upscnotes-font-scale', String(v)); } catch (e) {}
   }
   function bumpScale() {
     var cur2 = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--font-scale')) || 1;
@@ -548,11 +548,11 @@
   var themeBtn = document.getElementById('rd-theme');
   var themes = ['light', 'dark', 'sepia'];
   function currentTheme() {
-    try { return localStorage.getItem('upscbooks-theme') || 'light'; } catch (e) { return 'light'; }
+    try { return localStorage.getItem('upscnotes-theme') || 'light'; } catch (e) { return 'light'; }
   }
   function applyTheme(name) {
     document.documentElement.setAttribute('data-theme', name);
-    try { localStorage.setItem('upscbooks-theme', name); } catch (e) { /* ignore */ }
+    try { localStorage.setItem('upscnotes-theme', name); } catch (e) { /* ignore */ }
   }
   applyTheme(currentTheme());
   if (themeBtn) {

@@ -1,6 +1,6 @@
-// Production seed builder: copies the current SQLite DB to seed/upscbooks.db and
+// Production seed builder: copies the current SQLite DB to seed/upscnotes.db and
 // scrubs dev-only test users so the production DB ships clean. Run AFTER
-// importing books locally. Output: seed/upscbooks.db (no WAL/shm files).
+// importing books locally. Output: seed/upscnotes.db (no WAL/shm files).
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -8,9 +8,9 @@ import { DatabaseSync } from 'node:sqlite';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..');
-const SRC = path.join(ROOT, 'data', 'upscbooks.db');
+const SRC = path.join(ROOT, 'data', 'upscnotes.db');
 const SEED_DIR = path.join(ROOT, 'seed');
-const DST = path.join(SEED_DIR, 'upscbooks.db');
+const DST = path.join(SEED_DIR, 'upscnotes.db');
 
 if (!fs.existsSync(SRC)) { console.error('no db at', SRC); process.exit(1); }
 

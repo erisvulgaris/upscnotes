@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Edge TTS audiobook builder for UPSCbooks.
+Edge TTS audiobook builder for upscnotes.
 
 Synthesises every chapter of every book to 16 kHz mono Opus (for Cloudflare R2)
 and writes a per-chapter timing sidecar so the web reader can highlight the

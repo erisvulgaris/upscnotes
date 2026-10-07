@@ -1,4 +1,4 @@
-# Adding a book to UPSCbooks
+# Adding a book to upscnotes
 
 This guide is for future agents (or humans) adding a new textbook to the
 platform. It covers the data schema, PDF extraction strategies, the import
@@ -8,7 +8,7 @@ pipeline, and wiring up per-book "extras".
 
 Every book lives in two places:
 
-1. **The SQLite DB** (`data/upscbooks.db`) — one row per chapter in the
+1. **The SQLite DB** (`data/upscnotes.db`) — one row per chapter in the
    `chapters` table. Each chapter's content is stored as JSON in its
    `sections_json` column.
 2. **`content/<slug>/`** (git-tracked, private, served behind auth at

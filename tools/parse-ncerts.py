@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Parse NCERT EPUBs and generate a JSON manifest for the UPSCbooks import pipeline.
+Parse NCERT EPUBs and generate a JSON manifest for the upscnotes import pipeline.
 Each EPUB = one chapter. Organized by subject > series (book) > chapter.
 """
 import os, re, json, zipfile, sys
@@ -100,7 +100,7 @@ def extract_epub_text(epub_path):
 
 
 def make_chapter_json(paragraphs):
-    """Convert text paragraphs to UPSCbooks section/block JSON format."""
+    """Convert text paragraphs to upscnotes section/block JSON format."""
     if not paragraphs:
         return json.dumps([{
             'id': 'intro',
@@ -254,7 +254,7 @@ def main():
             incremental_save(books)
 
     # Write manifest
-    out_path = os.path.join(BASE, '..', 'upscbooks', 'data', 'ncert-manifest.json')
+    out_path = os.path.join(BASE, '..', 'upscnotes', 'data', 'ncert-manifest.json')
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, 'w', encoding='utf-8') as f:
         json.dump(books, f, indent=1, ensure_ascii=False)
@@ -266,7 +266,7 @@ def main():
 
 def incremental_save(books):
     """Save manifest after each subject."""
-    out_path = os.path.join(BASE, '..', 'upscbooks', 'data', 'ncert-manifest.json')
+    out_path = os.path.join(BASE, '..', 'upscnotes', 'data', 'ncert-manifest.json')
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     with open(out_path, 'w', encoding='utf-8') as f:
         json.dump(books, f, indent=1, ensure_ascii=False)

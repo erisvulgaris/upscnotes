@@ -1,5 +1,5 @@
 /* =====================================================================
-   UPSCbooks — shared frontend behaviour
+   upscnotes — shared frontend behaviour
    Progressive enhancement only: every page works with JS disabled.
    ===================================================================== */
 (function () {
@@ -23,7 +23,7 @@
   }
 
   /* ---------------------------------------------------------- theme */
-  var THEME_KEY = 'upscbooks-theme';
+  var THEME_KEY = 'upscnotes-theme';
   function applyTheme(theme) {
     root.setAttribute('data-theme', theme);
     var btn = $('#theme-toggle');
@@ -239,7 +239,7 @@
   var PRICING = window.UPSC_PRICING || { mode: 'lifetime', amount: 99900, couponsEnabled: true, note: '' };
   var COUPON = {
     retail: PRICING.amount,
-    key: 'upscbooks-coupon',
+    key: 'upscnotes-coupon',
   };
   var applied = null;
   var widgets = $$('[data-coupon-widget]');
@@ -453,7 +453,7 @@
           key: order.key_id,
           amount: order.amount,
           currency: order.currency,
-          name: 'UPSCbooks',
+          name: 'upscnotes',
           description: 'Lifetime access — the whole library',
           order_id: order.order_id,
           theme: { color: '#1E2A52' },
@@ -464,7 +464,7 @@
               busy = false;
               payBtn.disabled = false;
               setLabel(payLabel());
-              say('error', 'Payment went through but we could not confirm it. Email support@upscbooks.shop and we will fix it.');
+              say('error', 'Payment went through but we could not confirm it. Email support@upscnotes.shop and we will fix it.');
             }
           },
         });

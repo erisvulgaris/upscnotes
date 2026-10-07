@@ -6,7 +6,7 @@ const page = await browser.getPage("rt");
 await page.setViewportSize({ width: 1440, height: 900 });
 await page.goto(BASE + "/dashboard", { waitUntil: "load" });
 if (/\/login/.test(page.url())) {
-  await page.fill('input[name="email"]', "admin@upscbooks.in");
+  await page.fill('input[name="email"]', "admin@upscnotes.in");
   await page.fill('input[name="password"]', "admin12345");
   await Promise.all([page.waitForNavigation({ waitUntil: "load" }), page.click('button[type="submit"]')]);
 }

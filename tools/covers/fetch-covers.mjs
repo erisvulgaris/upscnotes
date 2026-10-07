@@ -19,7 +19,7 @@ import { fileURLToPath } from 'node:url';
 
 const OUT = path.join('covers');
 const PROV = path.join(OUT, 'provenance.json');
-const UA = 'UPSCbooks/1.0 (cover art fetch; contact support@upscbooks.shop)';
+const UA = 'upscnotes/1.0 (cover art fetch; contact support@upscnotes.shop)';
 
 fs.mkdirSync(OUT, { recursive: true });
 
@@ -29,7 +29,7 @@ const TITLE_STRONG = 0.9;
 const TITLE_OK = 0.78;
 const MIN_COVER = 1;
 
-const db = new DatabaseSync(path.join('data', 'upscbooks.db'));
+const db = new DatabaseSync(path.join('data', 'upscnotes.db'));
 const books = db.prepare(
   "SELECT slug, title, author FROM books WHERE status='published' ORDER BY slug"
 ).all();

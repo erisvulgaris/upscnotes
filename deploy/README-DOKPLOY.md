@@ -1,4 +1,4 @@
-# UPSCbooks — Dokploy Deployment Runbook
+# upscnotes — Dokploy Deployment Runbook
 
 Server: `176.100.37.236` (Ubuntu 24.04, Dokploy + Traefik v3)
 Domain: `https://upscnotes.shop` (A record → 176.100.37.236, proxied via Cloudflare)
@@ -10,14 +10,14 @@ Domain: `https://upscnotes.shop` (A record → 176.100.37.236, proxied via Cloud
 - The coupon is validated **server-side** in `createOrder()` — the client animation
   (`public/js/app.js`) is cosmetic; the actual Razorpay amount is whatever the API
   returns for the submitted code. A saved coupon is stored in `localStorage`
-  (`upscbooks-coupon`) and auto-applied on the next visit.
+  (`upscnotes-coupon`) and auto-applied on the next visit.
 - `payoutsFor()` exposes `coupon_price_paise` / `coupon_code` for embedding.
 
 ### Topology
 
 - Single Node 22 container (`upscotes-app`) on host port **3003** → container 3000.
 - SQLite DB lives in a named Docker volume (`upscotes-data`) mounted at `/app/data`.
-  First boot seeds `/app/data/upscbooks.db` from the baked `seed/upscbooks.db`.
+  First boot seeds `/app/data/upscnotes.db` from the baked `seed/upscnotes.db`.
 - Traefik routes `upscnotes.shop` → `http://176.100.37.236:3003`.
 - Optional GitHub auto-deploy webhook on port **9001**.
 
@@ -31,9 +31,9 @@ mkdir -p /opt/upscotes
 From **your Windows/CI machine**, copy the project minus heavy dirs:
 
 ```bash
-scp -r upscbooks/*.json upscbooks/Dockerfile upscbooks/docker-compose.prod.yml \
-    upscbooks/docker-entrypoint.sh upscbooks/.env.prod upscbooks/src upscbooks/public \
-    upscbooks/tools upscbooks/seed upscbooks/content upscbooks/deploy root@176.100.37.236:/opt/upscotes/
+scp -r upscnotes/*.json upscnotes/Dockerfile upscnotes/docker-compose.prod.yml \
+    upscnotes/docker-entrypoint.sh upscnotes/.env.prod upscnotes/src upscnotes/public \
+    upscnotes/tools upscnotes/seed upscnotes/content upscnotes/deploy root@176.100.37.236:/opt/upscotes/
 ```
 
 Or simpler, after committing to a git repo:

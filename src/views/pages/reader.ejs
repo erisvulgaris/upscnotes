@@ -16,11 +16,11 @@
   <script>
     (function () {
       try {
-        var saved = localStorage.getItem('upscbooks-theme');
+        var saved = localStorage.getItem('upscnotes-theme');
         var theme = saved === 'dark' || saved === 'light' ? saved
           : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
         document.documentElement.setAttribute('data-theme', theme);
-        var f = localStorage.getItem('upscbooks-font-scale');
+        var f = localStorage.getItem('upscnotes-font-scale');
         if (f) document.documentElement.style.setProperty('--font-scale', f);
       } catch (e) {}
     })();
@@ -258,7 +258,7 @@
   </div>
 
   <script>
-    window.UPSCBOOKS = {
+    window.upscnotes = {
       slug: "<%= book.slug %>",
       title: <%- JSON.stringify(book.title) %>,
       chapter: <%= chapter.number %>,

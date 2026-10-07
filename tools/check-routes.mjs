@@ -22,12 +22,12 @@ async function signIn() {
   const r = await fetch(BASE + '/login', {
     method: 'POST',
     headers: { 'content-type': 'application/x-www-form-urlencoded', cookie: sessionJar.join('; ') },
-    body: new URLSearchParams({ _csrf: csrf, email: 'admin@upscbooks.in', password: 'admin12345' }),
+    body: new URLSearchParams({ _csrf: csrf, email: 'admin@upscnotes.in', password: 'admin12345' }),
     redirect: 'manual',
   });
   // The session id is regenerated on login, so the POST response carries the
   // cookie that actually matters. Take every cookie it sets: the name is
-  // `upscbooks.sid`, not a framework default.
+  // `upscnotes.sid`, not a framework default.
   const fresh = (r.headers.getSetCookie ? r.headers.getSetCookie() : [])
     .map((c) => c.split(';')[0])
     .filter(Boolean);
@@ -86,7 +86,7 @@ async function loginWithNext(next) {
   setA.forEach((c) => jar.push(c.split(';')[0]));
   const html = await page.text();
   const csrf = (html.match(/name="_csrf" value="([^"]+)"/) || [])[1];
-  const body = new URLSearchParams({ _csrf: csrf, email: 'admin@upscbooks.in', password: 'admin12345' });
+  const body = new URLSearchParams({ _csrf: csrf, email: 'admin@upscnotes.in', password: 'admin12345' });
   if (next !== undefined) body.set('next', next);
   const r = await fetch(BASE + '/login', {
     method: 'POST',

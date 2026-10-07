@@ -1,4 +1,4 @@
-# UPSCbooks — agent instructions
+# upscnotes — agent instructions
 
 ## Project overview
 - Node + Express + EJS + SQLite app under `src/`.
@@ -10,8 +10,8 @@
 ## Source books
 - Standard books: `C:\Users\Vulgaris\Documents\iCloudDrive\UPSC E-books`
 - NCERT EPUBs: `C:\Users\Vulgaris\Documents\iCloudDrive\UPSC all ncerts EPub`
-- Local junction: `upscbooks/booksrc` → standard books folder
-- Local copies: `upscbooks/books/` → all 46 book source files copied locally for reliable access
+- Local junction: `upscnotes/booksrc` → standard books folder
+- Local copies: `upscnotes/books/` → all 46 book source files copied locally for reliable access
 
 ## Image extraction workflow
 - Primary tool: `tools/extract-images.py`

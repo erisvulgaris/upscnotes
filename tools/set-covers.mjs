@@ -2,7 +2,7 @@ import { DatabaseSync } from 'node:sqlite';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const db = new DatabaseSync(path.join('data', 'upscbooks.db'));
+const db = new DatabaseSync(path.join('data', 'upscnotes.db'));
 const prov = JSON.parse(fs.readFileSync(path.join('covers', 'provenance.json'), 'utf8'));
 
 let updated = 0;

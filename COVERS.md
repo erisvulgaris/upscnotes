@@ -87,6 +87,6 @@ upload by hand than to match automatically.
 ## Note on `seed/`
 
 `books.cover` lives in SQLite, so a cover uploaded in production only persists
-where the database does. `seed/upscbooks.db` is a snapshot; it is not rewritten
+where the database does. `seed/upscnotes.db` is a snapshot; it is not rewritten
 by uploads. Regenerate it with `node tools/make-seed.mjs` if you want the
 seeded covers to change too.

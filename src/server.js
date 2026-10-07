@@ -4,5 +4,5 @@ const PORT = process.env.PORT || 3000;
 const app = createApp();
 
 app.listen(PORT, () => {
-  console.log(`UPSCbooks running at http://localhost:${PORT}`);
+  console.log(`upscnotes running at http://localhost:${PORT}`);
 });

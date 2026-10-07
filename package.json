@@ -1,7 +1,7 @@
 {
-  "name": "upscbooks",
+  "name": "upscnotes",
   "version": "1.0.0",
-  "description": "UPSCbooks — paid books platform (lifetime ₹299 offer). Node + Express + EJS + SQLite.",
+  "description": "upscnotes — paid books platform (lifetime ₹299 offer). Node + Express + EJS + SQLite.",
   "type": "module",
   "main": "src/server.js",
   "scripts": {

@@ -11,7 +11,7 @@ question bank building a 616,000px DOM.
 
 ```powershell
 # from the repo root, with the dev server on 4177
-canary session start --name upscbooks-qa
+canary session start --name upscnotes-qa
 canary run tools\qa\layout-a11y.js       --session <id> --step a --timeout 200
 canary run tools\qa\overflow.js          --session <id> --step b --timeout 180
 canary run tools\qa\reader-dock.js       --session <id> --step c --timeout 200
@@ -88,7 +88,7 @@ node tools\audit-content.mjs       # typographic findings in the stored chapter 
 ```
 
 `check-routes.mjs` signs in itself. If it exits with code 2 and mentions CSRF,
-the login POST was rejected — the session cookie is named `upscbooks.sid`, and
+the login POST was rejected — the session cookie is named `upscnotes.sid`, and
 the id is regenerated on login, so the cookie from the POST response has to
 replace the one from the GET.
 

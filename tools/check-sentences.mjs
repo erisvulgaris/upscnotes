@@ -4,7 +4,7 @@
 import { DatabaseSync } from 'node:sqlite';
 import { sentenceList, sentenceCount, renderChapter } from '../src/content.js';
 
-const db = new DatabaseSync('data/upscbooks.db');
+const db = new DatabaseSync('data/upscnotes.db');
 const books = db.prepare("SELECT id, slug FROM books WHERE status='published' ORDER BY slug").all();
 
 let checked = 0, mismatched = 0, totalSentences = 0;

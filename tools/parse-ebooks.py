@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
 Parse UPSC standard books (PDF via PyMuPDF, EPUB via zipfile) into the
-UPSCbooks chapter/section JSON manifest format.
+upscnotes chapter/section JSON manifest format.
 
-Output: one JSON file per book in <upscbooks>/data/ebooks/<slug>.json
+Output: one JSON file per book in <upscnotes>/data/ebooks/<slug>.json
 """
 import os, re, json, sys, zipfile
 from html.parser import HTMLParser
@@ -301,7 +301,7 @@ def slugify(text):
 
 
 def make_chapter_json(paragraphs):
-    """Convert paragraphs to UPSCbooks section/block JSON (param style)."""
+    """Convert paragraphs to upscnotes section/block JSON (param style)."""
     if not paragraphs:
         return json.dumps([{
             'id': 'intro', 'num': 1, 'title': 'Content',

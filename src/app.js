@@ -41,7 +41,7 @@ export function createApp() {
   app.use(express.json({ verify: (req, res, buf) => { req.rawBody = buf; } }));
 
   app.use(session({
-    name: 'upscbooks.sid',
+    name: 'upscnotes.sid',
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,

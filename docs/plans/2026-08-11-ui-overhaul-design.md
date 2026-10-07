@@ -1,7 +1,7 @@
 # UI Overhaul Design — 2026-08-11
 
 ## Problem
-The UPSCbooks site has ~30 UI issues across all pages. The most critical: the home page shows 46 books in a flat ungrouped grid, covers are identical colored rectangles, checkout is outdated, auth pages are bare, and the reader lacks progress indication.
+The upscnotes site has ~30 UI issues across all pages. The most critical: the home page shows 46 books in a flat ungrouped grid, covers are identical colored rectangles, checkout is outdated, auth pages are bare, and the reader lacks progress indication.
 
 ## Sections
 

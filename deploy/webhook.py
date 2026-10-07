@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""GitHub auto-deploy webhook for UPSCbooks.
+"""GitHub auto-deploy webhook for upscnotes.
 
 Registers a POST /webhook listener (port 9001) that pulls the latest code and
 rebuilds the container. Wire it up as a systemd unit (see README-DOKPLOY.md).

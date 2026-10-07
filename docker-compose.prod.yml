@@ -1,4 +1,4 @@
-# UPSCbooks production compose — for the Dokploy server (176.100.37.236).
+# upscnotes production compose — for the Dokploy server (176.100.37.236).
 #   Host alloc: app on 3003 (free; 3000 dokploy, 3001/5000 neulabs).
 #   Domain: upscnotes.shop via Traefik + Cloudflare.
 # Deploy: docker compose -f docker-compose.prod.yml up -d --build

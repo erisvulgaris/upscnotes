@@ -1,5 +1,5 @@
 /* =====================================================================
-   UPSCbooks — text to speech
+   upscnotes — text to speech
 
    Sentence-level playback driven by the server-rendered `.tts-sent[data-sid]`
    spans. Everything the user chooses (voice, speed, follow-along, auto-next)
@@ -47,18 +47,18 @@
 
   function loadPrefs() {
     try {
-      P.voice = localStorage.getItem('upscbooks-tts-voice') || '';
-      P.rate = parseFloat(localStorage.getItem('upscbooks-tts-rate')) || 1;
-      P.follow = localStorage.getItem('upscbooks-tts-follow') !== '0';
-      P.autoChapter = localStorage.getItem('upscbooks-tts-autochapter') !== '0';
+      P.voice = localStorage.getItem('upscnotes-tts-voice') || '';
+      P.rate = parseFloat(localStorage.getItem('upscnotes-tts-rate')) || 1;
+      P.follow = localStorage.getItem('upscnotes-tts-follow') !== '0';
+      P.autoChapter = localStorage.getItem('upscnotes-tts-autochapter') !== '0';
     } catch (e) { /* private mode */ }
   }
   function savePrefs() {
     try {
-      localStorage.setItem('upscbooks-tts-voice', P.voice);
-      localStorage.setItem('upscbooks-tts-rate', String(P.rate));
-      localStorage.setItem('upscbooks-tts-follow', P.follow ? '1' : '0');
-      localStorage.setItem('upscbooks-tts-autochapter', P.autoChapter ? '1' : '0');
+      localStorage.setItem('upscnotes-tts-voice', P.voice);
+      localStorage.setItem('upscnotes-tts-rate', String(P.rate));
+      localStorage.setItem('upscnotes-tts-follow', P.follow ? '1' : '0');
+      localStorage.setItem('upscnotes-tts-autochapter', P.autoChapter ? '1' : '0');
     } catch (e) { /* ignore */ }
   }
 
@@ -94,8 +94,8 @@
   if (!list.length) { dock.hidden = true; return; }
   dock.hidden = false;
 
-  var storageKey = 'upscbooks-tts-pos:' + (window.UPSCBOOKS ? window.UPSCBOOKS.slug : '') +
-    ':' + (window.UPSCBOOKS ? window.UPSCBOOKS.chapter : '');
+  var storageKey = 'upscnotes-tts-pos:' + (window.upscnotes ? window.upscnotes.slug : '') +
+    ':' + (window.upscnotes ? window.upscnotes.chapter : '');
   var idx = 0;
   try {
     idx = parseInt(localStorage.getItem(storageKey) || '0', 10) || 0;

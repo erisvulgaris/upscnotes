@@ -1,5 +1,5 @@
 /* =====================================================================
-   UPSCbooks — design tokens
+   upscnotes — design tokens
    Mobile-first. Base viewport 360px; every layout rule scales up from
    there via min-width. Nothing in the app stylesheets may hardcode a
    colour — pull it from this file so dark mode stays honest.

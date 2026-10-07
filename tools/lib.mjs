@@ -3,7 +3,7 @@
 // authenticated session from plain Node.
 import fs from 'node:fs';
 
-export async function signIn(base = 'http://localhost:4177', email = 'admin@upscbooks.in', password = 'admin12345') {
+export async function signIn(base = 'http://localhost:4177', email = 'admin@upscnotes.in', password = 'admin12345') {
   const jar = new Map();
   const cookie = () => [...jar].map(([k, v]) => k + '=' + v).join('; ');
   const absorb = (res) => {

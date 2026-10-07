@@ -4,7 +4,7 @@ import path from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
 import { sentenceList } from '../src/content.js';
 
-const db = new DatabaseSync('data/upscbooks.db');
+const db = new DatabaseSync('data/upscnotes.db');
 const book = db.prepare("SELECT id, slug FROM books WHERE slug='economics'").get();
 const ch = db.prepare('SELECT number, sections_json FROM chapters WHERE book_id=? AND number=1').get(book.id);
 

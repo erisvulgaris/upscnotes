@@ -77,6 +77,30 @@
     </div>
   </section>
 
+  <!-- ============================ TTS DEMO ============================ -->
+  <section class="section band-tight" id="tts-demo-section">
+    <div class="container">
+      <div class="tts-demo-card reveal">
+        <div class="tts-demo-inner">
+          <div class="tts-demo-text">
+            <p class="overline">Text-to-speech</p>
+            <h2 class="section-title" style="margin-top:var(--sp-2);">Hear it in action</h2>
+            <p class="tts-demo-sample">
+              "The Civil Services Examination is one of the most prestigious examinations in India. It tests the analytical and administrative capabilities of candidates."
+            </p>
+          </div>
+          <div class="tts-demo-controls">
+            <button class="btn btn-primary btn-lg" id="tts-demo-play" type="button">
+              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+              Play sample
+            </button>
+            <p class="tts-demo-note">Uses your browser's built-in voice — tap to try</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============================ SAMPLE ============================ -->
   <% if (sample) { %>
   <section class="section sample-band" id="sample">
@@ -408,7 +432,7 @@
         <h2 class="section-title">Questions people ask</h2>
         <p class="lead" style="margin-top:var(--sp-3);max-width:34ch;">
           If something is not answered here, email
-          <a href="mailto:support@upscbooks.shop">support@upscbooks.shop</a>
+          <a href="mailto:support@upscnotes.shop">support@upscnotes.shop</a>
           and a person will answer.
         </p>
       </div>
@@ -459,3 +483,38 @@
     </div>
   </section>
 </div>
+
+<script>
+(function () {
+  'use strict';
+  var btn = document.getElementById('tts-demo-play');
+  if (!btn) return;
+  var synth = window.speechSynthesis;
+  var speaking = false;
+  var utterance = null;
+
+  btn.addEventListener('click', function () {
+    if (speaking) {
+      synth.cancel();
+      speaking = false;
+      btn.innerHTML = '<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path d=\"M8 5.5v13l11-6.5z\"/></svg> Play sample';
+      return;
+    }
+    utterance = new SpeechSynthesisUtterance('The Civil Services Examination is one of the most prestigious examinations in India. It tests the analytical and administrative capabilities of candidates.');
+    utterance.rate = 0.95;
+    utterance.pitch = 1;
+    utterance.volume = 1;
+    utterance.onend = function () {
+      speaking = false;
+      btn.innerHTML = '<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path d=\"M8 5.5v13l11-6.5z\"/></svg> Play sample';
+    };
+    utterance.onerror = function () {
+      speaking = false;
+      btn.innerHTML = '<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"20\" height=\"20\" aria-hidden=\"true\"><path d=\"M8 5.5v13l11-6.5z\"/></svg> Play sample';
+    };
+    speaking = true;
+    btn.innerHTML = '<svg viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"20\" height=\"20\" aria-hidden=\"true\"><rect x=\"7\" y=\"5\" width=\"3.5\" height=\"14\" rx=\"1.2\"/><rect x=\"13.5\" y=\"5\" width=\"3.5\" height=\"14\" rx=\"1.2\"/></svg> Pause';
+    synth.speak(utterance);
+  });
+})();
+</script>

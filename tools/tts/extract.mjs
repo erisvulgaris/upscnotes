@@ -16,7 +16,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '..', '..');
 const OUT = path.join(ROOT, 'audio', 'audio-source.json');
 
-const db = new DatabaseSync(path.join(ROOT, 'data', 'upscbooks.db'));
+const db = new DatabaseSync(path.join(ROOT, 'data', 'upscnotes.db'));
 
 // narrationText() in src/content.js walks the stored section graph exactly the
 // way the reader renders it, so the synthesiser never reads structural keys

@@ -4,9 +4,9 @@ import { getUserByEmail, createUser, setUserRole } from '../src/model.js';
 
 migrate();
 
-const email = (process.env.ADMIN_EMAIL || 'admin@upscbooks.in').trim().toLowerCase();
+const email = (process.env.ADMIN_EMAIL || 'admin@upscnotes.in').trim().toLowerCase();
 const password = process.env.ADMIN_PASSWORD || 'admin12345';
-const name = process.env.ADMIN_NAME || 'UPSCbooks Admin';
+const name = process.env.ADMIN_NAME || 'upscnotes Admin';
 
 let user = getUserByEmail(email);
 if (!user) {

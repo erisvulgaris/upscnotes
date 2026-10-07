@@ -17,7 +17,7 @@ router.get('/login', (req, res) => {
   if (req.session.userId) return res.redirect('/dashboard');
   renderPage(res, 200, 'login', {
     title: 'Sign in',
-    metaDesc: 'Sign in to open your UPSCbooks library.',
+    metaDesc: 'Sign in to open your upscnotes library.',
     error: null,
     next: safeNext(req.query.next, '/dashboard'),
     email: '',
@@ -32,7 +32,7 @@ router.post('/login', (req, res, next) => {
   if (!user || !verifyPassword(password, user.password_hash)) {
     return renderPage(res, 401, 'login', {
       title: 'Sign in',
-      metaDesc: 'Sign in to open your UPSCbooks library.',
+      metaDesc: 'Sign in to open your upscnotes library.',
       error: 'That email and password do not match an account.',
       next: safeNext(req.body.next, '/dashboard'),
       email,
@@ -54,7 +54,7 @@ router.get('/signup', (req, res) => {
   if (req.session.userId) return res.redirect('/dashboard');
   renderPage(res, 200, 'signup', {
     title: 'Create account',
-    metaDesc: 'Create a free UPSCbooks account.',
+    metaDesc: 'Create a free upscnotes account.',
     error: null,
     email: '',
     name: '',
@@ -70,7 +70,7 @@ router.post('/signup', (req, res, next) => {
   const fail = (error, code = 422) =>
     renderPage(res, code, 'signup', {
       title: 'Create account',
-      metaDesc: 'Create a free UPSCbooks account.',
+      metaDesc: 'Create a free upscnotes account.',
       error,
       email,
       name,
@@ -98,7 +98,7 @@ router.post('/signup', (req, res, next) => {
 router.get('/logout', (req, res) => {
   renderPage(res, 200, 'signed-out', {
     title: 'Signed out',
-    metaDesc: 'You have been signed out of UPSCbooks.',
+    metaDesc: 'You have been signed out of upscnotes.',
     error: null,
   });
 });

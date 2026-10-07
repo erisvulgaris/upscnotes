@@ -40,7 +40,7 @@ foreach ($need in @('R2_ACCOUNT_ID','R2_BUCKET','R2_ENDPOINT','R2_ACCESS_KEY_ID'
   }
 }
 
-$remote = "upscbooks:$($env:R2_BUCKET)"
+$remote = "upscnotes:$($env:R2_BUCKET)"
 $audio  = Join-Path (Get-Location) 'audio'
 
 Write-Host "account : $env:R2_ACCOUNT_ID"
@@ -49,16 +49,16 @@ Write-Host "remote  : $remote"
 Write-Host ""
 
 # --- rclone config, entirely from the environment --------------------------
-$env:RCLONE_CONFIG_UPSCBOOKS_TYPE = 's3'
-$env:RCLONE_CONFIG_UPSCBOOKS_PROVIDER = 'Cloudflare'
-$env:RCLONE_CONFIG_UPSCBOOKS_ACCESS_KEY_ID = $env:R2_ACCESS_KEY_ID
-$env:RCLONE_CONFIG_UPSCBOOKS_SECRET_ACCESS_KEY = $env:R2_SECRET_ACCESS_KEY
-$env:RCLONE_CONFIG_UPSCBOOKS_ENDPOINT = $env:R2_ENDPOINT
+$env:RCLONE_CONFIG_upscnotes_TYPE = 's3'
+$env:RCLONE_CONFIG_upscnotes_PROVIDER = 'Cloudflare'
+$env:RCLONE_CONFIG_upscnotes_ACCESS_KEY_ID = $env:R2_ACCESS_KEY_ID
+$env:RCLONE_CONFIG_upscnotes_SECRET_ACCESS_KEY = $env:R2_SECRET_ACCESS_KEY
+$env:RCLONE_CONFIG_upscnotes_ENDPOINT = $env:R2_ENDPOINT
 # R2 has no regions; the S3 signature requires the literal string "auto".
-$env:RCLONE_CONFIG_UPSCBOOKS_REGION = 'auto'
-$env:RCLONE_CONFIG_UPSCBOOKS_ACL = 'private'
+$env:RCLONE_CONFIG_upscnotes_REGION = 'auto'
+$env:RCLONE_CONFIG_upscnotes_ACL = 'private'
 # The R2 S3 endpoint answers lsd / ListObjectsV2, which rclone needs for sync.
-$env:RCLONE_CONFIG_UPSCBOOKS_LIST_VERSION = '2'
+$env:RCLONE_CONFIG_upscnotes_LIST_VERSION = '2'
 
 if ($Verify) {
   Write-Host '--- connectivity ---'

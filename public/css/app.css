@@ -1,5 +1,5 @@
 /* =====================================================================
-   UPSCbooks — application styles
+   upscnotes — application styles
    MOBILE FIRST. Base rules target a 360–390px phone; layout only
    scales up inside the min-width blocks at the bottom of each section.
    No raw colours below — everything resolves through tokens.css.
@@ -843,6 +843,29 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
   .sample-aside { position: sticky; top: calc(var(--head-h) + var(--sp-6)); }
   .sample-page { padding: var(--sp-10) var(--sp-9); }
   .sample-band { padding-block: var(--sp-20); }
+}
+
+/* ---------- TTS Demo -------------------------------------------------- */
+.tts-demo-card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-2xl);
+  padding: var(--sp-6) var(--sp-5);
+}
+.tts-demo-inner {
+  display: grid; gap: var(--sp-5); align-items: center;
+}
+.tts-demo-text { min-width: 0; }
+.tts-demo-sample {
+  font-family: var(--font-display); font-size: var(--fs-body); font-weight: 700;
+  line-height: 1.35; color: var(--ink); margin-top: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4); background: var(--bg); border-radius: var(--r-lg);
+  border-left: 4px solid var(--brand);
+}
+.tts-demo-controls { display: flex; flex-direction: column; gap: var(--sp-2); align-items: start; }
+.tts-demo-note {
+  font-family: var(--font-ui); font-size: var(--fs-2xs); color: var(--ash);
+}
+@media (min-width: 640px) {
+  .tts-demo-inner { grid-template-columns: minmax(0, 1.4fr) auto; }
 }
 
 /* ---------- Feature points ---------------------------------------------

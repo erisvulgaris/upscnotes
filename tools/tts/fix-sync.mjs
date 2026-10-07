@@ -43,7 +43,7 @@ let built = 0, skipped = 0;
 let totalSentences = 0, totalMatched = 0;
 const problems = [];
 
-const db = new DatabaseSync(path.join('data', 'upscbooks.db'));
+const db = new DatabaseSync(path.join('data', 'upscnotes.db'));
 const books = db.prepare("SELECT id, slug FROM books WHERE status='published' ORDER BY slug").all();
 
 for (const book of books) {

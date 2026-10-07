@@ -25,7 +25,7 @@ router.get('/dashboard', requireAuth, (req, res) => {
 
   renderPage(res, 200, 'dashboard', {
     title: 'My library',
-    metaDesc: 'Your UPSCbooks library and reading progress.',
+    metaDesc: 'Your upscnotes library and reading progress.',
     groups,
     books,
     sub,
@@ -108,7 +108,7 @@ router.get('/checkout', requireAuth, (req, res) => {
   const ncertCount = books.filter((b) => b.category === 'ncert').length;
   renderPage(res, 200, 'checkout', {
     title: 'Get lifetime access',
-    metaDesc: 'Lifetime access to the whole UPSCbooks library for a one-time payment.',
+    metaDesc: 'Lifetime access to the whole upscnotes library for a one-time payment.',
     totalBooks,
     totalChapters,
     ncertCount,

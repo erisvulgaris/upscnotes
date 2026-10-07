@@ -34,7 +34,7 @@ export function renderPage(res, status, page, locals = {}) {
   const merged = {
     csrf: '',
     path: '/',
-    title: 'UPSCbooks',
+    title: 'upscnotes',
     user: null,
     isAdmin: false,
     hasSub: false,

@@ -76,7 +76,7 @@ const p2 = await browser.getPage("kreader");
 await p2.setViewportSize({ width: 1440, height: 900 });
 await p2.goto(BASE + "/dashboard", { waitUntil: "load" });
 if (/\/login/.test(p2.url())) {
-  await p2.fill('input[name="email"]', "admin@upscbooks.in");
+  await p2.fill('input[name="email"]', "admin@upscnotes.in");
   await p2.fill('input[name="password"]', "admin12345");
   await Promise.all([p2.waitForNavigation({ waitUntil: "load" }), p2.click('button[type="submit"]')]);
 }
