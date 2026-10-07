@@ -69,9 +69,14 @@ router.get('/:slug/:chapter.opus', requireAuth, (req, res) => {
   if (!slug || !chapterRe.test(chapter)) return res.status(404).end();
 
   const abs = audioPath(slug, chapter);
-  if (!abs) {
-    // No local copy — this is the deployed case, where the media lives in R2.
-    // Hand back a short-lived signature instead of a 404.
+  if (abs) {
+    if (signingEnabled) {
+      const remote = audioUrl(slug, chapter);
+      if (remote && remote !== `/audio/${slug}/${chapter}.opus`) {
+        return res.redirect(302, remote);
+      }
+    }
+  } else {
     const remote = audioUrl(slug, chapter);
     if (remote && remote !== `/audio/${slug}/${chapter}.opus`) {
       return res.redirect(302, remote);

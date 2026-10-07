@@ -1,0 +1,13 @@
+{
+  "book_slug": "history-our-past-1",
+  "book_title": "History (Our Past 1)",
+  "pages_processed": 0,
+  "images_extracted": 15,
+  "tables_extracted": 0,
+  "figures_extracted": 0,
+  "output_dir": "C:\\AppDev 2026\\Modern Indian History book himanshu khatri\\upscbooks\\content\\history-our-past-1\\images",
+  "timestamp": "2026-10-07T00:27:07.000101",
+  "status": "completed",
+  "dry_run": false,
+  "errors": []
+}

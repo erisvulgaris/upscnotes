@@ -1,0 +1,13 @@
+{
+  "book_slug": "modern-indian-history",
+  "book_title": "Modern Indian History",
+  "pages_processed": 0,
+  "images_extracted": 0,
+  "tables_extracted": 0,
+  "figures_extracted": 0,
+  "output_dir": "C:\\AppDev 2026\\Modern Indian History book himanshu khatri\\upscbooks\\content\\modern-indian-history\\images",
+  "timestamp": "2026-10-07T01:04:40.845839",
+  "status": "completed",
+  "dry_run": true,
+  "errors": []
+}

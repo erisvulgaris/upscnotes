@@ -126,10 +126,10 @@
         <div class="pricing-card reveal">
           <span class="pricing-tag">Lifetime</span>
           <div class="price">
-            <span class="price-cur">₹</span><span class="price-num">999</span>
-            <span class="price-per">one-time</span>
+            <span class="price-cur">₹</span><span class="price-num"><%= pricing.rupees %></span>
+            <span class="price-per"><%= pricing.terms.cadence %></span>
           </div>
-          <div class="price-old">₹1,199 launch price</div>
+          <% if (pricing.compare) { %><div class="price-old"><%= pricing.compareLabel %> launch price</div><% } %>
           <p class="lead" style="margin-top:var(--sp-4);">
             One payment unlocks every book in the library, current and future.
           </p>

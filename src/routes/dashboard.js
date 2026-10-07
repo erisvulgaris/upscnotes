@@ -30,6 +30,7 @@ router.get('/dashboard', requireAuth, (req, res) => {
     books,
     sub,
     paid: req.query.paid === '1',
+    pricing: getPricing(),
   });
 });
 

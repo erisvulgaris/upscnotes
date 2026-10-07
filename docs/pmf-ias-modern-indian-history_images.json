@@ -1,0 +1,13 @@
+{
+  "book_slug": "pmf-ias-modern-indian-history",
+  "book_title": "PMF IAS Modern Indian History",
+  "pages_processed": 850,
+  "images_extracted": 166,
+  "tables_extracted": 0,
+  "figures_extracted": 0,
+  "output_dir": "C:\\AppDev 2026\\Modern Indian History book himanshu khatri\\upscbooks\\content\\pmf-ias-modern-indian-history\\images",
+  "timestamp": "2026-10-07T01:04:40.377616",
+  "status": "completed",
+  "dry_run": true,
+  "errors": []
+}

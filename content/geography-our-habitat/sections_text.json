@@ -1,0 +1,7774 @@
+{
+"sections": [
+{
+"id": "sec-1",
+"num": 1,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "MAJOR DOMAINS OF THE EARTH",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "image",
+"src": "images/ch00_1045.webp",
+"wide": false,
+"caption_runs": []
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "As you have read in the first chapter, the earth is the only planet which has life. Human beings can live here because the life sustaining elements of land, water and air are present on the earth.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The surface of the earth is a complex zone in which three main components of the environment meet, overlap and interact. The solid portion of the earth on which we live is called the Lithosphere. The gaseous layers that surround the earth, is the Atmosphere, where oxygen, nitrogen, carbondioxide and other gases are found. Water covers a very big area of the earth’s surface and this area is called the Hydrosphere. The Hydrosphere comprises water in all its forms, that is, ice, water and water vapour.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The Biosphere is the narrow zone where we find land, water and air together, which contains all forms of life.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Word Origin",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "In the Greek language, Lithos means Stone; Atmos means Vapour; Hudor means Water; and Bios means Life.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Can you make words using the above?",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-2",
+"num": 2,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "LITHOSPHERE",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "image",
+"src": "images/ch00_1102.webp",
+"wide": false,
+"caption_runs": []
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The solid portion of the earth is called the Lithosphere. It comprises the rocks of the earth’s crust and the thin layers of soil that contain nutrient elements which sustain organisms.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "There are two main divisions of the earth’s surface. The large landmasses are known as the continents and the huge water bodies are called the ocean basins. All the oceans of the world are connected with one another. Look at the map of the world (Figure 5.1). Are all the land masses connected with one another?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The level of seawater remains the same everywhere. Elevation of land is measured from the level of the sea, which is taken as zero.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 5.1 : The World : Continents and Oceans",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The highest mountain peak Mt. Everest is 8,848 metres above the sea level. The greatest depth of 11,022 metres is recorded at Mariana Trench in the Pacific Ocean. Could you imagine that depth of sea is much more than the highest point?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Do you know?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Edmund Hillary (New Zealand) and Tenzing Norgay Sherpa (India) were the first men to climb the highest mountain peak Mt. Everest on the planet earth on 29th May, 1953.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Junko Tabei (Japan) was the first woman to reach the summit on 16th May, 1975. The first Indian woman to climb the highest peak on 23rd May, 1984 was Bachendri Pal.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Continents",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "There are seven major continents. These are separated by large water bodies. These continents are – Asia, Europe, Africa, North America, South America, Australia and Antarctica. Look at the map of the world (Figure 5.1) and notice that the greater part of the land mass lies in the Northern Hemisphere.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Asia is the largest continent. It covers about one-third of the total land area of the earth. The continent lies in the Eastern Hemisphere. The Tropic of Cancer passes through this continent. Asia is separated from Europe by the Ural mountains on the west (Figure 5.1). The combined landmass of Europe and Asia is called the Eurasia (Europe + Asia).",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Europe is much smaller than Asia. The continent lies to the west of Asia. The Arctic Circle passes through it. It is bound by water bodies on three sides. Look at the map of the world and locate it.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Africa is the second largest continent after Asia. The Equator or 0° latitude runs almost through the middle of the continent. A large part of Africa lies in the Northern Hemisphere. Look at the Figure 5.1; you will find that it is the only continent through which the Tropic of Cancer, the Equator and the Tropic of Capricorn pass.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The Sahara Desert, the world’s largest hot desert, is located in Africa. The continent is bound on all sides by oceans and seas. Look at the world map (Figure 5.1). You will notice that the world’s longest river the Nile, flows through Africa. Notice where the Equator, the Tropic of Cancer and the Tropic of Capricorn pass in the map of Africa.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "North America is the third largest continent of the world. It is linked to South America by a very narrow strip of land called the Isthmus of Panama. The continent lies completely in the Northern and Western Hemisphere. Three oceans surround this continent. Can you name these oceans?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "South America lies mostly in the Southern Hemisphere. Which two oceans surround it on the east and the west? The Andes, world’s longest mountain range, runs through its length from north to south (Figure 5.1). South America has the world’s largest river, the Amazon.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Australia is the smallest continent that lies entirely in the Southern Hemisphere. It is surrounded on all sides by the oceans and seas. It is called an island continent.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Antarctica, completely in the Southern Hemisphere, is a huge continent. The South Pole lies almost at the centre of this continent. As it is located in the South Polar Region, it is permanently covered with thick ice sheets. There are no permanent human settlements. Many countries have research stations in Antarctica. India also has research stations there. These are named as Maitri and Dakshin Gangotri.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 5.2 : Isthmus and Strait",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-3",
+"num": 3,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "HYDROSPHERE",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "image",
+"src": "images/ch00_1113.webp",
+"wide": false,
+"caption_runs": []
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The earth is called the blue planet. More than 71 per cent of the earth is covered with water and 29 per cent is with land. Hydrosphere consists of water in all its forms. As running water in oceans and rivers and in lakes, ice in glaciers, underground water and the water vapour in atmosphere, all comprise the hydrosphere.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "More than 97% of the Earth’s water is found in the oceans and is too salty for human use. A large proportion of the rest of the water is in the form of icesheets and glaciers or under the ground and a very small percentage is available as fresh water for human use. Hence, despite being a ‘blue planet’ we face a shortage of water!!",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure5.3 : Comparative size of the continents",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Count the squares given in Figure 5.3 and answer the following :",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) Name the largest continent; (b) Which is larger – Europe or Australia?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Oceans",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Oceans are the major part of hydrosphere. They are all interconnected.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The ocean waters are always moving. The three chief movements of ocean waters are the waves, the tides and the ocean currents. The four major oceans are the Pacific Ocean, the Atlantic Ocean, the Indian Ocean and the Arctic Ocean, in order of their size (Figure 5.1).",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The Pacific Ocean is the largest ocean. It is spread over one-third of the earth. Mariana Trench, the deepest part of the earth, lies in the Pacific Ocean. The Pacific Ocean is almost circular in shape. Asia, Australia, North and South Americas surround it. Look at the map and find out the location of the continents around the Pacific Ocean.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The Atlantic Ocean is the second largest Ocean in the world. It is ‘S’ shaped. It is flanked by the North and South Americas on the western side, and Europe and Africa on the eastern side. The coastline of Atlantic Ocean is highly indented. This irregular and indented coastline provides ideal location for natural harbours and ports. From the point of view of commerce, it is the busiest Ocean.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The Indian Ocean is the only ocean named after a country, that is, India. The shape of ocean is almost triangular. In the north, it is bound by Asia, in the west by Africa and in the east by Australia.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The Arctic Ocean is located within the Arctic Circle and surrounds the North Pole. It is connected with the Pacific Ocean by a narrow stretch of shallow water known as Berring strait. It is bound by northern coasts of North America and Eurasia.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-4",
+"num": 4,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "ATMOSPHERE",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "image",
+"src": "images/ch00_1275.webp",
+"wide": false,
+"caption_runs": []
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The earth is surrounded by a layer of gas called the atmosphere. This thin blanket of air is an integral and important aspect of the planet. It provides us with the air we breathe and protects us from the harmful effects of sun’s rays.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The atmosphere extends up to a height of about 1,600 kilometres. The atmosphere is divided into five layers based on composition, temperature and other properties. These layers starting from earth’s surface are called the troposphere, the stratosphere, the mesosphere, the thermosphere and the exosphere.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The atmosphere is composed mainly of nitrogen and oxygen, which make up about 99 per cent of clean, dry air. Nitrogen 78 per cent, oxygen 21 per cent and other gases like carbondioxide, argon and others comprise 1 per cent by volume. Oxygen is the breath of life while nitrogen helps in the growth of living organisms. Carbon dioxide, though present in minute amount, is important as it absorbs heat radiated by the earth, thereby keeping the planet warm. It is also essential for the growth of plants.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 5.4 : Layers of the Atmosphere",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The density of the atmosphere varies with height. It is maximum at the sea level and decreases rapidly as we go up. You know, the climbers experience problems in breathing due to this decrease in the density of air. They have to carry with them oxygen cylinders to be able to breathe at high altitudes. The temperature also decreases as we go upwards. The atmosphere exerts pressure on the earth. This varies from place to place. Some areas experience high pressure and some areas low pressure. Air moves from high pressure to low pressure. Moving air is known as wind.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 5.5 : A mountaineer",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-5",
+"num": 5,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "BIOSPHERE - THE DOMAIN OF LIFE",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "image",
+"src": "images/ch00_1348.webp",
+"wide": false,
+"caption_runs": []
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The biosphere is the narrow zone of contact between the land, water and air. It is in this zone that life, that is unique to this planet, exists. There are several species of organisms that vary in size from microbes and bacteria to huge mammals. All the living organisms including humans are linked to each other and to the biosphere for survival.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 5.6 : The Biosphere",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The organisms in the biosphere may broadly be divided into the plant kingdom and the animal kingdom. The three domains of the earth interact with each other and affect each other in some way or the other. For example, cutting of forests for fulfilling our needs of wood, or clearing land for agriculture may lead to fast removal of soil from slopes. Similarly earth’s surface may be changed due to natural calamities like earthquakes. For example, there could be submergence of land, as happened in the case of Tsunami recently. Parts of Andaman & Nicobar islands were submerged under water. Discharge of waste material into lakes and rivers makes the water unsuitable for human use. It also damages other forms of life.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Emission from industries, thermal power plants and vehicles, pollute the air. Carbon dioxide (CO2) is an important constituent of air. But increase in the amount of CO2 leads to increase in global temperatures. This is termed as global warming. There is thus, a need to limit the use of resources of the earth to maintain the balance of nature between the domains of the lithosphere, the atmosphere and the hydrosphere.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Exercise",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. Answer The Following Questions Briefly.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) What are the four major domains of the earth?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) Name the major continents of the earth.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) Name the two continents that lie entirely in the Southern Hemisphere.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) Name the different layers of atmosphere.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) Why is the earth called the ‘blue planet’?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(f) Why is the Northern Hemisphere called the Land Hemisphere?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(g) Why is the Biosphere important for living organisms?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "2. Tick The Correct Answers.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) The mountain range that separates Europe from Asia is",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) the Andes (ii) the Himalayas (iii) the Urals",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) The continent of North America is linked to South America by",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) an Isthmus (ii) a Strait (iii) a Canal",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) The major constituent of atmosphere by per cent is",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Nitrogen (ii) Oxygen (iii) Carbon dioxide",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) The domain of the earth consisting of solid rocks is",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) the Atmosphere (ii) the Hydrosphere (iii) the Lithosphere",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) Which is the largest continent?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Africa (ii) Asia (iii) Australia",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "3. Fill In The Blanks.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) The deepest point on the earth is _____________ in the Pacific Ocean.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) The _____________ Ocean is named after a country.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) The _____________ is a narrow contact zone of land, water and air that supports life.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) The continents of Europe and Asia together are known as _____________.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) The highest mountain peak on the earth is _____________.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. Cut the outline of the continents from an outline map of the world and arrange them according to their decreasing sizes.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "2. Cut the outline of the continents from an outline map of the world and try to fit them together as a jig-saw puzzle.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "3. Collect pictures of expeditions to the Himalayas. Write about the kind of equipment carried by the climbers for protection against sunshine, temperature and the lack of air.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Map Skills",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-6",
+"num": 6,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "On the outline map of the world, mark the following :",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "image",
+"src": "images/ch00_1515.webp",
+"wide": false,
+"caption_runs": []
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Europe, Asia, Antarctica, South America, Australia, Indian Ocean, Pacific Ocean, Atlantic Ocean, Ural Mountains and Isthmus of Panama.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-7",
+"num": 7,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "Chapter 5",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "image",
+"src": "images/ch00_Cover.webp",
+"wide": false,
+"caption_runs": []
+}
+]
+},
+{
+"id": "sec-8",
+"num": 8,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "MAJOR DOMAINS OF THE EARTH",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "image",
+"src": "images/ch00_License.webp",
+"wide": false,
+"caption_runs": []
+}
+]
+},
+{
+"id": "sec-1",
+"num": 1,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "INDIA : CLIMATE,VEGETATION AND WILDLIFE",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "You read in newspapers daily and watch on T.V. or hear others talking about weather. You must know that weather is about day to day changes in the atmosphere. It includes changes in temperature, rainfall and sunshine etc. For example, as such it may be hot or cold; sunny or cloudy; windy or calm. You must have noticed that when it is hot continuously for several days you don’t need any warm clothing. You also like to eat or drink cold things. In contrast there are days together, you feel cold without woollen clothes when it is very windy and chilly, you would like to have something hot to eat.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Broadly, the major seasons recognised in India are:",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "• Cold Weather Season (Winter) December to February",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "• Hot Weather Season (Summer) March to May",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "• Southwest Monsoon Season (Rainy)",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "June to September",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "• Season of Retreating Monsoon (Autumn) October and November",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Cold Weather Season or Winter",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "During the winter season, the sun rays do not fall directly in the region. As a result the temperatures are quite low in northern India.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Hot Weather Season or Summer",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "In the hot weather season sun rays more or less directly fall in this region. Temperature becomes very high. Hot and dry winds called loo, blow during the day.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "South West Monsoon Season or Rainy Season",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "This season is marked by the onset and advance of monsoon. The winds blow from Arabian Sea and Bay of Bengal towards the land. They carry moisture with them. When these winds strike the mountain barriers, rainfall occurs.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "What would happen if monsoons were weak, or even worse, failed to occur one year? Tick () the correct answer.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Crops will be- affected/not affected",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The level of the water in a well will- come-up/go-down",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Summer will be- longer/shorter",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Season of Retreating Monsoons or Autumn",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Winds move back from the mainland to the Bay of Bengal. This is the season of the retreating monsoons. The southern parts of India, particularly Tamil Nadu and Andhra Pradesh receive rainfall in this season.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "However, the climate is about the average weather condition, which have been measured over many years.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The climate of India has broadly been described as Monsoon type. Monsoon is taken from the Arabic word ‘mausim’, which means seasons. Due to India’s location in the tropical region, most of the rain is brought by monsoon winds. Agriculture in India is dependent on rains. Good monsoons mean adequate rain and a bountiful crop.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Let’s Do",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "On a map of India, locate the places mentioned in the paragraph.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The climate of a place is affected by its location, altitude, distance from the sea, and relief. Therefore, we experience regional differences in the climate of India. Jaisalmer and Bikaner in the desert of Rajasthan are very hot, while Drass and Kargil in Jammu and Kashmir are freezing cold. Coastal places like Mumbai and Kolkata experience moderate climate. They are neither too hot nor too cold. Being on the coast, these places are very humid. Mawsynram in Meghalaya receives the world’s highest rainfall, while in a particular year it might not rain at all in Jaisalmer in Rajasthan.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Natural Vegetation",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 8.1 : Tropical Rain Forests",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "We see a variety of plant life in our surroundings. How nice it is to play in a field with green grasses. There are also small plants called bushes and shrubs like cactus and flowering plants etc. Besides there are many tall trees some with many branches and leaves like neem, mango or some which stand with few leaves such as palm. The grasses, shrubs and trees, which grow on their own without interference or help from human beings are called natural vegetation. Do you wonder how these differ from each other. Different types of natural vegetation are dependent on different climatic conditions, among which the amount of rainfall is very important.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Due to varied climatic conditions, India has a wide range of natural vegetation. Vegetation of India can be divided into five types – Tropical evergreen forest, Tropical deciduous forest, Thorny bushes, Mountain vegetation and Mangrove forests.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Tropical Rain Forest",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Tropical Rain Forests occur in the areas which receive heavy rainfall. They are so dense that sunlight doesn’t reach the ground. Many species of trees are found in these forests, which shed their leaves at different times of the year. Therefore, they always appear green and are called evergreen forest as you may notice in Figure 8.1. Important trees found in these forests are mahogany, ebony and rosewood. Andaman and Nicobar Islands, parts of North-Eastern states and a narrow strip of the Western slope of the Western Ghats are home of these forests.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Tropical Deciduous Forests",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "In a large part of our country we have this type of forest. These forests are also called monsoon forests. They are less dense. They shed their leaves at a particular time of the year. Important trees of these forests are sal, teak, peepal, neem and shisham. They are found in Madhya Pradesh, Uttar Pradesh, Bihar, Jharkhand, Chhattisgarh, Odisha, and in parts of Maharashtra.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 8.2 : Tropical Deciduous Forests",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Thorny Bushes",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "This type of vegetation is found in dry areas of the country. The leaves are in the form of spines to reduce the loss of water. Cactus, khair, babool, keekar are important and are found in the states of Rajasthan, Punjab, Haryana, Eastern slopes of Western Ghats and Gujarat.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 8.3 : Thorny Bushes",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Mountain Vegetation",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "A wide range of species is found in the mountains according to the variation in height.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "With increase in height, the temperature falls. At a height between 1500 metres and 2500 metres most of the trees are conical in shape. These trees are called coniferous trees. Chir, Pine and Deodar are important trees of these forests.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 8.4 : Mountain Vegetation",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Mangrove Forest",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 8.5 : Mangrove Vegetation",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "These forests can survive in saline water. They are found mainly in Sunderbans in West Bengal and in the Andaman and Nicobar Islands. Sundari is a well-known species of trees in mangrove forests after which Sunderbans have been named.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Why are Forests Necessary?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Forests are very useful for us. They perform various functions. Plants release oxygen that we breathe and absorb carbon dioxide. The roots of the plants bind the soil; thus, they control soil erosion.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Leela’s parents planted a sapling of “neem” to celebrate her birth. On each birthday, a different sapling was planted. It was watered regularly and protected from severe heat, cold and animals. Children took care not to harm it. When Leela was 20, twenty-one beautiful trees, stood in and around her house. Birds built their nests on them, flowers bloomed, butterflies fluttered around them, children enjoyed their fruits, swung on their branches and played in their shade.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Forests provide us with timber for furniture, fuel wood, fodder, medicinal plants and herbs, lac, honey, gum, etc.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Forests are the natural habitat of wild life.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Natural vegetation has been destroyed to a large extent because of the reckless cutting of trees. We should plant more trees and protect the existing ones and make people aware of the importance of trees. We can have special programmes like Van Mahotsav to involve more people in making our earth green.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 8.6 : What we get from forests",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Wild Life",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Forests are home to a variety of wild life. There are thousands of species of animals and a large variety of reptiles, amphibians, mammals, birds, insects and worms which dwell in the forest.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 8.7 : Wildlife",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The tiger is our national animal. It is found in various parts of the country. Gir forest in Gujarat is the home of Asiatic lions. Elephants and one-horned rhinoceroses roam in the forests of Assam. Elephants are also found in Kerala and Karnataka. Camels and wild asses are found in the Great Indian desert and the Rann of Kuchchh respectively. Wild goats, snow leopards, bears, etc. are found in the Himalayan region. Besides these, many other animals are found in our country such as monkey, wolf, jackal, nilgai, cheetal, etc.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "India is equally rich in bird life. The peacock is our national bird. Other common birds are parrots, pigeons, mynah, geese, bulbul and ducks. There are several bird sanctuaries which have been created to give birds their natural habitat. These provide the birds protection from hunters. Can you name five birds that are commonly found in your area?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "There are several hundreds of species of snakes found in India. Cobras and kraits are important among them.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Due to cutting of forests and hunting, several species of wildlife of India are declining rapidly. Many species have already become extinct.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "In order to protect them many national parks, sanctuaries and biosphere reserves have been set up. The Government has also started Project Tiger and Project Elephant to protect these animals. Can you name some wildlife sanctuaries of India and locate them on a map?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Why do poacher skill tigers?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "What will happen if tigers vanish from our forests?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Have you ever visited any tiger reserves or a zoo where tigers are kept?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "You can also contribute in conserving wildlife. You can refuse to buy things made from parts of the bodies of animals such as their bones, horns, fur, skins, and feathers. Every year we observe wildlife week in the first week of October, to create awareness of conserving the habitats of the animal kingdom.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Migratory Birds",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Some birds such as the Pelican, Siberian Crane, Stork, Flamingo, Pintail Duck and Curlew migrate to our country in the winter season every year. Siberian Cranes migrate from Siberia. They arrive in December and stay till early March.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Stork – a migratory bird",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Exercise",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. Answer the following questions briefly.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) Which winds bring rainfall in India? Why is it so important?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) Name the different seasons in India.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) What is natural vegetation?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) Name the different types of vegetation found in India.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) What is the difference between evergreen forest and deciduous forest?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(f) Why is tropical rainforest also called evergreen forest?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "2. Tick the correct answers.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) The world’s highest rainfall occurs in",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Mumbai (ii) Asansol (iii) Mawsynram",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) Mangrove forests can thrive in",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) saline water (ii) fresh water (iii) polluted water",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) Mahogany and rosewood trees are found in",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) mangrove forests",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(ii) tropical deciduous forests",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(iii) tropical evergreen forests",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) Wild goats and snow leopards are found in",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Himalayan region",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(ii) Peninsular region",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(iii) Gir forests",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) During the south west monsoon period, the moisture laden winds",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "blow from",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) land to sea (ii) sea to land (iii) plateau to plains",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "3. Fill in the blanks.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) Hot and dry winds known as ________________ blow during the day in the summers.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) The states of Andhra Pradesh and Tamil Nadu receive a great amount of rainfall during the season of________________.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) _____________ forest in Gujarat is the home of ________________.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) _____________ is a well-known species of mangrove forests.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) ____________ are also called monsoon forests.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. Make a list of trees in your neighbourhood and collect pictures of plants, animals and birds and paste them in your copy.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "2. Plant a sapling near your home and nurture it and write down the changes you observe for a few months.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "3. Does any migratory bird come in your locality? Try to identify that. Be watchful in the winter season.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "4. Visit a zoo in your city or visit a nearby forest or sanctuary with your elders. Look carefully at the various types of wildlife there.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-2",
+"num": 2,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "APPENDIX I",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "State and Union Territories of India",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "State - Capital",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Andhra Pradesh - Hyderabad",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Arunachal Pradesh - Itanagar",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Assam - Dispur",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Bihar - Patna",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Chhattisgarh - Raipur",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Goa - Panaji",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Gujarat - Gandhi Nagar",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Haryana - Chandigarh",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Himachal Pradesh - Shimla",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Jammu & Kashmir - Srinagar",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Jharkhand - Ranchi",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Karnataka - Bengaluru",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Kerala - Thiruvananthapuram",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Madhya Pradesh - Bhopal",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Maharashtra - Mumbai",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Manipur - Imphal",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Meghalaya - Shillong",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Mizoram - Aizawl",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Nagaland - Kohima",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Odisha - Bhubaneshwar",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Punjab - Chandigarh",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Rajasthan - Jaipur",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Sikkim - Gangtok",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Tamil Nadu - Chennai",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Telangana - Hyderabad",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Uttarakhand - Dehradun",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Uttar Pradesh - Lucknow",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Tripura - Agartala",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "West Bengal - Kolkata",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Union Territory - Capital",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Andaman and Nicobar Islands - Port Blair",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Chandigarh - Chandigarh",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Dadra & Nagar Haveli - Silvassa",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Daman & Diu - Daman",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Lakshadweep - Kavaratti",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Puducherry - Puducherry",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "National Capital - Delhi",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Territory of Delhi",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-3",
+"num": 3,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "APPENDIX II",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Some Internet Sources for more information",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "www.sci.edu/public.html",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "www.si.edu and www.nasm.edu",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "http://volcanoes.usgs.gov/",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "discoveryschool.com/dysee",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "www.futureforests.com/calculators/flightcalculatorshop.asp",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "www.nationalgeographic.com/earthpulse",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "http://www.cpcb.nic.in",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-4",
+"num": 4,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "Chapter 8",
+"bold": true,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-5",
+"num": 5,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "INDIA : CLIMATE, VEGETATION AND WILDLIFE",
+"bold": true,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-1",
+"num": 1,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "MAPS",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "You have learnt in the previous chapter about the advantages of a globe. However, globe has limitations as well. A globe can be useful when we want to study the earth as a whole. But, when we want to study only a part of the earth, as about our country, states, districts, towns and villages, it is of little help. In such a situation we use maps. A map is a representation or a drawing of the earth’s surface or a part of it drawn on a flat surface according to a scale. But it is impossible to flatten a round shape completely.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "We find that maps are useful to us for various purposes. One map shows a small area and a few facts. Another map may contain as many facts as a big book. When many maps are put together we get an Atlas. Atlases are of various sizes, measurements drawn on different scales. Maps provide more information than a globe. They are of different types. Some of them are described below.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Let’s Do",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Take an old rubber ball and draw whatever you like all over it. You may also mark north pole and south pole on it. Now cut this ball with a knife and try to flatten it. Notice how the drawings are distorted.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-2",
+"num": 2,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "PHYSICAL MAPS",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Maps showing natural features of the earth such as mountains, plateaus, plains, rivers, oceans etc. are called physical or relief maps.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-3",
+"num": 3,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "POLITICAL MAPS",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Maps showing cities, towns and villages, and different countries and states of the world with their boundaries are called political maps.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-4",
+"num": 4,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "THEMATIC MAPS",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Some maps focus on specific information; such as road maps, rainfall maps, maps showing distribution of forests, industries etc. are known as thematic maps. Suitable titles are given on the basis of information provided in these maps.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "There are three Components of Maps – distance, direction and symbol.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-5",
+"num": 5,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "DISTANCE",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Maps are drawings, which reduce the entire world or a part of it to fit on a sheet of paper. Or we can say maps are drawn to reduced scales. But this reduction is done very carefully so that the distance between the places is real. It can only be possible when a small distance on paper represents a large distance on the ground. Therefore, a scale is chosen for this purpose. Scale is the ratio between the actual distance on the ground and the distance shown on the map. For example, the distance between your school and your home is 10 km. If you show this 10 km. distance by 2 cm on a map, it means, 1 cm on the map will show 5 km. on the ground. The scale of your drawing will be 1cm = 5 km. Thus, scale is very important in any map. If you know the scale, you will be able to calculate the distance between any two places on a map.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "When large areas like continents or countries are to be shown on a paper, then we use a small scale. For example 5 cm. on the map shows 500 km. of the ground. It is called a small scale map.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "When a small area like your village or town is to be shown on paper, then we use a large scale that is 5 cm. on the map shows 500 metres only on the ground. It is called a large scale map.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Large scale maps give more information than small scale maps.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Let’s Do",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Look at the Figure 4.1. There is a scale. It may be used for measuring distance between places. For example the distance between the well and the tree is 5 cm. It means that the actual distance is 50 metres. Now the distance between the PO (A) to Karim’s house (E) is 12 cm. It means 120 metres on the ground but you can not fly like a bird directly from E to A. You will have to walk on the road. Let us measure the total walking distance from E to C, then C to M, M to B and B to A. Add all these distances. This will be the total walking distance from Karim’s house to the post office.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 4.1 : Map of a village",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-6",
+"num": 6,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "DIRECTION",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Most maps contain an arrow marked with the letter ‘N’ at the upper right hand corner. This arrow shows the north direction. It is called the north line. When you know the north, you can find out other directions, for example east, west and south. There are four major directions, North, South, East and West {Figure 4.2 (a)}. They are called cardinal points. Other four intermediate directions are north-east (NE), south-east(SE), south-west (SW) and north-west (NW). We can locate any place more accurately with the help of these intermediate directions.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Find out the following directions from the Figure 4.1: (a) The direction of the Community Centre, the playground from Vikas’s house (b) the direction of school from shops.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 4.2 (a) : Cardinal Directions",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "We can find out the direction of a place with the help of a compass. It is an instrument used to find out main directions. Its magnetic needle always points towards north-south direction {Figure 4.2 (b)}.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 4.2 (b) : A compass",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-7",
+"num": 7,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "SYMBOLS",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "It is the third important component of a map. It is not possible to draw on a map the actual shape and size of different features such as buildings, roads, bridges, trees, railway lines or a well. So, they are shown by using certain letters, shades, colours, pictures and lines These symbols give a lot of information in a limited space. With the use of these symbols, maps can be drawn easily and are simple to read. Even if you don’t know the language of an area and therefore cannot ask someone for directions, you can collect information from maps with the help of these symbols. Maps have a universal language that can be understood by all. There is an international agreement regarding the use of these symbols. These are called conventional symbols. Some of the conventional symbols are shown in the Figure 4.3.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 4.3 : Conventional Symbols",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Various colours are used for the same purpose. For example, generally blue is used for showing water bodies, brown for mountain, yellow for plateau and green is used for plains.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-8",
+"num": 8,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "SKETCH",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "A sketch is a drawing mainly based on memory and spot observation and not to scale. Sometimes a rough drawing is required of an area to tell where a particular place is located with respect to other places. Suppose, you want to go to your friend’s house, but you don’t know the way. Your friend may make a rough drawing to show the way to his house. Such a rough drawing is drawn without scale, and is called a sketch map.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-9",
+"num": 9,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "PLAN",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "image",
+"src": "images/ch00_The world map-continen_opt.webp",
+"wide": false,
+"caption_runs": []
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "A plan is a drawing of a small area on a large scale. A large-scale map gives lot of information, but there are certain things which we may sometimes want to know for example the length and breadth of a room, which can’t be shown in a map. At that time, we can refer drawings drawn to scale called a plan.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 4.4 : Sunderpur village and its surrounding areas",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Look at the Figure 4.4 and find out :",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) In which direction is the river flowing?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(ii) What kind of road passes by the side of village Dumri?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(iii) On what type of railway line is Sunderpur situated ?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(iv) On which side of the railway bridge is the police station situated?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(v) On which side of the railway line do the following lie :",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) Chhatri",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) Church",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) Pond",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) Mosque",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) River",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(f) Post and Telegraph Office",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(g) Graveyard",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Exercise",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. Answer The Following Questions Briefly.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) What are the three components of a map?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) What are the four cardinal directions?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) What do you mean by the term ‘the scale of the map’?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) How are maps more helpful than a globe?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) Distinguish between a map and a plan.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(f) Which map provides detailed information?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(g) How do symbols help in reading maps?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "2. Tick The Correct Answers.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) Maps showing distribution of forests are",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Physical map (ii) Thematic Map (iii) Political map",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) The blue colour is used for showing",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Water bodies (ii) Mountains (iii) Plains",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) A compass is used –",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) To show symbols",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(ii) To find the main direction",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(iii) To measure distance",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) A scale is necessary",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) For a map (ii) For a sketch (iii) For symbols",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. Draw a plan of your classroom and show the teacher’s table, blackboard, desks, door and windows.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-10",
+"num": 10,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "Draw a sketch of your school and locate the following :",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "image",
+"src": "images/ch00_isthumus and strait_opt.webp",
+"wide": false,
+"caption_runs": []
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) the principal’s room",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) your classroom",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) the playground",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) the library",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) some big trees",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(f) drinking water",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. Make the plan (in the space given below) of a fun-park where you can enjoy several activities : for example swings, slides, see-saw, merry-go-round, boating, swimming, looking into funny mirrors, etc. or anything else that you can think of.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-11",
+"num": 11,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "Chapter 4",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "image",
+"src": "images/ch00_landforms-1_opt.webp",
+"wide": false,
+"caption_runs": []
+}
+]
+},
+{
+"id": "sec-12",
+"num": 12,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "MAPS",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "image",
+"src": "images/ch00_layers of atmosphere_opt.webp",
+"wide": false,
+"caption_runs": []
+}
+]
+},
+{
+"id": "sec-1",
+"num": 1,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "MOTIONS OF THE EARTH",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "As you know that the earth has two types of motions, namely rotation and revolution. Rotation is the movement of the earth on its axis. The movement of the earth around the sun in a fixed path or orbit is called Revolution.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Let’s Do",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Take a ball to represent the earth and a lighted candle to represent the sun. Mark a point on the ball to represent a town X. Place the ball in such a way that the town X is in darkness. Now rotate the ball from left to right. As you move the ball slightly, the town will have its sunrise. As the ball continues to move, the point X gradually gets away from the sun. This is sunset.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The axis of the earth which is an imaginary line, makes an angle of 66½° with its orbital plane. The plane formed by the orbit is known as the orbital plane. The earth receives light from the sun. Due to the spherical shape of the earth, only half of it gets light from the sun at a time (Figure 3.2). The portion facing the sun experiences day while the other half away from the sun experiences night. The circle that divides the day from night on the globe is called the circle of illumination. This circle does not coincide with the axis as you see in the Figure 3.2. The earth takes about 24 hours to complete one rotation around its axis. The period of rotation is known as the earthday. This is the daily motion of the earth.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 3.1 : Inclination of the Earth’s axis and the orbital plane",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 3.2 : Day and Night on the Earth due to rotation",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "What would happen if the earth did not rotate? The portion of the earth facing the sun would always experience day, thus bringing continuous warmth to the region. The other half would remain in darkness and be freezing cold all the time. Life would not have been possible in such extreme conditions.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The second motion of the earth around the sun in its orbit is called revolution. It takes 365¼ days (one year) to revolve around the sun. We consider a year as consisting of 365 days only and ignore six hours for the sake of convenience.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 3.3 : Revolution of the Earth and Seasons",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Six hours saved every year are added to make one day (24 hours) over a span of four years. This surplus day is added to the month of February. Thus every fourth year, February is of 29 days instead of 28 days. Such a year with 366 days is called a leap year. Find out when will the next leap year be?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "From the Figure 3.3, it is clear that the earth is going around the sun in an elliptical orbit.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Notice that throughout its orbit, the earth is inclined in the same direction.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "A year is usually divided into summer, winter, spring and autumn seasons. Seasons change due to the change in the position of the earth around the sun.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Let's Do",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Do you know how to draw an ellipse? Take a pencil, two pins and a loop of thread. Now fix these pins on a paper as shown in the figure. Put the loop on the paper enclosing these two pins inside the loop. Now hold the pencil and draw the line keeping the thread tight and moving the pencil along it. The figure represents an ellipse.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Look at the Figure 3.3. You will see that on 21st June, the Northern Hemisphere is tilted towards the sun. The rays of the sun fall directly on the Tropic of Cancer. As a result, these areas receive more heat. The areas near the poles receive less heat as the rays of the sun are slanting. The North Pole is inclined towards the sun and the places beyond the Arctic Circle experience continuous daylight for about six months. Since a large portion of the Northern Hemisphere is getting light from the sun, it is summer in the regions north of the equator. The longest day and the shortest night at these places occur on 21st June. At this time in the Southern Hemisphere all these conditions are reversed. It is winter season there. The nights are longer than the days. This position of the earth is called the Summer Solstice.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "On 22nd December, the Tropic of Capricorn receives direct rays of the sun as the South Pole tilts towards it. As the sun’s rays fall vertically at the Tropic of Capricorn (23½° S), a larger portion of the Southern Hemisphere gets light. Therefore, it is summer in the Southern Hemisphere with longer days and shorter nights. The reverse happens in the Northern Hemisphere. This position of the earth is called the Winter Solstice. Do you know that Christmas is celebrated in Australia in the summer season?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "On 21st March and September 23rd, direct rays of the sun fall on the equator. At this position, neither of the poles is tilted towards the sun; so, the whole earth experiences equal days and equal nights. This is called an equinox.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "On 23rd September, it is autumn season in the Northern Hemisphere and spring season in the Southern Hemisphere. The opposite is the case on 21st March, when it is spring in the Northern Hemisphere and autumn in the Southern Hemisphere.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Thus, you find that there are days and nights and changes in the seasons because of the rotation and revolution of the earth respectively.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Let’s Do",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "To understand the earth’s inclination in the same direction, draw a big ellipse on the ground and take a flag with a stick. Stand anywhere on the line of the ellipse. Point your flag to a fixed point far away like on a tree-top. Now move along the ellipse keeping your flag always pointing towards that fixed point. In this way, the axis of the earth remains inclined permanently in the same position. The revolution of the earth and the inclination of the earth’s axis in a fixed direction cause seasons.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Exercise",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. Answer The Following Questions Briefly.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) What is the angle of inclination of the earth’s axis with its orbital plane?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) Define rotation and revolution.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) What is a leap year?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) Differentiate between the Summer and Winter Solstice.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) What is an equinox?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(f) Why does the Southern Hemisphere experience Winter and Summer Solstice in different times than that of the Northern Hemisphere?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(g) Why do the poles experience about six months day and six months night?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "2. Tick The Correct Answers.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) The movement of the earth around the sun is known as",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Rotation (ii) Revolution (iii) Inclination",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) Direct rays of the sun fall on the equator on",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) 21 March (ii) 21 June (iii) 22 December",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) Christmas is celebrated in summer in",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Japan (ii) India (iii) Australia",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) Cycle of the seasons is caused due to",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Rotation (ii) Revolution (iii) Gravitation",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "3. Fill In The Blanks.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) A leap year has _______________ number of days.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) The daily motion of the earth is _______________.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) The earth travels around the sun in ______________ orbit.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) The sun’s rays fall vertically on the Tropic of ___________ on 21st June.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) Days are shorter during ___________ season.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. Make a drawing to show the inclination of the earth.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "2. Record the timings of sunrise and sunset at your place taking help from your local newspaper on the 21st of each month and answer the following :",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) In which month are the days the shortest?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) In which months are the days and nights nearly equal?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. Draw different shapes of ellipses by placing two pins nearer and farther using the same loop of thread. Notice when the ellipse becomes circular.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "2. On any sunny day, take a straight stick that is one metre long. Find out a clean and level place on the ground. Place this stick into the ground where it casts a distinctive (sharp) shadow.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Step (1): Mark the tip of the shadow with a stone or a twig or by any other means. The first shadow mark is always towards the west. See after 15 minutes and mark the tip of the shadow again. By then it would have moved a few centimetres away. Now join the two points and you have an approximate east-west line.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Step (2) : Stand with the first mark to your left and the second mark to your right you are now facing north. This fact is true everywhere on the earth because the earth rotates in west to east direction.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "An alternative method is more accurate but requires more time. Set up your shadow stick and mark the first shadow in the morning. Use a piece of string to draw a clean arc through this mark around the stick. At mid-day, the shadow will shrink or disappear. In the afternoon, it will lengthen again and at the point where it touches the arc, make a second mark. Draw a line through the two marks to get an accurate east-west line.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-2",
+"num": 2,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "Chapter 3",
+"bold": true,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-3",
+"num": 3,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "MOTIONS OF THE EARTH",
+"bold": true,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-1",
+"num": 1,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "GLOBE : LATITUDES AND LONGITUDES",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "In the previous chapter, you have read that our planet earth is not a sphere. It is slightly flattened at the North and the South Poles and bulge in the middle. Can you imagine how it looks? You may look at a globe carefully in your classroom to get an idea. Globe is a true model (miniature form) of the earth (Figure 2.1).",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 2.1 : Globe",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Globes may be of varying size and type – big ones, which cannot be carried easily, small pocket globes, and globe-like balloons, which can be inflated and are handy and carried with ease. The globe is not fixed. It can be rotated the same way as a top spin or a potter’s wheel is rotated. On the globe, countries, continents and oceans are shown in their correct size.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "It is difficult to describe the location of a point on a sphere like the earth. Now the question arises as to how to locate a place on it? We need certain points of reference and lines to find out the location of places.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Let’s Do",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Take a big round potato or a ball. Pierce a knitting needle through it. The needle resembles the axis shown in a globe. You can now move the potato or the ball around this axis from left to right.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "You will notice that a needle is fixed through the globe in a tilted manner, which is called its axis. Two points on the globe through which the needle passes are two poles – North Pole and South Pole. The globe can be moved around this needle from west to east just as the earth moves. But, remember there is a major difference. The real earth has no such needle. It moves around its axis, which is an imaginary line.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Another imaginary line running on the globe divides it into two equal parts. This line is known as the equator. The northern half of the earth is known as the Northern Hemisphere and the southern half is known as the Southern Hemisphere. They are both equal halves. Therefore, the equator is an imaginary circular line and is a very important reference point to locate places on the earth. All parallel circles from the equator up to the poles are called parallels",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "of latitudes.Latitudes are measured in degrees.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 2.2 : Latitude",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The equator represents the zero degree latitude. Since the distance from the equator to either of the poles is one-fourth of a circle round the earth, it will measure ¼th of 360 degrees, i.e. 90°. Thus, 90 degrees north latitude marks the North Pole and 90 degrees south latitude marks the South Pole.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "As such, all parallels north of the equator are called ‘north latitudes.’ Similarly all parallels south of the equator are called ‘south latitudes.’",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The value of each latitude is, therefore, followed by either the word north or south. Generally, this is indicated by the letter ‘N’ or ‘S’. For example, both Chandrapur in Maharashtra (India) and Belo Horizonte in Brazil (South America) are located on parallels of about 20° latitude. But the former is 20° north of the equator and the latter is 20° south of it. We, therefore, say that Chandrapur is situated at 20° N latitude and Belo Horizonte is situated at 20° S latitude. We see in Figure 2.2 that as we move away from the equator, the size of the parallels of latitude decreases.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Do you know?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "By measuring the angle of the Pole Star from your place, you can know the latitude of your place.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-2",
+"num": 2,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "IMPORTANT PARALLELS OF LATITUDES",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Besides the equator (0°), the North Pole (90°N) and the South Pole (90° S), there are four important parallels of latitudes–",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Tropic of Cancer (23½° N) in the Northern Hemisphere. (ii) Tropic of Capricorn (23½° S) in the Southern Hemisphere. (iii) Arctic Circle at 66½° north of the equator. (iv) Antarctic Circle at 66½° south of the equator.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 2.3 : Important Latitudes and Heat Zones",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-3",
+"num": 3,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "HEAT ZONES OF THE EARTH",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The mid-day sun is exactly overhead at least once a year on all latitudes in between the Tropic of Cancer and the Tropic of Capricorn. This area, therefore, receives the maximum heat and is called the Torrid Zone.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The mid-day sun never shines overhead on any latitude beyond the Tropic of Cancer and the Tropic of Capricorn. The angle of the sun’s rays goes on decreasing towards the poles. As such, the areas bounded by the Tropic of Cancer and the Arctic Circle in the Northern Hemisphere, and the Tropic of Capricorn and the Antarctic Circle in the Southern Hemisphere, have moderate temperatures. These are, therefore, called Temperate Zones.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Areas lying between the Arctic Circle and the North Pole in the Northern Hemisphere and the Antarctic Circle and the South Pole in the Southern Hemisphere, are very cold. It is because here the sun does not rise much above the horizon. Therefore, its rays are always slanting and provide less heat. These are, therefore, called Frigid Zones (very cold).",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 2.4 : (a) Torch-light falling on a straight surface is bright and covers a smaller area.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 2.4 : (b) Torch-light falling on a slanted surface is less bright but covers a bigger area.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-4",
+"num": 4,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "WHAT ARE LONGITUTES?",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "To fix the position of a place, it is necessary to know something more than the latitude of that place. You can see, for example, that Tonga Islands (in the Pacific Ocean) and Mauritius Islands (in the Indian Ocean) are situated on the same latitude (i.e., 20° S). Now, in order to locate them precisely, we must find out how far east or west these places are from a given line of reference running from the North Pole to the South Pole. These lines of references are called the meridians of longitude, and the distances between them are measured in ‘degrees of longitude.’ Each degree is further divided into minutes, and minutes into seconds. They are semi-circles and the distance between them decreases steadily polewards until it becomes zero at the poles, where all the meridians meet.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 2.5 : Longitudes",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Unlike parallels of latitude, all meridians are of equal length. Thus, it was difficult to number the meridians. Hence, all countries decided that the count should begin from the meridian which passed through Greenwich, where the British Royal Observatory is located. This meridian is called the Prime Meridian. Its value is 0° longitude and from it we count 180° eastward as well as 180° westward. The Prime Meridian and 180° meridian divide the earth into two equal halves, the Eastern Hemisphere and the Western Hemisphere. Therefore, the longitude of a place is followed by the letter E for the east and W for the west. It is, however, interesting to note that 180° East and 180° West meridians are on the same line.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Now look at the grid of the parallels of latitude and meridians of longitude on the globe (Figure 2.6). You can locate any point on the globe very easily if you know its latitude and longitude. For example, Dhubri in Assam is situated at 26° N latitude and 90° E longitude. Find out the point where these two lines cut each other. That point will be the location of Dhubri.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 2.6 : Grid",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "To understand this clearly draw equidistant vertical and horizontal lines on a paper (Figure 2.7). Label the vertical rows with numbers and horizontal rows with letters, draw some small circles randomly on points where these horizontal and vertical lines intersect each other. Name these small circles as a, b, c, d and e.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 2.7",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Let vertical lines represent East Longitudes and horizontal lines as North Latitudes.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Now you will see that circle ‘a’ is located on B° N latitude and 1° E longitude.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Find out the location of other circles.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Let’s Do",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Draw a circle. Let the Prime meridian divide it into two equal halves. Colour and label the eastern hemisphere and the western hemisphere. Similarly draw another circle and let the equator divide it into two halves. Now colour the Northern hemisphere and Southern hemisphere.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-5",
+"num": 5,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "LONGITUDE AND TIME",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The best means of measuring time is by the movement of the earth, the moon and the planets. The sun regularly rises and sets every day, and naturally, it is the best time-keeper throughout the world. Local time can be reckoned by the shadow cast by the sun, which is the shortest at noon and longest at sunrise and sunset.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "When the Prime Meridian of Greenwich has the sun at the highest point in the sky, all the places along this meridian will have mid-day or noon.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "As the earth rotates from west to east, those places east of Greenwich will be ahead of Greenwich time and those to the west will be behind it (Figure 2.8). The rate of difference can be calculated as follows. The earth rotates 360° in about 24 hours, which means 15° an hour or 1° in four minutes. Thus, when it is 12 noon at Greenwich, the time at 15° east of Greenwich will be 15 × 4 = 60 minutes, i.e., 1 hour ahead of Greenwich time, which means 1 p.m. But at 15° west of Greenwich, the time will be behind Greenwich time by one hour, i.e., it will be 11.00 a.m. Similarly, at 180°, it will be midnight when it is 12 noon at Greenwich.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 2.8 : Time zones of the World",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "At any place a watch can be adjusted to read 12 o’clock when the sun is at the highest point in the sky, i.e., when it is mid-day. The time shown by such a watch will give the local time for that place. You can see that all the places on a given meridian of longitude have the same local time.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-6",
+"num": 6,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "WHY DO WE HAVE STANDARD TIME?",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The local time of places which are on different meridians are bound to differ. For example, it will be difficult to prepare a time-table for trains which cross several longitudes. In India, for instance, there will be a difference of about 1 hour and 45 minutes in the local times of Dwarka in Gujarat and Dibrugarh in Assam. It is, therefore, necessary to adopt the local time of some central meridian of a country as the standard time for the country. In India, the longitude of 82½° E (82° 30'E) is treated as the standard meridian. The local time at this meridian is taken as the standard time for the whole country. It is known as the Indian Standard Time (IST).",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 2.9 : Indian Standard Meridian",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Kabeer lives in a small town near Bhopal. He tells his friend Alok that they will not be able to sleep tonight. A day and night cricket match between India and England had started at 2 p.m. in London. This means that the match would begin at 7.30 p.m. in India and finish well into the night. Do you know what is the time difference between India and England?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "India located east of Greenwich at 82°30'E is 5 hours and 30 minutes ahead of GMT. So it will be 7:30 p.m. in India when it is 2:00 p.m. noon in London.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Some countries have a great longitudinal extent and so they have adopted more than one standard time. For example, in Russia, there are as many as eleven standard times. The earth has been divided into twenty-four time zones of one hour each. Each zone thus covers 15° of longitude.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Exercise",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. Answer The Following Questions Briefly.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) What is the true shape of the earth?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) What is a globe?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) What is the latitudinal value of the Tropic of Cancer?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) What are the three heat zones of the Earth?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) What are parallels of latitude and meridians of longitude?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(f) Why does the torrid zone receive maximum amount of heat?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(g) Why is it 5.30 p.m. in India and 12.00 noon in London?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "2. Tick The Correct Answers.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) The value of the prime meridian is",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) 90° (ii) 0° (iii) 60°",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) The frigid zone lies near",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) the Poles (ii) the Equator (iii) the Tropic of Cancer",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) The total number of longitudes are",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) 360 (ii) 180 (iii) 90",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) The Antarctic circle is located in",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) the Northern hemisphere",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(ii) the Southern hemisphere",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(iii) the Eastern hemisphere",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) Grid is a network of",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) parallels of latitudes and merdians of longitudes",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(ii) the Tropic of Cancer and the Tropic of Capricorn",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(iii) the North Pole and the South Pole",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "3. Fill In The Blanks.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) The Tropic of Capricorn is located at _________________.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) The Standard Meridian of India is ____________________.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) The 0° Meridian is also known as ____________________.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) The distance between the longitudes decreases towards___________.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) The Arctic Circle is located in the ____________ hemisphere.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. Draw a diagram of the globe showing the earth’s axis, the Equator, Tropics of Cancer and Capricorn, Arctic Circle and Antarctic Circle.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. Draw and cut out six circles of the same size (approx. 3 cm. radius) from cardboard. Mark diametres (NS, EW) and 23½o angles on each face of the circles as shown on the figure. Place the circle one on top of the other and stitch along the line NS. Now there are twelve semi-circles. Let one semi-circle represent 0o or Greenwich Meridian (Prime Meridian). The 6th semi-circle from it will be the 180o Meridian. Between the 0o and 180o there are 5 semi-circles on both sides which are West and East longitudes 30o apart. On two ends of the stapled line stick pins to represent the North and South Poles.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "A rubber band around the model touching the EW points will represent the Equator. Two rubber bands touching the 23½o points, South and North of the EW points will represent the tropics.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-7",
+"num": 7,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "Chapter 2",
+"bold": true,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-8",
+"num": 8,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "GLOBE : LATITUDES AND LONGITUDES",
+"bold": true,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-1",
+"num": 1,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "THE EARTH IN THE SOLAR SYSTEM",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "How wonderful it is to watch the sky after sunset! One would first notice one or two bright dots shining in the sky. Soon you would see the number increasing. You cannot count them any more. The whole sky is filled with tiny shining objects – some are bright, others dim. It seems as if the sky is studded with diamonds. They all appear to be twinkling. But if you look at them carefully you will notice that some of them do not twinkle as others do. They simply glow without any flicker just as the moon shines.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Let’s Do",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "You’ll need : 1 torch, 1 sheet of plain paper, pencil and a needle.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Step :",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. Place the torch in the centre of the paper with its glass front touching the paper.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "2. Now draw a circle around the torch.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "3. Perforate the paper with the needle within the circled area.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "4. Now place the perforated circle part of the paper on the glass front and wrap the paper around the torch with a rubber band.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "5. Take care that the switch of the torch is not covered.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "6. In a dark room, stand at some distance facing a plain wall. Switch off all other lights. Now flash the torch light on the wall. You will see numerous dots of light on the wall, like stars shine in the night.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "7. Switch on all the lights in the room. All dots of light will be almost invisible.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "8. You may now compare the situation with what happens to the bright objects of the night sky after the sun rises in the morning.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Along with these bright objects, you may also see the moon on most of the days. It may, however, appear at different times, in different shapes and at different positions. You can see the full moon only once in about a month’s time. It is Full moon night or Poornima. A fortnight later, you cannot see it at all. It is a New moon night or Amavasya. On this day, you can watch the night sky best, provided it is a clear night.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Do you wonder why can’t we see the moon and all those bright tiny objects during day time? It is because the very bright light of the sun does not allow us to see all these bright objects of the night sky.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The sun, the moon and all those objects shining in the night sky are called celestial bodies.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Some celestial bodies are very big and hot. They are made up of gases. They have their own heat and light, which they emit in large amounts. These celestial bodies are called stars. The sun is a star.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Countless twinkling stars in the night sky are similar to the sun. But we do not feel their heat or light, and they look so tiny because they are very very far from us.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "You must have noticed that all objects look smaller when seen from a distance. How small an aeroplane looks when it is flying at a great height!",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 1.1 : Saptarishi and the North Star",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "While watching the night sky, you may notice various patterns formed by different groups of stars. These are called constellations. Ursa Major or Big Bear is one such constellation. One of the most easily recognisable constellation is the Saptarishi (Sapta-seven, rishi-sages). It is a group of seven stars (Figure 1.1) that forms a part of Ursa Major Constellation. Ask someone elder in your family or neighbourhood to show you more stars, planets and constellations in the sky.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "In ancient times, people used to determine directions during the night with the help of stars. The North star indicates the north direction. It is also called the Pole Star. It always remains in the same position in the sky. We can locate the position of the Pole Star with the help of the Saptarishi. Look at Figure 1.1. You will notice that, if an imaginary line is drawn joining the pointer stars and extended further, it will point to the Pole Star.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Some celestial bodies do not have their own heat and light. They are lit by the light of the stars. Such bodies are called planets. The word ‘planet’ comes from the Greek word “Planetai” which means ‘wanderers’. The earth on which we live is a planet. It gets all its heat and light from the sun, which is our nearest star. If we look at the earth from a great distance, say the moon, it will appear to be shining just as the moon.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Interesting Fact",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Jupiter, Saturn and Uranus have rings around them. These are belts of small debris. These rings may be seen from the earth with the help of powerful telescopes.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The moon that we see in the sky is a satellite. It is a companion of our earth and moves round it. Like our earth, there are eight other planets that get heat and light from the sun. Some of them have their moons too.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The solar system",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure : Solar Syatem",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The sun, eight planets, satellites and some other celestial bodies known as asteroids and meteoroids form the solar system. We often call it a solar family, with the sun as its Head.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Do you know?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "‘Sol’ in Roman mythology is the ‘Sungod’. ‘Solar’ means ‘related to the sun’. The family of the sun is, therefore, called the solar system. Write down as many words using the word solar on your own as you can.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Word Origin",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Many words used in a language may have been taken from some otherlanguage. Geography, for example, is an English word. It has its origin in Greek,which relates to the description of the earth. It is made of two Greek words, ‘ge’ meaning’ ‘earth’ and ‘graphia’ meaning ‘writing’. Find out more about the earth.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Do you know?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Humans have always been fascinated gazing at the night sky. Those who study the celestial bodies and their movements are called astronomers. Aryabhatta was a famous astronomer of ancient India. Today, astronomers all over the world are busy exploring the universe.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The Sun",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The sun is in the centre of the solar system. It is huge and made up of extremely hot gases. It provides the pulling force that binds the solar system. The sun is the ultimate source of heat and light for the solar system. But that tremendous heat is not felt so much by us because despite being our nearest star, it is far away from us. The sun is about 150 million km away from the earth.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Planets",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "There are eight planets in our solar system. In order of their distance from the sun, they are: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus and Neptune.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "An easy way to memorise the name of the planets in order of their distance from the sun is:",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "My Very Efficient Mother Just Served Us Nuts.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "All the eight planets of the solar system move around the sun in fixed paths. These paths are elongated. They are called orbits. Mercury is nearest to the sun. It takes only about 88 days to complete one round along its orbit. Venus is considered as ‘Earth’s-twin’ because its size and shape are very much similar to that of the earth.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Till recently (August 2006), Pluto was also considered a planet. However, in a meeting of the International Astronomical Union, a decision was taken that Pluto like other celestial objects (Ceres, 2003 UB313) discovered in recent past may be called ‘dwarf planets.”",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The Earth",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The earth is the third nearest planet to the sun. In size, it is the fifth largest planet. It is slightly flattened at the poles. That is why, its shape is described as a Geoid. Geoid means an earth-like shape.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Conditions favourable to support life are probably found only on the earth. The earth is neither too hot nor too cold. It has water and air, which are very essential for our survival. The air has life-supporting gases like oxygen. Because of these reasons, the earth is a unique planet in the solar system.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "From the outer space, the earth appears blue because its two-thirds surface is covered by water. It is, therefore, called a blue planet.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Do you know?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Light travels at the speed of about 300,000 km per second. Yet, even with this speed, the light of the sun takes about eight minutes to reach the earth.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Interesting Fact",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Neil Armstrong was the first man to step on the surface of the moon on 21 July 1969. Find out whether any Indian has landed on the moon?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "A Satellite is a celestial body that moves around the planets in the same way as the planets move around the sun. A Human-made Satellite is an artificial body. It is designed by scientists to gather information about the universe or for communication. It is carried by a rocket and placed in the orbit around the earth. Some of the Indian satellites in space are INSAT, IRS, EDUSAT, etc.?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "What do animals and plants require in order to grow and survive?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The Moon",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 1.3 : The moon as seen from the space",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Our earth has only one satellite, that is, the moon. Its diametre is only one-quarter that of the earth. It appears so big because it is nearer to our planet than other celestial bodies. It is about 3,84,400 km away from us. Now you can compare the distance of the earth from the sun and that from the moon.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The moon moves around the earth in about 27 days. It takes exactly the same time to complete one spin. As a result, only one side of the moon is visible to us on the earth.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Rocket launch Rocket falls back to the Earth Satellite enters orbit",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 1.4 : Human-made Satellite",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The moon does not have conditions favourable for life. It has neither water nor air. It has mountains, plains and depressions on its surface. These cast shadows on the moon’s surface. Look at the full moon and observe these shadows.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 1.5 : Asteroid",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Asteroids",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Apart from the stars, planets and satellites, there are numerous tiny bodies which also move around the sun. These bodies are called asteroids. They are found between the orbits of Mars and Jupiter (Figure 1.2). Scientists are of the view that asteroids are parts of a planet which exploded many years back.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Meteoroids",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The small pieces of rocks which move around the sun are called meteoroids. Sometimes these meteoroids come near the earth and tend to drop upon it. During this process due to friction with the air they get heated up and burn. It causes a flash of light. Sometimes, a meteor without being completely burnt, falls on the earth and creates a hollow.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Do you see a whitish broad band, like a white glowing path across the sky on a clear starry night? It is a cluster of millions of stars. This band is the Milky Way galaxy (Figure 1.6). Our solar system is a part of this galaxy. In ancient India, it was imagined to be a river of light flowing in the sky. Thus, it was named Akash Ganga. A galaxy is a huge system of billions of stars, and clouds of dust and gases. There are millions of such galaxies that make the Universe. It is difficult to imagine how big the universe is. Scientists are still trying to find out more and more about it. We are not certain about its size but we know that all of us – you and I belong to this universe.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 1.6 : Milky Way",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Can you relate yourself with the universe now? You are on the earth and the earth is a part of the solar system. Our solar system is a part of the Milky Way galaxy which is part of the universe. Think about the universe, and the fact that it contains millions of such galaxies. How do you fit in the picture?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Exercise",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. Answer the following questions briefly.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) How does a planet differ from a star?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) What is meant by the ‘Solar System’?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) Name all the planets according to their distance from the sun.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) Why is the Earth called a unique planet?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) Why do we see only one side of the moon always?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(f) What is the Universe ?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "2. Tick the correct answer.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) The planet known as the “Earth’s Twin” is",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Jupiter (ii) Saturn (iii) Venus",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) Which is the third nearest planet to the sun ?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Venus (ii) Earth (iii) Mercury",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) All the planets move around the sun in a",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Circular path (ii) Rectangular path (iii) Elongated path",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) The Pole Star indicates the direction to the",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) South (ii) North (iii) East",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) Asteroids are found between the orbits of",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Saturn and Jupiter (ii) Mars and Jupiter (iii) The Earth and Mars",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "3. Fill in the blanks.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) A group of ________ forming various patterns is called a ________.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) A huge system of stars is called________.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) ________is the closest celestial body to our earth.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) ________is the third nearest planet to the sun.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) Planets do not have their own________ and ___________________.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. Prepare a chart of the solar system.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "2. During a vacation visit a planetarium and describe your experience in the class.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "3. Organise a quiz contest on the earth and the solar system.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. The sun is commonly known as Soorya or Sooraj in Hindi, Find out its name in different languages of our country. Take help of your friends, teachers and neighbours.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "2. You might have heard that people make human chains and run for world peace etc. You can also make a human solar system and run for fun.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Step 1: All children of your class can play this game. Assemble in a big hall or on a playground.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Step 2: Now draw 8 circles on the ground as shown in the figure drawn on the opposite page.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Use a 5-metre long rope. Mark at every half a metre with a chalk or ink. Place a small nail to mark the centre. Now hold one end of the rope at the central position. Ask your friend to hold a chalk at the ½ metre mark and move around the nail holding rope and chalk together on the ground.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "You have drawn one circle just as you do on paper using a compass and a pencil. Draw other circles in the same manner.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Step 3: Prepare 10 placards. Name them as Sun., Moon, Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Step 4: Select 10 children in the following order and give each one of them a placard.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Order of placard distribution",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The Sun - tallest, The moon - smallest; Mercury, Mars, Venus and Earth (almost equal heights); Neptune, Uranus, Saturn and Jupiter taller than the earlier four planets but smaller than the Sun.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Now ask the children holding placards to take their places with the Sun in the centre in their orbits. Ask the child holding the moon placard to keep the hand of the child holding the earth placard always.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Now your Solar System is almost ready to go into action.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Now make everybody move slowly in the anti-clockwise direction. Your class has turned into a small human replica of the solar system.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "While moving on your orbit you can also turn around. For everybody the spin should be anti-clock wise except for Venus and Uranus who will make the spin in the clock-wise direction.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-2",
+"num": 2,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "Chapter 1",
+"bold": true,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-3",
+"num": 3,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "THE EARTH IN THE SOLAR SYSTEM",
+"bold": true,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-1",
+"num": 1,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "OUR COUNTRY – INDIA",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "India is a country of vast geographical expanse. In the north, it is bound by the lofty Himalayas. The Arabian Sea in the west, the Bay of Bengal in the east and the Indian Ocean in the south, wash the shores of the Indian peninsula.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The peninsula is a piece of land that is surrounded by water on three sides (figure 6.1).",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "India has an area of about 3.28 million sq. km. The north-south extent from Kashmir to Kanyakumari is about 3,200 km. And the east-west extent from Arunachal Pradesh to Kuchchh is about 2,900 km. The lofty mountains, the Great Indian Desert, the Northern Plains, the uneven plateau surface and the coasts and islands present a diversity of landforms. There is a great variety in the climate, vegetation, wildlife as well as in the language and culture. In this diversity, we find unity that is reflected in traditions that bind us as one nation. India has a population of more than one hundred twenty crores since the",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "year 2011. It is the second most populous country of the world after China.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Do you know?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Large countries which stretch extensively from east to west do not have a single Standard Time for the whole country. The USA and Canada have seven and six time zones respectively. Do you remember how many time zones are there in Russia?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Locational Settings",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "India is located in the northern hemisphere. The Tropic of Cancer (23°30’N) passes almost halfway through the country (Figure 7.2). From south to north, main land of India extends between 8°4’N and 37°6’N latitudes. From west to east, India extends between 68°7’E and 97°25’E longitudes. If we divide the world into eastern and western hemispheres, which hemisphere would India belong to? Due to great longitudinal extent of about 29°, there could be a wide differences in local time of places located at two extreme points of India. As such, the difference between these two points would be of about two hours. As you have learnt earlier, the local time changes by four minutes for every one degree of longitude. The sun rises about two hours earlier in the east (Arunachal Pradesh) than in the west (Gujarat). You have already read earlier, why the local time of longitude of 82°30’E has been taken as the Indian Standard Time. This meridian or longitude is also termed as the Standard Meridian of India.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "India's Neighbours",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 7.1 : India and its neighbouring countries",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "There are seven countries that share land boundaries with India. Find out names of these countries from the Figure 7.1. How many of these countries do not have access to any ocean or sea?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 7.2 : Political map of India",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Across the sea to the south, lie our island neighbours— Sri Lanka and Maldives. Sri Lanka is separated from India by the Palk Strait.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Political and Administrative Division",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 7.3 : India : Physical Divisions",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "India is a vast country. For administrative purposes, the country is divided into 29 States and 7 Union Territories (Appendix-I).",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Alluvial deposits: These are very fine soils, brought by rivers and deposited in the river basins.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Tributary: A river or stream which contributes its water to a main river by discharging it into main river from either side (Figure 6.1).",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Delhi is the national capital. The states have been formed mainly on the basis of languages. Rajasthan is the largest state and Goa is the smallest state in terms of area. The states are further divided into districts.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Physical Divisions",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "India is marked by a diversity of physical features such as mountains, plateaus, plains, coasts and islands. Standing as sentinels in the north are the lofty snow-capped Himalayas. Him+alayamean ‘the abode of snow’. The Himalayan mountains are divided into three main parallel ranges. The northernmost is the Great Himalaya or Himadri. The world’s highest peaks are located in this range. Middle Himalaya or Himachal lies to the south of Himadri. Many popular hill stations are situated here. Find out the names of five hill stations. The Shiwalik is the southernmost range.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Do you know?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The Ganga and the Brahmaputra form the world’s largest delta,the Sundarbans delta.The delta is triangular in shape. It is an area of land formed at the mouth of the river (Where rivers enter the sea, that point is called the mouth of the river, Figure 6.1).",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The Northern Indian plains lie to the south of the Himalayas. They are generally level and flat. These are formed by the alluvial deposits laid down by the rivers– the Indus, the Ganga, the Brahmaputra and their tributaries. These river plains provide fertile land for cultivation. That is the reason for high concentration of population in these plains.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "In the western part of India lies the Great Indian desert. It is a dry, hot and sandy stretch of land. It has very little vegetation.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Let's Do",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Many girls are named after rivers eg. Yamuna, Mandakini, and Kaveri. Do you know anyone in your locality who is named after a river? Ask your parents and others and make a list of such names. Could you also find other names related to water e.g. Shabnam?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "To the south of northern plains lies the Peninsular plateau. It is triangular in shape. The relief is highly uneven. This is a region with numerous hill ranges and valleys. Aravali hills, one of the oldest ranges of the world, border it on the north-west side. The Vindhyas and the Satpuras are the important ranges. The rivers Narmada and Tapi flow through these ranges. These are west-flowing rivers that drain into the Arabian Sea. The Western Ghats or Sahyadris border the plateau in the west and the Eastern Ghats provide the eastern boundary. While the Western Ghats are almost continuous, the Eastern Ghats are broken and uneven (Figure 7.3). The plateau is rich in minerals like coal and iron-ore.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "To the West of the Western Ghats and the East of Eastern Ghats lie the Coastal plains. The western coastal plains are very narrow. The eastern Coastal plains are much broader.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 7.4 : Coral Islands",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "There are a number of east flowing rivers.The rivers Mahanadi, Godavari, Krishna and Kaveridrain into the Bay of Bengal. These rivers have formed fertile deltas at their mouth. The Sunderban delta is formed where the Ganga and Brahmaputra flow into the Bay of Bengal.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Do you know?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Corals are skeletons of tiny marine animals called Polyps. When the living polyps die, their skeletons are left. Other poplyps grow on top of the hard skeleton which grows higher and higher, thus forming the coral islands. Figure 7.4 shows Coral islands.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Two groups of islands also form part of India.Lakshadweep Islands are located in the Arabian Sea. These are coral islands located off the coast of Kerala. The Andaman and the Nicobar Islands lie to the southeast of the Indian mainland in the Bay of Bengal. Do you know which group of islands were affected by the Tsunami in 2004? Find out through newspaper reports and by speaking to people how in different ways people faced this challenge when Tsunami struck the Indian coast. Tsunami is a huge sea wave generated due to an earthquake on the sea floor.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-2",
+"num": 2,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "EXERCISE",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. Answer the following questions briefly.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) Name the major physical divisions of India.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) India shares its land boundaries with seven countries. Name them.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) Which two major rivers fall into the Arabian Sea?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) Name the delta formed by the Ganga and the Brahmaputra.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) How many States and Union Territories are there in India? Which states have a common capital?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(f) Why do a large number of people live in the Northern plains?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(g) Why is Lakshadweep known as a coral island?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "2. Tick the correct answers.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) The southernmost Himalayas are known as",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Shiwaliks (ii) Himadri (iii) Himachal",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) Sahyadris is also known as",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Aravali (ii) Western Ghats (iii) Himadri",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) The Palk Strait lies between the countries",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Sri Lanka and Maldives",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(ii) India and Sri Lanka",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(iii) India and Maldives",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) The Indian islands in the Arabian Sea are known as",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Andaman and Nicobar Islands",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(ii) Lakshadweep Islands",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(iii) Maldives",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) The oldest mountain range in India is the",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Aravali hills (ii) Western ghats (iii) Himalayas",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "3. Fill in the blanks.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) India has an area of about ________________.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) The Greater Himalayas are also known as_________________.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) The largest state in India in terms of area is__________________.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) The river Narmada falls into the __________________ sea.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) The latitude that runs almost halfway through India is ___________.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Map skills",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. On an outline map of India, mark the following.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) Tropic of Cancer",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) Standard Meridian of India",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) State in which you live",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) Andaman Islands and Lakshadweep Islands",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) Western Ghats and Eastern Ghats",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-3",
+"num": 3,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "Chapter 7",
+"bold": true,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-4",
+"num": 4,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "OUR COUNTRY – INDIA",
+"bold": true,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-1",
+"num": 1,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "MAJOR LANDFORMS OF THE EARTH",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "You must have seen some of the landform features as shown in the Figure 6.1 below. You will notice that the surface of the earth is not the same everywhere. The earth has an infinite variety of landforms. Some parts of the lithosphere may be rugged and some flat.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 6.1 : Landforms",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Do you know?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "A hill is a land surface that rises higher than the surrounding area. Generally, a steep hill with an elevation of more than 600 metres is termed as a mountain. Name some mountains with a height of more than 8,000 metres.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "These landforms are a result of two processes. You will be amazed to know that the ground you are standing on is slowly moving. Within the earth, a continuous movement is taking place. The first, or the internal process leads to the upliftment and sinking of the earth’s surface at several places.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "The second, or the external process is the continuous wearing down and rebuilding of the land surface. The wearing away of the earth’s surface is called erosion. The surface is being lowered by the process of erosion and rebuilt by the process of deposition. These two processes are carried out by running water, ice and wind. Broadly, we can group different landforms depending on elevation and slope as mountains, plateaus and plains.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-2",
+"num": 2,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "MOUNTAINS",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "A mountain is any natural elevation of the earth surface. The mountains may have a small summit and a broad base. It is considerably higher than the surrounding area. Some mountains are even higher than the clouds. As you go higher, the climate becomes colder.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "In some mountains, there are permanently frozen rivers of ice. They are called glaciers. There are some mountains you cannot see as they are under the sea. Because of harsh climate, less people live in the mountain areas. Since the slopes are steep, less land is available for farming.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Let’s Do",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Making of a Mountain :",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. All you require is a pile of paper.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "2. Put the papers on your table.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "3. Push the papers from both sides by your hands.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "4. The sheet will be folded and rise into a peak.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-3",
+"num": 3,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "You have made a mountain!",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "In the same process our Himalayas and the Alps were formed!",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "A Fold Mountain",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Mountains may be arranged in a line known as range. Many mountain systems consist of a series of parallel ranges extending over hundreds of kilometres. The Himalayas, the Alps and the Andes are mountain ranges of Asia, Europe and South America, respectively (Figure 5.1). Mountains vary in their heights and shape.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Do you know?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Mauna Kea (Hawaii) in the Pacific Ocean is an undersea mountain. It is higher than Mount Everest being 10,205 metres high.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 6.2 : Fold Mountains (Himalayas)",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "There are three types of mountains- Fold Mountains, Block Mountains and the Volcanic Mountains. The Himalayan Mountains and the Alps are young fold mountains with rugged relief and high conical peaks. The Aravali range in India is one of the oldest fold mountain systems in the world. The range has considerably worn down due to the processes of erosion. The Appalachians in North America and the Ural mountains in Russia (Figure 5.1) have rounded features and low elevation. They are very old fold mountains.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Block Mountains are created when large areas are broken and displaced vertically. The uplifted blocks are termed as horsts and the lowered blocks are called graben. The Rhine valley and the Vosges mountain in Europe are examples of such mountain systems. Locate them on the world map in the atlas and find out some more examples of this type of landforms.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 6.3 : A Block Mountain",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Volcanic mountains are formed due to volcanic activity. Mt.Kilimanjaro in Africa and Mt.Fujiyama in Japan are examples of such mountains.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 6.4 : A Volcanic Mountain",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Mountains are very useful. The mountains are a storehouse of water. Many rivers have their source in the glaciers in the mountains. Reservoirs are made and the water is harnessed for the use of people. Water from the mountains is also used for irrigation and generation of hydro-electricity. The river valleys and terraces are ideal for cultivation of crops. Mountains have a rich variety of flora and fauna. The forests provide fuel, fodder, shelter and other products like gum, raisins, etc. Mountains provide an idyllic site for tourists. They visit the mountains for their scenic beauty. Several sports like paragliding, hang gliding, river rafting and skiing are popular in the mountains. Can you name some places in the Himalayas associated with these sports?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Can you name this sport?",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-4",
+"num": 4,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "LATEAUS",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "A plateau is an elevated flat land. It is a flat-topped table land standing above the surrounding area. A plateau may have one or more sides with steep slopes. The height of plateaus often varies from few hundred metres to several thousand metres. Plateaus, like mountains may be young or old. The Deccan plateau in India is one of the oldest plateaus. The East African Plateau in Kenya, Tanzania and Uganda and the Western plateau of Australia are other examples. The Tibet plateau (Figure 5.1, p.31) is the highest plateau in the world with a height of 4,000 to 6,000 metres above the mean sea level.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 6.5 : Plateau",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Plateaus are very useful because they are rich in mineral deposits. As a result, many of the mining areas in the world are located in the plateau areas. The African plateau is famous for gold and diamond mining. In India huge reserves of iron, coal and manganese are found in the Chhotanagpur plateau.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "In the plateau areas, there may be several waterfalls as the river falls from a great height. In India, the Hundru falls in the Chhotanagpur plateau on the river Subarnarekha and the Jog falls in Karnataka are examples of such waterfalls. The lava plateaus are rich in black soil that are fertile and good for cultivation. Many plateaus have scenic spots and are of great attraction to tourists.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-5",
+"num": 5,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "PLAINS",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Plains are large stretches of flat land. They are, generally, not more than 200 metres above mean sea level. Some plains are extremely level. Others may be slightly rolling and undulating. Most of the plains are formed by rivers and their tributaries. The rivers flow down the slopes of mountains and erode them. They carry forward the eroded material. Then they deposit their load consisting of stones, sand and silt along their courses and in their valleys. It is from these deposits that plains are formed.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 6.6 : Plains",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Generally, plains are very fertile. Construction of transport network is easy. Thus, these plains are very thickly-populated regions of the world. Some of the largest plains made by the rivers are found in Asia and North America. For example, in Asia, these plains are formed by the Ganga and the Brahmaputra in India and the Yangtze in China.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Plains are the most useful areas for human habitation. There is great concentration of people as more flat land is available for building houses, as well as for cultivation. Because of fertile soils, the land is highly productive for cultivation. In India too, the Indo-Gangetic plains are the most densely populated regions of the country.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-6",
+"num": 6,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "LANDFORMS AND THE PEOPLE",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Humans have been living on different kinds of landforms in different ways. Life is difficult in mountainous areas. Plains provide much better conditions. It is easy to grow crops, build a house or a road in a plain than a mountain. Can you point out some differences in the ways people live on different kinds of landforms? Sometimes, natural calamities such as earthquakes, volcanic eruption, storms and floods cause widespread destruction. Huge loss of life and property takes place. By creative awareness about such incidences we may lower the risks.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 6.7 : Rope Bridge (Arunachal Pradesh)",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "You may find out from your own surroundings in how many ways we use the land and water. Quite often we use the land in a wasteful manner, for example constructing houses on a fertile land. Similarly we throw garbage on land or in water making them dirty. We should avoid using such important gifts of nature in a careless manner. The available land is not only for our use. It is our duty to leave the earth a better place for future generations as well.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Figure 6.8 : A polluted river",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. Look carefully at photograph nos. 1-10. Write one sentence about each of the photograph.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "2. Name the landform features shown in the photograph nos. 1,2 and 7.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-7",
+"num": 7,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "What appears to be the main use of this land? (Photograph no. 9)",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "4. What activities do you see in the photograph nos. 3,6,8 and 9.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "5. What type of houses do you see in photograph nos. 4 and 5.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "6. Name the water sports/games shown in photograph nos. 3 & 8.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "7. Name two means of transport shown in photograph nos. 1 and 10.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-8",
+"num": 8,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "EXERCISE",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. Answer The Following Questions Briefly.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) What are the major landforms?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) What is the difference between a mountain and a plateau?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) What are the different types of mountains?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) How are mountains useful to man?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) How are plains formed?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(f) Why are the river plains thickly populated?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(g) Why are mountains thinly populated?",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "2. Tick The Correct Answers.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) The mountains differ from the hills in terms of",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) elevation (ii) slope (iii) aspect",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) Glaciers are found in",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) the mountains (ii) the plains (iii) the plateaus",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(c) The Deccan Plateau is located in",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) Kenya (ii) Australia (iii) India",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(d) The river Yangtze flows in",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) South America (ii) Australia (iii) China",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(e) An important mountain range of Europe is",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(i) the Andes (ii) the Alps (iii) the Rockies",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "3. Fill In The Blanks.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. A ___________ is an unbroken flat or a low-level land.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "2. The Himalayas and the Alps are examples of _______________types of mountains.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "3. _____________ areas are rich in mineral deposits.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "4. The _________________ is a line of mountains.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "5. The ____________areas are most productive for farming.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "1. What kind of landforms are found in your state? Based on the reading of this chapter, say how they are of use to the people.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "Map Skills",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-9",
+"num": 9,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "On an outline map of the world, mark the following :",
+"bold": true,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(a) Mountain ranges: Himalayas, Rockies and Andes.",
+"bold": false,
+"italic": false
+}
+]
+},
+{
+"kind": "para",
+"runs": [
+{
+"text": "(b) Plateau : Tibet.",
+"bold": false,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-10",
+"num": 10,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "Chapter 6",
+"bold": true,
+"italic": false
+}
+]
+}
+]
+},
+{
+"id": "sec-11",
+"num": 11,
+"title": "Content",
+"blocks": [
+{
+"kind": "subhead",
+"runs": [
+{
+"text": "MAJOR LANDFORMS OF THE EARTH",
+"bold": true,
+"italic": false
+}
+]
+}
+]
+}
+]
+}
