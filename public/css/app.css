@@ -860,7 +860,7 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
   padding: var(--sp-3) var(--sp-4); background: var(--bg); border-radius: var(--r-lg);
   border-left: 4px solid var(--brand);
 }
-.tts-demo-controls { display: flex; flex-direction: column; gap: var(--sp-2); align-items: start; }
+.tts-demo-controls { display: flex; flex-direction: column; gap: var(--sp-2); align-items: flex-start; }
 .tts-demo-note {
   font-family: var(--font-ui); font-size: var(--fs-2xs); color: var(--ash);
 }
@@ -1940,6 +1940,7 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
   display: flex;
   flex-direction: column;
 }
+.rd-study[hidden] { display: none !important; }
 .rd-study-head {
   display: flex;
   align-items: center;

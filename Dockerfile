@@ -1,5 +1,5 @@
-# UPSCbooks — single Node container (Express + EJS + SQLite).
-# Build: docker build -t upscotes:latest .
+# upscnotes — single Node container (Express + EJS + SQLite).
+# Build: docker build -t upscnotes:latest .
 FROM node:22-alpine
 WORKDIR /app
 
@@ -14,9 +14,9 @@ RUN npm ci --omit=dev && npm cache clean --force
 COPY src ./src
 COPY public ./public
 COPY tools ./tools
-
-# content (books media) — baked into image so no host volume needed
 COPY content ./content
+COPY covers ./covers
+COPY audio ./audio
 
 # pre-imported SQLite DB seed (books + users) — copied to /app/data on first boot
 COPY seed ./seed
