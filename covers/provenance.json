@@ -6,14 +6,8 @@
     "bytes": 45790,
     "found": true,
     "confidence": 1,
-    "olKey": "/works/OL21639423W",
-    "editionKey": "OL29411457M",
-    "coverId": 10389308,
-    "sourceUrl": "https://covers.openlibrary.org/b/id/10389308-L.jpg",
-    "matchedTitle": "Contemporary India Part - 2 Textbook in Geography for Class - 10 - 1068",
-    "matchedAuthor": "by NCERT (Author)",
-    "firstPublished": 2014,
-    "fetchedAt": "2026-10-04T20:45:16.709Z"
+    "source": "extracted",
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "geography-contemporary-india-2": {
     "title": "Geography (Contemporary India 2)",
@@ -22,14 +16,8 @@
     "bytes": 45790,
     "found": true,
     "confidence": 1,
-    "source": "isbn",
-    "isbn": "8174506446",
-    "coverId": "8174506446",
-    "sourceUrl": "https://covers.openlibrary.org/b/isbn/8174506446-L.jpg",
-    "matchedTitle": "Geography (Contemporary India 2)",
-    "matchedAuthor": "NCERT",
-    "firstPublished": null,
-    "fetchedAt": "2026-10-04T20:45:19.046Z"
+    "source": "extracted",
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "history-india-and-contemporary-world": {
     "title": "History (India and Contemporary World)",
@@ -38,14 +26,8 @@
     "bytes": 47499,
     "found": true,
     "confidence": 1,
-    "source": "isbn",
-    "isbn": "8174505369",
-    "coverId": "8174505369",
-    "sourceUrl": "https://covers.openlibrary.org/b/isbn/8174505369-L.jpg",
-    "matchedTitle": "History (India and Contemporary World)",
-    "matchedAuthor": "NCERT",
-    "firstPublished": null,
-    "fetchedAt": "2026-10-04T20:45:53.713Z"
+    "source": "extracted",
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "history-our-past-1": {
     "title": "History (Our Past 1)",
@@ -54,14 +36,8 @@
     "bytes": 79068,
     "found": true,
     "confidence": 1,
-    "source": "isbn",
-    "isbn": "8174504931",
-    "coverId": "8174504931",
-    "sourceUrl": "https://covers.openlibrary.org/b/isbn/8174504931-L.jpg",
-    "matchedTitle": "History (Our Past 1)",
-    "matchedAuthor": "NCERT",
-    "firstPublished": null,
-    "fetchedAt": "2026-10-04T20:46:08.285Z"
+    "source": "extracted",
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "history-our-past-2": {
     "title": "History (Our Past 2)",
@@ -70,14 +46,8 @@
     "bytes": 48773,
     "found": true,
     "confidence": 1,
-    "source": "isbn",
-    "isbn": "8174507248",
-    "coverId": "8174507248",
-    "sourceUrl": "https://covers.openlibrary.org/b/isbn/8174507248-L.jpg",
-    "matchedTitle": "History (Our Past 2)",
-    "matchedAuthor": "NCERT",
-    "firstPublished": null,
-    "fetchedAt": "2026-10-04T20:46:10.682Z"
+    "source": "extracted",
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "history-themes-in-indian-history-1-2-3": {
     "title": "History (Themes in Indian History 1, 2, 3 )",
@@ -86,14 +56,8 @@
     "bytes": 46514,
     "found": true,
     "confidence": 1,
-    "olKey": "/works/OL20807779W",
-    "editionKey": "OL28168992M",
-    "coverId": 10107295,
-    "sourceUrl": "https://covers.openlibrary.org/b/id/10107295-L.jpg",
-    "matchedTitle": "Themes in Indian History Part - 3 for Class - 12 - 12125",
-    "matchedAuthor": "NCERT",
-    "firstPublished": 2014,
-    "fetchedAt": "2026-10-04T20:46:14.107Z"
+    "source": "extracted",
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "indian-economy-vivek-singh": {
     "title": "Indian Economy",
@@ -102,14 +66,8 @@
     "bytes": 38482,
     "found": true,
     "confidence": 1,
-    "olKey": "/works/OL21240053W",
-    "editionKey": "OL44419264M",
-    "coverId": 13234225,
-    "sourceUrl": "https://covers.openlibrary.org/b/id/13234225-L.jpg",
-    "matchedTitle": "Indian Economy",
-    "matchedAuthor": "Uma Kapila",
-    "firstPublished": 2009,
-    "fetchedAt": "2026-10-04T20:46:19.022Z"
+    "source": "extracted",
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "indian-polity": {
     "title": "Indian Polity",
@@ -118,14 +76,8 @@
     "bytes": 27805,
     "found": true,
     "confidence": 0.94,
-    "olKey": "/works/OL28943229W",
-    "editionKey": "OL39796992M",
-    "coverId": 14433425,
-    "sourceUrl": "https://covers.openlibrary.org/b/id/14433425-L.jpg",
-    "matchedTitle": "Indian Polity for Civil Services Examinations by M Laxmikanth",
-    "matchedAuthor": "",
-    "firstPublished": null,
-    "fetchedAt": "2026-10-04T20:46:22.890Z"
+    "source": "extracted",
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "indias-struggle-for-independence": {
     "title": "India's Struggle for Independence",
@@ -134,14 +86,8 @@
     "bytes": 21056,
     "found": true,
     "confidence": 1,
-    "olKey": "/works/OL42914W",
-    "editionKey": "OL7347767M",
-    "coverId": 15201172,
-    "sourceUrl": "https://covers.openlibrary.org/b/id/15201172-L.jpg",
-    "matchedTitle": "India's Struggle for Independence",
-    "matchedAuthor": "Bipan Chandra",
-    "firstPublished": 1989,
-    "fetchedAt": "2026-10-04T20:46:26.118Z"
+    "source": "extracted",
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "modern-indian-history": {
     "title": "Modern Indian History",
@@ -150,14 +96,8 @@
     "bytes": 52670,
     "found": true,
     "confidence": 1,
-    "olKey": "/works/OL21103764W",
-    "editionKey": "OL28566659M",
-    "coverId": 13298199,
-    "sourceUrl": "https://covers.openlibrary.org/b/id/13298199-L.jpg",
-    "matchedTitle": "Modern Indian History",
-    "matchedAuthor": "Bipan Chandra, Mridula Mukherjee, Aditya Mukherjee, Siri Hettige",
-    "firstPublished": 2015,
-    "fetchedAt": "2026-10-04T20:46:31.427Z"
+    "source": "extracted",
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "our-past-3-part-2": {
     "title": "Our past 3 part 2",
@@ -166,14 +106,8 @@
     "bytes": 49253,
     "found": true,
     "confidence": 1,
-    "olKey": "/works/OL34953718W",
-    "editionKey": "OL47315179M",
-    "coverId": 13799044,
-    "sourceUrl": "https://covers.openlibrary.org/b/id/13799044-L.jpg",
-    "matchedTitle": "Our Pasts 3 Part - 2 Textbook In History for Class - 8",
-    "matchedAuthor": "NCERT (Author)",
-    "firstPublished": 2016,
-    "fetchedAt": "2026-10-04T20:46:38.120Z"
+    "source": "extracted",
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "spectrum-modern-india": {
     "title": "A Brief History of Modern India",
@@ -182,14 +116,8 @@
     "bytes": 35161,
     "found": true,
     "confidence": 1,
-    "olKey": "/works/OL24354935W",
-    "editionKey": "OL51172532M",
-    "coverId": 10880864,
-    "sourceUrl": "https://covers.openlibrary.org/b/id/10880864-L.jpg",
-    "matchedTitle": "A Brief History of Modern India",
-    "matchedAuthor": "Rajiv Ahir",
-    "firstPublished": 2017,
-    "fetchedAt": "2026-10-04T20:47:34.724Z"
+    "source": "extracted",
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "economics": {
     "title": "Economics",
@@ -197,9 +125,9 @@
     "bytes": 203862,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Economics\\Economics\\Economics 1.epub",
-    "fetchedAt": "2026-10-06T23:32:58.341574"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "our-past-3-part-1": {
     "title": "Our past 3 part 1",
@@ -207,9 +135,9 @@
     "bytes": 107042,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\History all\\Our past 3 part 1\\Our past 3 part 1 1.epub",
-    "fetchedAt": "2026-10-06T23:34:16.994329"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "people": {
     "title": "People",
@@ -217,9 +145,9 @@
     "bytes": 71826,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Social science\\People\\People 1.epub",
-    "fetchedAt": "2026-10-06T23:33:02.792763"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "social-and-political-life-std-6": {
     "title": "Social and political life std 6",
@@ -227,9 +155,9 @@
     "bytes": 100660,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Social science\\Social and political life std 6\\Social and political life std 6 1.epub",
-    "fetchedAt": "2026-10-06T23:34:30.986234"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "economics-indian-economic-development": {
     "title": "Economics (Indian Economic Development)",
@@ -237,9 +165,9 @@
     "bytes": 27894,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Economics\\Economics (Indian Economic Development)\\Economics (Indian Economic Development) 1.epub",
-    "fetchedAt": "2026-10-06T23:33:46.504542"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "economics-introductory-macro-economics": {
     "title": "Economics (Introductory Macro Economics)",
@@ -247,9 +175,9 @@
     "bytes": 49000,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Economics\\Economics (Introductory Macro Economics)\\Economics (Introductory Macro Economics) 1.epub",
-    "fetchedAt": "2026-10-06T23:33:48.858869"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "economics-introductory-micro-economics": {
     "title": "Economics (Introductory Micro Economics)",
@@ -257,9 +185,9 @@
     "bytes": 70608,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Economics\\Economics (Introductory Micro Economics)\\Economics (Introductory Micro Economics) 1.epub",
-    "fetchedAt": "2026-10-06T23:33:51.040651"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "economics-statistics-for-economics": {
     "title": "Economics (Statistics For Economics)",
@@ -267,9 +195,9 @@
     "bytes": 31022,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Economics\\Economics (Statistics For Economics)\\Economics (Statistics For Economics) 1.epub",
-    "fetchedAt": "2026-10-06T23:33:53.212660"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "economy-undestanding-economic-development": {
     "title": "Economy (Undestanding Economic Development)",
@@ -277,9 +205,9 @@
     "bytes": 91980,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Economics\\Economy (Undestanding Economic Development)\\Economy (Undestanding Economic Development) 1.epub",
-    "fetchedAt": "2026-10-06T23:33:55.140848"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "geography-fundamentals-of-human-geography": {
     "title": "Geography (Fundamentals of Human Geography)",
@@ -287,9 +215,9 @@
     "bytes": 32022,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Geography\\Geography (Fundamentals of Human Geography)\\Geography (Fundamentals of Human Geography) 1.epub",
-    "fetchedAt": "2026-10-06T23:33:56.976626"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "geography-fundamentals-of-physical-geography": {
     "title": "Geography (Fundamentals of Physical Geography)",
@@ -297,9 +225,9 @@
     "bytes": 18564,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Geography\\Geography (Fundamentals of Physical Geography)\\Geography (Fundamentals of Physical Geography) 1.epub",
-    "fetchedAt": "2026-10-06T23:33:58.967477"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "geography-india-physical-environment": {
     "title": "Geography (India Physical Environment)",
@@ -307,9 +235,9 @@
     "bytes": 76702,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Geography\\Geography (India Physical Environment)\\Geography (India Physical Environment) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:01.021635"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "geography-our-environment": {
     "title": "Geography (Our Environment)",
@@ -317,9 +245,9 @@
     "bytes": 150502,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Geography\\Geography (Our Environment)\\Geography (Our Environment) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:03.156876"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "geography-our-habitat": {
     "title": "Geography (Our Habitat)",
@@ -327,9 +255,9 @@
     "bytes": 117334,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Geography\\Geography (Our Habitat)\\Geography (Our Habitat) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:05.109772"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "geography-practical-work-in-geography-1": {
     "title": "Geography (Practical Work in Geography 1)",
@@ -337,9 +265,9 @@
     "bytes": 84144,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Geography\\Geography (Practical Work in Geography 1)\\Geography (Practical Work in Geography 1) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:07.095867"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "geography-practical-work-in-geography-2": {
     "title": "Geography (Practical Work in Geography 2)",
@@ -347,9 +275,9 @@
     "bytes": 21506,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Geography\\Geography (Practical Work in Geography 2)\\Geography (Practical Work in Geography 2) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:08.861366"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "geography-resource-and-development": {
     "title": "Geography (Resource and Development)",
@@ -357,9 +285,9 @@
     "bytes": 102118,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Geography\\Geography (Resource and Development)\\Geography (Resource and Development) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:10.958439"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "history-india-and-the-contemporary-world-2": {
     "title": "History (India and the contemporary world 2)",
@@ -367,9 +295,9 @@
     "bytes": 138734,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\History all\\History (India and the contemporary world 2)\\History (India and the contemporary world 2) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:12.898055"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "history-themes-in-world-history": {
     "title": "History (Themes in World History)",
@@ -377,9 +305,9 @@
     "bytes": 132164,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\History all\\History (Themes in World History)\\History (Themes in World History) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:14.910327"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "political-science-contemporary-world-politics": {
     "title": "Political Science (Contemporary World Politics)",
@@ -387,9 +315,9 @@
     "bytes": 38592,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Political science\\Political Science (Contemporary World Politics)\\Political Science (Contemporary World Politics) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:18.782772"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "political-science-democratic-politics-1": {
     "title": "Political Science (Democratic Politics 1)",
@@ -397,9 +325,9 @@
     "bytes": 42408,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Political science\\Political Science (Democratic Politics 1)\\Political Science (Democratic Politics 1) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:20.596297"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "political-science-democratic-politics-2": {
     "title": "Political Science (Democratic Politics 2)",
@@ -407,9 +335,9 @@
     "bytes": 107620,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Political science\\Political Science (Democratic Politics 2)\\Political Science (Democratic Politics 2) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:23.118613"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "political-science-indian-constituition-at-work": {
     "title": "Political Science (Indian Constituition at Work)",
@@ -417,9 +345,9 @@
     "bytes": 66238,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Political science\\Political Science (Indian Constituition at Work)\\Political Science (Indian Constituition at Work) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:25.112357"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "political-science-political-theory": {
     "title": "Political Science (Political Theory)",
@@ -427,9 +355,9 @@
     "bytes": 24292,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Political science\\Political Science (Political Theory)\\Political Science (Political Theory) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:26.936195"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "political-science-politics-in-india-since-independence": {
     "title": "Political Science (Politics in India Since Independence)",
@@ -437,9 +365,9 @@
     "bytes": 29800,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Political science\\Political Science (Politics in India Since Independence)\\Political Science (Politics in India Since Independence) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:28.785975"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "social-science-social-and-political-life": {
     "title": "Social Science (Social and Political Life)",
@@ -447,9 +375,9 @@
     "bytes": 109572,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Social science\\Social Science (Social and Political Life 3)\\Social Science (Social and Political Life 3) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:33.527939"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "social-science-social-and-political-life-3": {
     "title": "Social Science (Social and Political Life 3)",
@@ -457,9 +385,9 @@
     "bytes": 109572,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Social science\\Social Science (Social and Political Life 3)\\Social Science (Social and Political Life 3) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:35.879791"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "sociology-indian-society": {
     "title": "Sociology (Indian Society)",
@@ -467,9 +395,9 @@
     "bytes": 58086,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Social science\\Sociology  (Indian Society)\\Sociology  (Indian Society) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:37.842242"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "sociology-introducing-sociology": {
     "title": "Sociology (Introducing Sociology)",
@@ -477,9 +405,9 @@
     "bytes": 29450,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Social science\\Sociology (Introducing Sociology)\\Sociology (Introducing Sociology) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:39.749141"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "sociology-social-change-and-development-in-india": {
     "title": "Sociology (Social change and Development in India)",
@@ -487,9 +415,9 @@
     "bytes": 14940,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Social science\\Sociology (Social change and Development in India)\\Sociology (Social change and Development in India) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:41.512401"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   },
   "sociology-understanding-society": {
     "title": "Sociology (Understanding Society)",
@@ -497,8 +425,8 @@
     "bytes": 33292,
     "found": true,
     "confidence": 1,
-    "source": "epub",
+    "source": "extracted",
     "epub": "C:\\Users\\Vulgaris\\Documents\\iCloudDrive\\UPSC all ncerts EPub\\Social science\\Sociology (Understanding Society)\\Sociology (Understanding Society) 1.epub",
-    "fetchedAt": "2026-10-06T23:34:43.341888"
+    "extractedAt": "2026-10-07T06:16:00.000Z"
   }
 }
