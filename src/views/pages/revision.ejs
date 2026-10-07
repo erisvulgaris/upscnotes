@@ -16,8 +16,9 @@
           <div class="book-card-wrap">
             <a class="book-card" href="/read/<%= b.slug %>/<%= b.inProgress ? b.inProgress.number : 1 %>">
               <div class="book-cover">
-                <% if (b.cover) { %>
-                  <img src="/content/<%= b.slug %>/cover.<%= b.cover.split('.').pop() %>" alt="" loading="lazy">
+                <% const revCover = coverUrl(b.slug); %>
+                <% if (revCover) { %>
+                  <img src="<%= revCover %>" alt="" loading="lazy">
                 <% } else { %>
                   <span class="cover-art"><span class="cover-title"><%= b.title %></span></span>
                 <% } %>
@@ -46,8 +47,9 @@
           <div class="book-card-wrap">
             <a class="book-card" href="/read/<%= b.slug %>/<%= b.inProgress ? b.inProgress.number : 1 %>">
               <div class="book-cover">
-                <% if (b.cover) { %>
-                  <img src="/content/<%= b.slug %>/cover.<%= b.cover.split('.').pop() %>" alt="" loading="lazy">
+                <% const revCover = coverUrl(b.slug); %>
+                <% if (revCover) { %>
+                  <img src="<%= revCover %>" alt="" loading="lazy">
                 <% } else { %>
                   <span class="cover-art"><span class="cover-title"><%= b.title %></span></span>
                 <% } %>

@@ -32,8 +32,9 @@
       <% var pct = Math.round((resume.inProgress.number / Math.max(1, resume.chapter_count)) * 100); %>
       <a class="continue-card" href="/read/<%= resume.slug %>/<%= resume.inProgress.number %>">
         <span class="continue-cover" style="--cover:<%= resume.color || '#1E2A52' %>">
-          <% if (resume.cover) { %>
-            <img src="/content/<%= resume.slug %>/cover.<%= resume.cover.split('.').pop() %>" alt="" loading="lazy">
+          <% const resumeCover = coverUrl(resume.slug); %>
+          <% if (resumeCover) { %>
+            <img src="<%= resumeCover %>" alt="" loading="lazy">
           <% } else { %>
             <span class="cover-art"><span class="cover-title"><%= resume.title %></span></span>
           <% } %>

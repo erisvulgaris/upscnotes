@@ -57,6 +57,10 @@
             <a class="fan-book <%= i === 0 ? 'is-lead' : '' %>" tabindex="-1"
                href="/read/<%= b.slug %>/1" style="--cover:<%= b.color || '#1E2A52' %>">
               <span class="fan-spine"></span>
+              <% const heroCover = coverUrl(b.slug); %>
+              <% if (heroCover) { %>
+                <img class="fan-cover-img" src="<%= heroCover %>" alt="" loading="lazy">
+              <% } %>
               <span class="cover-art">
                 <span class="cover-genre"><%= b.category === 'ncert' ? 'NCERT' : 'UPSC' %></span>
                 <span class="cover-title"><%= b.title %></span>
@@ -114,10 +118,15 @@
       <aside class="sample-aside">
         <div class="sample-book">
           <span class="sample-book-cover" style="--cover:<%= sample.book.color || '#1E2A52' %>">
-            <span class="cover-art">
-              <span class="cover-genre"><%= sample.book.subject ? String(sample.book.subject).toUpperCase() : 'TEXTBOOK' %></span>
-              <span class="cover-title"><%= sample.book.title %></span>
-            </span>
+            <% const sampleCover = coverUrl(sample.book.slug); %>
+            <% if (sampleCover) { %>
+              <img src="<%= sampleCover %>" alt="" loading="lazy">
+            <% } else { %>
+              <span class="cover-art">
+                <span class="cover-genre"><%= sample.book.subject ? String(sample.book.subject).toUpperCase() : 'TEXTBOOK' %></span>
+                <span class="cover-title"><%= sample.book.title %></span>
+              </span>
+            <% } %>
           </span>
           <span class="sample-book-meta">
             <span class="overline">From the library</span>
@@ -173,6 +182,10 @@
               <span class="subject-covers" aria-hidden="true">
                 <% covers.forEach(function (b) { %>
                   <span class="subject-cover" style="--cover:<%= b.color || '#1E2A52' %>">
+                    <% const subjCover = coverUrl(b.slug); %>
+                    <% if (subjCover) { %>
+                      <img class="subject-cover-img" src="<%= subjCover %>" alt="" loading="lazy">
+                    <% } %>
                     <span class="cover-genre"><%= b.category === 'ncert' ? 'NCERT' : 'UPSC' %></span>
                     <span class="cover-title"><%= b.title %></span>
                   </span>
@@ -196,6 +209,10 @@
       <div class="spotlight reveal" style="--spot-color:<%= spotlightBook.color || '#1E2A52' %>">
         <div class="spotlight-art">
           <div class="spotlight-cover">
+            <% const spotCover = coverUrl(spotlightBook.slug); %>
+            <% if (spotCover) { %>
+              <img class="spotlight-cover-img" src="<%= spotCover %>" alt="" loading="lazy">
+            <% } %>
             <span class="cover-art">
               <span class="cover-genre"><%= spotlightBook.category === 'ncert' ? 'NCERT' : 'UPSC' %> · <%= spotlightBook.subject || 'General' %></span>
               <span class="cover-title"><%= spotlightBook.title %></span>
@@ -300,10 +317,15 @@
           <% ncertShelf.forEach(function (b) { %>
             <a class="ncert-strip-item" role="listitem" href="/read/<%= b.slug %>/1">
               <span class="ncert-strip-cover" style="--cover:<%= b.color || '#1E2A52' %>">
-                <span class="cover-art">
-                  <span class="cover-genre">NCERT</span>
-                  <span class="cover-title"><%= b.title %></span>
-                </span>
+                <% const ncertCover = coverUrl(b.slug); %>
+                <% if (ncertCover) { %>
+                  <img class="ncert-strip-cover-img" src="<%= ncertCover %>" alt="" loading="lazy">
+                <% } else { %>
+                  <span class="cover-art">
+                    <span class="cover-genre">NCERT</span>
+                    <span class="cover-title"><%= b.title %></span>
+                  </span>
+                <% } %>
               </span>
               <span class="ncert-strip-t"><%= b.title %></span>
               <span class="ncert-strip-m"><%= b.chapter_count %> ch</span>

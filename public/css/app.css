@@ -658,6 +658,11 @@ input[aria-invalid="true"] { border-color: var(--danger); }
   letter-spacing: var(--tr-wider);
   align-self: flex-start;
 }
+.fan-cover-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; z-index: 0; border-radius: inherit;
+}
+.fan-book .cover-art { position: relative; z-index: 1; }
 
 .fan-note {
   display: flex; align-items: center; gap: var(--sp-3);
@@ -807,7 +812,8 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
   border-radius: var(--r-xs); overflow: hidden;
   background: var(--cover); box-shadow: var(--elev-raised);
 }
-.sample-book-cover .cover-art { padding: var(--sp-2); }
+.sample-book-cover img { width: 100%; height: 100%; object-fit: cover; }
+.sample-book-cover .cover-art { position: relative; z-index: 1; padding: var(--sp-2); }
 .sample-book-cover .cover-title { font-size: .5625rem; -webkit-line-clamp: 4; }
 .sample-book-cover .cover-genre { font-size: .375rem; }
 .sample-book-meta { display: grid; gap: 3px; min-width: 0; }
@@ -967,6 +973,12 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
   line-height: 1.18; color: var(--cover-ink);
   display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
 }
+.subject-cover-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; border-radius: inherit; z-index: 0;
+}
+.subject-cover .cover-genre,
+.subject-cover .cover-title { position: relative; z-index: 1; }
 .subject-more {
   display: inline-flex; align-items: center; gap: var(--sp-2);
   font-family: var(--font-ui); font-size: var(--fs-2xs); font-weight: 700;
@@ -1081,7 +1093,11 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
   background: linear-gradient(90deg, rgba(0,0,0,.34), rgba(0,0,0,.05) 60%, transparent);
   border-right: 1px solid rgba(0,0,0,.14);
 }
-.spotlight-cover .cover-art { padding-left: calc(var(--sp-4) + 9px); }
+.spotlight-cover-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; border-radius: inherit; z-index: 0;
+}
+.spotlight-cover .cover-art { position: relative; z-index: 1; padding-left: calc(var(--sp-4) + 9px); }
 .spotlight-caption {
   font-family: var(--font-ui); font-size: var(--fs-2xs); color: var(--ash); text-align: center;
 }
@@ -1137,8 +1153,12 @@ a.feature-card:hover { text-decoration: none; border-color: var(--brand-300); tr
   transition: transform var(--d-fast) var(--ease-soft);
 }
 .ncert-strip-item:hover .ncert-strip-cover { transform: translateY(-4px); }
-.ncert-strip-cover .cover-art { padding: var(--sp-2); }
+.ncert-strip-cover .cover-art { position: relative; z-index: 1; padding: var(--sp-2); }
 .ncert-strip-cover .cover-art::before { background: var(--cover-scrim-sm); }
+.ncert-strip-cover-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; border-radius: inherit; z-index: 0;
+}
 .fan-book .cover-art::before { background: var(--cover-scrim-sm); }
 .ncert-strip-cover .cover-title { font-size: .625rem; -webkit-line-clamp: 4; }
 .ncert-strip-cover .cover-genre { font-size: .4375rem; }
