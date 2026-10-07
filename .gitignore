@@ -19,6 +19,7 @@ nohup.out
 .deploy-secret
 smoke-*.mjs
 booksrc    # local-only, already imported into seed
+books/     # local source copies for extraction tools, not for git
 
 # Rendered audiobook media. Regenerate with:
 #   node tools/tts/extract.mjs
